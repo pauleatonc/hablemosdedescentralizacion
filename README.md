@@ -1,92 +1,159 @@
 # hablemosdedescentralizacion
 
+## Tabla de Contenidos
+1. [Introducción](#introducción)
+2. [Descripción General de la Aplicación](#descripción-general-de-la-aplicación)
+3. [Backend (Django)](#backend-django)
+4. [Frontend (React)](#frontend-react)
+5. [Base de Datos (Postgres)](#base-de-datos-postgres)
+6. [Procesos de Desarrollo](#procesos-de-desarrollo)
+7. [Mantenimiento y Soporte](#mantenimiento-y-soporte)
+8. [Apéndice](#apéndice)
 
+## Introducción
+### Propósito del Documento
+Este documento proporciona una visión general de la arquitectura y funcionalidades de la aplicación Banco de Proyectos SUBDERE. Pretende servir como una guía de referencia para los desarrolladores y administradores de sistemas que trabajan en el proyecto.
+### Audiencia Objetivo
+La audiencia principal de este documento son los desarrolladores y administradores de sistemas que trabajan en la aplicación, aunque también puede ser útil para los stakeholders y otros miembros del equipo del proyecto que necesiten entender los detalles técnicos de la aplicación.
+### Alcance de la Aplicación
+La aplicación Banco de Proyectos SUBDERE es una aplicación web desarrollada para gestionar los proyectos de SUBDERE. Incluye un backend construido con Django, un frontend construido con React, y utiliza una base de datos Postgres.
+### Definiciones, Acrónimos y Abreviaturas
+- Backend: La parte del software que se encarga de la lógica de negocio y el almacenamiento de datos.
+- Frontend: La interfaz de usuario de la aplicación, con la que interactúan los usuarios.
+- Django: Un framework de desarrollo web en Python.
+- Postgres: Un sistema de gestión de bases de datos relacional de código abierto.
 
-## Getting started
+## Descripción General de la Aplicación
+### Resumen de Funcionalidades
+### Arquitectura de la Aplicación
+### Interfaces de la Aplicación
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Backend (Django)
+### Resumen de Django
+- Versión Python: 3.11.0
+- Versión Django: 4.1.3
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Instalación y Configuración
+### Clonar el repositorio
+https://gitlab.com/gabinetedevs/hablemosdedescentralizacion.git
 
-## Add your files
+### Cambiar al directorio del proyecto
+cd hablemosdedescentralizacion
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Asegúrate de tener instalado Python 3.11.0
+python --version
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/gabinetedevs/hablemosdedescentralizacion.git
-git branch -M main
-git push -uf origin main
-```
+### Instalar las dependencias
+pip install -r requirements.txt
 
-## Integrate with your tools
+### Aplicar las migraciones
+python manage.py migrate
 
-- [ ] [Set up project integrations](https://gitlab.com/gabinetedevs/hablemosdedescentralizacion/-/settings/integrations)
+### Iniciar el servidor de desarrollo
+python manage.py runserver
 
-## Collaborate with your team
+### Estructura del Proyecto Django
+- Modelos
+- Vistas
+- Templates
+- URLs
+### APIs y Endpoints
+## Pruebas
+### Despliegue y Configuración
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## Frontend
+### Resumen
+### Instalación y Configuración
 
-## Test and Deploy
+## Pruebas
+## Despliegue y Configuración
+La aplicación se despliega utilizando Docker Compose. Asegúrese de tener instalado Docker y Docker Compose en su sistema antes de intentar el despliegue.
 
-Use the built-in continuous integration in GitLab.
+### Verificar la instalación de Docker
+docker --version
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### Verificar la instalación de Docker Compose
+docker-compose --version
 
-***
+### Si Docker o Docker Compose no están instalados, siga las instrucciones oficiales para instalarlos:
+ Docker: https://docs.docker.com/engine/install/
+ Docker Compose: https://docs.docker.com/compose/install/
 
-# Editing this README
+### Para desplegar la aplicación, navegue hasta el directorio del proyecto y ejecute:
+docker-compose up
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Por favor, consulte el archivo docker-compose.yml para más detalles sobre el despliegue de la aplicación y cualquier configuración adicional necesaria.
+### Base de Datos (Postgres)
+- Versión Postgres: 14
+### Estructura de la Base de Datos
+- Tablas
+- Relaciones
+- Índices
+### Consultas Principales
+### Seguridad y Acceso
+## OWASP Top 10 Proactive Controls
+El "OWASP Top 10 Proactive Controls" es una lista de técnicas de seguridad que se deben implementar al diseñar, probar y liberar aplicaciones web modernas. OWASP es el acrónimo de Open Web Application Security Project.Dame l
+ 1- Definición: Requisitos de seguridad.
+- Autenticación: Autenticación propia de la aplicación, según los estándares de seguridad incorporados en Django Auth (Autenticación, Hashing de contraseñas, gestión de sesiones, control de acceso basado en roles)
+- Autorización: Existen 3 perfiles de usuarios:
+    - Superadmin: 1 por programa. Gestiona usuarios de todo tipo, gestiona proyectos. Autorizan gestión de projectos de usuarios admin.
+    - Admin: Los que los programas determinen. Solo gestiona usuarios municipales. Gestionan proyectos y solicitan validaciones.
+    - Municipal: Tiene acceso a descargas de documentos técnicos.
+    - Abierto: Puede navegar por la plataforma y ver todo su contenido. no puede descargar.
+    * Roles y validaciones según estándares de Django Auth.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- Protección de datos: Hash MD5 (estandar subdere en linea) Para configuración de contraseñas.
+- Registro y monitorización: No se ha determinado
+- Gestión de sesiones: Token semanal.
+- Comunicaciones seguras: Cuenta con certificado HTTPS.
+- Protección contra amenazas comunes: Estándares de Django.
+- Pruebas de seguridad: No se ha determinado.
+- Gestión de incidentes y respuesta a incidentes: No se ha determinado.
+ 2- Configuraciones de seguridad.
+- Completar
+ 3- Codificar y escapar datos.
+- Django escapa automáticamente las salidas de las plantillas para prevenir ataques de Cross Site Scripting (XSS).
+ 4- Validación de las entradas.
+- Django tiene un sistema de formularios que valida automáticamente los datos de entrada del usuario. Sin embargo, debes definir las reglas de validación que se aplican a tus formularios.
+ 5- Implementación control de acceso.
+- Django Auth.
+ 6- Protección de datos sensibles.
+- Completar
+ 7- Protección contra ataques de CSRF (Cross-Site Request Forgery). 
+- Django tiene protección CSRF incorporada y está habilitada por defecto.
+ 8- Protección contra ataques de XSS (Cross-Site Scripting).
+- Como mencioné antes, Django escapa automáticamente las salidas de las plantillas para prevenir ataques XSS.
+ 9- Protección contra las vulnerabilidades de deserialización.
+- Django ofrece serialización y deserialización segura a través de su framework ORM.
+ 10- Monitoreo y registro.
+- Completar.
+### Copias de Seguridad y Recuperación
+- Completar.
 
-## Name
-Choose a self-explaining name for your project.
+## Procesos de Desarrollo
+### Control de Versiones
+Para el control de versiones se utiliza Git, con repositorios alojados en GitLab.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Integración Continua / Despliegue Continuo
+El proyecto utiliza integración continua y despliegue continuo para asegurar una alta calidad del código y despliegues rápidos y seguros.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Estándares de Código y Revisión de Código
+El código del proyecto sigue las guías de estilo de Python (PEP8) y JavaScript (Airbnb). Todos los cambios en el código son revisados por al menos un otro desarrollador antes de ser fusionados en la rama principal.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Mantenimiento y Soporte
+Los problemas y errores se rastrean mediante el sistema de seguimiento de problemas de GitLab. Los desarrolladores deben registrar cualquier problema que encuentren, y pueden asignarse problemas para resolver.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Resolución de Problemas
+### Mejoras y Actualizaciones
+Las mejoras y actualizaciones a la aplicación se gestionan mediante el sistema de seguimiento de problemas de GitLab, y se implementan de acuerdo con el roadmap del proyecto.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Apéndice
+### Referencias
+- Documentación de Django: https://docs.djangoproject.com/
+- Documentación de React: https://reactjs.org/docs/getting-started.html
+- Documentación de Postgres: https://www.postgresql.org/docs/
+### Glosario
+- Git: Un sistema de control de versiones.
+- GitLab: Una plataforma de gestión de repositorios Git y desarrollo de software.
+- PEP8: Guía de estilo de Python.
+- Airbnb: Guía de estilo de JavaScript.
