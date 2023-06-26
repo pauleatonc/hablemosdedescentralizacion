@@ -1,12 +1,7 @@
-package-lock.json
-
 #Cache de python
 *.pyc
 __pycache__
 /applications/__pycache__
-
-#BD
-db.sqlite3
 
 #Ambientes de desarrollo
 /env
