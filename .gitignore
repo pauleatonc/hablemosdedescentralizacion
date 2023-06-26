@@ -1,0 +1,25 @@
+package-lock.json
+
+#Cache de python
+*.pyc
+__pycache__
+/applications/__pycache__
+
+#BD
+db.sqlite3
+
+#Ambientes de desarrollo
+/env
+/venv
+*.env
+.vscode
+node_modules/
+
+#Images and Documents
+media/
+/media/project_documents/*
+/media/projects/*
+/media/CACHE/*
+
+#Otros (cómo .idea)
+.idea
