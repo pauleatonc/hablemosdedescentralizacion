@@ -32,6 +32,7 @@ La aplicación Banco de Proyectos SUBDERE es una aplicación web desarrollada pa
 - pip install virtualenv
 # Creación del entorno
 En la carpeta raíz se debe crear el entorno virtual (en este caso env, pero el nombre puede variar)
+- python -m venv env
 # Activavión del entorno
 Desde el directorio raíz ir a Scripts
 - cd env/Scripts
@@ -40,7 +41,6 @@ Ejecutar comando activate
 Volver a directorio raíz
 -cd ../../
 
-- python -m venv env
 ### Backend (Django)
 ## Resumen de Django
 - Versión Python: 3.11.0
