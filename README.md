@@ -27,32 +27,45 @@ La aplicación Banco de Proyectos SUBDERE es una aplicación web desarrollada pa
 ### Resumen de Funcionalidades
 ### Arquitectura de la Aplicación
 ### Interfaces de la Aplicación
+### Virtual env
+# Instalación
+- pip install virtualenv
+# Creación del entorno
+En la carpeta raíz se debe crear el entorno virtual (en este caso env, pero el nombre puede variar)
+# Activavión del entorno
+Desde el directorio raíz ir a Scripts
+- cd env/Scripts
+Ejecutar comando activate
+- activate
+Volver a directorio raíz
+-cd ../../
 
-## Backend (Django)
-### Resumen de Django
+- python -m venv env
+### Backend (Django)
+## Resumen de Django
 - Versión Python: 3.11.0
 - Versión Django: 4.1.3
 
-### Instalación y Configuración
-### Clonar el repositorio
+## Instalación y Configuración
+## Clonar el repositorio
 https://gitlab.com/gabinetedevs/hablemosdedescentralizacion.git
 
-### Cambiar al directorio del proyecto
+## Cambiar al directorio del proyecto
 cd hablemosdedescentralizacion
 
-### Asegúrate de tener instalado Python 3.11.0
+## Asegúrate de tener instalado Python 3.11.0
 python --version
 
-### Instalar las dependencias
+## Instalar las dependencias
 pip install -r requirements.txt
 
-### Aplicar las migraciones
+## Aplicar las migraciones
 python manage.py migrate
 
-### Iniciar el servidor de desarrollo
+## Iniciar el servidor de desarrollo
 python manage.py runserver
 
-### Estructura del Proyecto Django
+## Estructura del Proyecto Django
 - Modelos
 - Vistas
 - Templates
