@@ -1,0 +1,14 @@
+#Cache de python
+*.pyc
+__pycache__
+/applications/__pycache__
+
+#Ambientes de desarrollo
+/env
+/venv
+*.env
+.vscode
+node_modules/
+
+#Otros (cómo .idea)
+.idea
