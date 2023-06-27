@@ -10,15 +10,5 @@ urlpatterns = [
         views.HomePageView.as_view(),
         name='index',
         ),
-    path(
-        'register-contact',
-        views.ContactCreateView.as_view(),
-        name = 'add-contact'
-    ),
-    path(
-        'contact-success',
-        views.ContactSuccess.as_view(),
-        name = 'contact_success'
-    ),
     
 ]
