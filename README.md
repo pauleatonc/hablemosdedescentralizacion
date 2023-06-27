@@ -141,8 +141,19 @@ El "OWASP Top 10 Proactive Controls" es una lista de técnicas de seguridad que 
  10- Monitoreo y registro.
 - Completar.
 ### Copias de Seguridad y Recuperación
-- Completar.
+- Objetivo: Esta política tiene como objetivo garantizar la integridad y disponibilidad de los datos y la configuración de nuestra aplicación alojada en la nube. Aunque la aplicación no maneja grandes volúmenes de usuarios o información sensible, es esencial tener una política de respaldo para prevenir la pérdida de datos y minimizar el tiempo de inactividad.
 
+- Frecuencia de Respaldo: Los respaldos completos de los datos y la configuración de la aplicación se realizarán una vez al mes. Los respaldos deben planificarse durante los períodos de menor actividad para minimizar el impacto en los usuarios.
+
+- Procedimiento de Respaldo: Los respaldos se realizarán utilizando las funcionalidades de respaldo proporcionadas por nuestro proveedor de servicios en la nube. El proveedor debe garantizar que los respaldos se realicen de manera segura y eficiente, y que los datos puedan recuperarse si es necesario.
+
+- Almacenamiento de Respaldo: Los respaldos se almacenarán en el servicio de almacenamiento proporcionado por el proveedor de la nube. Para proteger los datos, los respaldos deben almacenarse en una región diferente a la de los datos originales, cuando sea posible.
+
+- Recuperación de Respaldo: En caso de una falla del sistema, debemos utilizar las herramientas proporcionadas por el proveedor de servicios en la nube para restaurar los datos y la configuración desde el respaldo más reciente. Las pruebas de recuperación deben realizarse regularmente para garantizar que los datos se pueden recuperar correctamente.
+
+- Registro de Respaldo: Cada respaldo debe registrarse, indicando la fecha y hora del respaldo, la duración del respaldo, y cualquier problema que pueda haber ocurrido durante el proceso. Estos registros deben revisarse periódicamente para mejorar el proceso de respaldo.
+
+- Revisión de la Política: Esta política de respaldo debe revisarse al menos una vez al año para garantizar su efectividad y relevancia.
 ## Procesos de Desarrollo
 ### Control de Versiones
 Para el control de versiones se utiliza Git, con repositorios alojados en GitLab.
