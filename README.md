@@ -36,10 +36,10 @@ En la carpeta raíz se debe crear el entorno virtual (en este caso env, pero el 
 # Activavión del entorno
 Desde el directorio raíz ir a Scripts
 - cd env/Scripts
-Ejecutar comando activate
+#Ejecutar comando activate
 - activate
-Volver a directorio raíz
--cd ../../
+#Volver a directorio raíz
+- cd ../../
 
 ### Backend (Django)
 ## Resumen de Django
