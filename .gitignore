@@ -1,7 +1,5 @@
 #Cache de python
 *.pyc
-__pycache__
-/applications/__pycache__
 
 #Ambientes de desarrollo
 /env

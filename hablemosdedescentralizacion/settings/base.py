@@ -17,7 +17,8 @@ LOCAL_APPS = [
 
     'applications.users',
     'applications.regioncomuna',
-    'applications.home'
+    'applications.home',
+    'applications.surveys',
 ]
 
 THIRD_PARTY_APPS = [
