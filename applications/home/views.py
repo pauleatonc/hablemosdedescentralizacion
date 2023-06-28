@@ -11,7 +11,7 @@ from django.http import  HttpResponseServerError
 
 
 class HomePageView(TemplateView):
-    template_name = 'home/index.html'
+    template_name = 'apps/home/home.html'
 
 
 class Error404(TemplateView):

@@ -1,0 +1,29 @@
+.rectangle {
+  width: auto;
+  height: 28px;
+  flex-grow: 0;
+  background-color: var(--color-gray-373737);
+}
+
+nav {
+  height: 100px;
+}
+
+.blue {
+  width: 58px;
+  height: 8px;
+  background-color: #0f69c4;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.red {
+  width: 82px;
+  height: 8px;
+  background-color: #e22c2c;
+  position: absolute;
+  left: 58px;
+  top: 0;
+  bottom: 0;
+}

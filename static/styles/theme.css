@@ -1,0 +1,294 @@
+:root {
+  --color-base-secondary-001-c-41: #001c41;
+  --color-base-tertiary-e-22-c-2-c: #e22c2c;
+  --color-base-inblack-primary-20: #031527;
+  --color-base-inblack-primary-40: #062a4e;
+  --color-base-inblack-primary-60: #093f75;
+  --color-base-inblack-primary-80: #0c549c;
+  --color-base-inblack-secundary-20: #00050d;
+  --color-base-inblack-secundary-40: #000b1a;
+  --color-base-inblack-secundary-60: #001027;
+  --color-base-inblack-secundary-80: #001634;
+  --color-base-inblack-tertiary-20: #2d0808;
+  --color-base-inblack-tertiary-40: #5a1111;
+  --color-base-inblack-tertiary-60: #871a1a;
+  --color-base-inblack-tertiary-80: #b42323;
+  --color-base-inwhite-primary-80: #3f87d0;
+  --color-base-inwhite-primary-60: #6fa5dc;
+  --color-base-inwhite-primary-40: #9fc3e7;
+  --color-base-inwhite-primary-20: #cfe1f3;
+  --color-base-inwhite-secundary-80: #334967;
+  --color-base-inwhite-secundary-60: #66778d;
+  --color-base-inwhite-secundary-40: #99a4b3;
+  --color-base-inwhite-secundary-20: #ccd2d9;
+  --color-base-inwhite-tertiary-60: #ee8080;
+  --color-base-inwhite-tertiary-40: #f3abab;
+  --color-base-inwhite-tertiary-20: #f9d5d5;
+  --color-gray-373737: #373737;
+  --color-base-inwhite-tertiary-80: #e85656;
+  --color-gray-656565: #656565;
+  --color-gray-bbbbbb: #bbb;
+  --color-gray-eeeeee: #eee;
+  --color-gray-f-8-f-8-f-8: #f8f8f8;
+  --color-gray-ffffff: #fff;
+  --color-alert-cl-color-danger: #f56b0f;
+  --color-alert-cl-color-warning: #e22c2c;
+  --color-alert-cl-color-info: #cfe1f3;
+  --color-alert-cl-color-success: #018484;
+  --color-white: #fff;
+  --color-gray-656565: #656565;
+  --black-inactive: rgba(0, 0, 0, 0.54);
+  --color-gray-373737: #373737;
+  --color-alert-cl-color-danger: #f56b0f;
+  --color-alert-cl-color-success: #00ada2;
+  --color-gray-ffffff: #fff;
+  --color-alert-cl-border-color-danger: #f56b0f;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: local(Roboto-Regular),
+    url(/path/to/Roboto-Regular.woff2) format("woff2"),
+    url(/path/to/Roboto-Regular.woff) format("woff"),
+    url(/path/to/Roboto-Regular.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: Roboto;
+  src: local(Roboto-Medium),
+    url(/path/to/Roboto-Medium.woff2) format("woff2"),
+    url(/path/to/Roboto-Medium.woff) format("woff"),
+    url(/path/to/Roboto-Medium.ttf) format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: Roboto;
+  src: local(Roboto-Bold),
+    url(/path/to/Roboto-Bold.woff2) format("woff2"),
+    url(/path/to/Roboto-Bold.woff) format("woff"),
+    url(/path/to/Roboto-Bold.ttf) format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: RobotoSlab;
+  src: local(RobotoSlab-Light),
+    url(/path/to/RobotoSlab-Light.woff2) format("woff2"),
+    url(/path/to/RobotoSlab-Light.woff) format("woff"),
+    url(/path/to/RobotoSlab-Light.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: RobotoSlab;
+  src: local(RobotoSlab-Bold),
+    url(/path/to/RobotoSlab-Bold.woff2) format("woff2"),
+    url(/path/to/RobotoSlab-Bold.woff) format("woff"),
+    url(/path/to/RobotoSlab-Bold.ttf) format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+}
+.titleh1l-bold-sans-serif {
+  font-family: Roboto;
+  font-size: 49px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.titleh1l-bold-serif {
+  font-family: RobotoSlab;
+  font-size: 49px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.titleh1l-light-serif {
+  font-family: RobotoSlab;
+  font-size: 49px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.titleh2l-bold-serif {
+  font-family: RobotoSlab;
+  font-size: 39px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.26;
+  letter-spacing: normal;
+}
+.titleh2l-medium-sans-serif {
+  font-family: Roboto;
+  font-size: 39px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.titleh2l-light-serif {
+  font-family: RobotoSlab;
+  font-size: 39px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.26;
+  letter-spacing: normal;
+}
+.titleh3l-bold-serif {
+  font-family: RobotoSlab;
+  font-size: 31.3px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.titleh3l-medium-sans-serif {
+  font-family: Roboto;
+  font-size: 31.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.titleh4l-bold-serif {
+  font-family: RobotoSlab;
+  font-size: 25px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.titleh4l-medium-sans-serif {
+  font-family: Roboto;
+  font-size: 25px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.p-black-l-left-middle {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+.bodylinkl-regular-sans-serif {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+.titleh5l-medium-sans-serif {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+}
+.bodypm-regular-sans-serif {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+.bodypl-regular-sans-serif {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+.bodylinkm-regular-sans-serif {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+
+
+
+.navegation {
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+
+.breadcrumb-back{
+  color: #1976d2;
+}
+
+.breadcrumb-instance{
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.text-white{
+    color: var(--color-gray-373737);
+}
+
+.btn-cerrar-sesion{
+    color: #871a1a;
+    border-color: #871a1a;
+}
+
+.btn-cerrar-sesion:hover {
+  background-color: #871a1a;
+  color: #ffffff;
+}
+
+.errorlist {
+    color: red;
+    list-style-type: none;
+    margin-left: -40px;
+    font-size: 14px;
+}
+
+.errorlist__item {
+    margin-bottom: 0px;
+}
+
+#confirmation-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: green;
+  color: white;
+}
+
+.hidden {
+    display: none;
+}
