@@ -1,17 +1,19 @@
-from django.shortcuts import render
-from django.conf import settings
-from django.urls import reverse_lazy
-from django.views.generic import View, TemplateView, CreateView
-from django.http import  HttpResponseServerError
+from django.views.generic import TemplateView
 
 # importar modelos
-
+from . models import Countdown
 
 # importar apps de terceros
 
 
 class HomePageView(TemplateView):
     template_name = 'home/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        countdown = Countdown.objects.first()  # Obtén el objeto Countdown deseado aquí creado en la base de datos
+        context['countdown'] = countdown
+        return context
 
 
 class Error404(TemplateView):
