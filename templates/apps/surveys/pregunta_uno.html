@@ -1,0 +1,10 @@
+<div>Desde sus propios conocimientos y experiencia,<br>
+    ¿qué valor le otorga usted a la descentralización en la
+    cotidianeidad y en la calidad de vida de las personas?</div>
+
+<form method="post" action="{% url 'surveys_app:pregunta_dos' %}">
+  {% csrf_token %}
+  {{ form }}
+  {{ form.errors }}
+  <button type="submit">Siguiente</button>
+</form>

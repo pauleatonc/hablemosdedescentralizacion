@@ -9,6 +9,7 @@ from . models import Countdown
 class HomePageView(TemplateView):
     template_name = 'apps/home/home.html'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         countdown = Countdown.objects.first()  # Obtén el objeto Countdown deseado aquí creado en la base de datos
