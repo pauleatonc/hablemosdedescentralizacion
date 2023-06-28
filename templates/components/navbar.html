@@ -1,62 +1,42 @@
 {% load static %}
 <div class="rectangle"></div>
 <nav class="navbar navbar-light navbar-expand-lg">
-  <div class="container-fluid mx-3 h-auto">
-    <a class="navbar-brand" href="/"
-      ><div class="blue"></div>
-      <div class="red"></div>
-      <p class="font-level-6 font-weight-bold my-1">
-        Subsecretaría de <br> Desarrollo Regional y <br> Administrativo
-      </p>
-      </a>
-
-    <p>Menu</p>
-    <button
-      class="navbar-toggler collapsed"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarLightExampleCollapse"
-      aria-controls="navbarCollapse"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse" id="navbarLightExampleCollapse">
-      <ul class="navbar-nav ml-auto">
-        <form class="simple-search search">
-          <input
-            class="form-control"
-            type="text"
-            name="search"
-            placeholder="search"
-            aria-label="search"
-            aria-describedby="searchLineAction" />
-          <div class="search-action">
-            <button
-              class="btn btn-outline-search dom-search-behavior-cancel d-none"
-              type="button">
-              <i class="icon cl cl-close"></i>
-            </button>
-            <button
-              class="btn btn-outline-search"
-              id="searchLineAction"
-              type="submit">
-              <i class="icon cl cl-search"></i>
-            </button>
-          </div>
-        </form>
-        <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-        <li class="nav-item">
-          <a class="btn btn-block btn-primary" href="#">Iniciar sesión</a>
-        </li>
-        <li class="nav-behavior">
-          <a class="nav-link text-uppercase text-underline" href="#">en</a>
-        </li>
-        <li class="nav-separator"></li>
-        <li class="nav-behavior">
-          <a class="nav-link" href="#"><i class="cl cl-login"></i></a>
-        </li>
-      </ul>
+  <div class="cols-12 column ml-3 ">
+  <a class="navbar-brand " href="/">
+    <div class="blue"></div>
+    <div class="red"></div>
+    <p class="font-level-6 font-weight-bold mt-2">
+      Subsecretaría de <br class="d-md-none"> Desarrollo <br class="d-none d-sm-none d-md-block"> Regional y <br  class="d-sm-none"> Administrativo
+    </p>
+  </a>
+  <div class="toolbar align-items-end my-2 d-sm-block d-md-none">
+      <a class="toolbar-btn toolbar-behavior-contrast" href="#"><i class="cl cl-contrast"></i></a>
+      <div class="toolbar-btn-group"><a class="toolbar-btn toolbar-behavior-decrease" href="#"><i
+        class="cl cl-decrease-text"></i></a><a class="toolbar-btn toolbar-behavior-increase" href="#"><i
+          class="cl cl-increase-text"></i></a></div>
+      <a class="toolbar-btn toolbar-toggler ml-1" href="#"><i class="cl cl-accessibility toolbar-behavior-on"></i><span
+        class="toolbar-behavior-off">X</span></a>
     </div>
+  </div>
+  <button class="navbar-toggler collapsed text-gray-600 " type="button" data-toggle="collapse"
+  data-target="#navbarLightExampleCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+  aria-label="Toggle navigation"><u>Menú</u>
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="navbar-collapse collapse" id="navbarLightExampleCollapse">
+  <ul class="navbar-nav ml-auto">
+    <div class="toolbar mx-3 d-none d-md-block">
+      <a class="toolbar-btn toolbar-behavior-contrast" href="#"><i class="cl cl-contrast"></i></a>
+      <div class="toolbar-btn-group"><a class="toolbar-btn toolbar-behavior-decrease" href="#"><i
+            class="cl cl-decrease-text"></i></a><a class="toolbar-btn toolbar-behavior-increase" href="#"><i
+            class="cl cl-increase-text"></i></a></div>
+      <a class="toolbar-btn toolbar-toggler ml-1" href="#"><i class="cl cl-accessibility toolbar-behavior-on"></i><span
+          class="toolbar-behavior-off">X</span></a>
+    </div>
+    <li class="nav-item">
+      <a class="btn btn-block btn-primary  btn-md mr-md-4" href="#">Iniciar sesión</a>
+    </li>
+  </ul>
+</div>
   </div>
 </nav>
