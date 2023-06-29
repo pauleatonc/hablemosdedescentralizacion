@@ -10,6 +10,11 @@ from .models import PreguntaUno, PreguntaDos, PreguntaCinco
 from django.contrib.sessions.backends.db import SessionStore
 
 
+class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
+    template_name = 'apps/surveys/datos_usuario_form.html'
+    login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+
 class PreguntaUnoView(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/pregunta_uno.html'
     form_class = PreguntaUnoForm
@@ -19,7 +24,6 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         pregunta_uno = form.save(commit=False)
         pregunta_uno.usuario = self.request.user
-        pregunta_uno.save()
 
         session = SessionStore()
         session['pregunta_uno_valor'] = pregunta_uno.valor
@@ -47,7 +51,6 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         pregunta_dos = form.save(commit=False)
         pregunta_dos.usuario = self.request.user
-        pregunta_dos.save()
 
         session = SessionStore()
         session['pregunta_dos_propuesta_1'] = pregunta_dos.propuesta_1

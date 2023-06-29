@@ -42,11 +42,6 @@ class PreguntaDos(models.Model):
                                                 'territoriales.')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
-    def clean(self):
-        # Verificar que los valores de los ítems no se repitan
-        items = [self.propuesta_1, self.propuesta_2, self.propuesta_3, self.propuesta_4]
-        if len(set(items)) < len(items):
-            raise models.ValidationError("Los valores de los ítems no pueden repetirse.")
 
     class Meta:
         verbose_name = 'Pregunta 2: Impacto de la descentralización en las personas y comunidades.'
