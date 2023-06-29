@@ -1,0 +1,95 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block views %}
+<section>
+    <section>
+        <div class="container-login" id="inicio-sesion">
+            <div class="row flex-column">
+                <div class="card-login" style="min-height: 700px;">
+                    <a class="brand-login" href="/">
+                        <div class='line-login'>
+                            <div class="blue-login"></div>
+                            <div class="red-login"></div>
+                        </div class='my-5'>
+                        <p>Subsecretaría de Desarrollo<br>Administrativo y Regional</p>
+                    </a>
+                    <p class="h2 text-center my-4">Portal <br>
+                        Banco de Proyectos</p>
+                    <p class="text-center">Requiere credenciales otorgadas por la Subdere</p>
+                    {% if messages %}
+                        <div class="text-center">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <form class="form cols-12 mx-5" method="POST">
+                        {% csrf_token %}
+                        <div class="my-4 mx-3 d-flex flex-column justify-content-center align-items-center">
+                            <div class="form-group-login my-3">
+                                {{ form.rut}}
+                                {{ form.rut.errors }}
+                            </div>
+                            <div class="form-group-login mb-3">
+                                <input type="password" name="password" id="password" class="custom-input" placeholder="Contraseña">
+                                <button class="toggle-password" type="button">
+                                    <img src="{% static 'img/Close_eye.svg' %}" alt="Toggle Password">
+                                </button>
+                                {% for error in form.password.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="d-flex flex-column align-items-center">
+                                <button type="submit" class="btn btn-primary btn-default-size">Ingresar al
+                                    portal</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-lines-7-3 text-start mt-2">
+                        <p class="font-level-7 mb-1">¿No tienes credenciales para ingresar al Banco de Proyectos?
+                        </p>
+                        <p class="font-level-7">Debes solicitarlas en tu municipalidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+{% endblock views %}
+
+{% block scripts %}
+
+<script>
+    // Desplazamiento automático al elemento con ID "inicio-sesion" después de que se cargue la página
+    window.onload = function() {
+        var element = document.getElementById('inicio-sesion');
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Ocultar el campo de contraseña al cargar la página
+        $('input[type="password"]').attr('type', 'password');
+
+        $('.toggle-password').click(function() {
+            var passwordInput = $(this).prev('input');
+            var icon = $(this).find('img');
+
+            if (passwordInput.attr('type') === 'password') {
+                passwordInput.attr('type', 'text');
+                icon.attr('src', '{% static 'img/Eye.svg' %}');
+            } else {
+                passwordInput.attr('type', 'password');
+                icon.attr('src', '{% static 'img/Close_eye.svg' %}');
+            }
+        });
+    });
+</script>
+
+{% endblock scripts %}
