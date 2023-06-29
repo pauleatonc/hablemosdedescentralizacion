@@ -1,10 +1,21 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block views %}
 <div>Desde sus propios conocimientos y experiencia,<br>
     ¿qué valor le otorga usted a la descentralización en la
     cotidianeidad y en la calidad de vida de las personas?</div>
 
-<form method="post" action="{% url 'surveys_app:pregunta_dos' %}">
+<form method="post" action="{% url 'surveys_app:pregunta_uno' %}">
   {% csrf_token %}
-  {{ form }}
-  {{ form.errors }}
-  <button type="submit">Siguiente</button>
+  {% if valor_guardado %}
+    <input type="text" name="valor" value="{{ valor_guardado }}" readonly>
+    <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Impacto de la Descentralización</button>
+  {% else %}
+    {{ form.valor }}
+    {{ form.errors }}
+    <button type="submit">Impacto de la Descentralización</button>
+  {% endif %}
+
 </form>
+
+{% endblock views %}
