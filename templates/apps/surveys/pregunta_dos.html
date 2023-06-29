@@ -1,0 +1,65 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block views %}
+<div>A continuación, se presentan algunas afirmaciones en torno al impacto de la descentralización en las personas y
+    comunidades. <br> En su opinión, ¿qué importancia les otorgaría usted? <br> Por favor ordénelas, considerando que
+    1 es la más importante, y 4 es la menos importante.</div>
+
+<form method="post" action="{% url 'surveys_app:pregunta_dos' %}">
+  {% csrf_token %}
+
+  <div>
+    {% if propuesta_1_guardada %}
+      {{ form.propuesta_1.help_text }}
+      <input type="text" name="propuesta_1" value="{{ propuesta_1_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_1.errors }}
+      {{ form.propuesta_1.help_text }}
+      {{ form.propuesta_1 }}
+    {% endif %}
+  </div>
+
+  <div>
+    {% if propuesta_2_guardada %}
+      {{ form.propuesta_2.help_text }}
+      <input type="text" name="propuesta_2" value="{{ propuesta_2_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_2.errors }}
+      {{ form.propuesta_2.help_text }}
+      {{ form.propuesta_2 }}
+    {% endif %}
+  </div>
+
+  <div>
+    {% if propuesta_3_guardada %}
+      {{ form.propuesta_3.help_text }}
+      <input type="text" name="propuesta_3" value="{{ propuesta_3_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_3.errors }}
+      {{ form.propuesta_3.help_text }}
+      {{ form.propuesta_3 }}
+    {% endif %}
+  </div>
+
+  <div>
+    {% if propuesta_4_guardada %}
+      {{ form.propuesta_4.help_text }}
+      <input type="text" name="propuesta_4" value="{{ propuesta_4_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_4.errors }}
+      {{ form.propuesta_4.help_text }}
+      {{ form.propuesta_4 }}
+    {% endif %}
+  </div>
+
+  <div>
+    {% if propuesta_1_guardada %}
+      <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Inclusión de iniciativas</button>
+    {% else %}
+      <button type="submit">Inclusión de iniciativas</button>
+    {% endif %}
+  </div>
+
+</form>
+{% endblock views %}

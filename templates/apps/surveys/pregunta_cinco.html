@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block views %}
+
+<div>Para finalizar, a partir de las respuestas dadas anteriormente,<br>
+  ¿qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el vínculo entre descentralización y su
+  vida personal y en comunidad?<br>
+  Esta pregunta es opcional.</div>
+
+<form method="post" action="{% url 'surveys_app:pregunta_cinco' %}">
+  {% csrf_token %}
+
+  {% if valor_guardado %}
+    <!-- Muestra los valores guardados si ya contestó la encuesta -->
+    <input type="text" name="valor" value="{{ valor_guardado }}" readonly>
+    <button type="button" onclick="window.location.href='{% url 'surveys_app:enviar_formularios' %}'">Siguiente</button>
+  {% else %}
+    <!-- Muestra input para el formulario -->
+    {{ form.texto_respuesta }}
+    {{ form.errors }}
+
+    <!-- Trae todos los valores de los formularios previos para pasarlos al submit -->
+    {% if pregunta_uno_valor %}
+      <input type="text" name="pregunta_uno_valor" value="{{ pregunta_uno_valor }}" readonly>
+    {% endif %}
+    {% if pregunta_dos_propuesta_1 %}
+      <input type="text" name="pregunta_dos_propuesta_1" value="{{ pregunta_dos_propuesta_1 }}" readonly>
+    {% endif %}
+    {% if pregunta_dos_propuesta_2 %}
+      <input type="text" name="pregunta_dos_propuesta_2" value="{{ pregunta_dos_propuesta_2 }}" readonly>
+    {% endif %}
+    {% if pregunta_dos_propuesta_3 %}
+      <input type="text" name="pregunta_dos_propuesta_3" value="{{ pregunta_dos_propuesta_3 }}" readonly>
+    {% endif %}
+    {% if pregunta_dos_propuesta_4 %}
+      <input type="text" name="pregunta_dos_propuesta_4" value="{{ pregunta_dos_propuesta_4 }}" readonly>
+    {% endif %}
+
+  <!-- Botón para el envío del formulario completo -->
+    <button type="submit">Enviar mis respuestas</button>
+  {% endif %}
+
+</form>
+
+{% endblock views %}

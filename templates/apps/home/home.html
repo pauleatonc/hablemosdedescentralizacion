@@ -3,4 +3,19 @@
 {% block views %}
 <p class="font-level-1">Home Landing</p>
 
+<!-- Conteo de días para finalizar el proceso -->
+{% if days_left > 1 %}
+    <div>
+        <p>Quedan {{ days_left }} días para el cierre del proceso.</p>
+    </div>
+{% elif days_left == 1 %}
+    <div>
+        <p>Queda {{ days_left }} día para el cierre del proceso.</p>
+    </div>
+{% else %}
+    <div>
+        <p>Este proceso ha finalizado el {{ end_date }}.</p>
+    </div>
+{% endif %}
+
 {% endblock views %}

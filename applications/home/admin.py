@@ -10,9 +10,10 @@ class CountdownAdmin(admin.ModelAdmin):
     readonly_fields = ['days_left']
 
     def days_left(self, obj):
-        # Calcula los días restantes
+        if obj.end_date is None:
+            return None  # Opcional: Puedes retornar None o un valor específico cuando end_date es None
         today = datetime.now().date()
-        days_left = (obj.end_date - today).days  # Corrección aquí
+        days_left = (obj.end_date - today).days
         return days_left
 
     days_left.short_description = 'Días para el cierre del proceso'  # Descripción para la columna en la lista de objetos

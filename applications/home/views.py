@@ -11,8 +11,9 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        countdown = Countdown.objects.first()  # Obtén el objeto Countdown deseado aquí creado en la base de datos
-        context['countdown'] = countdown
+        countdown = Countdown.objects.first()  # Obtén la instancia de Countdown que deseas mostrar
+        context['end_date'] = countdown.end_date.strftime("%d/%m/%Y")  # Formatea la fecha como "dd/mm/aaaa"
+        context['days_left'] = countdown.get_days_left()  # Agrega days_left al contexto
         return context
 
 
