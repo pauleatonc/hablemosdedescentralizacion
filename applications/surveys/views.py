@@ -118,3 +118,4 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
 
 class EnviarFormulariosViews(LoginRequiredMixin, TemplateView):
     template_name = 'apps/surveys/enviar_formularios.html'
+    login_url = 'users_app:user-login'  # URL de inicio de sesión
