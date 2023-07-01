@@ -6,60 +6,68 @@
     comunidades. <br> En su opinión, ¿qué importancia les otorgaría usted? <br> Por favor ordénelas, considerando que
     1 es la más importante, y 4 es la menos importante.</div>
 
-<form method="post" action="{% url 'surveys_app:pregunta_dos' %}">
-  {% csrf_token %}
+<!-- Divs para cada propuesta -->
+<div id="propuesta_1" class="propuesta" data-id="1">{{ form.propuesta_1.help_text }}</div>
+<div id="propuesta_2" class="propuesta" data-id="2">{{ form.propuesta_2.help_text }}</div>
+<div id="propuesta_3" class="propuesta" data-id="3">{{ form.propuesta_3.help_text }}</div>
+<div id="propuesta_4" class="propuesta" data-id="4">{{ form.propuesta_4.help_text }}</div>
 
-  <div>
-    {% if propuesta_1_guardada %}
-      {{ form.propuesta_1.help_text }}
-      <input type="text" name="propuesta_1" value="{{ propuesta_1_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_1.errors }}
-      {{ form.propuesta_1.help_text }}
-      {{ form.propuesta_1 }}
-    {% endif %}
-  </div>
+<!-- Botón para reiniciar selección -->
+<button id="reiniciar">Reiniciar</button>
 
-  <div>
-    {% if propuesta_2_guardada %}
-      {{ form.propuesta_2.help_text }}
-      <input type="text" name="propuesta_2" value="{{ propuesta_2_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_2.errors }}
-      {{ form.propuesta_2.help_text }}
-      {{ form.propuesta_2 }}
-    {% endif %}
-  </div>
+<!-- Botón para continuar -->
+<button id="continuar">Continuar</button>
 
-  <div>
-    {% if propuesta_3_guardada %}
-      {{ form.propuesta_3.help_text }}
-      <input type="text" name="propuesta_3" value="{{ propuesta_3_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_3.errors }}
-      {{ form.propuesta_3.help_text }}
-      {{ form.propuesta_3 }}
-    {% endif %}
-  </div>
-
-  <div>
-    {% if propuesta_4_guardada %}
-      {{ form.propuesta_4.help_text }}
-      <input type="text" name="propuesta_4" value="{{ propuesta_4_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_4.errors }}
-      {{ form.propuesta_4.help_text }}
-      {{ form.propuesta_4 }}
-    {% endif %}
-  </div>
-
-  <div>
-    {% if propuesta_1_guardada %}
-      <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Inclusión de iniciativas</button>
-    {% else %}
-      <button type="submit">Inclusión de iniciativas</button>
-    {% endif %}
-  </div>
-
-</form>
 {% endblock views %}
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    var prioridad = 1;
+    var seleccionados = {};
+
+    $('.propuesta').on('click', function() {
+        var propuestaId = $(this).data('id');
+
+        // Si la propuesta ya ha sido seleccionada, la ignoramos
+        if ($(this).hasClass('seleccionada')) {
+            return;
+        }
+
+        // Marcamos la propuesta como seleccionada y guardamos la prioridad
+        $(this).addClass('seleccionada').append('<span> Prioridad: ' + prioridad + '</span>');
+        seleccionados['propuesta_' + propuestaId] = prioridad;
+
+        prioridad++;
+    });
+
+    $('#reiniciar').on('click', function() {
+        $('.propuesta').removeClass('seleccionada').find('span').remove();
+        prioridad = 1;
+        seleccionados = {};
+    });
+
+    $('#continuar').on('click', function() {
+        axios({
+            method: 'post',
+            url: '{% url 'surveys_app:pregunta_dos' %}',
+            data: seleccionados,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(function(response) {
+            window.location.href = '{% url 'surveys_app:pregunta_tres' %}';
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    });
+});
+</script>
+
+{% endblock scripts %}
+
