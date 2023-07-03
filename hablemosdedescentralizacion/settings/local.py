@@ -53,3 +53,8 @@ SENDGRID_API_KEY = 'SG.Lg9cK1ZiTTat4_ytkJmW_g.Ghq_OlVi_02yanmo3c242WtJBVsMWizKnS
 ADMIN_EMAIL = ['modernizacion@subdere.gov.cl']
 NOREPLY_EMAIL = ['noreply@bancoproyectos.subdere.gob.cl']
 
+#Clave Única
+CLAVE_UNICA_CLIENT_ID = env("CLAVE_UNICA_CLIENT_ID_QA")
+CLAVE_UNICA_CLIENT_SECRET = env("CLAVE_UNICA_CLIENT_QA")
+CLAVE_UNICA_REDIRECT_URI = env("CLAVE_UNICA_REDIRECT_QA")
+
