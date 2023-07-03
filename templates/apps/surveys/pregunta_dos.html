@@ -6,7 +6,7 @@
   <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_uno' %}'">Ir atrás</button>
 </div>
 <div>
-  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Siguiente</button>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">Siguiente</button>
 </div>
 <div><h3>Pregunta 2 de 5:</h3></div>
 <div>A continuación, se presentan algunas afirmaciones en torno al impacto de la descentralización en las personas y
@@ -18,47 +18,55 @@
   {% csrf_token %}
 
   <div>
-    {% if propuesta_1_guardada %}
-      {{ form.propuesta_1.help_text }}
-      <input type="text" name="propuesta_1" value="{{ propuesta_1_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_1.help_text }}
-      <button type="button" class="propuesta" id="propuesta_1">-</button>
-      <input type="hidden" name="propuesta_1">
-    {% endif %}
+      {% if propuesta_1_guardada %}
+        {{ form.propuesta_1.help_text }}
+        <input type="text" name="propuesta_1" value="{{ propuesta_1_guardada }}" readonly>
+      {% else %}
+        <button type="button" class="propuesta" id="propuesta_1">
+          <div class="propuesta-text">{{ form.propuesta_1.help_text }}</div>
+          <div class="propuesta-check">-</div>
+        </button>
+        <input type="hidden" name="propuesta_1">
+      {% endif %}
   </div>
 
   <div>
-    {% if propuesta_2_guardada %}
-      {{ form.propuesta_2.help_text }}
-      <input type="text" name="propuesta_2" value="{{ propuesta_2_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_2.help_text }}
-      <button type="button" class="propuesta" id="propuesta_2">-</button>
-      <input type="hidden" name="propuesta_2">
-    {% endif %}
+      {% if propuesta_2_guardada %}
+        {{ form.propuesta_2.help_text }}
+        <input type="text" name="propuesta_2" value="{{ propuesta_2_guardada }}" readonly>
+      {% else %}
+        <button type="button" class="propuesta" id="propuesta_2">
+          <div class="propuesta-text">{{ form.propuesta_2.help_text }}</div>
+          <div class="propuesta-check">-</div>
+        </button>
+        <input type="hidden" name="propuesta_2">
+      {% endif %}
   </div>
 
   <div>
-    {% if propuesta_3_guardada %}
-      {{ form.propuesta_3.help_text }}
-      <input type="text" name="propuesta_3" value="{{ propuesta_3_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_3.help_text }}
-      <button type="button" class="propuesta" id="propuesta_3">-</button>
-      <input type="hidden" name="propuesta_3">
-    {% endif %}
+      {% if propuesta_3_guardada %}
+        {{ form.propuesta_3.help_text }}
+        <input type="text" name="propuesta_3" value="{{ propuesta_3_guardada }}" readonly>
+      {% else %}
+        <button type="button" class="propuesta" id="propuesta_3">
+          <div class="propuesta-text">{{ form.propuesta_3.help_text }}</div>
+          <div class="propuesta-check">-</div>
+        </button>
+        <input type="hidden" name="propuesta_3">
+      {% endif %}
   </div>
 
   <div>
-    {% if propuesta_4_guardada %}
-      {{ form.propuesta_4.help_text }}
-      <input type="text" name="propuesta_4" value="{{ propuesta_4_guardada }}" readonly>
-    {% else %}
-      {{ form.propuesta_4.help_text }}
-      <button type="button" class="propuesta" id="propuesta_4">-</button>
-      <input type="hidden" name="propuesta_4">
-    {% endif %}
+      {% if propuesta_4_guardada %}
+        {{ form.propuesta_4.help_text }}
+        <input type="text" name="propuesta_4" value="{{ propuesta_4_guardada }}" readonly>
+      {% else %}
+        <button type="button" class="propuesta" id="propuesta_4">
+          <div class="propuesta-text">{{ form.propuesta_4.help_text }}</div>
+          <div class="propuesta-check">-</div>
+        </button>
+        <input type="hidden" name="propuesta_4">
+      {% endif %}
   </div>
 
   <!-- Muestra errores del campo valor -->
@@ -69,11 +77,16 @@
 
   <div>
     {% if propuesta_1_guardada %}
-      <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Inclusión de iniciativas</button>
+      <div>Continúa con la siguiente pregunta sobre:</div>
+      <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">
+        Inclusión de iniciativas</button>
+      </div>
+
     {% else %}
       <div><!-- Botón para reiniciar selección -->
         <button type="button" id="reiniciar" style="display: none;">Reiniciar</button>
       </div>
+      <div>Continúa con la siguiente pregunta sobre:</div>
       <div>
         <button type="submit">Inclusión de iniciativas</button>
       </div>
@@ -93,43 +106,48 @@ $(document).ready(function() {
     var prioridad = 1;
     var seleccionados = {};
 
-    $('.propuesta').on('click', function() {
-        var propuestaId = $(this).attr('id');
+      $('.propuesta').on('click', function() {
+      var propuestaId = $(this).attr('id');
 
-        if (!$(this).prop("disabled")) {
-            // Marcamos la propuesta como seleccionada
-            $(this).prop('disabled', true);
+      if (!$(this).prop("disabled")) {
+          // Marcamos la propuesta como seleccionada
+          $(this).prop('disabled', true);
 
-            // Cambiamos el contenido del botón
-            $(this).text(prioridad);
+          // Cambiamos el contenido del div de verificación
+          $(this).find('.propuesta-check').text(prioridad);
 
-            // Guardamos la prioridad en un objeto
-            seleccionados[propuestaId] = prioridad;
+          // Guardamos la prioridad en un objeto
+          seleccionados[propuestaId] = prioridad;
 
-            // Cambiamos el valor del campo oculto asociado
-            $('input[name=' + propuestaId + ']').val(prioridad);
+          // Cambiamos el valor del campo oculto asociado
+          $('input[name=' + propuestaId + ']').val(prioridad);
 
-            // Cambiamos el texto de la frase
-            prioridad++;
-            if (prioridad <= 4) {
+          // Cambiamos el texto de la frase
+          prioridad++;
+          if (prioridad <= 4) {
               $('#frase').text('Elige cuál enunciado ocupa el lugar ' + prioridad + ' de importancia.');
-            }
+          }
 
-            // Mostramos el botón de reinicio si todas las propuestas tienen una prioridad
-            if (Object.keys(seleccionados).length === 4) {
-                $('#reiniciar').show();
-            }
-        }
+          // Mostramos el botón de reinicio si todas las propuestas tienen una prioridad
+          if (Object.keys(seleccionados).length === 4) {
+              $('#reiniciar').show();
+          }
+      }
     });
 
     $('#reiniciar').on('click', function() {
-        $('.propuesta').prop('disabled', false).text('-');
-        $('input[type=hidden]').val('');
+        $('.propuesta').prop('disabled', false);
+        $('.propuesta-check').text('-');
+        $('input[name=propuesta_1]').val('');
+        $('input[name=propuesta_2]').val('');
+        $('input[name=propuesta_3]').val('');
+        $('input[name=propuesta_4]').val('');
         prioridad = 1;
         seleccionados = {};
         $('#frase').text('Elige cuál enunciado ocupa el lugar ' + prioridad + ' de importancia.');
         $('#reiniciar').hide();
     });
+
 });
 </script>
 
