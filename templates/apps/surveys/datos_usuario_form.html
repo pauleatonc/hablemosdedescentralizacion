@@ -3,7 +3,7 @@
 
 {% block views %}
 <div>
-    <h2>Primero, queremos saber de ti:</h2>
+    <h3>Primero, queremos saber de ti:</h3>
 </div>
 
 <div>Antes de comenzar, queremos saber un poco de tí:</div>
@@ -35,7 +35,9 @@
         {{ form.edad.label_tag }} {{ form.edad }}
         {{ form.edad.errors }}
     </div>
+
     <div>Continúa con la siguiente pregunta sobre:</div>
+
     <button type="submit" value="Submit"> Valor de la Descentralización</button>
 </form>
 
@@ -83,6 +85,24 @@ $('#region').change(function() {
     } else {
         $('#id_comuna').parent().hide();
     }
+});
+
+// Almacena los datos del formulario en sessionStorage cuando el usuario envía el formulario
+$('form').submit(function() {
+    var form_data = $(this).serializeArray();
+    $.each(form_data, function(key, input) {
+        sessionStorage.setItem(input.name, input.value);
+    });
+});
+
+// Recupera los datos del formulario de sessionStorage cuando se carga la página
+$(document).ready(function() {
+    var form_data = $('form').serializeArray();
+    $.each(form_data, function(key, input) {
+        if (sessionStorage.getItem(input.name)) {
+            $('[name="' + input.name + '"]').val(sessionStorage.getItem(input.name));
+        }
+    });
 });
 
 </script>
