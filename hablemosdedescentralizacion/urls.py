@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('', include('applications.users.urls')),
     re_path('', include('applications.home.urls')),
-    re_path('', include('applications.surveys.urls'))
+    re_path('', include('applications.surveys.urls')),
+    re_path('', include('applications.claveunica.urls')),
 ]
