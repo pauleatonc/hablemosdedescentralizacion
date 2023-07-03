@@ -18,8 +18,9 @@
   {% if valor_guardado %}
     <!-- Muestra los valores guardados si ya contestó la encuesta -->
     <div><input type="text" name="valor" value="{{ valor_guardado }}" readonly></div>
+    <div>Continua para enviar tus respuestas.</div>
     <div>
-      <button type="button" onclick="window.location.href='{% url 'surveys_app:enviar_formularios' %}'">Siguiente</button>
+      <button type="button" onclick="window.location.href='{% url 'surveys_app:enviar_formularios' %}'">Enviar mis respuestas</button>
     </div>
   {% else %}
     <!-- Muestra input para el formulario -->
