@@ -14,17 +14,21 @@ class DatosUsuarioForm(forms.ModelForm):
             'comuna': forms.Select(
                 attrs={
                     'required': True,
-                    'id': 'id_comuna'
+                    'id': 'id_comuna',
+                    'placeholder': 'Elige una opción',
+
                 }
             ),
             'genero': forms.Select(
                 attrs={
                     'required': True,
+                    'placeholder': 'Elige una opción',
                 }
             ),
             'edad': forms.NumberInput(
                 attrs={
                     'required': True,
+                    'placeholder': 'Elige una opción',
                 }
             ),
         }

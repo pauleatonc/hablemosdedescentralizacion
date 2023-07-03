@@ -69,11 +69,16 @@
 
   <div>
     {% if propuesta_1_guardada %}
-      <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Inclusión de iniciativas</button>
+      <div>Continúa con la siguiente pregunta sobre:</div>
+      <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">
+        Inclusión de iniciativas</button>
+      </div>
+
     {% else %}
       <div><!-- Botón para reiniciar selección -->
         <button type="button" id="reiniciar" style="display: none;">Reiniciar</button>
       </div>
+      <div>Continúa con la siguiente pregunta sobre:</div>
       <div>
         <button type="submit">Inclusión de iniciativas</button>
       </div>

@@ -18,8 +18,12 @@
 
   {% if valor_guardado %}
     <!-- Muestra los valores guardados si ya contestó la encuesta -->
-    <input type="text" name="valor" value="{{ valor_guardado }}" readonly>
-    <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Impacto de la Descentralización</button>
+    <div>Continúa con la siguiente pregunta sobre:</div>
+    <div><input type="text" name="valor" value="{{ valor_guardado }}" readonly></div>
+    <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">
+      Impacto de la Descentralización</button>
+    </div>
+
   {% else %}
     <!-- Muestra input para el formulario -->
     {% for choice in form.valor.field.choices %}
@@ -37,8 +41,10 @@
     <!-- Campo oculto para almacenar el valor seleccionado -->
     <input type="hidden" id="id_valor" name="valor" value="">
 
-    <!-- Botón para el envío del formulario completo -->
-      <button type="submit" id="enviar_button">Impacto de la Descentralización</button>
+    <!-- Botón para el envío del formulario -->
+    <div>Continúa con la siguiente pregunta sobre:</div>
+    <div><button type="submit" id="enviar_button">Impacto de la Descentralización</button></div>
+
   {% endif %}
 
 </form>

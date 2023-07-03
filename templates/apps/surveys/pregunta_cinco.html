@@ -3,6 +3,10 @@
 
 {% block views %}
 
+<div>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Ir atrás</button>
+</div>
+
 <div>Para finalizar, a partir de las respuestas dadas anteriormente,<br>
   ¿qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el vínculo entre descentralización y su
   vida personal y en comunidad?<br>
@@ -13,34 +17,41 @@
 
   {% if valor_guardado %}
     <!-- Muestra los valores guardados si ya contestó la encuesta -->
-    <input type="text" name="valor" value="{{ valor_guardado }}" readonly>
-    <button type="button" onclick="window.location.href='{% url 'surveys_app:enviar_formularios' %}'">Siguiente</button>
+    <div><input type="text" name="valor" value="{{ valor_guardado }}" readonly></div>
+    <div>
+      <button type="button" onclick="window.location.href='{% url 'surveys_app:enviar_formularios' %}'">Siguiente</button>
+    </div>
   {% else %}
     <!-- Muestra input para el formulario -->
-    {{ form.texto_respuesta }}
-    {{ form.errors }}
-
-    <!-- Trae todos los valores de los formularios previos para pasarlos al submit -->
-    {% if pregunta_uno_data %}
-      <input type="text" name="pregunta_uno_valor" value="{{ pregunta_uno_valor }}" readonly>
-    {% endif %}
-    {% if pregunta_dos_propuesta_1 %}
-      <input type="text" name="pregunta_dos_propuesta_1" value="{{ pregunta_dos_propuesta_1 }}" readonly>
-    {% endif %}
-    {% if pregunta_dos_propuesta_2 %}
-      <input type="text" name="pregunta_dos_propuesta_2" value="{{ pregunta_dos_propuesta_2 }}" readonly>
-    {% endif %}
-    {% if pregunta_dos_propuesta_3 %}
-      <input type="text" name="pregunta_dos_propuesta_3" value="{{ pregunta_dos_propuesta_3 }}" readonly>
-    {% endif %}
-    {% if pregunta_dos_propuesta_4 %}
-      <input type="text" name="pregunta_dos_propuesta_4" value="{{ pregunta_dos_propuesta_4 }}" readonly>
-    {% endif %}
-
-  <!-- Botón para el envío del formulario completo -->
+    <div>{{ form.texto_respuesta }}</div>
+    <div><span id="message-word-count" style="color:gray">0 / 250 palabras.</span></div>
+    <div>{{ form.errors }}</div>
+    <!-- Botón para el envío del formulario completo -->
+    <div>Continua para guardar y enviar tus respuestas.</div>
+    <div>
     <button type="submit">Enviar mis respuestas</button>
+    </div>
+
   {% endif %}
 
 </form>
 
 {% endblock views %}
+
+{% block scripts %}
+
+<script>
+    function countWords() {
+        const messageInput = document.getElementById("id_texto_respuesta");
+        const wordCountElement = document.getElementById("message-word-count");
+
+        const message = messageInput.value;
+        const wordCount = message.trim().split(/\s+/).length;
+        wordCountElement.textContent = `${wordCount} / 250 palabras.`;
+    }
+
+    // Agregamos el "event listener"
+    document.getElementById("id_texto_respuesta").addEventListener('input', countWords);
+</script>
+
+{% endblock scripts %}
