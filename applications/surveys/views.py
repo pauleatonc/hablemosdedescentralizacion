@@ -141,6 +141,24 @@ class PreguntaCuatroView(LoginRequiredMixin, FormView):
         pregunta_cuatro.save()
 
         return redirect('surveys_app:pregunta_cinco')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usuario = self.request.user
+        try:
+            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+            context['tematica_1_guardada'] = pregunta_cuatro.get_tematica_1_display()
+            context['tematica_2_guardada'] = pregunta_cuatro.get_tematica_2_display()
+            context['tematica_3_guardada'] = pregunta_cuatro.get_tematica_3_display()
+            context['tematica_4_guardada'] = pregunta_cuatro.get_tematica_4_display()
+            context['tematica_5_guardada'] = pregunta_cuatro.get_tematica_5_display()
+        except PreguntaCuatro.DoesNotExist:
+            context['tematica_1_guardada'] = None
+            context['tematica_2_guardada'] = None
+            context['tematica_3_guardada'] = None
+            context['tematica_4_guardada'] = None
+            context['tematica_5_guardada'] = None
+        return context
 
 
 class PreguntaCincoView(LoginRequiredMixin, FormView):
