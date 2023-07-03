@@ -1,11 +1,19 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block views %}
+
+<div>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:consulta_datos_usuario' %}'">Ir atrás</button>
+</div>
+<div>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Siguiente</button>
+</div>
+<div><h3>Pregunta 1 de 5:</h3></div>
 <div>Desde sus propios conocimientos y experiencia,<br>
     ¿qué valor le otorga usted a la descentralización en la
     cotidianeidad y en la calidad de vida de las personas?</div>
 
-<form method="post" action="{% url 'surveys_app:pregunta_uno' %}">
+<form id="pregunta-uno-form" method="post" action="{% url 'surveys_app:pregunta_uno' %}">
   {% csrf_token %}
 
   {% if valor_guardado %}
@@ -14,13 +22,44 @@
     <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Impacto de la Descentralización</button>
   {% else %}
     <!-- Muestra input para el formulario -->
-    {{ form.valor }}
-    {{ form.errors }}
+    {% for choice in form.valor.field.choices %}
+      <div>
+        <button class="valor" type="button" id="valor" value="{{ choice.0 }}" onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'">{{ choice.1 }}</button>
+      </div>
+    {% endfor %}
 
-  <!-- Botón para el envío del formulario completo -->
-    <button type="submit">Impacto de la Descentralización</button>
+     <!-- Muestra errores del campo valor -->
+    {% if form.non_field_errors %}
+      <!-- Muestra el mensaje de error específico -->
+      <p>{{ form.non_field_errors }}</p>
+    {% endif %}
+
+    <!-- Campo oculto para almacenar el valor seleccionado -->
+    <input type="hidden" id="id_valor" name="valor" value="">
+
+    <!-- Botón para el envío del formulario completo -->
+      <button type="submit" id="enviar_button">Impacto de la Descentralización</button>
   {% endif %}
 
 </form>
 
 {% endblock views %}
+
+{% block scripts %}
+
+<script>
+
+// Cuando se selecciona un botón, deselecciona todos los demás
+
+document.querySelectorAll('.valor').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+        document.querySelectorAll('.valor').forEach(function(otherElement) {
+            otherElement.disabled = false;
+        });
+        event.target.disabled = true;
+    });
+});
+
+</script>
+
+{% endblock scripts %}

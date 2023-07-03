@@ -21,7 +21,7 @@
     {{ form.errors }}
 
     <!-- Trae todos los valores de los formularios previos para pasarlos al submit -->
-    {% if pregunta_uno_valor %}
+    {% if pregunta_uno_data %}
       <input type="text" name="pregunta_uno_valor" value="{{ pregunta_uno_valor }}" readonly>
     {% endif %}
     {% if pregunta_dos_propuesta_1 %}

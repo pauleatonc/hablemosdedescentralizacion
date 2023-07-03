@@ -27,6 +27,7 @@ THIRD_PARTY_APPS = [
     'django_filters',
     'imagekit',
     'import_export',
+    'formtools'
 
 ]
 
