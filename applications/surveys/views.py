@@ -1,5 +1,5 @@
-from django.views.generic import TemplateView
-from .forms import PreguntaUnoForm, PreguntaDosForm, PreguntaCincoForm
+from django.views.generic import TemplateView, View
+from .forms import PreguntaUnoForm, PreguntaDosForm, PreguntaCincoForm, DatosUsuarioForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
@@ -7,15 +7,36 @@ from django.views.generic.edit import FormView
 from .models import PreguntaUno, PreguntaDos, PreguntaCinco
 from django.contrib.sessions.backends.db import SessionStore
 from django.http import JsonResponse
+from applications.regioncomuna.models import Region, Comuna
+from django.http import JsonResponse
 
 from formtools.wizard.views import SessionWizardView
 
 
+class ComunasPorRegionView(View):
+    def get(self, request, *args, **kwargs):
+        region_id = self.kwargs.get('region_id')
+        comunas = Comuna.objects.filter(region__id=region_id).values('id', 'comuna')
+        comunas_list = list(comunas)
+        return JsonResponse(comunas_list, safe=False)
 
 
 class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/datos_usuario_form.html'
+    form_class = DatosUsuarioForm
     login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def form_valid(self, form):
+        pregunta = form.save(commit=False)
+        pregunta.usuario = self.request.user
+        pregunta.save()
+
+        return redirect('surveys_app:pregunta_uno')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['regiones'] = Region.objects.all()
+        return context
 
 
 class PreguntaUnoView(LoginRequiredMixin, FormView):

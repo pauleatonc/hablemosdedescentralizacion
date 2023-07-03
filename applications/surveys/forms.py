@@ -2,6 +2,50 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from .models import PreguntaUno, PreguntaDos, PreguntaCinco
+from applications.users.models import User
+from applications.regioncomuna.models import Comuna, Region
+
+
+class DatosUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('comuna', 'genero', 'edad')
+        widgets = {
+            'comuna': forms.Select(
+                attrs={
+                    'required': True,
+                    'id': 'id_comuna'
+                }
+            ),
+            'genero': forms.Select(
+                attrs={
+                    'required': True,
+                }
+            ),
+            'edad': forms.NumberInput(
+                attrs={
+                    'required': True,
+                }
+            ),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        comuna = cleaned_data.get('comuna')
+        genero = cleaned_data.get('genero')
+        edad = cleaned_data.get('edad')
+
+        if not comuna:
+            self.add_error('comuna', 'Debes elegir una comuna antes de continuar.')
+
+        if not genero:
+            self.add_error('genero', 'Debes seleccionar un género antes de continuar.')
+
+        if not edad:
+            self.add_error('edad', 'Debes introducir tu edad antes de continuar.')
+
+        return cleaned_data
 
 
 class PreguntaUnoForm(forms.ModelForm):
