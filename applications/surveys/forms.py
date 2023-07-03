@@ -1,16 +1,26 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from .models import PreguntaUno, PreguntaDos, PreguntaCinco
 
 
 class PreguntaUnoForm(forms.ModelForm):
+
+    valor = forms.ChoiceField(choices=PreguntaUno.VALORES, required=True)
+
     class Meta:
         model = PreguntaUno
-        fields = ('valor',)
-
+        fields = ['valor']
         widgets = {
-            'valor': forms.Select(attrs={'class': 'form-control'}),
+            'valor': forms.RadioSelect
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        valor = cleaned_data.get('valor')
+        if not valor:
+            raise ValidationError('Debes elegir una opción antes de continuar.')
+        return cleaned_data
 
 
 class PreguntaDosForm(forms.ModelForm):
@@ -18,60 +28,53 @@ class PreguntaDosForm(forms.ModelForm):
         model = PreguntaDos
         fields = ('propuesta_1', 'propuesta_2', 'propuesta_3', 'propuesta_4')
         widgets = {
-            'propuesta_1': forms.Select(
+            'propuesta_1': forms.NumberInput(
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'custom-input'
+                    'class': 'propuesta',
+                    'id': 'propuesta_1'
                 }
             ),
-            'propuesta_2': forms.Select(
+            'propuesta_2': forms.NumberInput(
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'custom-input'
+                    'class': 'propuesta',
+                    'id': 'propuesta_2'
                 }
             ),
-            'propuesta_3': forms.Select(
+            'propuesta_3': forms.NumberInput(
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'custom-input'
+                    'class': 'propuesta',
+                    'id': 'propuesta_3'
                 }
             ),
-            'propuesta_4': forms.Select(
+            'propuesta_4': forms.NumberInput(
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'custom-input'
+                    'class': 'propuesta',
+                    'id': 'propuesta_4'
                 }
             ),
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        opciones = [(i, str(i)) for i in range(1, 5)]  # Generar opciones del 1 al 4
-        for i in range(1, 5):
-            self.fields[f'propuesta_{i}'].widget = forms.Select(choices=opciones)
-
     def clean(self):
         cleaned_data = super().clean()
 
-        # Validar que todos los campos estén llenos
-        for i in range(1, 5):
-            propuesta = cleaned_data.get(f'propuesta_{i}')
-            if not propuesta:
-                self.add_error(f'propuesta_{i}', 'Debes evaluar este enunciado antes de continuar.')
-
-        # Validar que los valores sean distintos
         valores = [
             cleaned_data.get('propuesta_1'),
             cleaned_data.get('propuesta_2'),
             cleaned_data.get('propuesta_3'),
             cleaned_data.get('propuesta_4'),
         ]
-        if len(valores) != len(set(valores)):
-            self.add_error(None, 'Cada afirmación debe tener una valoración distinta.')
+
+        # Verificar que todos los campos estén presentes
+        if None in valores:
+            raise forms.ValidationError('Todos los campos son requeridos.')
 
         return cleaned_data
 

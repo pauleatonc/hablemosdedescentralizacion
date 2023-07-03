@@ -2,27 +2,91 @@
 {% load static %}
 
 {% block views %}
+<div>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_uno' %}'">Ir atrás</button>
+</div>
+<div>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Siguiente</button>
+</div>
+<div><h3>Pregunta 2 de 5:</h3></div>
 <div>A continuación, se presentan algunas afirmaciones en torno al impacto de la descentralización en las personas y
     comunidades. <br> En su opinión, ¿qué importancia les otorgaría usted? <br> Por favor ordénelas, considerando que
     1 es la más importante, y 4 es la menos importante.</div>
+<div id="frase">Elige cuál enunciado ocupa el lugar 1 de importancia.</div>
 
-<!-- Divs para cada propuesta -->
-<div id="propuesta_1" class="propuesta" data-id="1">{{ form.propuesta_1.help_text }}</div>
-<div id="propuesta_2" class="propuesta" data-id="2">{{ form.propuesta_2.help_text }}</div>
-<div id="propuesta_3" class="propuesta" data-id="3">{{ form.propuesta_3.help_text }}</div>
-<div id="propuesta_4" class="propuesta" data-id="4">{{ form.propuesta_4.help_text }}</div>
+<form method="post" action="{% url 'surveys_app:pregunta_dos' %}">
+  {% csrf_token %}
 
-<!-- Botón para reiniciar selección -->
-<button id="reiniciar">Reiniciar</button>
+  <div>
+    {% if propuesta_1_guardada %}
+      {{ form.propuesta_1.help_text }}
+      <input type="text" name="propuesta_1" value="{{ propuesta_1_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_1.help_text }}
+      <button type="button" class="propuesta" id="propuesta_1">-</button>
+      <input type="hidden" name="propuesta_1">
+    {% endif %}
+  </div>
 
-<!-- Botón para continuar -->
-<button id="continuar">Continuar</button>
+  <div>
+    {% if propuesta_2_guardada %}
+      {{ form.propuesta_2.help_text }}
+      <input type="text" name="propuesta_2" value="{{ propuesta_2_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_2.help_text }}
+      <button type="button" class="propuesta" id="propuesta_2">-</button>
+      <input type="hidden" name="propuesta_2">
+    {% endif %}
+  </div>
+
+  <div>
+    {% if propuesta_3_guardada %}
+      {{ form.propuesta_3.help_text }}
+      <input type="text" name="propuesta_3" value="{{ propuesta_3_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_3.help_text }}
+      <button type="button" class="propuesta" id="propuesta_3">-</button>
+      <input type="hidden" name="propuesta_3">
+    {% endif %}
+  </div>
+
+  <div>
+    {% if propuesta_4_guardada %}
+      {{ form.propuesta_4.help_text }}
+      <input type="text" name="propuesta_4" value="{{ propuesta_4_guardada }}" readonly>
+    {% else %}
+      {{ form.propuesta_4.help_text }}
+      <button type="button" class="propuesta" id="propuesta_4">-</button>
+      <input type="hidden" name="propuesta_4">
+    {% endif %}
+  </div>
+
+  <!-- Muestra errores del campo valor -->
+    {% if form.non_field_errors %}
+      <!-- Muestra el mensaje de error específico -->
+      <p>{{ form.non_field_errors }}</p>
+    {% endif %}
+
+  <div>
+    {% if propuesta_1_guardada %}
+      <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Inclusión de iniciativas</button>
+    {% else %}
+      <div><!-- Botón para reiniciar selección -->
+        <button type="button" id="reiniciar" style="display: none;">Reiniciar</button>
+      </div>
+      <div>
+        <button type="submit">Inclusión de iniciativas</button>
+      </div>
+
+    {% endif %}
+  </div>
+
+</form>
 
 {% endblock views %}
 
 {% block scripts %}
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -30,41 +94,41 @@ $(document).ready(function() {
     var seleccionados = {};
 
     $('.propuesta').on('click', function() {
-        var propuestaId = $(this).data('id');
+        var propuestaId = $(this).attr('id');
 
-        // Si la propuesta ya ha sido seleccionada, la ignoramos
-        if ($(this).hasClass('seleccionada')) {
-            return;
+        if (!$(this).prop("disabled")) {
+            // Marcamos la propuesta como seleccionada
+            $(this).prop('disabled', true);
+
+            // Cambiamos el contenido del botón
+            $(this).text(prioridad);
+
+            // Guardamos la prioridad en un objeto
+            seleccionados[propuestaId] = prioridad;
+
+            // Cambiamos el valor del campo oculto asociado
+            $('input[name=' + propuestaId + ']').val(prioridad);
+
+            // Cambiamos el texto de la frase
+            prioridad++;
+            if (prioridad <= 4) {
+              $('#frase').text('Elige cuál enunciado ocupa el lugar ' + prioridad + ' de importancia.');
+            }
+
+            // Mostramos el botón de reinicio si todas las propuestas tienen una prioridad
+            if (Object.keys(seleccionados).length === 4) {
+                $('#reiniciar').show();
+            }
         }
-
-        // Marcamos la propuesta como seleccionada y guardamos la prioridad
-        $(this).addClass('seleccionada').append('<span> Prioridad: ' + prioridad + '</span>');
-        seleccionados['propuesta_' + propuestaId] = prioridad;
-
-        prioridad++;
     });
 
     $('#reiniciar').on('click', function() {
-        $('.propuesta').removeClass('seleccionada').find('span').remove();
+        $('.propuesta').prop('disabled', false).text('-');
+        $('input[type=hidden]').val('');
         prioridad = 1;
         seleccionados = {};
-    });
-
-    $('#continuar').on('click', function() {
-        axios({
-            method: 'post',
-            url: '{% url 'surveys_app:pregunta_dos' %}',
-            data: seleccionados,
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            }
-        })
-        .then(function(response) {
-            window.location.href = '{% url 'surveys_app:pregunta_tres' %}';
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
+        $('#frase').text('Elige cuál enunciado ocupa el lugar ' + prioridad + ' de importancia.');
+        $('#reiniciar').hide();
     });
 });
 </script>

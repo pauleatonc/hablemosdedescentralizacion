@@ -8,6 +8,10 @@ from .models import PreguntaUno, PreguntaDos, PreguntaCinco
 from django.contrib.sessions.backends.db import SessionStore
 from django.http import JsonResponse
 
+from formtools.wizard.views import SessionWizardView
+
+
+
 
 class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/datos_usuario_form.html'
@@ -23,13 +27,9 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         pregunta_uno = form.save(commit=False)
         pregunta_uno.usuario = self.request.user
+        pregunta_uno.save()
 
-        session = self.request.session
-        session['pregunta_uno_data'] = form.cleaned_data
-        return JsonResponse({'success': True})
-
-    def form_invalid(self, form):
-        return JsonResponse(form.errors, status=400)
+        return redirect('surveys_app:pregunta_dos')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,13 +51,9 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         pregunta_dos = form.save(commit=False)
         pregunta_dos.usuario = self.request.user
+        pregunta_dos.save()
 
-        session = self.request.session
-        session['pregunta_dos_data'] = form.cleaned_data
-        return JsonResponse({'success': True})
-
-    def form_invalid(self, form):
-        return JsonResponse(form.errors, status=400)
+        return redirect('surveys_app:pregunta_cinco')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
