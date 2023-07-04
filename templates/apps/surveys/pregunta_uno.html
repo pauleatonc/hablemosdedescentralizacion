@@ -1,70 +1,100 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block views %}
-
-<div>
-  <button type="button" onclick="window.location.href='{% url 'surveys_app:consulta_datos_usuario' %}'">Ir atrás</button>
-</div>
-<div>
-  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Siguiente</button>
-</div>
-<div><h3>Pregunta 1 de 5:</h3></div>
-<div>Desde sus propios conocimientos y experiencia,<br>
-    ¿qué valor le otorga usted a la descentralización en la
-    cotidianeidad y en la calidad de vida de las personas?</div>
-
-<form id="pregunta-uno-form" method="post" action="{% url 'surveys_app:pregunta_uno' %}">
-  {% csrf_token %}
-
-  {% if valor_guardado %}
-    <!-- Muestra los valores guardados si ya contestó la encuesta -->
-    <div>Continúa con la siguiente pregunta sobre:</div>
-    <div><input type="text" name="valor" value="{{ valor_guardado }}" readonly></div>
-    <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">
-      Impacto de la Descentralización</button>
-    </div>
-
-  {% else %}
-    <!-- Muestra input para el formulario -->
-    {% for choice in form.valor.field.choices %}
-      <div>
-        <button class="valor" type="button" id="valor" value="{{ choice.0 }}" onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'">{{ choice.1 }}</button>
+<section class="container">
+  <div class="cols-12 my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mx-md-auto my-2">
+        <div class=" col mw-75 d-flex flex-column justify-content-center align-items-center">
+          <img src="{% static 'img/logo-descentralizacion.png' %}" class="w-75 mx-5 my-3 " />
+        </div>
       </div>
-    {% endfor %}
 
-     <!-- Muestra errores del campo valor -->
-    {% if form.non_field_errors %}
-      <!-- Muestra el mensaje de error específico -->
-      <p>{{ form.non_field_errors }}</p>
-    {% endif %}
+      <div class="col-lg-12 d-flex justify-content-between my-2">
+        <button type="button" class=" btn btn-pill-primary  text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:consulta_datos_usuario' %}'"><i
+            class="material-symbols-outlined">
+            chevron_left
+          </i>
+          Ir atrás</button>
+        <button type="button" class="btn btn-pill-primary text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Siguiente <i
+            class="material-symbols-outlined">
+            chevron_right
+          </i></button>
+      </div>
 
-    <!-- Campo oculto para almacenar el valor seleccionado -->
-    <input type="hidden" id="id_valor" name="valor" value="">
+      <div class="col-12">
+        <p class="h3 text-center my-3">Pregunta 1 de 5:</p>
 
-    <!-- Botón para el envío del formulario -->
-    <div>Continúa con la siguiente pregunta sobre:</div>
-    <div><button type="submit" id="enviar_button">Impacto de la Descentralización</button></div>
+        <p class="font-level-5 text-justify mx-5">¿Qué valor le otorgas a la descentralización en la cotidianeidad y en
+          la calidad de
+          vida de las personas?</p>
+        <p class="font-level-5 text-justify mx-5">Responde desde tus propios conocimientos y experiencias.</p>
+      </div>
+      <div class="cols-12 my-lg-5">
+        <form id="pregunta-uno-form" method="post" action="{% url 'surveys_app:pregunta_uno' %}">
+          {% csrf_token %}
 
-  {% endif %}
+          {% if valor_guardado %}
+          <!-- Muestra los valores guardados si ya contestó la encuesta -->
+          <input type="text" name="valor" value="{{ valor_guardado }}" readonly>
+          <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Impacto de la
+            Descentralización</button>
+          {% else %}
+          <!-- Muestra input para el formulario -->
+          {% for choice in form.valor.field.choices %}
+          <div class="">
+            <button class="btn btn-neutral btn-default-size text-primary border-primary bg-white  my-3 w-100"
+              type="button" id="valor" value="{{ choice.0 }}"
+              onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'">{{ choice.1 }}</button>
+          </div>
+          {% endfor %}
 
-</form>
+          <!-- Muestra errores del campo valor -->
+          {% if form.non_field_errors %}
+          <!-- Muestra el mensaje de error específico -->
+          <p>{{ form.non_field_errors }}</p>
+          {% endif %}
+
+          <!-- Campo oculto para almacenar el valor seleccionado -->
+          <input type="hidden" id="id_valor" name="valor" value="">
+
+          <!-- Botón para el envío del formulario completo -->
+          <div class="my-3">
+            <p class="font-base text-md-center">Continúa con la siguiente pregunta sobre:</p>
+            <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">Impacto de la
+              Descentralización <i class="material-symbols-outlined px-3">
+                arrow_forward_ios
+              </i></button>
+          </div>
+          {% endif %}
+
+        </form>
+      </div>
+    </div>
+</section>
 
 {% endblock views %}
 
 {% block scripts %}
-
+</div>
+</div>
 <script>
 
-// Cuando se selecciona un botón, deselecciona todos los demás
+  // Cuando se selecciona un botón, deselecciona todos los demás
 
-document.querySelectorAll('.valor').forEach(function(element) {
-    element.addEventListener('click', function(event) {
-        document.querySelectorAll('.valor').forEach(function(otherElement) {
-            otherElement.disabled = false;
-        });
-        event.target.disabled = true;
+  document.querySelectorAll('.valor').forEach(function (element)
+  {
+    element.addEventListener('click', function (event)
+    {
+      document.querySelectorAll('.valor').forEach(function (otherElement)
+      {
+        otherElement.disabled = false;
+      });
+      event.target.disabled = true;
     });
-});
+  });
 
 </script>
 
