@@ -16,6 +16,11 @@ class HomePageView(TemplateView):
         context['days_left'] = countdown.get_days_left()  # Agrega days_left al contexto
         return context
 
+class PreguntasFrecuentesView(TemplateView):
+    template_name = 'apps/home/preguntas_frecuentes.html'
+
+class DocumentosView(TemplateView):
+    template_name = 'apps/home/documentos.html'
 
 class Error404(TemplateView):
     template_name = 'home/404.html'

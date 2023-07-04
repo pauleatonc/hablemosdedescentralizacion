@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block views %}
+<div>
+    <p>Componente breadcrums</p>
+
+    <div class="col-md-12">
+        <div class="section-header mt-5 ">
+          <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold" id="secciones">Documentos</p>
+        </div>
+        <div class="section-body">
+          <p class="h4 text-justify pb-4">Si quieres tener más antecedentes para participar en la consulta, o para 
+            seguir este proceso, tenemos un repositorio de documentos de interés.</p>
+        </div>
+
+        <div class="my-5">
+            {% include "components/countdown.html" %}  
+        </div>
+    </div>
+
+    <div>
+        {% include "components/logo_banner.html"%}
+    </div>
+
+    <div>
+        <p>Documentos Normativos</p>
+        <div>
+            {% include "components/colapsable.html"%} 
+        </div>
+    </div>
+
+    <div>
+        <p>Estudios</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis leo 
+            id accumsan feugiat. Aliquam interdum posuere erat.</p>
+        <div>
+            {% include "components/colapsable.html"%} 
+        </div>
+    </div>
+
+    <div>
+        <p>Instrumentos Participativos</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis leo 
+            id accumsan feugiat. Aliquam interdum posuere erat.</p>
+        <div>
+            {% include "components/colapsable.html"%} 
+        </div>
+    </div>
+
+</div>
+{% endblock views %}
