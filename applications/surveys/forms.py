@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import PreguntaUno, PreguntaDos, PreguntaCinco
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
 from applications.users.models import User
 from applications.regioncomuna.models import Comuna, Region
 
@@ -137,7 +137,118 @@ class PreguntaDosForm(forms.ModelForm):
             raise forms.ValidationError('Todos los campos son requeridos.')
 
         return cleaned_data
+    
+class PreguntaTresForm(forms.ModelForm):
+    class Meta:
+        model = PreguntaTres
+        fields = ('iniciativa_1', 'iniciativa_2', 'iniciativa_3', 'iniciativa_4', 'iniciativa_5')
+        widgets = {
+            'iniciativa_1': forms.NumberInput(
+                attrs={
+                    'required': True,
+                    'placeholder': '-',
+                    'class': 'iniciativa',
+                    'id': 'iniciativa_1'
+                }
+            ),
+            'iniciativa_2': forms.NumberInput(
+                attrs={
+                    'required': True,
+                    'placeholder': '-',
+                    'class': 'iniciativa',
+                    'id': 'iniciativa_2'
+                }
+            ),
+            'iniciativa_3': forms.NumberInput(
+                attrs={
+                    'required': True,
+                    'placeholder': '-',
+                    'class': 'iniciativa',
+                    'id': 'iniciativa_3'
+                }
+            ),
+            'iniciativa_4': forms.NumberInput(
+                attrs={
+                    'required': True,
+                    'placeholder': '-',
+                    'class': 'iniciativa',
+                    'id': 'iniciativa_4'
+                }
+            ),
+            'iniciativa_5': forms.NumberInput(
+                attrs={
+                    'required': True,
+                    'placeholder': '-',
+                    'class': 'iniciativa',
+                    'id': 'iniciativa_5'
+                }
+            ),
+        }
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        valores = [
+            cleaned_data.get('iniciativa_1'),
+            cleaned_data.get('iniciativa_2'),
+            cleaned_data.get('iniciativa_3'),
+            cleaned_data.get('iniciativa_4'),
+            cleaned_data.get('iniciativa_5'),
+        ]
+
+        # Verificar que todos los campos estén presentes
+        if None in valores:
+            raise forms.ValidationError('Todos los campos son requeridos.')
+
+        return cleaned_data
+    
+
+class PreguntaCuatroForm(forms.ModelForm):
+    class Meta:
+        model = PreguntaCuatro
+        fields = ('tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5')
+        widgets = {
+            'tematica_1': forms.Select(
+                attrs={
+                    'required': True,
+                    'placeholder': 'Elige una opción',
+                    'class': 'tematica',
+                }
+            ),
+            'tematica_2': forms.Select(
+                attrs={
+                    'required': True,
+                    'placeholder': 'Elige una opción',
+                    'class': 'tematica',
+                }
+            ),
+            'tematica_3': forms.Select(
+                attrs={
+                    'required': True,
+                    'placeholder': 'Elige una opción',
+                    'class': 'tematica',
+                }
+            ),
+            'tematica_4': forms.Select(
+                attrs={
+                    'required': True,
+                    'placeholder': 'Elige una opción',
+                    'class': 'tematica',
+                }
+            ),
+            'tematica_5': forms.Select(
+                attrs={
+                    'required': True,
+                    'placeholder': 'Elige una opción',
+                    'class': 'tematica',
+                }
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(PreguntaCuatroForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].label = self.fields[field].label + ': ' + self.fields[field].help_text
 
 class PreguntaCincoForm(forms.ModelForm):
     class Meta:

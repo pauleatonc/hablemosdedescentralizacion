@@ -1,0 +1,86 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block views %}
+<div>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">Ir atrás</button>
+</div>
+<div>
+  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Siguiente</button>
+</div>
+<div><h3>Pregunta 4 de 5:</h3></div>
+<div>En su opinión,<br>¿Qué tan importante es incluir las siguientes temáticas de forma transversal en la Política
+    Nacional de Descentralización?</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        {{ form.tematica_1.label_tag }}
+        {% if tematica_1_guardada %}
+            <input type="text" name="tematica_1" value="{{ tematica_1_guardada }}" readonly>
+        {% else %}
+            {{ form.tematica_1 }}
+            {{ form.tematica_1.errors }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.tematica_2.label_tag }}
+        {% if tematica_2_guardada %}
+            <input type="text" name="tematica_2" value="{{ tematica_2_guardada }}" readonly>
+        {% else %}
+            {{ form.tematica_2 }}
+            {{ form.tematica_2.errors }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.tematica_3.label_tag }}
+        {% if tematica_3_guardada %}
+            <input type="text" name="tematica_3" value="{{ tematica_3_guardada }}" readonly>
+        {% else %}
+            {{ form.tematica_3 }}
+            {{ form.tematica_3.errors }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.tematica_4.label_tag }}
+        {% if tematica_4_guardada %}
+            <input type="text" name="tematica_4" value="{{ tematica_4_guardada }}" readonly>
+        {% else %}
+            {{ form.tematica_4 }}
+            {{ form.tematica_4.errors }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.tematica_5.label_tag }}
+        {% if tematica_5_guardada %}
+            <input type="text" name="tematica_5" value="{{ tematica_5_guardada }}" readonly>
+        {% else %}
+            {{ form.tematica_5 }}
+            {{ form.tematica_5.errors }}
+        {% endif %}
+    </div>
+
+    <div>
+    {% if tematica_1_guardada %}
+      <div>Continúa con la siguiente pregunta sobre:</div>
+      <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">
+        Valor de la Descentralización</button>
+      </div>
+
+    {% else %}
+      <div>Continúa con la siguiente pregunta sobre:</div>
+      <div>
+        <button type="submit">Valor de la Descentralización</button>
+      </div>
+
+    {% endif %}
+  </div>
+</form>
+
+
+{% endblock views %}
+
+
+{% block scripts %}
+{% endblock scripts %}
+

@@ -1,10 +1,10 @@
 from django.views.generic import TemplateView, View
-from .forms import PreguntaUnoForm, PreguntaDosForm, PreguntaCincoForm, DatosUsuarioForm
+from .forms import PreguntaUnoForm, PreguntaDosForm, PreguntaTresForm, PreguntaCuatroForm, PreguntaCincoForm, DatosUsuarioForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
-from .models import PreguntaUno, PreguntaDos, PreguntaCinco
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
 from django.contrib.sessions.backends.db import SessionStore
 from django.http import JsonResponse
 from applications.regioncomuna.models import Region, Comuna
@@ -26,11 +26,15 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
     form_class = DatosUsuarioForm
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
-    def form_valid(self, form):
-        pregunta = form.save(commit=False)
-        pregunta.usuario = self.request.user
-        pregunta.save()
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'instance': self.request.user
+        })
+        return kwargs
 
+    def form_valid(self, form):
+        form.save()
         return redirect('surveys_app:pregunta_uno')
 
     def get_context_data(self, **kwargs):
@@ -74,7 +78,7 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
         pregunta_dos.usuario = self.request.user
         pregunta_dos.save()
 
-        return redirect('surveys_app:pregunta_cinco')
+        return redirect('surveys_app:pregunta_tres')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -95,6 +99,66 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
 
 class PreguntaTresView(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/pregunta_tres.html'
+    form_class = PreguntaTresForm
+    model = PreguntaTres
+    login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def form_valid(self, form):
+        pregunta_tres = form.save(commit=False)
+        pregunta_tres.usuario = self.request.user
+        pregunta_tres.save()
+
+        return redirect('surveys_app:pregunta_cuatro')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usuario = self.request.user
+        try:
+            pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
+            context['iniciativa_1_guardada'] = pregunta_tres.iniciativa_1
+            context['iniciativa_2_guardada'] = pregunta_tres.iniciativa_2
+            context['iniciativa_3_guardada'] = pregunta_tres.iniciativa_3
+            context['iniciativa_4_guardada'] = pregunta_tres.iniciativa_4
+            context['iniciativa_5_guardada'] = pregunta_tres.iniciativa_5
+        except PreguntaTres.DoesNotExist:
+            context['iniciativa_1_guardada'] = None
+            context['iniciativa_2_guardada'] = None
+            context['iniciativa_3_guardada'] = None
+            context['iniciativa_4_guardada'] = None
+            context['iniciativa_5_guardada'] = None
+        return context
+
+
+class PreguntaCuatroView(LoginRequiredMixin, FormView):
+    template_name = 'apps/surveys/pregunta_cuatro.html'
+    form_class = PreguntaCuatroForm
+    model = PreguntaCuatro
+    login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def form_valid(self, form):
+        pregunta_cuatro = form.save(commit=False)
+        pregunta_cuatro.usuario = self.request.user
+        pregunta_cuatro.save()
+
+        return redirect('surveys_app:pregunta_cinco')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usuario = self.request.user
+        try:
+            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+            context['tematica_1_guardada'] = pregunta_cuatro.get_tematica_1_display()
+            context['tematica_2_guardada'] = pregunta_cuatro.get_tematica_2_display()
+            context['tematica_3_guardada'] = pregunta_cuatro.get_tematica_3_display()
+            context['tematica_4_guardada'] = pregunta_cuatro.get_tematica_4_display()
+            context['tematica_5_guardada'] = pregunta_cuatro.get_tematica_5_display()
+        except PreguntaCuatro.DoesNotExist:
+            context['tematica_1_guardada'] = None
+            context['tematica_2_guardada'] = None
+            context['tematica_3_guardada'] = None
+            context['tematica_4_guardada'] = None
+            context['tematica_5_guardada'] = None
+        return context
 
 
 class PreguntaCincoView(LoginRequiredMixin, FormView):
@@ -106,33 +170,9 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         pregunta_cinco = form.save(commit=False)
         pregunta_cinco.usuario = self.request.user
+        pregunta_cinco.save()
 
-        # recoger los datos del formulario de la sesión
-        pregunta_uno_data = self.request.session.get('pregunta_uno_data')
-        pregunta_dos_data = self.request.session.get('pregunta_dos_data')
-
-        # validar los datos del formulario y guardarlos en la base de datos si son válidos
-        if pregunta_uno_data is not None and pregunta_dos_data is not None:
-            pregunta_uno_form = PreguntaUnoForm(pregunta_uno_data)
-            pregunta_dos_form = PreguntaDosForm(pregunta_dos_data)
-            if pregunta_uno_form.is_valid() and pregunta_dos_form.is_valid():
-                pregunta_uno = pregunta_uno_form.save(commit=False)
-                pregunta_uno.usuario = self.request.user
-                pregunta_uno.save()
-
-                pregunta_dos = pregunta_dos_form.save(commit=False)
-                pregunta_dos.usuario = self.request.user
-                pregunta_dos.save()
-
-                pregunta_cinco.save()
-
-                return redirect('surveys_app:enviar_formularios')
-
-        # si los datos del formulario no son válidos o no están disponibles, redirigir al usuario a la primera página del formulario
-        return redirect('surveys_app:pregunta_uno')
-
-    def form_invalid(self, form):
-        return JsonResponse(form.errors, status=400)
+        return redirect('surveys_app:enviar_formularios')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -142,19 +182,6 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
             context['valor_guardado'] = pregunta_cinco.texto_respuesta
         except PreguntaCinco.DoesNotExist:
             context['valor_guardado'] = None
-
-        session = SessionStore()
-        pregunta_uno_valor = session.get('pregunta_uno_valor')
-        pregunta_dos_propuesta_1 = session.get('pregunta_dos_propuesta_1')
-        pregunta_dos_propuesta_2 = session.get('pregunta_dos_propuesta_2')
-        pregunta_dos_propuesta_3 = session.get('pregunta_dos_propuesta_3')
-        pregunta_dos_propuesta_4 = session.get('pregunta_dos_propuesta_4')
-
-        context['pregunta_uno_valor'] = pregunta_uno_valor
-        context['pregunta_dos_propuesta_1'] = pregunta_dos_propuesta_1
-        context['pregunta_dos_propuesta_2'] = pregunta_dos_propuesta_2
-        context['pregunta_dos_propuesta_3'] = pregunta_dos_propuesta_3
-        context['pregunta_dos_propuesta_4'] = pregunta_dos_propuesta_4
 
         return context
 

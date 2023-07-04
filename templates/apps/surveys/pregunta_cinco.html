@@ -87,3 +87,21 @@
 </section>
 
 {% endblock views %}
+
+{% block scripts %}
+
+<script>
+    function countWords() {
+        const messageInput = document.getElementById("id_texto_respuesta");
+        const wordCountElement = document.getElementById("message-word-count");
+
+        const message = messageInput.value;
+        const wordCount = message.trim().split(/\s+/).length;
+        wordCountElement.textContent = `${wordCount} / 250 palabras.`;
+    }
+
+    // Agregamos el "event listener"
+    document.getElementById("id_texto_respuesta").addEventListener('input', countWords);
+</script>
+
+{% endblock scripts %}

@@ -1,0 +1,18 @@
+{% load static %}
+<!-- Conteo de días para finalizar el proceso -->
+{% if days_left > 1 %}
+    <div>
+        <p class="h4 mb-2">Quedan {{ days_left }} días para el cierre del proceso.</p>
+    </div>
+{% elif days_left == 1 %}
+    <div>
+        <p class="h4 mb-2">Queda {{ days_left }} día para el cierre del proceso.</p>
+    </div>
+{% else %}
+    <div>
+        <p class="h4 mb-2">Este proceso ha finalizado el {{ end_date }}.</p>
+    </div>
+{% endif %}
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
