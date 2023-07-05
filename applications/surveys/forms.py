@@ -9,11 +9,12 @@ from applications.regioncomuna.models import Comuna, Region
 class DatosUsuarioForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('comuna', 'genero', 'edad')
+        fields = ('comuna', 'genero', 'edad', 'politica_privacidad')
         labels = {
             'comuna': '¿En qué comuna vives?',
             'genero': '¿Con qué género te identificas?',
             'edad': '¿Qué edad tienes?',
+            'politica_privacidad': 'Leí y acepto la Política de Privacidad.'
         }
         widgets = {
             'comuna': forms.Select(
@@ -39,6 +40,11 @@ class DatosUsuarioForm(forms.ModelForm):
                     'class': 'form-control border border-2 border-accent rounded text-muted'
                 }
             ),
+            'politica_privacidad': forms.CheckboxInput(
+                attrs={
+                    'required': True,
+                }
+            ),
         }
 
     def clean(self):
@@ -47,6 +53,7 @@ class DatosUsuarioForm(forms.ModelForm):
         comuna = cleaned_data.get('comuna')
         genero = cleaned_data.get('genero')
         edad = cleaned_data.get('edad')
+        politica_privacidad = cleaned_data.get('politica_privacidad')
 
         if not comuna:
             self.add_error(
@@ -59,6 +66,10 @@ class DatosUsuarioForm(forms.ModelForm):
         if not edad:
             self.add_error(
                 'edad', 'Debes introducir tu edad antes de continuar.')
+
+        if not politica_privacidad:
+            self.add_error(
+                'politica_privacidad', 'Debes aceptar la Política de Privacidad antes de continuar.')
 
         return cleaned_data
 
