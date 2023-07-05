@@ -5,26 +5,27 @@ from django.conf import settings
 import urllib
 import requests 
 from django.contrib.auth import login as auth_login  # Cambia el nombre de la importación para evitar conflictos
-from users.models import User
+from django.contrib.auth import logout as auth_logout
+from applications.users.models import User
 
 # Esta función maneja el inicio de la autenticación con Clave Única
-def claveunica_login(request):  
+def claveunica_login(request):
     client = WebApplicationClient(settings.CLAVE_UNICA_CLIENT_ID)
 
-    # Este es el endpoint de autorización de Clave Única
     authorization_endpoint = 'https://accounts.claveunica.gob.cl/openid/authorize/'
 
-    # Preparamos la URL de redirección al endpoint de autorización
-    uri, state = client.prepare_request_uri(
-        authorization_endpoint,
-        redirect_uri=settings.CLAVE_UNICA_REDIRECT_URI,
-        scope=["openid", "email", "profile"],
-    )
+    params = {
+        'client_id': settings.CLAVE_UNICA_CLIENT_ID,
+        'response_type': 'code',
+        'scope': 'openid run name',
+        'redirect_uri': settings.CLAVE_UNICA_REDIRECT_URI,
+    }
 
-    # Guardamos el estado en la sesión para poder comprobarlo más tarde
-    request.session['oauth_state'] = state
+    # Construye la URL de solicitud de autorización con los parámetros
+    uri = authorization_endpoint + '?' + urllib.parse.urlencode(params)
 
-    # Redirigimos al usuario a la página de autorización de Clave Única
+    request.session['oauth_state'] = '1'
+
     return redirect(uri)
 
 # Esta función maneja el callback después de que el usuario se autentica con Clave Única
@@ -68,8 +69,7 @@ def callback(request):
     userinfo = userinfo_response.json()
 
     # Aquí obtenemos el rut del usuario a partir de la información de Clave Única
-    rol_unico = userinfo.get('RolUnico')
-    rut = f"{rol_unico['numero']}-{rol_unico['DV']}"
+    rut = userinfo.get('RolUnico', {}).get('numero', '') + '-' + userinfo.get('RolUnico', {}).get('DV', '')
 
     # Buscamos el usuario en nuestra base de datos o lo creamos si no existe
     user, created = User.objects.get_or_create(
@@ -88,3 +88,15 @@ def callback(request):
     auth_login(request, user)  # Usa el nombre de la función importada
 
     return redirect('/')
+
+# Define la vista de logout
+def logout(request):
+    auth_logout(request)  # Cierra la sesión en tu aplicación Django
+
+    # Construye la URL de logout de Clave Única
+    logout_endpoint = 'https://accounts.claveunica.gob.cl/api/v1/accounts/app/logout'
+    post_logout_redirect_uri = 'https://www.hablemosdedescentralizacion.cl'  # URL a la que redirigir después del logout en tu aplicación
+    logout_url = f"{logout_endpoint}?post_logout_redirect_uri={post_logout_redirect_uri}"
+
+    return redirect(logout_url)  # Redirige al usuario al End-Session Endpoint de Clave Única
+

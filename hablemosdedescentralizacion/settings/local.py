@@ -54,7 +54,7 @@ ADMIN_EMAIL = ['modernizacion@subdere.gov.cl']
 NOREPLY_EMAIL = ['noreply@bancoproyectos.subdere.gob.cl']
 
 #Clave Única
-CLAVE_UNICA_CLIENT_ID = env("CLAVE_UNICA_CLIENT_ID_QA")
-CLAVE_UNICA_CLIENT_SECRET = env("CLAVE_UNICA_CLIENT_QA")
-CLAVE_UNICA_REDIRECT_URI = env("CLAVE_UNICA_REDIRECT_QA")
+CLAVE_UNICA_CLIENT_ID = 'f0a29848899147da8e17f90d7b8a142e'
+CLAVE_UNICA_CLIENT_SECRET ='55bdcfe678324f7baf7f559dd5c35aeb'
+CLAVE_UNICA_REDIRECT_URI = 'https://www.qadescentralizacion.subdere.gob.cl/pregunta-uno/'
 
