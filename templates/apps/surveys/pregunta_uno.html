@@ -2,14 +2,11 @@
 {% load static %}
 {% block views %}
 <section class="container">
-  <div class="cols-12 my-5">
+  <div class="cols-12 my-5  mx-3">
     <div class="row justify-content-center">
       <div class="col-md-6 mx-md-auto my-2">
-        <div class=" col mw-75 d-flex flex-column justify-content-center align-items-center">
-          <img src="{% static 'img/logo-descentralizacion.png' %}" class="w-75 mx-5 my-3 " />
-        </div>
+        {% include "components/desentralizacion_banner.html" %}
       </div>
-
       <div class="col-lg-12 d-flex justify-content-between my-2">
         <button type="button" class=" btn btn-pill-primary  text-nowrap"
           onclick="window.location.href='{% url 'surveys_app:consulta_datos_usuario' %}'"><i
@@ -24,16 +21,16 @@
           </i></button>
       </div>
 
-      <div class="col-12">
-        <p class="h3 text-center my-3">Pregunta 1 de 5:</p>
+      <div class="col-12 col-md-12">
+        <p class="font-level-1  text-center my-3">Pregunta 1 de 5:</p>
 
-        <p class="font-level-5 text-justify mx-5">¿Qué valor le otorgas a la descentralización en la cotidianeidad y en
+        <p class="font-level-4 text-justify mx-2">¿Qué valor le otorgas a la descentralización en la cotidianeidad y en
           la calidad de
           vida de las personas?</p>
-        <p class="font-level-5 text-justify mx-5">Responde desde tus propios conocimientos y experiencias.</p>
+        <p class="font-level-6 text-justify mx-2">Responde desde tus propios conocimientos y experiencias.</p>
       </div>
-      <div class="cols-12 my-lg-5">
-        <form id="pregunta-uno-form" method="post" action="{% url 'surveys_app:pregunta_uno' %}">
+      <div class="col-12 col-md-6 my-lg-5">
+        <form id="pregunta-uno-form mx-3" method="post" action="{% url 'surveys_app:pregunta_uno' %}">
           {% csrf_token %}
 
           {% if valor_guardado %}
@@ -61,8 +58,8 @@
           <input type="hidden" id="id_valor" name="valor" value="">
 
           <!-- Botón para el envío del formulario completo -->
-          <div class="my-3">
-            <p class="font-base text-md-center">Continúa con la siguiente pregunta sobre:</p>
+          <div class="my-4 mx-2">
+            <p class="font-level-5 text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
             <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">Impacto de la
               Descentralización <i class="material-symbols-outlined px-3">
                 arrow_forward_ios
@@ -73,13 +70,14 @@
         </form>
       </div>
     </div>
-</section>
-
+  </section>
+  <div class="my-3 col-md-12 mw-100 mx-0"">
+    {% include "components/logo_banner.html" %}
+  </div>
+  
 {% endblock views %}
 
 {% block scripts %}
-</div>
-</div>
 <script>
 
   // Cuando se selecciona un botón, deselecciona todos los demás
