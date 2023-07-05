@@ -28,5 +28,11 @@ urlpatterns = [
         views.DocumentosView.as_view(),
         name='documentos',
         ),
-        
+
+    path(
+        'politicas-privacidad',
+        views.PoliticasPrivacidadView.as_view(),
+        name='politivas_privacidad',
+        ),
+
 ]
