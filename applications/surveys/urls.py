@@ -11,6 +11,7 @@ urlpatterns = [
     path('pregunta-uno/', views.PreguntaUnoView.as_view(), name='pregunta_uno'),
     path('pregunta-dos/', views.PreguntaDosView.as_view(), name='pregunta_dos'),
     path('pregunta-tres/', views.PreguntaTresView.as_view(), name='pregunta_tres'),
+    path('pregunta-cuatro/', views.PreguntaCuatroView.as_view(), name='pregunta_cuatro'),
     path('pregunta-cinco/', views.PreguntaCincoView.as_view(), name='pregunta_cinco'),
     path('enviar-formularios/', views.EnviarFormulariosViews.as_view(), name='enviar_formularios'),
     

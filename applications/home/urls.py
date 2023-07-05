@@ -10,5 +10,23 @@ urlpatterns = [
         views.HomePageView.as_view(),
         name='index',
         ),
-    
+
+     path(
+        'proceso-participativo',
+        views.ProcesoParticipativoView.as_view(),
+        name='proceso_participativo',
+        ),
+
+     path(
+        'preguntas-frecuentes',
+        views.PreguntasFrecuentesView.as_view(),
+        name='preguntas_frecuentes',
+        ),
+
+    path(
+        'documentos',
+        views.DocumentosView.as_view(),
+        name='documentos',
+        ),
+        
 ]

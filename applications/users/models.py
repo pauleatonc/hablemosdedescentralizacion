@@ -17,9 +17,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     rut = models.CharField(max_length=15, validators=[validar_rut], unique=True)
     password = models.CharField(max_length=200, blank=True)
     email = models.TextField(max_length=100, blank=True, null=True)
-    genero = models.CharField(max_length=5, choices=USER_GENRE_CHOICES, default='PND')
+    genero = models.CharField(max_length=5, choices=USER_GENRE_CHOICES, blank=True, null=True)
     comuna = models.ForeignKey(Comuna, null=True, blank=True, verbose_name='Comuna', on_delete=models.SET_NULL)
     edad = models.PositiveIntegerField(blank=True, null=True)
+    politica_privacidad = models.BooleanField(blank=True, null=True, default=False)
 
     #Setiando el nombre de usuario al rut
     USERNAME_FIELD = 'rut'    

@@ -28,18 +28,13 @@ class PreguntaDos(models.Model):
     )
 
     propuesta_1 = models.IntegerField(choices=ITEMS,
-                                      help_text='La descentralización permite tomar decisiones, a partir de las '
-                                                'características, conocimientos y experiencias de los territorios y '
-                                                'sus comunidades.')
+                                      help_text='Permite tomar decisiones, a partir de las características, conocimientos y experiencias de los territorios y sus comunidades.')
     propuesta_2 = models.IntegerField(choices=ITEMS,
-                                      help_text='La descentralización permite fortalecer la democracia a nivel de '
-                                                'regiones y comunas.')
+                                      help_text='Fortalece la democracia a nivel de regiones y comunas.')
     propuesta_3 = models.IntegerField(choices=ITEMS,
-                                      help_text='La descentralización permite satisfacer necesidades de manera '
-                                                'oportuna y eficiente.')
+                                      help_text='Permite satisfacer necesidades de manera oportuna y eficiente.')
     propuesta_4 = models.IntegerField(choices=ITEMS,
-                                      help_text='La descentralización permite disminuir las desigualdades sociales y '
-                                                'territoriales.')
+                                      help_text='Disminuye las desigualdades sociales y territoriales.')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
 
@@ -58,22 +53,15 @@ class PreguntaTres(models.Model):
     )
 
     iniciativa_1 = models.IntegerField(choices=ITEMS,
-                                      help_text='Establecer mecanismos de participación ciudadana y rendición de '
-                                                'cuentas.')
+                                      help_text='Definir las tareas de la administración pública a nivel nacional, regional y comunal.')
     iniciativa_2 = models.IntegerField(choices=ITEMS,
-                                      help_text='Establecer qué le corresponde institucionalmente realizar a los '
-                                                'distintos niveles de la administración pública, nacional, regional y '
-                                                'comunal.')
+                                      help_text='Fortalecer habilidades técnicas y profesionales en comunas y regiones para impulsar el desarrollo económico, social y cultural.')
     iniciativa_3 = models.IntegerField(choices=ITEMS,
-                                      help_text='Garantizar la autonomía y el buen uso de los recursos financieros '
-                                                'públicos.')
+                                      help_text='Establecer mecanismos de participación ciudadana y rendición de cuentas.')
     iniciativa_4 = models.IntegerField(choices=ITEMS,
-                                      help_text='Coordinar a distintos actores públicos, privados y sociales, para la '
-                                                'mejor obtención de objetivos de desarrollo.')
+                                      help_text='Garantizar la autonomía y el buen uso de los recursos financieros públicos.')
     iniciativa_5 = models.IntegerField(choices=ITEMS,
-                                      help_text='Fortalecer capacidades técnicas y profesionales en comunas y regiones, '
-                                                'para generar mayores oportunidades de desarrollo económico, social y '
-                                                'cultural.')
+                                      help_text='Coordinar a distintos actores públicos, privados y sociales, para la mejor obtención de objetivos de desarrollo.')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:

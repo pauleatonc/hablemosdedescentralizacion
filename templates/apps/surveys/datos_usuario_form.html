@@ -2,43 +2,136 @@
 {% load static %}
 
 {% block views %}
-<div>
-    <h2>Primero, queremos saber de ti:</h2>
-</div>
 
-<div>Antes de comenzar, queremos saber un poco de tí:</div>
+<section class="container-fluid">
+    <div class="cols-12 m-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 mx-md-auto my-2 mx-md-5">
+                {% include "components/desentralizacion_banner.html" %}
+                <p class="font-level-1 text-center font-weight-bold text-md-left">Antes de empezar,<br
+                        class="d-block d-md-none"> queremos saber
+                    <br class="d-none d-sm-block d-md-none"> de tí:
+                </p>
+            </div>
+            <p class="font-level-1 text-center font-weight-bold text-md-left">Antes de empezar,<br
+                    class="d-block d-md-none"> queremos saber
+                <br class="d-none d-sm-block d-md-none"> de tí:
+            </p>
+        </div>
+        <div class="container-fluid">
+            <div class="cols-12 mx-5 mx-md-5">
+                <div class="row justify-content-center">
+                    <form class="col-md-6" method="POST">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div >
+                            <label for="region">¿En qué región vives?</label>
+                            <div class="input-group-prepend border border-2 border-accent rounded">
+                                <select class="form-control" id="region" name="region" required>
+                                    <option value="" class='text-muted'>Elige una opción</option>
+                                    {% for region in regiones %}
+                                    <option value="{{ region.id }}">{{ region.region }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div id="region_error" style="color: red; display: none;">
+                                Debes elegir una región antes de continuar.
+                            </div>
+                        </div>
+                        <div class='my-3 my-md-4'>
+                            {{ form.comuna.label_tag }}
+                            {% if comuna_guardada %}
+                                <div class="input-group-prepend border border-2 border-accent rounded">
+                                    <select class="form-control" id="comuna" name="comuna" required>
+                                        <option value="{{ comuna_guardada.id }}" selected>{{ comuna_guardada }}</option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                {{ form.comuna }}
+                                {{ form.comuna.errors }}
+                            {% endif %}
+                        </div>
+                        <div class='my-3 my-md-4'>
+                            {{ form.genero.label_tag }}
+                            {% if genero_guardada %}
+                                <div class="input-group-prepend border border-2 border-accent rounded">
+                                    <select class="form-control" id="genero" name="genero" required>
+                                        <option value="{{ genero_guardada.id }}" selected>{{ genero_guardada }}</option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                {{ form.genero }}
+                                {{ form.genero.errors }}
+                            {% endif %}
+                        </div>
+                        <div class='my-3 my-md-4'>
+                            {{ form.edad.label_tag }}
+                            {{ form.edad }}
+                            {{ form.edad.errors }}
+                        </div>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div>
-        <label for="region">Región</label>
-        <select id="region" name="region" required>
-            <option value="">Selecciona una región</option>
-            {% for region in regiones %}
-                <option value="{{ region.id }}">{{ region.region }}</option>
-            {% endfor %}
-        </select>
-        <div id="region_error" style="color: red; display: none;">
-            Debes elegir una región antes de continuar.
+                        <div class="my-md-4">
+                            <div class="form-group my-3">
+                                <div class='my-3 my-md-4'>
+                                    {{ form.politica_privacidad.label_tag }}
+                                    {{ form.politica_privacidad }}
+                                    {{ form.politica_privacidad.errors }}
+                                </div>
+                                <div class="my-4">
+                                    <p class="font-base text-md-center" >Continúa con la siguiente pregunta sobre:</p>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+                                        Valor de la Descentralización
+                                        <i class="material-symbols-outlined px-3">
+                                            arrow_forward_ios
+                                        </i></button>
+                                </div>
+                            </div>
+                            <div class='my-3 my-md-4'>
+                                {{ form.comuna.label_tag }}
+                                {{ form.comuna }}
+                                {{ form.comuna.errors }}
+                            </div>
+                            <div class='my-3 my-md-4'>
+                                {{ form.genero.label_tag }}
+                                {{ form.genero }}
+                                {{ form.genero.errors }}
+                            </div>
+                            <div class='my-3 my-md-4'>
+                                {{ form.edad.label_tag }}
+                                {{ form.edad }}
+                                {{ form.edad.errors }}
+                            </div>
+                            <div class="my-md-4">
+                                <div class="form-group my-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input roudend" id="customCheckExample"
+                                            type="checkbox" />
+                                        <label class="custom-control-label font-level-6" for="customCheckExample">Leí y
+                                            acepto
+                                            la Política de Privacidad.</label>
+                                    </div>
+                                    <div class="my-4 mx-auto">
+                                        <p class="font-base text-md-center">Continúa con la siguiente pregunta sobre:
+                                        </p>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block text-nowrap"
+                                            value="Submit">
+                                            Valor de
+                                            la Descentralización
+                                            <i class="material-symbols-outlined px-3 ">
+                                                arrow_forward_ios
+                                            </i></button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-        {{ form.comuna.label_tag }} {{ form.comuna }}
-        {{ form.comuna.errors }}
-    </div>
-    <div>
-        {{ form.genero.label_tag }} {{ form.genero }}
-        {{ form.genero.errors }}
-    </div>
-    <div>
-        {{ form.edad.label_tag }} {{ form.edad }}
-        {{ form.edad.errors }}
-    </div>
-    <div>Continúa con la siguiente pregunta sobre:</div>
-    <button type="submit" value="Submit"> Valor de la Descentralización</button>
-</form>
-
+</section>
+<div class="my-3 col-md-12 mw-100 mx-0">
+    {% include "components/logo_banner.html" %}
+</div>
 
 {% endblock views %}
 
@@ -46,44 +139,55 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    // Ocultar el campo de comuna al cargar la página
-    $('#id_comuna').parent().hide();
+    $(document).ready(function ()
+    {
+        // Ocultar el campo de comuna al cargar la página
+        $('#id_comuna').parent().hide();
 
-    $('#region').change(function() {
-        if ($(this).val() != '') {
-            // Si se selecciona una región, mostrar el campo de comuna
-            $('#id_comuna').parent().show();
-        } else {
-            // Si no se selecciona ninguna región, ocultar el campo de comuna
+        $('#region').change(function ()
+        {
+            if ($(this).val() != '')
+            {
+                // Si se selecciona una región, mostrar el campo de comuna
+                $('#id_comuna').parent().show();
+            } else
+            {
+                // Si no se selecciona ninguna región, ocultar el campo de comuna
+                $('#id_comuna').parent().hide();
+            }
+        });
+
+        $('form').submit(function (e)
+        {
+            if ($('#region').val() == '')
+            {
+                // Si el campo de región está vacío cuando se intenta enviar el formulario, mostrar el mensaje de error y evitar que el formulario se envíe
+                e.preventDefault();
+                $('#region_error').show();
+            }
+        });
+    });
+
+    $('#region').change(function ()
+    {
+        var regionId = $(this).val();
+        if (regionId != '')
+        {
+            $.getJSON('{% url "surveys_app:comunas_por_region" region_id=0 %}'.slice(0, -2) + regionId + '/', function (comunas)
+            {
+                var options = '<option value="">Selecciona una comuna</option>';
+                for (var i = 0; i < comunas.length; i++)
+                {
+                    options += '<option value="' + comunas[ i ].id + '">' + comunas[ i ].comuna + '</option>';
+                }
+                $('#id_comuna').html(options);
+                $('#id_comuna').parent().show();
+            });
+        } else
+        {
             $('#id_comuna').parent().hide();
         }
     });
-
-    $('form').submit(function(e) {
-        if ($('#region').val() == '') {
-            // Si el campo de región está vacío cuando se intenta enviar el formulario, mostrar el mensaje de error y evitar que el formulario se envíe
-            e.preventDefault();
-            $('#region_error').show();
-        }
-    });
-});
-
-$('#region').change(function() {
-    var regionId = $(this).val();
-    if (regionId != '') {
-        $.getJSON('{% url "surveys_app:comunas_por_region" region_id=0 %}'.slice(0,-2) + regionId + '/', function(comunas) {
-            var options = '<option value="">Selecciona una comuna</option>';
-            for (var i = 0; i < comunas.length; i++) {
-                options += '<option value="' + comunas[i].id + '">' + comunas[i].comuna + '</option>';
-            }
-            $('#id_comuna').html(options);
-            $('#id_comuna').parent().show();
-        });
-    } else {
-        $('#id_comuna').parent().hide();
-    }
-});
 
 </script>
 
