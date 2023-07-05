@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block views %}
+<section class="container-fluid mt-3 mt-md-5">
+    <div  class="d-flex justify-content-center mb-md-5">
+        <div class="col-md-6">
+            <p class="h1 font-weight-bold my-md-3">Página no encontrada.</p>
+            <p class="'text-primary">Código de error: 404 - No encontrado.</p>
+            <p class="h4 my-md-3">Sentimos no haber encontrado la página que buscabas. Es posible que 
+                <strong>haya cambiado de ubicación, haya sido eliminada o no existe.</strong>
+            </p>
+            <ul class="my-4">
+                <li class="h4 my-md-3">Si escribiste la dirección, revisa que no haya errores de escritura.</li>
+                <li class="h4 my-md-3">Si copiaste y pegaste la dirección, revisa si copiaste la dirección completa.</li>   
+            </ul>
+            <p class="h4 mb-5 my-md-3">Si crees que esto se puede tratar de un error de la plataforma, escríbenos a 
+                <b>descentralizacion@subdere.gov.cl</b> explicando la situación, así podremos derivarla al área correspondiente.
+            </p>
+        
+        </div>
+    </div>
+    
+</section>
+
+{% endblock views %}
