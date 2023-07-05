@@ -37,33 +37,47 @@
                         </div>
                         <div class='my-3 my-md-4'>
                             {{ form.comuna.label_tag }}
-                            {{ form.comuna }}
-                            {{ form.comuna.errors }}
+                            {% if comuna_guardada %}
+                                <div class="input-group-prepend border border-2 border-accent rounded">
+                                    <select class="form-control" id="comuna" name="comuna" required>
+                                        <option value="{{ comuna_guardada.id }}" selected>{{ comuna_guardada }}</option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                {{ form.comuna }}
+                                {{ form.comuna.errors }}
+                            {% endif %}
                         </div>
                         <div class='my-3 my-md-4'>
                             {{ form.genero.label_tag }}
-                            {{ form.genero }}
-                            {{ form.genero.errors }}
+                            {% if genero_guardada %}
+                                <div class="input-group-prepend border border-2 border-accent rounded">
+                                    <select class="form-control" id="genero" name="genero" required>
+                                        <option value="{{ genero_guardada.id }}" selected>{{ genero_guardada }}</option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                {{ form.genero }}
+                                {{ form.genero.errors }}
+                            {% endif %}
                         </div>
                         <div class='my-3 my-md-4'>
                             {{ form.edad.label_tag }}
                             {{ form.edad }}
                             {{ form.edad.errors }}
                         </div>
+
                         <div class="my-md-4">
                             <div class="form-group my-3">
-                                <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input roudend" id="customCheckExample"
-                                        type="checkbox" />
-                                    <label class="custom-control-label font-level-6" for="customCheckExample">Leí y
-                                        acepto
-                                        la Política de Privacidad.</label>
+                                <div class='my-3 my-md-4'>
+                                    {{ form.politica_privacidad.label_tag }}
+                                    {{ form.politica_privacidad }}
+                                    {{ form.politica_privacidad.errors }}
                                 </div>
                                 <div class="my-4">
                                     <p class="font-base text-md-center" >Continúa con la siguiente pregunta sobre:</p>
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
-                                        Valor de
-                                        la Descentralización
+                                        Valor de la Descentralización
                                         <i class="material-symbols-outlined px-3">
                                             arrow_forward_ios
                                         </i></button>
