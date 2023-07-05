@@ -8,7 +8,10 @@ from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, Preg
 from django.contrib.sessions.backends.db import SessionStore
 from django.http import JsonResponse
 from applications.regioncomuna.models import Region, Comuna
+from applications.users.models import User
 from django.http import JsonResponse
+from django.utils import timezone
+from django.contrib import messages
 
 from formtools.wizard.views import SessionWizardView
 
@@ -40,6 +43,19 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['regiones'] = Region.objects.all()
+        usuario = self.request.user
+        try:
+            context['region_guardada'] = usuario.comuna.region
+            context['comuna_guardada'] = usuario.comuna
+            context['genero_guardada'] = usuario.get_genero_display()
+            context['edad_guardada'] = usuario.edad
+            context['politica_privacidad_guardada'] = usuario.politica_privacidad
+        except PreguntaDos.DoesNotExist:
+            context['region_guardada'] = None
+            context['comuna_guardada'] = None
+            context['genero_guardada'] = None
+            context['edad_guardada'] = None
+            context['politica_privacidad_guardada'] = None
         return context
 
 
@@ -48,6 +64,13 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
     form_class = PreguntaUnoForm
     model = PreguntaUno
     login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def dispatch(self, request, *args, **kwargs):
+        if 'session_start_time' not in request.session:
+            request.session['session_start_time'] = timezone.now().isoformat()
+            request.session['session_counter'] = request.session.get('session_counter', 0) + 1
+            messages.info(request, f'Esta es la sesión número {request.session["session_counter"]}')
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         pregunta_uno = form.save(commit=False)

@@ -17,12 +17,23 @@ class HomePageView(TemplateView):
         return context
 
 
-class Error404(TemplateView):
-    template_name = 'home/404.html'
+class ProcesoParticipativoView(TemplateView):
+    template_name = 'apps/home/proceso_participativo.html'
 
-    
+
+class PreguntasFrecuentesView(TemplateView):
+    template_name = 'apps/home/preguntas_frecuentes.html'
+
+
+class DocumentosView(TemplateView):
+    template_name = 'apps/home/documentos.html'
+
+
+class Error404(TemplateView):
+    template_name = 'apps/errores/error404.html'
+   
 class Error500(TemplateView):
-    template_name = "home/500.html"
+    template_name = 'apps/errores/error500.html'
 
     @classmethod
     def as_error_view(cls):
@@ -36,7 +47,7 @@ class Error500(TemplateView):
 
 
 class Error503(TemplateView):
-    template_name = 'home/503.html'
+    template_name = 'apps/errores/error503.html'
 
     @classmethod
     def as_error_view(cls):
@@ -48,5 +59,4 @@ class Error503(TemplateView):
             return r
 
         return view
-
     

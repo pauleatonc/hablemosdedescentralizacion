@@ -19,10 +19,22 @@ from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+#urls errores 
+from django.conf.urls import handler404 , handler500 
+from applications.home.views import Error404 , Error500 , Error503
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('', include('applications.users.urls')),
     re_path('', include('applications.home.urls')),
     re_path('', include('applications.surveys.urls'))
-] 
+]
+
+handler404 = Error404.as_view()
+
+handler500 = Error500.as_error_view()
+
+urlpatterns += [
+path('503/', Error503.as_error_view(), name='error_503'),
+]

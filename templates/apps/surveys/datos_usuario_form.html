@@ -13,24 +13,77 @@
                     <br class="d-none d-sm-block d-md-none"> de tí:
                 </p>
             </div>
-            <div class="container-fluid">
-                <div class="cols-12 mx-0 mx-md-5">
-                    <div class="row justify-content-center">
-                        <form class="col-md-6 mx-auto col-lg-4 p-0" method="POST">
-                            {% csrf_token %}
-                            {{ form.non_field_errors }}
-                            <div>
-                                <label for="region">¿En qué región vives?</label>
+            <p class="font-level-1 text-center font-weight-bold text-md-left">Antes de empezar,<br
+                    class="d-block d-md-none"> queremos saber
+                <br class="d-none d-sm-block d-md-none"> de tí:
+            </p>
+        </div>
+        <div class="container-fluid">
+            <div class="cols-12 mx-5 mx-md-5">
+                <div class="row justify-content-center">
+                    <form class="col-md-6" method="POST">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div >
+                            <label for="region">¿En qué región vives?</label>
+                            <div class="input-group-prepend border border-2 border-accent rounded">
+                                <select class="form-control" id="region" name="region" required>
+                                    <option value="" class='text-muted'>Elige una opción</option>
+                                    {% for region in regiones %}
+                                    <option value="{{ region.id }}">{{ region.region }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div id="region_error" style="color: red; display: none;">
+                                Debes elegir una región antes de continuar.
+                            </div>
+                        </div>
+                        <div class='my-3 my-md-4'>
+                            {{ form.comuna.label_tag }}
+                            {% if comuna_guardada %}
                                 <div class="input-group-prepend border border-2 border-accent rounded">
-                                    <select class="form-control" id="region" name="region" required>
-                                        <option value="" class='text-muted'>Elige una opción</option>
-                                        {% for region in regiones %}
-                                        <option value="{{ region.id }}">{{ region.region }}</option>
-                                        {% endfor %}
+                                    <select class="form-control" id="comuna" name="comuna" required>
+                                        <option value="{{ comuna_guardada.id }}" selected>{{ comuna_guardada }}</option>
                                     </select>
                                 </div>
-                                <div id="region_error" style="color: red; display: none;">
-                                    Debes elegir una región antes de continuar.
+                            {% else %}
+                                {{ form.comuna }}
+                                {{ form.comuna.errors }}
+                            {% endif %}
+                        </div>
+                        <div class='my-3 my-md-4'>
+                            {{ form.genero.label_tag }}
+                            {% if genero_guardada %}
+                                <div class="input-group-prepend border border-2 border-accent rounded">
+                                    <select class="form-control" id="genero" name="genero" required>
+                                        <option value="{{ genero_guardada.id }}" selected>{{ genero_guardada }}</option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                {{ form.genero }}
+                                {{ form.genero.errors }}
+                            {% endif %}
+                        </div>
+                        <div class='my-3 my-md-4'>
+                            {{ form.edad.label_tag }}
+                            {{ form.edad }}
+                            {{ form.edad.errors }}
+                        </div>
+
+                        <div class="my-md-4">
+                            <div class="form-group my-3">
+                                <div class='my-3 my-md-4'>
+                                    {{ form.politica_privacidad.label_tag }}
+                                    {{ form.politica_privacidad }}
+                                    {{ form.politica_privacidad.errors }}
+                                </div>
+                                <div class="my-4">
+                                    <p class="font-base text-md-center" >Continúa con la siguiente pregunta sobre:</p>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+                                        Valor de la Descentralización
+                                        <i class="material-symbols-outlined px-3">
+                                            arrow_forward_ios
+                                        </i></button>
                                 </div>
                             </div>
                             <div class='my-3 my-md-4'>
