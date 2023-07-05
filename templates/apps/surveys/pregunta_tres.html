@@ -2,168 +2,205 @@
 {% load static %}
 
 {% block views %}
-<div>
-  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Ir atrás</button>
+
+<section class="container">
+  <div class="cols-12 my-5 mx-3">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mx-md-auto my-2">
+        {% include "components/desentralizacion_banner.html" %}
+      </div>
+      <div class="col-lg-12 d-flex justify-content-between my-2">
+        <button type="button" class=" btn btn-pill-primary  text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'"><i class="material-symbols-outlined">
+            chevron_left
+          </i>Ir atrás</button>
+        <button type="button" class=" btn btn-pill-primary  text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">Siguiente<i
+            class="material-symbols-outlined">
+            chevron_right
+          </i></button>
+      </div>
+      <div class="col-12 col-md-12  col-lg-10 mx">
+        <p class="font-level-1  text-center my-3">Pregunta 3 de 5:</p>
+
+        <p class="font-level-5 text-justify mx-2">Te presentamos 5 de las iniciativas que podrían ser incluidas dentro
+          de la Política Nacional de Descentralización. </p>
+        <lu>
+          <p class="font-level-6 text-justify mx-2 font-weight-bold">Ordénalas de mayor a menor importancia considerando
+            que:</p>
+          <li class=" font-level-5 ml-3 "><strong>1</strong> es la <strong>más </strong>importante</li>
+          <li class=" font-level-5 ml-3"><strong>5</strong> es la <strong>menos </strong>importante.</li>
+        </lu>
+        <div id="frase" class="font-level-4 my-3">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 ml-2 mt-3"> 1 de importancia.</strong></div>
+      </div>
+      <div class="col-12 col-md-8 col-lg-6 mx-5 my-3 justify-content-center "> 
+        <form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
+          {% csrf_token %}
+
+          <div class="my-2">
+            {% if iniciativa_1_guardada %}
+            {{ form.iniciativa_1.help_text }}
+            <input type="text" name="iniciativa_1" value="{{ iniciativa_1_guardada }}" readonly>
+            {% else %}
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_1">
+              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_1">
+            {% endif %}
+          </div>
+
+          <div class="my-2">
+            {% if iniciativa_2_guardada %}
+            {{ form.iniciativa_2.help_text }}
+            <input type="text" name="iniciativa_2" value="{{ iniciativa_2_guardada }}" readonly>
+            {% else %}
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_2">
+              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_2">
+            {% endif %}
+          </div>
+
+          <div class="my-2">
+            {% if iniciativa_3_guardada %}
+            {{ form.iniciativa_3.help_text }}
+            <input type="text" name="iniciativa_3" value="{{ iniciativa_3_guardada }}" readonly>
+            {% else %}
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_3">
+              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_3">
+            {% endif %}
+          </div>
+
+          <div class="my-2">
+            {% if iniciativa_4_guardada %}
+            {{ form.iniciativa_4.help_text }}
+            <input type="text" name="iniciativa_4" value="{{ iniciativa_4_guardada }}" readonly>
+            {% else %}
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_4">
+              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold text-dark  mx-3 align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_4">
+            {% endif %}
+          </div>
+
+          <div class="my-2">
+            {% if iniciativa_5_guardada %}
+            {{ form.iniciativa_5.help_text }}
+            <input type="text" name="iniciativa_5" value="{{ iniciativa_5_guardada }}" readonly>
+            {% else %}
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_5">
+              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_5">
+            {% endif %}
+          </div>
+
+          <!-- Muestra errores del campo valor -->
+          {% if form.non_field_errors %}
+          <!-- Muestra el mensaje de error específico -->
+          <p>{{ form.non_field_errors }}</p>
+          {% endif %}
+
+          <div class="my-2">
+            {% if iniciativa_1_guardada %}
+            <div>Continúa con la siguiente pregunta sobre:</div>
+            <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">
+                Inclusión de temáticas</button>
+            </div>
+
+            {% else %}
+            <div>
+              <!-- Botón para reiniciar selección -->
+              <div class="d-flex my-4 mx-2">  
+              <button type="button" id="reiniciar"   class="btn btn-outline-secondary btn-lg rounded text-decoration-none" style="display: none;">Limpiar ranking <i class="material-symbols-outlined">
+                delete
+                </i></button>
+            </div>
+            <p class="font-level-5 text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Inclusión de temáticas <i class="material-symbols-outlined px-3">
+                arrow_forward_ios
+              </i></button>
+            </div>
+
+            {% endif %}
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="my-3 col-md-12 mw-100 mx-0"">
+  {% include "components/logo_banner.html" %}
 </div>
-<div>
-  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">Siguiente</button>
-</div>
-<div><h3>Pregunta 3 de 5:</h3></div>
-<div>A continuación, se presentan algunas de las iniciativas que podrían ser incluidas dentro de la Política Nacional
-  de Descentralización.<br> En su opinión,<br>¿Qué importancia les otorgaría usted?</div>
-<div>Por favor ordénelas, considerando que 1 es la más importante, y 5 es la menos importante.</div>
-<div id="frase">Elige cuál enunciado ocupa el lugar 1 de importancia.</div>
-
-<form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
-  {% csrf_token %}
-
-  <div>
-      {% if iniciativa_1_guardada %}
-        {{ form.iniciativa_1.help_text }}
-        <input type="text" name="iniciativa_1" value="{{ iniciativa_1_guardada }}" readonly>
-      {% else %}
-        <button type="button" class="iniciativa" id="iniciativa_1">
-          <div class="iniciativa-text">{{ form.iniciativa_1.help_text }}</div>
-          <div class="iniciativa-check">-</div>
-        </button>
-        <input type="hidden" name="iniciativa_1">
-      {% endif %}
-  </div>
-
-  <div>
-      {% if iniciativa_2_guardada %}
-        {{ form.iniciativa_2.help_text }}
-        <input type="text" name="iniciativa_2" value="{{ iniciativa_2_guardada }}" readonly>
-      {% else %}
-        <button type="button" class="iniciativa" id="iniciativa_2">
-          <div class="iniciativa-text">{{ form.iniciativa_2.help_text }}</div>
-          <div class="iniciativa-check">-</div>
-        </button>
-        <input type="hidden" name="iniciativa_2">
-      {% endif %}
-  </div>
-
-  <div>
-      {% if iniciativa_3_guardada %}
-        {{ form.iniciativa_3.help_text }}
-        <input type="text" name="iniciativa_3" value="{{ iniciativa_3_guardada }}" readonly>
-      {% else %}
-        <button type="button" class="iniciativa" id="iniciativa_3">
-          <div class="iniciativa-text">{{ form.iniciativa_3.help_text }}</div>
-          <div class="iniciativa-check">-</div>
-        </button>
-        <input type="hidden" name="iniciativa_3">
-      {% endif %}
-  </div>
-
-  <div>
-      {% if iniciativa_4_guardada %}
-        {{ form.iniciativa_4.help_text }}
-        <input type="text" name="iniciativa_4" value="{{ iniciativa_4_guardada }}" readonly>
-      {% else %}
-        <button type="button" class="iniciativa" id="iniciativa_4">
-          <div class="iniciativa-text">{{ form.iniciativa_4.help_text }}</div>
-          <div class="iniciativa-check">-</div>
-        </button>
-        <input type="hidden" name="iniciativa_4">
-      {% endif %}
-  </div>
-  
-  <div>
-      {% if iniciativa_5_guardada %}
-        {{ form.iniciativa_5.help_text }}
-        <input type="text" name="iniciativa_5" value="{{ iniciativa_5_guardada }}" readonly>
-      {% else %}
-        <button type="button" class="iniciativa" id="iniciativa_5">
-          <div class="iniciativa-text">{{ form.iniciativa_5.help_text }}</div>
-          <div class="iniciativa-check">-</div>
-        </button>
-        <input type="hidden" name="iniciativa_5">
-      {% endif %}
-  </div>
-
-  <!-- Muestra errores del campo valor -->
-    {% if form.non_field_errors %}
-      <!-- Muestra el mensaje de error específico -->
-      <p>{{ form.non_field_errors }}</p>
-    {% endif %}
-
-  <div>
-    {% if iniciativa_1_guardada %}
-      <div>Continúa con la siguiente pregunta sobre:</div>
-      <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">
-        Inclusión de temáticas</button>
-      </div>
-
-    {% else %}
-      <div><!-- Botón para reiniciar selección -->
-        <button type="button" id="reiniciar" style="display: none;">Reiniciar</button>
-      </div>
-      <div>Continúa con la siguiente pregunta sobre:</div>
-      <div>
-        <button type="submit">Inclusión de temáticas</button>
-      </div>
-
-    {% endif %}
-  </div>
-
-</form>
-
 {% endblock views %}
 
 {% block scripts %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
+  $(document).ready(function ()
+  {
     var prioridad = 1;
     var seleccionados = {};
 
-      $('.iniciativa').on('click', function() {
+    $('.iniciativa').on('click', function ()
+    {
       var iniciativaId = $(this).attr('id');
 
-      if (!$(this).prop("disabled")) {
-          // Marcamos la iniciativa como seleccionada
-          $(this).prop('disabled', true);
+      if (!$(this).prop("disabled"))
+      {
+        // Marcamos la iniciativa como seleccionada
+        $(this).prop('disabled', true);
 
-          // Cambiamos el contenido del div de verificación
-          $(this).find('.iniciativa-check').text(prioridad);
+        // Cambiamos el contenido del div de verificación
+        $(this).find('.iniciativa-check').text(prioridad);
 
-          // Guardamos la prioridad en un objeto
-          seleccionados[iniciativaId] = prioridad;
+        // Guardamos la prioridad en un objeto
+        seleccionados[ iniciativaId ] = prioridad;
 
-          // Cambiamos el valor del campo oculto asociado
-          $('input[name=' + iniciativaId + ']').val(prioridad);
+        // Cambiamos el valor del campo oculto asociado
+        $('input[name=' + iniciativaId + ']').val(prioridad);
 
-          // Cambiamos el texto de la frase
-          prioridad++;
-          if (prioridad <= 5) {
-              $('#frase').text('Elige cuál enunciado ocupa el lugar ' + prioridad + ' de importancia.');
-          }
+        // Cambiamos el texto de la frase
+        prioridad++;
+        if (prioridad <= 5)
+        {
+          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+        }
 
-          // Mostramos el botón de reinicio si todas las iniciativas tienen una prioridad
-          if (Object.keys(seleccionados).length === 4) {
-              $('#reiniciar').show();
-          }
+        // Mostramos el botón de reinicio si todas las iniciativas tienen una prioridad
+        if (Object.keys(seleccionados).length === 4)
+        {
+          $('#reiniciar').show();
+        }
       }
     });
 
-    $('#reiniciar').on('click', function() {
-        $('.iniciativa').prop('disabled', false);
-        $('.iniciativa-check').text('-');
-        $('input[name=iniciativa_1]').val('');
-        $('input[name=iniciativa_2]').val('');
-        $('input[name=iniciativa_3]').val('');
-        $('input[name=iniciativa_4]').val('');
-        $('input[name=iniciativa_5]').val('');
-        prioridad = 1;
-        seleccionados = {};
-        $('#frase').text('Elige cuál enunciado ocupa el lugar ' + prioridad + ' de importancia.');
-        $('#reiniciar').hide();
+    $('#reiniciar').on('click', function ()
+    {
+      $('.iniciativa').prop('disabled', false);
+      $('.iniciativa-check').text('-');
+      $('input[name=iniciativa_1]').val('');
+      $('input[name=iniciativa_2]').val('');
+      $('input[name=iniciativa_3]').val('');
+      $('input[name=iniciativa_4]').val('');
+      $('input[name=iniciativa_5]').val('');
+      prioridad = 1;
+      seleccionados = {};
+      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+      $('#reiniciar').hide();
     });
 
-});
+  });
 </script>
 
 {% endblock scripts %}
-
