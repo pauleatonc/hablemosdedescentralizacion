@@ -24,7 +24,7 @@ urlpatterns = [
         ),
 
     path(
-        'documentos',
+        'documentos/',
         views.DocumentosView.as_view(),
         name='documentos',
         ),
