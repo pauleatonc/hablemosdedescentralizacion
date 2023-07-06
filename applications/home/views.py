@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 
 # importar modelos
-from . models import Countdown
+from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos, SeccionDocumentos
 
 # importar apps de terceros
 
@@ -23,6 +23,12 @@ class ProcesoParticipativoView(TemplateView):
 
 class PreguntasFrecuentesView(TemplateView):
     template_name = 'apps/home/preguntas_frecuentes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['preguntas'] = PreguntasFrecuentes.objects.all()
+
+        return context
 
 
 class DocumentosView(TemplateView):

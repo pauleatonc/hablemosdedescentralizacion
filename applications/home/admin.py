@@ -1,6 +1,8 @@
 from django.contrib import admin
+from import_export.admin import ImportExportMixin
+from import_export.resources import ModelResource
 
-from .models import Countdown
+from .models import Countdown, TipoDocumentos, SeccionDocumentos, Documentos, PreguntasFrecuentes
 
 from datetime import datetime
 
@@ -20,3 +22,42 @@ class CountdownAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Countdown, CountdownAdmin)
+
+
+class PreguntasFrecuentesResource(ModelResource):
+    class Meta:
+        model = PreguntasFrecuentes
+
+@admin.register(PreguntasFrecuentes)
+class RegionAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = PreguntasFrecuentesResource
+
+
+class TipoDocumentosResource(ModelResource):
+    class Meta:
+        model = TipoDocumentos
+
+
+@admin.register(TipoDocumentos)
+class RegionAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = TipoDocumentosResource
+    
+    
+class SeccionDocumentosResource(ModelResource):
+    class Meta:
+        model = SeccionDocumentos
+
+
+@admin.register(SeccionDocumentos)
+class RegionAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = SeccionDocumentosResource
+    
+    
+class DocumentosResource(ModelResource):
+    class Meta:
+        model = Documentos
+
+
+@admin.register(Documentos)
+class RegionAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = DocumentosResource
