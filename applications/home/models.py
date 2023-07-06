@@ -41,7 +41,7 @@ class TipoDocumentos(models.Model):
 
 class SeccionDocumentos(models.Model):
 
-    seccion_documento = models.CharField(max_length=50, unique=True)
+    seccion_documento = models.CharField(max_length=100, unique=True)
     tipo_documento = models.ForeignKey(TipoDocumentos, blank=False, on_delete=models.CASCADE)
 
     class Meta:
