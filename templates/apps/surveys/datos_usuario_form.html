@@ -3,15 +3,12 @@
 
 {% block views %}
 
-<section class="container-fluid">
+<section>
     <div class="cols-12 m-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4 mx-md-auto my-2 mx-md-5">
-                {% include "components/desentralizacion_banner.html" %}
-                <p class="font-level-1 text-center font-weight-bold text-md-left">Antes de empezar,<br
-                        class="d-block d-md-none"> queremos saber
-                    <br class="d-none d-sm-block d-md-none"> de tí:
-                </p>
+    <div class="row justify-content-center">
+        <div class="col-md-6 mx-md-auto my-2 mx-5">
+            <div class=" col mw-75 d-flex flex-column justify-content-center align-items-center">
+                <img src="{% static 'img/logo-descentralizacion.png' %}" class="w-75 m-5 " />
             </div>
             <p class="font-level-1 text-center font-weight-bold text-md-left">Antes de empezar,<br
                     class="d-block d-md-none"> queremos saber
@@ -70,52 +67,13 @@
                                         </i></button>
                                 </div>
                             </div>
-                            <div class='my-3 my-md-4'>
-                                {{ form.comuna.label_tag }}
-                                {{ form.comuna }}
-                                {{ form.comuna.errors }}
-                            </div>
-                            <div class='my-3 my-md-4'>
-                                {{ form.genero.label_tag }}
-                                {{ form.genero }}
-                                {{ form.genero.errors }}
-                            </div>
-                            <div class='my-3 my-md-4'>
-                                {{ form.edad.label_tag }}
-                                {{ form.edad }}
-                                {{ form.edad.errors }}
-                            </div>
-                            <div class="my-md-4">
-                                <div class="form-group my-3">
-                                    <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input roudend" id="customCheckExample"
-                                            type="checkbox" />
-                                        <label class="custom-control-label font-level-6" for="customCheckExample">Leí y
-                                            acepto
-                                            la Política de Privacidad.</label>
-                                    </div>
-                                    <div class="my-4 mx-auto">
-                                        <p class="font-base text-md-center">Continúa con la siguiente pregunta sobre:
-                                        </p>
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block text-nowrap"
-                                            value="Submit">
-                                            Valor de
-                                            la Descentralización
-                                            <i class="material-symbols-outlined px-3 ">
-                                                arrow_forward_ios
-                                            </i></button>
-                                    </div>
-                                </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<div class="my-3 col-md-12 mw-100 mx-0">
-    {% include "components/logo_banner.html" %}
 </div>
+</section>
 
 {% endblock views %}
 

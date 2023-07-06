@@ -33,89 +33,64 @@
         </lu>
         <div id="frase" class="font-level-4 my-3">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 ml-2 mt-3"> 1 de importancia.</strong></div>
       </div>
-      <div class="col-12 col-md-8 col-lg-6 mx-5 my-3 justify-content-center "> 
+      <div class="col-12 col-md-8 col-lg-6 mx-5 my-3 justify-content-center ">
+
         <form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
           {% csrf_token %}
-
+          
           <div class="my-2">
-            {% if iniciativa_1_guardada %}
-            {{ form.iniciativa_1.help_text }}
-            <input type="text" name="iniciativa_1" value="{{ iniciativa_1_guardada }}" readonly>
-            {% else %}
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_1">
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+              id="iniciativa_1">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_1">
-            {% endif %}
+            <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value }}">
           </div>
-
+          
           <div class="my-2">
-            {% if iniciativa_2_guardada %}
-            {{ form.iniciativa_2.help_text }}
-            <input type="text" name="iniciativa_2" value="{{ iniciativa_2_guardada }}" readonly>
-            {% else %}
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_2">
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+              id="iniciativa_2">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_2">
-            {% endif %}
+            <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value }}">
           </div>
-
+          
           <div class="my-2">
-            {% if iniciativa_3_guardada %}
-            {{ form.iniciativa_3.help_text }}
-            <input type="text" name="iniciativa_3" value="{{ iniciativa_3_guardada }}" readonly>
-            {% else %}
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_3">
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+              id="iniciativa_3">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_3">
-            {% endif %}
+            <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value }}">
           </div>
-
+          
           <div class="my-2">
-            {% if iniciativa_4_guardada %}
-            {{ form.iniciativa_4.help_text }}
-            <input type="text" name="iniciativa_4" value="{{ iniciativa_4_guardada }}" readonly>
-            {% else %}
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_4">
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+              id="iniciativa_4">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold text-dark  mx-3 align-self-center">-</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_4">
-            {% endif %}
+            <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value }}">
           </div>
-
+          
           <div class="my-2">
-            {% if iniciativa_5_guardada %}
-            {{ form.iniciativa_5.help_text }}
-            <input type="text" name="iniciativa_5" value="{{ iniciativa_5_guardada }}" readonly>
-            {% else %}
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3" id="iniciativa_5">
+            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+              id="iniciativa_5">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_5">
-            {% endif %}
+            <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value }}">
           </div>
 
+          
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
           <!-- Muestra el mensaje de error específico -->
           <p>{{ form.non_field_errors }}</p>
           {% endif %}
 
-          <div class="my-2">
-            {% if iniciativa_1_guardada %}
-            <div>Continúa con la siguiente pregunta sobre:</div>
-            <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">
-                Inclusión de temáticas</button>
-            </div>
 
-            {% else %}
             <div>
               <!-- Botón para reiniciar selección -->
               <div class="d-flex my-4 mx-2">  
@@ -129,7 +104,6 @@
               </i></button>
             </div>
 
-            {% endif %}
           </div>
 
         </form>
@@ -178,7 +152,7 @@
         }
 
         // Mostramos el botón de reinicio si todas las iniciativas tienen una prioridad
-        if (Object.keys(seleccionados).length === 4)
+        if (Object.keys(seleccionados).length === 5)
         {
           $('#reiniciar').show();
         }
@@ -198,6 +172,32 @@
       seleccionados = {};
       $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
+    });
+
+      // Función para establecer el estado inicial
+    function setInitialState(id, prioridad) {
+      // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
+      if (prioridad) {
+        $('#' + id).prop('disabled', true);
+        $('#' + id).find('.iniciativa-check').text(prioridad);
+        seleccionados[id] = prioridad;
+        prioridad++;
+        if (prioridad <= 5) {
+          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+        }
+        if (Object.keys(seleccionados).length === 5) {
+          $('#reiniciar').show();
+        }
+      }
+    }
+  
+    // Llamamos a esta función para cada iniciativa
+    setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
+    setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
+    setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
+    setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
+    setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
+  
     });
 
   });
