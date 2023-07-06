@@ -3,22 +3,23 @@
 
 {% block views %}
 
-<section>
-    <div class="cols-12 m-5">
+<section class="container">
+    <div class="cols-12 my-0 mx-3">
     <div class="row justify-content-center">
-        <div class="col-md-6 mx-md-auto my-2 mx-5">
-            <div class=" col mw-75 d-flex flex-column justify-content-center align-items-center">
-                <img src="{% static 'img/logo-descentralizacion.png' %}" class="w-75 m-5 " />
+            <div class="col-md-6 mx-md-auto">
+                {% include "components/desentralizacion_banner.html" %}
             </div>
-            <p class="font-level-1 text-center font-weight-bold text-md-left">Antes de empezar,<br
+    
+            <div class="col-12 col-md-12  col-lg-10 mx">
+                <p class="font-level-1 text-center font-weight-bold ">Antes de empezar,<br
                     class="d-block d-md-none"> queremos saber
-                <br class="d-none d-sm-block d-md-none"> de tí:
-            </p>
-        </div>
-        <div class="container-fluid">
-            <div class="cols-12 mx-5 mx-md-5">
+                    <br class="d-none d-sm-block d-md-none"> de tí:
+                </p>
+            </div>
+            <div class="container-fluid">
+            <div class="cols-12 mx-2 mx-md-5">
                 <div class="row justify-content-center">
-                    <form class="col-md-6" method="POST">
+                    <form class="col-md-6 col-lg-4 col-xl-4" method="POST">
                         {% csrf_token %}
                         {{ form.non_field_errors }}
                         <div >
@@ -50,30 +51,37 @@
                             {{ form.edad }}
                             {{ form.edad.errors }}
                         </div>
-
-                        <div class="my-md-4">
-                            <div class="form-group my-3">
-                                <div class='my-3 my-md-4'>
-                                    {{ form.politica_privacidad.label_tag }}
+                        
+                        
+                        <div class="my-4 my-md-5">
+                            <div class=" form-group my-3 my-md-5 ">
+                                <div class='d-flex flex-row justify-content-start align-self-center '>
                                     {{ form.politica_privacidad }}
+                                    {{ form.politica_privacidad.label_tag }}
                                     {{ form.politica_privacidad.errors }}
                                 </div>
-                                <div class="my-4">
-                                    <p class="font-base text-md-center" >Continúa con la siguiente pregunta sobre:</p>
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
-                                        Valor de la Descentralización
-                                        <i class="material-symbols-outlined px-3">
-                                            arrow_forward_ios
-                                        </i></button>
+                                <div class="my-2">
+                                        <p class="font-level-7 font-weight-light">Continúa con la siguiente pregunta sobre:</p>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block text-nowrap"
+                                            value="Submit">
+                                            Valor de
+                                            la Descentralización
+                                            <i class="material-symbols-outlined px-3 ">
+                                                arrow_forward_ios
+                                            </i>
+                                        </button>
                                 </div>
-                            </div>
+                        </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </section>
+<div class="my-3 col-md-12 mw-100 mx-0">
+    {% include "components/logo_banner.html" %}
+</div>
 
 {% endblock views %}
 

@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block views %}
+
+<section class="container-hero">
+    
+    <div class="container">
+        <section class="col-md-12">
+            <div class="section-header mt-5 d-flex flex-column align-items-center">
+                <div class="col-12 col-md-6">
+                    {% include "components/desentralizacion_banner.html" %}
+                </div>
+                <p class="col-md-8 font-level-1 pb-md-4 text-center font-weight-bold" id="secciones">Te damos la bienvenida a ésta consulta ciudadana</p>
+                <ul class="mb-md-5">
+                    <li class="h4 my-3">El tiempo estimado que te tomará es de 2 minutos.</li>
+                    <li class="h4">Primero te preguntaremos información demográfica con fines estadísticos.</li>
+                    <li class="h4">Son 5 preguntas. La última pregunta es opcional.</li>
+                    <li class="h4">Si cierras la página antes de enviar tus respuestas, éstas no se guardarán.</li>
+                </ul>
+            </div>
+
+            <div class="my-3 d-flex flex-column align-items-center">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-neutral btn-default-size text-white border-white bg-primary mb-4" type="button" onclick="window.location.href='/proceso-participativo'">Comenzar el Proceso
+                        <i class="material-symbols-outlined">
+                        chevron_right
+                        </i>
+                    </button>
+                </div>
+                <div class="col-md-5 text-center mb-5">
+                    {% include "components/countdown.html" %}
+                </div>
+            </div>    
+        </section>
+    </div> 
+
+    <div class="mt-md-5">
+        {% include "components/logo_banner.html" %}
+    </div> 
+
+</section> 
+  
+{% endblock views %}

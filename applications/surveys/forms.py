@@ -43,6 +43,8 @@ class DatosUsuarioForm(forms.ModelForm):
             'politica_privacidad': forms.CheckboxInput(
                 attrs={
                     'required': True,
+                    'class': ' custom-control custom-checkbox',
+                    'style':'width:20px ; margin: 0px 8px 8px 0px ',
                 }
             ),
         }
@@ -217,42 +219,43 @@ class PreguntaTresForm(forms.ModelForm):
 class PreguntaCuatroForm(forms.ModelForm):
     class Meta:
         model = PreguntaCuatro
-        fields = ('tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5')
+        fields = ('tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5') 
         widgets = {
             'tematica_1': forms.Select(
                 attrs={
                     'required': True,
+                    'option': 'Elige una opción' ,
                     'placeholder': 'Elige una opción',
-                    'class': 'tematica',
-                }
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+                } , choices=[('','Elige una opción')]
             ),
             'tematica_2': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': 'Elige una opción',
-                    'class': 'tematica',
-                }
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+                }, choices=[('','Elige una opción')]
             ),
             'tematica_3': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': 'Elige una opción',
-                    'class': 'tematica',
-                }
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+                }, choices=[('','Elige una opción')]
             ),
             'tematica_4': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': 'Elige una opción',
-                    'class': 'tematica',
-                }
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+                }, choices=[('','Elige una opción')]
             ),
             'tematica_5': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': 'Elige una opción',
-                    'class': 'tematica',
-                }
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+                }, choices=[('','Elige una opción')]
             ),
         }
 

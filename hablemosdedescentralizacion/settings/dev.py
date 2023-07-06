@@ -20,11 +20,11 @@ DATABASES = {
     # Base de datos de aplicación
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hablemosdescentralizacion',
-        'USER': 'postgres',
-        'PASSWORD': 'Subdere.2022',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': env("NAME"),
+        'USER': env("USER"),
+        'PASSWORD': env("PASSWORD"),
+        'HOST': env("HOST"),
+        'PORT': env("PORT"),
         },
     }
 
@@ -39,22 +39,21 @@ MEDIA_ROOT = BASE_DIR.child('media')
 
 # EMAIL SETTINGS
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'modernizacion@subdere.gov.cl'
-EMAIL_HOST_PASSWORD = 'Subde*moder23'
-EMAIL_PORT = 587
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = env("EMAIL_PORT")
 
 # RECAPTCHA SETTINGS
-RECAPTCHA_PUBLIC_KEY = '6LemsJgmAAAAAJj8noe-1FWZgl0ltkX5SeGgBa0h'
-RECAPTCHA_PRIVATE_KEY = '6LemsJgmAAAAAG8rwzcmMJVPx1t8VLpT86vWju-i'
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
 
 # SENDGRID SETTINGS
-SENDGRID_API_KEY = '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'
-ADMIN_EMAIL = ['modernizacion@subdere.gov.cl']
-NOREPLY_EMAIL = ['noreply@bancoproyectos.subdere.gob.cl']
+SENDGRID_API_KEY = env("SENDGRID_API_KEY")
+ADMIN_EMAIL = env("ADMIN_EMAIL")
+NOREPLY_EMAIL = env("NOREPLY_EMAIL")
 
 #Clave Única
-CLAVE_UNICA_CLIENT_ID = 'f0a29848899147da8e17f90d7b8a142e'
-CLAVE_UNICA_CLIENT_SECRET ='55bdcfe678324f7baf7f559dd5c35aeb'
-CLAVE_UNICA_REDIRECT_URI = 'https://www.qadescentralizacion.subdere.gob.cl/pregunta-uno/'
-
+CLAVE_UNICA_CLIENT_ID = env("CLAVE_UNICA_CLIENT_ID_DEV")
+CLAVE_UNICA_CLIENT_SECRET = env("CLAVE_UNICA_CLIENT_SECRET_DEV")
+CLAVE_UNICA_REDIRECT_URI = env("CLAVE_UNICA_REDIRECT_URI_DEV")
