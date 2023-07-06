@@ -80,7 +80,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let btns = document.querySelectorAll('#valor');
         btns.forEach(function (btn) {
             if (btn.textContent == valorGuardado) {
-                btn.disabled = true;
+                btn.classList.add('selected');
                 document.getElementById('id_valor').value = btn.value;
             }
         });
@@ -92,13 +92,14 @@ document.querySelectorAll('#valor').forEach(function (element)
     {
         document.querySelectorAll('#valor').forEach(function (otherElement)
         {
-            otherElement.disabled = false;
+            otherElement.classList.remove('selected');
         });
-        event.target.disabled = true;
-        document.getElementById('id_valor').value = event.target.value;  // Agrega esta línea
+        event.target.classList.add('selected');
+        document.getElementById('id_valor').value = event.target.value;
     });
 });
 </script>
+
 
 
 {% endblock scripts %}
