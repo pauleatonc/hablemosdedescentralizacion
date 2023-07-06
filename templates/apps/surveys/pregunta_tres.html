@@ -9,7 +9,7 @@
       <div class="col-md-6 mx-md-auto my-2">
         {% include "components/desentralizacion_banner.html" %}
       </div>
-      <div class="col-lg-12 d-flex justify-content-between my-2">
+      <div class="col-lg-9 d-flex justify-content-between my-2">
         <button type="button" class=" btn btn-pill-primary  text-nowrap"
           onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'"><i class="material-symbols-outlined">
             chevron_left
@@ -20,26 +20,28 @@
             chevron_right
           </i></button>
       </div>
-      <div class="col-12 col-md-12  col-lg-10 mx">
+      <div class="col-lg-10">
         <p class="font-level-1  text-center my-3">Pregunta 3 de 5:</p>
-
-        <p class="font-level-5 text-justify mx-2">Te presentamos 5 de las iniciativas que podrían ser incluidas dentro
-          de la Política Nacional de Descentralización. </p>
-        <lu>
-          <p class="font-level-6 text-justify mx-2 font-weight-bold">Ordénalas de mayor a menor importancia considerando
-            que:</p>
-          <li class=" font-level-5 ml-3 "><strong>1</strong> es la <strong>más </strong>importante</li>
-          <li class=" font-level-5 ml-3"><strong>5</strong> es la <strong>menos </strong>importante.</li>
-        </lu>
-        <div id="frase" class="font-level-4 my-3">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 ml-2 mt-3"> 1 de importancia.</strong></div>
       </div>
-      <div class="col-12 col-md-8 col-lg-6 mx-5 my-3 justify-content-center ">
-
+      <div class='col-lg-9 my-2'>
+        <p class="font-level-4 text-justify">Te presentamos 5 de las iniciativas que podrían ser incluidas dentro
+          de la Política Nacional de Descentralización. </p>
+          <div class='contianer my-4 my-md-5'>
+        <lu>
+          <p class="font-level-6 text-justify">Ordénalas de mayor a menor importancia considerando
+            que:</p>
+          <li class=" font-level-6 ml-3 ">1 es la más importante</li>
+          <li class="font-level-6 ml-3">5 es la menos importante.</li>
+        </lu>
+        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 mt-3"> 1 de importancia.</strong></p>
+      </div>
+    </div>
+      <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center ">
         <form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
           {% csrf_token %}
           
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+          <div class="my-2  w-100">
+            <button type="button" class="iniciativa  w-100  d-flex flex-row justify-content-between border border-primary border-3"
               id="iniciativa_1">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
@@ -47,8 +49,8 @@
             <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value }}">
           </div>
           
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa w-100  d-flex flex-row justify-content-between border border-primary border-3"
               id="iniciativa_2">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
@@ -56,8 +58,8 @@
             <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value }}">
           </div>
           
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa  w-100 d-flex flex-row justify-content-between border border-primary border-3"
               id="iniciativa_3">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
@@ -65,8 +67,8 @@
             <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value }}">
           </div>
           
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa w-100  d-flex flex-row justify-content-between border border-primary border-3"
               id="iniciativa_4">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
@@ -74,8 +76,8 @@
             <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value }}">
           </div>
           
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa  w-100 d-flex flex-row justify-content-between border border-primary border-3"
               id="iniciativa_5">
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
@@ -93,26 +95,24 @@
 
             <div>
               <!-- Botón para reiniciar selección -->
-              <div class="d-flex my-4 mx-2">  
+              <div class="d-flex mt-4 mb-5">  
               <button type="button" id="reiniciar"   class="btn btn-outline-secondary btn-lg rounded text-decoration-none" style="display: none;">Limpiar ranking <i class="material-symbols-outlined">
                 delete
                 </i></button>
             </div>
-            <p class="font-level-5 text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Inclusión de temáticas <i class="material-symbols-outlined px-3">
+            <div class="col-md-6 mx-md-auto">
+            <p class="font-level-6 font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Impacto de la Descentralización<i class="material-symbols-outlined px-3">
                 arrow_forward_ios
               </i></button>
             </div>
-
-          </div>
-
         </form>
       </div>
 
     </div>
   </div>
 </section>
-<div class="my-3 col-md-12 mw-100 mx-0"">
+<div class="my-3 col-md-12 mw-100 mx-0">
   {% include "components/logo_banner.html" %}
 </div>
 {% endblock views %}

@@ -20,9 +20,9 @@ DATABASES = {
     # Base de datos de aplicación
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hablemosdescentralizacion',
+        'NAME': 'hablemosdescentralizacion2',
         'USER': 'postgres',
-        'PASSWORD': 'Subdere.2022',
+        'PASSWORD': '1234',#'Subdere.2022',
         'HOST': 'localhost',
         'PORT': '5432',
         },

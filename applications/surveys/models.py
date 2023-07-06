@@ -10,7 +10,8 @@ class PreguntaUno(models.Model):
         ('5', 'No sabría responder'),
     )
 
-    valor = models.CharField(max_length=1, choices=VALORES, verbose_name='Valor')
+    valor = models.CharField(
+        max_length=1, choices=VALORES, verbose_name='Valor')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
@@ -37,7 +38,6 @@ class PreguntaDos(models.Model):
                                       help_text='Disminuye las desigualdades sociales y territoriales.')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
-
     class Meta:
         verbose_name = 'Pregunta 2: Impacto de la descentralización en las personas y comunidades.'
         unique_together = ('usuario',)
@@ -53,15 +53,15 @@ class PreguntaTres(models.Model):
     )
 
     iniciativa_1 = models.IntegerField(choices=ITEMS,
-                                      help_text='Definir las tareas de la administración pública a nivel nacional, regional y comunal.')
+                                       help_text='Definir las tareas de la administración pública a nivel nacional, regional y comunal.')
     iniciativa_2 = models.IntegerField(choices=ITEMS,
-                                      help_text='Fortalecer habilidades técnicas y profesionales en comunas y regiones para impulsar el desarrollo económico, social y cultural.')
+                                       help_text='Fortalecer habilidades técnicas y profesionales en comunas y regiones para impulsar el desarrollo económico, social y cultural.')
     iniciativa_3 = models.IntegerField(choices=ITEMS,
-                                      help_text='Establecer mecanismos de participación ciudadana y rendición de cuentas.')
+                                       help_text='Establecer mecanismos de participación ciudadana y rendición de cuentas.')
     iniciativa_4 = models.IntegerField(choices=ITEMS,
-                                      help_text='Garantizar la autonomía y el buen uso de los recursos financieros públicos.')
+                                       help_text='Garantizar la autonomía y el buen uso de los recursos financieros públicos.')
     iniciativa_5 = models.IntegerField(choices=ITEMS,
-                                      help_text='Coordinar a distintos actores públicos, privados y sociales, para la mejor obtención de objetivos de desarrollo.')
+                                       help_text='Coordinar a distintos actores públicos, privados y sociales, para la mejor obtención de objetivos de desarrollo.')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
@@ -80,29 +80,19 @@ class PreguntaCuatro(models.Model):
     )
 
     tematica_1 = models.IntegerField(verbose_name='Enfoque de género', choices=VALORACION,
-                                      help_text='las medidas deben considerar de manera transversal la perspectiva de '
-                                                'género, entendida como una mirada destinada a hacer que las '
-                                                'preocupaciones y experiencias de las mujeres, así como las de '
-                                                'los hombres y de las diversidades sexo genéricas, sean un elemento '
-                                                'integrante de la elaboración de la Política.')
+                                     help_text='las medidas deben considerar de manera transversal la perspectiva de género, entendida como una mirada destinada a hacer que las preocupaciones y experiencias de las mujeres, así como las de los hombres y de las diversidades sexo genéricas, sean un elemento integrante de la elaboración de la Política.')
 
     tematica_2 = models.IntegerField(verbose_name='Diversidad territorial', choices=VALORACION,
-                                     help_text='las medidas deben considerar e integrar el respeto a la diversidad '
-                                               'territorial en cuanto a las características identitarias de los '
-                                               'territorios, su historia, sus características económicas, sociales y '
-                                               'culturales, entre otras.')
+                                     help_text='las medidas deben considerar e integrar el respeto a la diversidad territorial en cuanto a las características identitarias de los territorios, su historia, sus características económicas, sociales y culturales, entre otras.')
 
     tematica_3 = models.IntegerField(verbose_name='Participación ciudadana', choices=VALORACION,
-                                     help_text='las medidas y acciones deben promover la participación activa de la '
-                                               'sociedad civil en las decisiones de los territorios.')
+                                     help_text='las medidas y acciones deben promover la participación activa de la sociedad civil en las decisiones de los territorios.')
 
     tematica_4 = models.IntegerField(verbose_name='Capital humano territorial', choices=VALORACION,
-                                     help_text='las medidas deben considerar capacidades técnicas y profesionales para '
-                                               'enfrentar los desafíos de desarrollo económico, social y cultural.')
+                                     help_text='las medidas deben considerar capacidades técnicas y profesionales para enfrentar los desafíos de desarrollo económico, social y cultural.')
 
     tematica_5 = models.IntegerField(verbose_name='Protección del medioambiente', choices=VALORACION,
-                                     help_text='las medidas deben minimizar su impacto negativo sobre el medio '
-                                               'ambiente.')
+                                     help_text='las medidas deben minimizar su impacto negativo sobre el medio ambiente.')
 
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
