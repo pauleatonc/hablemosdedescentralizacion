@@ -27,7 +27,7 @@
                                 <select class="form-control" id="region" name="region" required>
                                     <option value="" class='text-muted'>Elige una opción</option>
                                     {% for region in regiones %}
-                                    <option value="{{ region.id }}">{{ region.region }}</option>
+                                    <option value="{{ region.id }}" {% if region_guardada == region %}selected{% endif %}>{{ region.region }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -37,29 +37,13 @@
                         </div>
                         <div class='my-3 my-md-4'>
                             {{ form.comuna.label_tag }}
-                            {% if comuna_guardada %}
-                                <div class="input-group-prepend border border-2 border-accent rounded">
-                                    <select class="form-control" id="comuna" name="comuna" required>
-                                        <option value="{{ comuna_guardada.id }}" selected>{{ comuna_guardada }}</option>
-                                    </select>
-                                </div>
-                            {% else %}
-                                {{ form.comuna }}
-                                {{ form.comuna.errors }}
-                            {% endif %}
+                            {{ form.comuna }}
+                            {{ form.comuna.errors }}
                         </div>
                         <div class='my-3 my-md-4'>
                             {{ form.genero.label_tag }}
-                            {% if genero_guardada %}
-                                <div class="input-group-prepend border border-2 border-accent rounded">
-                                    <select class="form-control" id="genero" name="genero" required>
-                                        <option value="{{ genero_guardada.id }}" selected>{{ genero_guardada }}</option>
-                                    </select>
-                                </div>
-                            {% else %}
-                                {{ form.genero }}
-                                {{ form.genero.errors }}
-                            {% endif %}
+                            {{ form.genero }}
+                            {{ form.genero.errors }}
                         </div>
                         <div class='my-3 my-md-4'>
                             {{ form.edad.label_tag }}
@@ -99,8 +83,10 @@
 <script>
     $(document).ready(function ()
     {
-        // Ocultar el campo de comuna al cargar la página
-        $('#id_comuna').parent().hide();
+        // Ocultar el campo de comuna al cargar la página si no hay comuna guardada
+        {% if not comuna_guardada %}
+            $('#id_comuna').parent().hide();
+        {% endif %}
 
         $('#region').change(function ()
         {

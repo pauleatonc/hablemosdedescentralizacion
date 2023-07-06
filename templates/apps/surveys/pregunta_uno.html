@@ -28,26 +28,21 @@
         <p class="h3 text-center my-3">Pregunta 1 de 5:</p>
 
         <p class="font-level-5 text-justify mx-5">¿Qué valor le otorgas a la descentralización en la cotidianeidad y en
-          la calidad de
-          vida de las personas?</p>
+          la calidad de vida de las personas?</p>
         <p class="font-level-5 text-justify mx-5">Responde desde tus propios conocimientos y experiencias.</p>
       </div>
       <div class="cols-12 my-lg-5">
+
         <form id="pregunta-uno-form" method="post" action="{% url 'surveys_app:pregunta_uno' %}">
           {% csrf_token %}
 
-          {% if valor_guardado %}
-          <!-- Muestra los valores guardados si ya contestó la encuesta -->
-          <input type="text" name="valor" value="{{ valor_guardado }}" readonly>
-          <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Impacto de la
-            Descentralización</button>
-          {% else %}
           <!-- Muestra input para el formulario -->
           {% for choice in form.valor.field.choices %}
           <div class="">
-            <button class="btn btn-neutral btn-default-size text-primary border-primary bg-white  my-3 w-100"
-              type="button" id="valor" value="{{ choice.0 }}"
-              onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'">{{ choice.1 }}</button>
+              <button class="btn btn-neutral btn-default-size text-primary border-primary bg-white  my-3 w-100"
+                  type="button" id="valor" value="{{ choice.0 }}"
+                  onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'"
+                  {% if valor_guardado == choice.1 %}disabled{% endif %}>{{ choice.1 }}</button>
           </div>
           {% endfor %}
 
@@ -68,7 +63,6 @@
                 arrow_forward_ios
               </i></button>
           </div>
-          {% endif %}
 
         </form>
       </div>
@@ -78,24 +72,33 @@
 {% endblock views %}
 
 {% block scripts %}
-</div>
-</div>
+
 <script>
-
-  // Cuando se selecciona un botón, deselecciona todos los demás
-
-  document.querySelectorAll('.valor').forEach(function (element)
-  {
+window.addEventListener('DOMContentLoaded', (event) => {
+    let valorGuardado = '{{ valor_guardado }}';
+    if (valorGuardado) {
+        let btns = document.querySelectorAll('#valor');
+        btns.forEach(function (btn) {
+            if (btn.textContent == valorGuardado) {
+                btn.disabled = true;
+                document.getElementById('id_valor').value = btn.value;
+            }
+        });
+    }
+});
+document.querySelectorAll('#valor').forEach(function (element)
+{
     element.addEventListener('click', function (event)
     {
-      document.querySelectorAll('.valor').forEach(function (otherElement)
-      {
-        otherElement.disabled = false;
-      });
-      event.target.disabled = true;
+        document.querySelectorAll('#valor').forEach(function (otherElement)
+        {
+            otherElement.disabled = false;
+        });
+        event.target.disabled = true;
+        document.getElementById('id_valor').value = event.target.value;  // Agrega esta línea
     });
-  });
-
+});
 </script>
+
 
 {% endblock scripts %}

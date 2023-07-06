@@ -65,18 +65,14 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
     model = PreguntaUno
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
-    def dispatch(self, request, *args, **kwargs):
-        if 'session_start_time' not in request.session:
-            request.session['session_start_time'] = timezone.now().isoformat()
-            request.session['session_counter'] = request.session.get('session_counter', 0) + 1
-            messages.info(request, f'Esta es la sesión número {request.session["session_counter"]}')
-        return super().dispatch(request, *args, **kwargs)
-
     def form_valid(self, form):
-        pregunta_uno = form.save(commit=False)
-        pregunta_uno.usuario = self.request.user
+        usuario = self.request.user
+        try:
+            pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
+        except PreguntaUno.DoesNotExist:
+            pregunta_uno = PreguntaUno(usuario=usuario)
+        pregunta_uno.valor = form.cleaned_data.get('valor')
         pregunta_uno.save()
-
         return redirect('surveys_app:pregunta_dos')
 
     def get_context_data(self, **kwargs):
@@ -88,6 +84,7 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
         except PreguntaUno.DoesNotExist:
             context['valor_guardado'] = None
         return context
+
 
 
 class PreguntaDosView(LoginRequiredMixin, FormView):
