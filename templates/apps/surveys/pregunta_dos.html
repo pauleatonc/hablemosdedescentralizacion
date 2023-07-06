@@ -36,61 +36,43 @@
         <form method="post" action="{% url 'surveys_app:pregunta_dos' %}">
           {% csrf_token %}
           <p class="font-level-5 my-1">La descentralizacion:</p>
+
           <div class="my-2">
-            {% if propuesta_1_guardada %}
-            {{ form.propuesta_1.help_text }}
-            <input type="text" name="propuesta_1" value="{{ propuesta_1_guardada }}" readonly>
-            {% else %}
             <button type="button" class="propuesta d-flex flex-row rbg-white border border-primary border-3"
               id="propuesta_1">
               <div class="propuesta-text text-primary m-4 text-justify">{{ form.propuesta_1.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="propuesta_1">
-            {% endif %}
+            <input type="hidden" name="propuesta_1" id="valor_propuesta_1" value="{{ form.propuesta_1.value }}">
           </div>
-
+          
           <div class="my-2">
-            {% if propuesta_2_guardada %}
-            {{ form.propuesta_2.help_text }}
-            <input type="text" name="propuesta_2" value="{{ propuesta_2_guardada }}" readonly>
-            {% else %}
-            <button type="button" class="propuesta  d-flex flex-row rbg-white border border-primary border-3"
+            <button type="button" class="propuesta d-flex flex-row rbg-white border border-primary border-3"
               id="propuesta_2">
               <div class="propuesta-text text-primary m-4 text-justify">{{ form.propuesta_2.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold mx-3 text-dark align-self-center">-</div>
+              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="propuesta_2">
-            {% endif %}
+            <input type="hidden" name="propuesta_2" id="valor_propuesta_2" value="{{ form.propuesta_2.value }}">
           </div>
-
+          
           <div class="my-2">
-            {% if propuesta_3_guardada %}
-            {{ form.propuesta_3.help_text }}
-            <input type="text" name="propuesta_3" value="{{ propuesta_3_guardada }}" readonly>
-            {% else %}
             <button type="button" class="propuesta d-flex flex-row rbg-white border border-primary border-3"
               id="propuesta_3">
               <div class="propuesta-text text-primary m-4 text-justify">{{ form.propuesta_3.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold text-dark mx-3 align-self-center">-</div>
+              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="propuesta_3">
-            {% endif %}
+            <input type="hidden" name="propuesta_3" id="valor_propuesta_3" value="{{ form.propuesta_3.value }}">
           </div>
-
-          <div>
-            {% if propuesta_4_guardada %}
-            {{ form.propuesta_4.help_text }}
-            <input type="text" name="propuesta_4" value="{{ propuesta_4_guardada }}" readonly>
-            {% else %}
-            <button type="button" class="propuesta  d-flex flex-row rbg-white border border-primary border-3"
+          
+          <div class="my-2">
+            <button type="button" class="propuesta d-flex flex-row rbg-white border border-primary border-3"
               id="propuesta_4">
               <div class="propuesta-text text-primary m-4 text-justify">{{ form.propuesta_4.help_text }}</div>
-              <div class="propuesta-check h1 font-weight-bold text-dark mx-3 align-self-center">-</div>
+              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="propuesta_4">
-            {% endif %}
+            <input type="hidden" name="propuesta_4" id="valor_propuesta_4" value="{{ form.propuesta_4.value }}">
           </div>
+
 
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
@@ -99,15 +81,6 @@
           {% endif %}
 
           <div>
-            {% if propuesta_1_guardada %}
-            <div>Continúa con la siguiente pregunta sobre:</div>
-            <div>
-              <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">
-                Inclusión de iniciativas</button>
-            </div>
-
-            {% else %}
-            <div>
               <!-- Botón para reiniciar selección -->
               <div class="d-flex mt-4 mb-5">  
               <button type="button" id="reiniciar"  class="btn btn-outline-secondary btn-lg rounded text-decoration-none" style="display: none;">Limpiar ranking <i class="material-symbols-outlined">
@@ -118,9 +91,6 @@
               <button type="submit" class="btn btn-primary btn-lg btn-block">Inclusión de iniciativas <i class="material-symbols-outlined px-3">
                 arrow_forward_ios
               </i></button>
-          </div>
-
-            {% endif %}
           </div>
 
         </form>
@@ -189,6 +159,29 @@
       $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
     });
+
+    // Función para establecer el estado inicial
+  function setInitialState(id, prioridad) {
+    // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
+    if (prioridad) {
+      $('#' + id).prop('disabled', true);
+      $('#' + id).find('.propuesta-check').text(prioridad);
+      seleccionados[id] = prioridad;
+      prioridad++;
+      if (prioridad <= 4) {
+        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+      }
+      if (Object.keys(seleccionados).length === 4) {
+        $('#reiniciar').show();
+      }
+    }
+  }
+
+  // Llamamos a esta función para cada propuesta
+  setInitialState('propuesta_1', $('#valor_propuesta_1').val());
+  setInitialState('propuesta_2', $('#valor_propuesta_2').val());
+  setInitialState('propuesta_3', $('#valor_propuesta_3').val());
+  setInitialState('propuesta_4', $('#valor_propuesta_4').val());
 
   });
 </script>

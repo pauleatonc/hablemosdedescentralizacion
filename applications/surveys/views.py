@@ -44,15 +44,21 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['regiones'] = Region.objects.all()
         usuario = self.request.user
+        if usuario.comuna is not None:
+            try:
+                context['region_guardada'] = usuario.comuna.region
+                context['comuna_guardada'] = usuario.comuna
+            except AttributeError:
+                context['region_guardada'] = None
+                context['comuna_guardada'] = None
+        else:
+            context['region_guardada'] = None
+            context['comuna_guardada'] = None
         try:
-            context['region_guardada'] = usuario.comuna.region
-            context['comuna_guardada'] = usuario.comuna
             context['genero_guardada'] = usuario.get_genero_display()
             context['edad_guardada'] = usuario.edad
             context['politica_privacidad_guardada'] = usuario.politica_privacidad
-        except PreguntaDos.DoesNotExist:
-            context['region_guardada'] = None
-            context['comuna_guardada'] = None
+        except AttributeError:
             context['genero_guardada'] = None
             context['edad_guardada'] = None
             context['politica_privacidad_guardada'] = None
@@ -65,18 +71,14 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
     model = PreguntaUno
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
-    def dispatch(self, request, *args, **kwargs):
-        if 'session_start_time' not in request.session:
-            request.session['session_start_time'] = timezone.now().isoformat()
-            request.session['session_counter'] = request.session.get('session_counter', 0) + 1
-            messages.info(request, f'Esta es la sesión número {request.session["session_counter"]}')
-        return super().dispatch(request, *args, **kwargs)
-
     def form_valid(self, form):
-        pregunta_uno = form.save(commit=False)
-        pregunta_uno.usuario = self.request.user
+        usuario = self.request.user
+        try:
+            pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
+        except PreguntaUno.DoesNotExist:
+            pregunta_uno = PreguntaUno(usuario=usuario)
+        pregunta_uno.valor = form.cleaned_data.get('valor')
         pregunta_uno.save()
-
         return redirect('surveys_app:pregunta_dos')
 
     def get_context_data(self, **kwargs):
@@ -96,9 +98,31 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
     model = PreguntaDos
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        try:
+            pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
+            form = self.form_class(initial={
+                'propuesta_1': pregunta_dos.propuesta_1,
+                'propuesta_2': pregunta_dos.propuesta_2,
+                'propuesta_3': pregunta_dos.propuesta_3,
+                'propuesta_4': pregunta_dos.propuesta_4,
+            })
+        except PreguntaDos.DoesNotExist:
+            form = self.form_class()
+
+        return self.render_to_response(self.get_context_data(form=form))
+
     def form_valid(self, form):
-        pregunta_dos = form.save(commit=False)
-        pregunta_dos.usuario = self.request.user
+        usuario = self.request.user
+        try:
+            pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
+        except PreguntaDos.DoesNotExist:
+            pregunta_dos = PreguntaDos(usuario=usuario)
+        pregunta_dos.propuesta_1 = form.cleaned_data.get('propuesta_1')
+        pregunta_dos.propuesta_2 = form.cleaned_data.get('propuesta_2')
+        pregunta_dos.propuesta_3 = form.cleaned_data.get('propuesta_3')
+        pregunta_dos.propuesta_4 = form.cleaned_data.get('propuesta_4')
         pregunta_dos.save()
 
         return redirect('surveys_app:pregunta_tres')
@@ -125,10 +149,34 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
     form_class = PreguntaTresForm
     model = PreguntaTres
     login_url = 'users_app:user-login'  # URL de inicio de sesión
+    
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        try:
+            pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
+            form = self.form_class(initial={
+                'iniciativa_1': pregunta_tres.iniciativa_1,
+                'iniciativa_2': pregunta_tres.iniciativa_2,
+                'iniciativa_3': pregunta_tres.iniciativa_3,
+                'iniciativa_4': pregunta_tres.iniciativa_4,
+                'iniciativa_4': pregunta_tres.iniciativa_5,
+            })
+        except PreguntaTres.DoesNotExist:
+            form = self.form_class()
+
+        return self.render_to_response(self.get_context_data(form=form))
 
     def form_valid(self, form):
-        pregunta_tres = form.save(commit=False)
-        pregunta_tres.usuario = self.request.user
+        usuario = self.request.user
+        try:
+            pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
+        except PreguntaTres.DoesNotExist:
+            pregunta_tres = PreguntaTres(usuario=usuario)
+        pregunta_tres.iniciativa_1 = form.cleaned_data.get('iniciativa_1')
+        pregunta_tres.iniciativa_2 = form.cleaned_data.get('iniciativa_2')
+        pregunta_tres.iniciativa_3 = form.cleaned_data.get('iniciativa_3')
+        pregunta_tres.iniciativa_4 = form.cleaned_data.get('iniciativa_4')
+        pregunta_tres.iniciativa_5 = form.cleaned_data.get('iniciativa_5')
         pregunta_tres.save()
 
         return redirect('surveys_app:pregunta_cuatro')
