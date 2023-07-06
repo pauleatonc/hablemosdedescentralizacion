@@ -31,6 +31,9 @@ class DocumentosView(TemplateView):
 class PoliticasPrivacidadView(TemplateView):
     template_name = 'apps/home/politicas_privacidad.html'
 
+class OnboardingView(TemplateView):
+    template_name = 'apps/home/onboarding.html'
+
 class Error404(TemplateView):
     template_name = 'apps/errores/error404.html'
    

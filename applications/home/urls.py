@@ -35,4 +35,10 @@ urlpatterns = [
         name='politivas_privacidad',
         ),
 
+        path(
+        'onboarding',
+        views.OnboardingView.as_view(),
+        name='onboarding',
+        ),
+
 ]
