@@ -37,7 +37,7 @@
           {% if user.is_authenticated %}
               <li class="nav-item"><a class="btn btn-block btn-outline-danger btn-cerrar-sesion" href="{% url 'users_app:user-logout' %}">Cerrar sesión</a></li>
           {% else %}
-            <form method="GET" class="nav-item" action="{% url 'users_app:user-login' %}#inicio-sesion">
+            <form method="GET" class="nav-item" action="{% url 'claveunica_login' %}#inicio-sesion">
               <input id="next-url" type="hidden" name="next" value="">
               <button class="btn btn-block btn-primary" type="submit" onclick="setNextUrl()">
                 <div class="doc-icon m-2"><span class="cl cl-claveunica"></span></div>
