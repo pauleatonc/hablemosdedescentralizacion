@@ -34,6 +34,7 @@ class PreguntasFrecuentesView(TemplateView):
 class DocumentosView(TemplateView):
     template_name = 'apps/home/documentos.html'
 
+
 class PoliticasPrivacidadView(TemplateView):
     template_name = 'apps/home/politicas_privacidad.html'
 
