@@ -192,11 +192,11 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
             context['iniciativa_4_guardada'] = pregunta_tres.iniciativa_4
             context['iniciativa_5_guardada'] = pregunta_tres.iniciativa_5
         except PreguntaTres.DoesNotExist:
-            context['iniciativa_1_guardada'] = None
-            context['iniciativa_2_guardada'] = None
-            context['iniciativa_3_guardada'] = None
-            context['iniciativa_4_guardada'] = None
-            context['iniciativa_5_guardada'] = None
+            context['iniciativa_1_guardada'] = '-'
+            context['iniciativa_2_guardada'] = '-'
+            context['iniciativa_3_guardada'] = '-'
+            context['iniciativa_4_guardada'] = '-'
+            context['iniciativa_5_guardada'] = '-'
         return context
 
 

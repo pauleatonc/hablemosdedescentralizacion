@@ -1,18 +1,16 @@
 {% load static %}
+{% load static %}
 <div class="card-data-list card-data-list-flush m-4 bg-gray-200">
 <ol class="list-unstyled w-100" id="collapsibleFlushAccordion">
   <li >
     <button class="btn text-left w-100 d-flex align-items-start justify-content-between py-4 px-3" id="collapsibleFlushHeading1" type="button" data-toggle="collapse" data-target="#collapsibleFlushCollapse1" aria-controls="collapsibleFlushCollapse1" aria-expanded="true">
-    <span class="font-level-3 mb-0">¿Pregunta?</span>
+    <span class="font-level-3 mb-0">{{ titulo }}</span>
     <span class="toggler-icon cl cl-m-arrow-down cl-2x" aria-hidden="true"></span>
   </button>
     <div class="collapse show" id="collapsibleFlushCollapse1" aria-labelledby="collapsibleFlushHeading1" data-parent="#collapsibleFlushAccordion">
       <div class="pr-5 pb-3 pl-3 pt-3 border-top border-gray-b">
         <p class="h4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat.
+          {{ contenido }}
         </p>
       </div>
     </div>

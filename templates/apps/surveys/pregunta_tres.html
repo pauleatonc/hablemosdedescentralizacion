@@ -46,7 +46,7 @@
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value }}">
+            <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
@@ -55,7 +55,7 @@
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value }}">
+            <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
@@ -64,7 +64,7 @@
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value }}">
+            <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
@@ -73,7 +73,7 @@
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value }}">
+            <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
@@ -82,7 +82,7 @@
               <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
               <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value }}">
+            <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value|default:'' }}">
           </div>
 
           
@@ -95,17 +95,19 @@
 
             <div>
               <!-- Botón para reiniciar selección -->
-              <div class="d-flex mt-4 mb-5">  
+              <div class="d-flex my-4 mx-2">  
               <button type="button" id="reiniciar"   class="btn btn-outline-secondary btn-lg rounded text-decoration-none" style="display: none;">Limpiar ranking <i class="material-symbols-outlined">
                 delete
                 </i></button>
             </div>
-            <div class="col-md-6 mx-md-auto">
-            <p class="font-level-6 font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Impacto de la Descentralización<i class="material-symbols-outlined px-3">
+            <p class="font-level-5 text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Inclusión de temáticas <i class="material-symbols-outlined px-3">
                 arrow_forward_ios
               </i></button>
             </div>
+
+          </div>
+
         </form>
       </div>
 
@@ -174,31 +176,29 @@
       $('#reiniciar').hide();
     });
 
-      // Función para establecer el estado inicial
-    function setInitialState(id, prioridad) {
-      // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
-      if (prioridad) {
-        $('#' + id).prop('disabled', true);
-        $('#' + id).find('.iniciativa-check').text(prioridad);
-        seleccionados[id] = prioridad;
-        prioridad++;
-        if (prioridad <= 5) {
-          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
-        }
-        if (Object.keys(seleccionados).length === 5) {
-          $('#reiniciar').show();
-        }
+    // Función para establecer el estado inicial
+  function setInitialState(id, prioridad) {
+    // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
+    if (prioridad) {
+      $('#' + id).prop('disabled', true);
+      $('#' + id).find('.iniciativa-check').text(prioridad);
+      seleccionados[id] = prioridad;
+      prioridad++;
+      if (prioridad <= 5) {
+        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+      }
+      if (Object.keys(seleccionados).length === 5) {
+        $('#reiniciar').show();
       }
     }
-  
-    // Llamamos a esta función para cada iniciativa
-    setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
-    setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
-    setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
-    setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
-    setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
-  
-    });
+  }
+
+  // Llamamos a esta función para cada iniciativa
+  setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
+  setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
+  setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
+  setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
+  setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
 
   });
 </script>

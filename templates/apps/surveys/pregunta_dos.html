@@ -47,7 +47,7 @@
               <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_1.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-end">-</div>
             </button>
-            <input type="hidden" name="propuesta_1" id="valor_propuesta_1" value="{{ form.propuesta_1.value }}">
+            <input type="hidden" name="propuesta_1" id="valor_propuesta_1" value="{{ form.propuesta_1.value|default:''}}">
           </div>
           
           <div class="my-2 w-100">
@@ -56,7 +56,7 @@
               <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_2.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold justify-content-md-end mx-3 text-dark  text-right align-self-center">-</div>
             </button>
-            <input type="hidden" name="propuesta_2" id="valor_propuesta_2" value="{{ form.propuesta_2.value }}">
+            <input type="hidden" name="propuesta_2" id="valor_propuesta_2" value="{{ form.propuesta_2.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
@@ -65,7 +65,7 @@
               <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_3.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
-            <input type="hidden" name="propuesta_3" id="valor_propuesta_3" value="{{ form.propuesta_3.value }}">
+            <input type="hidden" name="propuesta_3" id="valor_propuesta_3" value="{{ form.propuesta_3.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
@@ -74,7 +74,7 @@
               <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_4.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark  justify-content-end align-self-center">-</div>
             </button>
-            <input type="hidden" name="propuesta_4" id="valor_propuesta_4" value="{{ form.propuesta_4.value }}">
+            <input type="hidden" name="propuesta_4" id="valor_propuesta_4" value="{{ form.propuesta_4.value|default:'' }}">
           </div>
 
 
