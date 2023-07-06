@@ -49,9 +49,11 @@ class SeccionDocumentosResource(ModelResource):
 
 
 @admin.register(SeccionDocumentos)
-class RegionAdmin(ImportExportMixin, admin.ModelAdmin):
+class SeccionDocumentosAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = SeccionDocumentosResource
-    
+    list_display = ('seccion_documento', 'tipo_documento')  # Mostrar el tipo de documento en la lista
+    list_filter = ('tipo_documento',)  # Permitir filtrar por tipo de documento
+
     
 class DocumentosResource(ModelResource):
     class Meta:
@@ -61,3 +63,19 @@ class DocumentosResource(ModelResource):
 @admin.register(Documentos)
 class RegionAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = DocumentosResource
+    list_display = ('titulo_documento', 'seccion_documento', 'public')  # Mostrar el tipo de documento en la lista
+    list_filter = ('seccion_documento',)  # Permitir filtrar por tipo de documento
+
+    # Definir una acción personalizada para editar el campo 'public'
+    def make_public(self, request, queryset):
+        queryset.update(public=True)
+
+    def make_private(self, request, queryset):
+        queryset.update(public=False)
+
+    # Configurar metadatos para la acción personalizada
+    make_public.short_description = "Marcar como público"
+    make_private.short_description = "Marcar como privado"
+
+    # Agregar las acciones personalizadas al administrador
+    actions = [make_public, make_private]

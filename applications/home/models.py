@@ -54,7 +54,7 @@ class SeccionDocumentos(models.Model):
 
 class Documentos(models.Model):
 
-    titulo_documento = models.CharField(max_length=100)
+    titulo_documento = models.CharField(max_length=200)
     public = models.BooleanField(default=True)
     seccion_documento = models.ForeignKey(SeccionDocumentos, blank=False, on_delete=models.CASCADE,
                                        related_name='seccion_documentos')
