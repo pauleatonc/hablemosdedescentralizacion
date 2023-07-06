@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block views %}
+<section class="container-fluid mt-3 mt-md-5">
+    <div  class="d-flex justify-content-center mb-md-5">
+        <div class="col-md-6">
+            <p class="h1 font-weight-bold my-md-3 mb-3">Servicio no disponible temporalmente</p>
+            <p class="'text-primary">Código de error: 503 - Servicio no disponible.</p>
+
+            <p class="h4 my-md-3">La plataforma se encuentra en mantenimiento y 
+                <strong>ha sido desactivada temporalmente.</strong> 
+                Sentimos los inconvenientes que esto pueda haber provocado. Podrás volver a ingresar el $Date.
+            </p>
+            
+            <p class="h4 mb-5 my-md-3">
+                Si te encontrabas ingresando información o llenando formularios, 
+                <strong>no ha sido posible guardar tus respuestas. </strong>
+                 Cuando la plataforma vuelva a estar disponible, deberás hacerlo nuevamente.
+            </p>
+
+            <p class="h4 mb-5 my-md-3">
+                Te puedes contactar con la SUBDERE al teléfono de mesa central:
+                <strong class="text-nowrap">(2) 2 636 36 00</strong>
+            </p>
+        
+        </div>
+    </div>
+    
+</section>
+
+{% endblock views %}

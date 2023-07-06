@@ -12,6 +12,12 @@ urlpatterns = [
         ),
 
      path(
+        'proceso-participativo',
+        views.ProcesoParticipativoView.as_view(),
+        name='proceso_participativo',
+        ),
+
+     path(
         'preguntas-frecuentes',
         views.PreguntasFrecuentesView.as_view(),
         name='preguntas_frecuentes',
@@ -22,5 +28,11 @@ urlpatterns = [
         views.DocumentosView.as_view(),
         name='documentos',
         ),
-        
+
+    path(
+        'politicas-privacidad',
+        views.PoliticasPrivacidadView.as_view(),
+        name='politivas_privacidad',
+        ),
+
 ]
