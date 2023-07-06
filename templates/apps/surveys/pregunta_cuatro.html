@@ -1,86 +1,107 @@
 {% extends "base/base.html" %}
 {% load static %}
-
 {% block views %}
-<div>
-  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">Ir atrás</button>
+<section class="container">
+    <div class="cols-12 my-5 mx-3">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mx-md-auto my-2">
+                {% include "components/desentralizacion_banner.html" %}
+            </div>
+            <div class="col-lg-9 d-flex justify-content-between my-2">
+                <button type="button" class=" btn btn-pill-primary  text-nowrap"  onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'"><i class="material-symbols-outlined">
+                    chevron_left
+                    </i>Ir atrás</button>
+                <button type="button" class=" btn btn-pill-primary  text-nowrap"
+                    onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Siguiente<i
+                    class="material-symbols-outlined">
+                    chevron_right
+                </i></button>
+            </div>
+            <div class="col-lg-10">
+                <p class="font-level-1  text-center my-3">Pregunta 4 de 5:</p>
+            </div>
+            <div class='col-lg-9 my-2'>
+                <p class="font-level-6 text-justify mx-2">Evalúa la importancia de las siguientes temáticas a incluir en la Política Nacional de Descentralización.</p>
+            </div>
+            <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center">
+            <form method="POST">
+                {% csrf_token %}
+                <div class= "card w-100  border-primary mb-3 text-primary font-level-6 font-weight-light p-3">
+                    {{ form.tematica_1.label_tag }}
+                    {% if tematica_1_guardada %}
+                    <input type="text" name="tematica_1" class="form-control " value="{{ tematica_1_guardada }}" readonly>
+                    {% else %}
+                    {{ form.tematica_1 }}
+                    {{ form.tematica_1.errors }}
+                    {% endif %}
+                </div>
+                <div class="card border-primary mb-3 text-primary font-level-6 font-weight-light p-4">
+                    {{ form.tematica_2.label_tag }}
+                    {% if tematica_2_guardada %}
+                    <input type="text" name="tematica_2" value="{{ tematica_2_guardada }}" readonly>
+                    {% else %}
+                    {{ form.tematica_2 }}
+                    {{ form.tematica_2.errors }}
+                    {% endif %}
+                </div>
+                <div class="card border-primary mb-3 text-primary font-level-6 font-weight-light p-4">
+                    {{ form.tematica_3.label_tag }}
+                
+                    {% if tematica_3_guardada %}
+                    <input type="text" name="tematica_3" value="{{ tematica_3_guardada }}" readonly>
+                    {% else %}
+                    {{ form.tematica_3 }}
+                    {{ form.tematica_3.errors }}
+                    {% endif %}
+                </div>
+                <div class="card border-primary mb-3 text-primary font-level-6 font-weight-light p-4">
+                    {{ form.tematica_4.label_tag }}
+                    {% if tematica_4_guardada %}
+                    <input type="text" name="tematica_4" value="{{ tematica_4_guardada }}" readonly>
+                    {% else %}
+                    {{ form.tematica_4 }}
+                    {{ form.tematica_4.errors }}
+                    {% endif %}
+                </div>
+                <div class="card border-primary mb-3 text-primary  font-level-6 font-weight-light p-4">
+                    {{ form.tematica_5.label_tag }}
+                    {% if tematica_5_guardada %}
+                    <input type="text" name="tematica_5" value="{{ tematica_5_guardada }}" readonly>
+                    {% else %}
+                    {{ form.tematica_5 }}
+                    {{ form.tematica_5.errors }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {% if tematica_1_guardada %}
+                    <div>Continúa con la siguiente pregunta sobre:</div>
+                    <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">
+                            Valor de la Descentralización</button>
+                    </div>
+
+                    {% else %}
+                    <div class="col-md-6 mx-md-auto mt-4">
+                        <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:</p>
+                        <button type="submit"  class="btn btn-primary btn-lg btn-block" >Tu opinión sobre Descentralización<i class="material-symbols-outlined px-3">
+                            arrow_forward_ios
+                        </i></button>
+                    </div>
+
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</section>
+<div class="my-3 col-md-12 mw-100 mx-0">
+    {% include "components/logo_banner.html" %} 
 </div>
-<div>
-  <button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">Siguiente</button>
-</div>
-<div><h3>Pregunta 4 de 5:</h3></div>
-<div>En su opinión,<br>¿Qué tan importante es incluir las siguientes temáticas de forma transversal en la Política
-    Nacional de Descentralización?</div>
-
-<form method="POST">
-    {% csrf_token %}
-    <div>
-        {{ form.tematica_1.label_tag }}
-        {% if tematica_1_guardada %}
-            <input type="text" name="tematica_1" value="{{ tematica_1_guardada }}" readonly>
-        {% else %}
-            {{ form.tematica_1 }}
-            {{ form.tematica_1.errors }}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.tematica_2.label_tag }}
-        {% if tematica_2_guardada %}
-            <input type="text" name="tematica_2" value="{{ tematica_2_guardada }}" readonly>
-        {% else %}
-            {{ form.tematica_2 }}
-            {{ form.tematica_2.errors }}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.tematica_3.label_tag }}
-        {% if tematica_3_guardada %}
-            <input type="text" name="tematica_3" value="{{ tematica_3_guardada }}" readonly>
-        {% else %}
-            {{ form.tematica_3 }}
-            {{ form.tematica_3.errors }}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.tematica_4.label_tag }}
-        {% if tematica_4_guardada %}
-            <input type="text" name="tematica_4" value="{{ tematica_4_guardada }}" readonly>
-        {% else %}
-            {{ form.tematica_4 }}
-            {{ form.tematica_4.errors }}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.tematica_5.label_tag }}
-        {% if tematica_5_guardada %}
-            <input type="text" name="tematica_5" value="{{ tematica_5_guardada }}" readonly>
-        {% else %}
-            {{ form.tematica_5 }}
-            {{ form.tematica_5.errors }}
-        {% endif %}
-    </div>
-
-    <div>
-    {% if tematica_1_guardada %}
-      <div>Continúa con la siguiente pregunta sobre:</div>
-      <div><button type="button" onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'">
-        Valor de la Descentralización</button>
-      </div>
-
-    {% else %}
-      <div>Continúa con la siguiente pregunta sobre:</div>
-      <div>
-        <button type="submit">Valor de la Descentralización</button>
-      </div>
-
-    {% endif %}
-  </div>
-</form>
 
 
-{% endblock views %}
+    {% endblock views %}
 
 
-{% block scripts %}
-{% endblock scripts %}
-
+    {% block scripts %}
+    {% endblock scripts %}

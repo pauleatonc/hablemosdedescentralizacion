@@ -3,12 +3,12 @@
 
 {% block views %}
 <section class="container">
-  <div class="cols-12 my-5">
+  <div class="cols-12 my-5 mx-3">
     <div class="row justify-content-center">
       <div class="col-md-6 mx-md-auto my-2">
         {% include "components/desentralizacion_banner.html" %}
       </div>
-      <div class="col-lg-12 d-flex justify-content-between my-2">
+      <div class="col-lg-9 d-flex justify-content-between my-2">
         <button type="button" class="btn btn-pill-primary  text-nowrap"
           onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'"><i
             class="material-symbols-outlined">
@@ -16,22 +16,21 @@
           </i>
           Ir atrás</button>
       </div>
-      <div class="col-md-12 ">
+      <div class="col-lg-10">
         <p class="font-level-1  text-center my-3">Pregunta 5 de 5:</p>
-        <div class="col-md-10 mx-md-auto my-5">
-          <p class="font-level-5 text-justify ">Para finalizar, a partir de las <br
-              class="d-none d-sm-block d-md-none "> respuestas dadas anteriormente,
+      </div>
+      <div class='col-lg-9 my-2 mx-1'>
+          <p class="font-level-6 mx-2">Para finalizar, a partir de las  respuestas dadas anteriormente,
           </p>
-          <p class="font-level-5 text-justify">
+          <p class="font-level-6  mx-2">
             ¿qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el vínculo entre descentralización y
             su
             vida personal y en comunidad?<br>
             <br>
-            <strong>Responder esta pregunta es opcional.</strong>
+            Responder esta pregunta es opcional.
           </p>
-        </div>
       </div>
-      <div class="col-md-10 w-100 p-3 my-lg-5">
+      <div class="col-12 col-md-8 col-lg-9 mx-5 justify-content-center">
         <form method="post" class="form col-12" action=" {% url 'surveys_app:pregunta_cinco' %}">
           {% csrf_token %}
 
@@ -69,7 +68,7 @@
 
           <!-- Botón para el envío del formulario completo -->
           <div class="d-flex flex-column my-3 mx-2 align-content-center">
-            <p class="font-level-5 text-md-center font-weight-light ">Continua para guardar y enviar tus respuestas.</p>
+            <p class="font-level-6  text-md-center font-weight-light ">Continua para guardar y enviar tus respuestas.</p>
             <button type="submit" class="btn btn-primary btn-lg btn-block align-self-center col-md-6 text-nowrap">Enviar mis respuestas <i
                 class="material-symbols-outlined px-2">
                 arrow_forward_ios
