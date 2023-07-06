@@ -19,6 +19,7 @@ LOCAL_APPS = [
     'applications.regioncomuna',
     'applications.home',
     'applications.surveys',
+    'applications.claveunica',
 ]
 
 THIRD_PARTY_APPS = [
