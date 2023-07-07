@@ -34,12 +34,6 @@
         <form method="post" class="form col-12" action=" {% url 'surveys_app:pregunta_cinco' %}">
           {% csrf_token %}
 
-          {% if valor_guardado %}
-          <!-- Muestra los valores guardados si ya contestó la encuesta -->
-          <input type="text" name="valor" value="{{ valor_guardado }}" readonly>
-          <button type="button"
-            onclick="window.location.href='{% url 'surveys_app:enviar_formularios' %}'">Siguiente</button>
-          {% else %}
           <!-- Muestra input para el formulario -->
           <div class="form-group">
             {{ form.label_tag }}
@@ -49,24 +43,7 @@
             {{ form.errors }}
           </div>
 
-          <!-- Trae todos los valores de los formularios previos para pasarlos al submit -->
-          {% if pregunta_uno_data %}
-          <input type="text" name="pregunta_uno_valor" value="{{ pregunta_uno_valor }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_1 %}
-          <input type="text" name="pregunta_dos_propuesta_1" value="{{ pregunta_dos_propuesta_1 }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_2 %}
-          <input type="text" name="pregunta_dos_propuesta_2" value="{{ pregunta_dos_propuesta_2 }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_3 %}
-          <input type="text" name="pregunta_dos_propuesta_3" value="{{ pregunta_dos_propuesta_3 }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_4 %}
-          <input type="text" name="pregunta_dos_propuesta_4" value="{{ pregunta_dos_propuesta_4 }}" readonly>
-          {% endif %}
-
-          <!-- Botón para el envío del formulario completo -->
+          <!-- Botón para el envío del formulario -->
           <div class="d-flex flex-column my-3 mx-2 align-content-center">
             <p class="font-level-6  text-md-center font-weight-light ">Continua para guardar y enviar tus respuestas.</p>
             <button type="submit" class="btn btn-primary btn-lg btn-block align-self-center col-md-6 text-nowrap">Enviar mis respuestas <i
@@ -74,8 +51,7 @@
                 arrow_forward_ios
               </i></button>
         </div>
-        
-          {% endif %}
+
 
         </form>
       </div>

@@ -277,9 +277,25 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
     model = PreguntaCinco
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        try:
+            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+            form = self.form_class(initial={
+                'texto_respuesta': pregunta_cinco.texto_respuesta,
+            })
+        except PreguntaCinco.DoesNotExist:
+            form = self.form_class()
+
+        return self.render_to_response(self.get_context_data(form=form))
+
     def form_valid(self, form):
-        pregunta_cinco = form.save(commit=False)
-        pregunta_cinco.usuario = self.request.user
+        usuario = self.request.user
+        try:
+            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+        except PreguntaCinco.DoesNotExist:
+            pregunta_cinco = PreguntaCinco(usuario=usuario)
+        pregunta_cinco.texto_respuesta = form.cleaned_data.get('texto_respuesta')
         pregunta_cinco.save()
 
         return redirect('surveys_app:enviar_formularios')
