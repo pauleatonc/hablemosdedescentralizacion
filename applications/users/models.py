@@ -21,6 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     comuna = models.ForeignKey(Comuna, null=True, blank=True, verbose_name='Comuna', on_delete=models.SET_NULL)
     edad = models.PositiveIntegerField(blank=True, null=True)
     politica_privacidad = models.BooleanField(blank=True, null=True, default=False)
+    encuesta_completada = models.BooleanField(default=False)
 
     #Setiando el nombre de usuario al rut
     USERNAME_FIELD = 'rut'    

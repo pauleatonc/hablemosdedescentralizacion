@@ -36,6 +36,12 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
         })
         return kwargs
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
     def form_valid(self, form):
         form.save()
         return redirect('surveys_app:pregunta_uno')
@@ -71,6 +77,12 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
     model = PreguntaUno
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
     def form_valid(self, form):
         usuario = self.request.user
         try:
@@ -105,6 +117,10 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
         try:
             pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
             form = self.form_class(initial={
@@ -162,6 +178,10 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
     
     def get(self, request, *args, **kwargs):
         usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
         try:
             pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
             form = self.form_class(initial={
@@ -223,6 +243,10 @@ class PreguntaCuatroView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
         try:
             pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
             form = self.form_class(initial={
@@ -279,6 +303,10 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
         try:
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
             form = self.form_class(initial={
@@ -297,6 +325,9 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
             pregunta_cinco = PreguntaCinco(usuario=usuario)
         pregunta_cinco.texto_respuesta = form.cleaned_data.get('texto_respuesta')
         pregunta_cinco.save()
+
+        usuario.encuesta_completada = True
+        usuario.save()
 
         return redirect('surveys_app:enviar_formularios')
 
