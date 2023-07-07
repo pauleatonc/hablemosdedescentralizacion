@@ -1,19 +1,22 @@
 from django.views.generic import TemplateView, View
-from .forms import PreguntaUnoForm, PreguntaDosForm, PreguntaTresForm, PreguntaCuatroForm, PreguntaCincoForm, DatosUsuarioForm
+from .forms import (
+    PreguntaUnoForm,
+    PreguntaDosForm,
+    PreguntaTresForm,
+    PreguntaCuatroForm,
+    PreguntaCincoForm,
+    DatosUsuarioForm,
+    EnviarFormulariosForm
+)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
-from django.contrib.sessions.backends.db import SessionStore
-from django.http import JsonResponse
 from applications.regioncomuna.models import Region, Comuna
 from applications.users.models import User
 from django.http import JsonResponse
-from django.utils import timezone
-from django.contrib import messages
-
-from formtools.wizard.views import SessionWizardView
+from .functions import send_email
+from django.conf import settings
 
 
 class ComunasPorRegionView(View):
@@ -41,6 +44,8 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
 
         if usuario.encuesta_completada:
             return redirect('surveys_app:enviar_formularios')
+
+        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.save()
@@ -82,6 +87,8 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
 
         if usuario.encuesta_completada:
             return redirect('surveys_app:enviar_formularios')
+
+        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         usuario = self.request.user
@@ -343,6 +350,60 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
         return context
 
 
-class EnviarFormulariosViews(LoginRequiredMixin, TemplateView):
+class EnviarFormulariosViews(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/enviar_formularios.html'
+    form_class = EnviarFormulariosForm
     login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'instance': self.request.user
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        # Guardar el formulario y obtener la instancia del modelo
+        self.object = form.save()
+
+        # Obtener datos del formulario
+        email = form.cleaned_data['email']
+        recibir_resultados = form.cleaned_data['recibir_resultados']
+
+        self.success_url = self.request.path
+        return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if not usuario.encuesta_completada:
+            return redirect('home_app:onboarding')  # Redirige al usuario si no ha completado la encuesta
+
+        try:
+            email = usuario.email
+            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+        except (PreguntaCuatro.DoesNotExist, PreguntaCinco.DoesNotExist):
+            return redirect('home_app:onboarding')  # Redirige al usuario si no ha llenado todos los formularios
+
+        admin_email = settings.ADMIN_EMAIL
+
+        # Enviar el correo electrónico con los datos del formulario
+        send_email(
+            # Subject
+            'Resultados de la encuesta - Banco de Proyectos',
+            # Content
+            'El usuario ha completado la encuesta con las siguientes respuestas: \n' +
+            'Pregunta Cuatro - Tematica 1: ' + str(pregunta_cuatro.tematica_1) + '\n' +
+            'Pregunta Cuatro - Tematica 2: ' + str(pregunta_cuatro.tematica_2) + '\n' +
+            'Pregunta Cuatro - Tematica 3: ' + str(pregunta_cuatro.tematica_3) + '\n' +
+            'Pregunta Cuatro - Tematica 4: ' + str(pregunta_cuatro.tematica_4) + '\n' +
+            'Pregunta Cuatro - Tematica 5: ' + str(pregunta_cuatro.tematica_5) + '\n' +
+            'Pregunta Cinco - Texto Respuesta: ' + str(pregunta_cinco.texto_respuesta),
+            # From email
+            admin_email,
+            # To emails
+            [email]
+        )
+
+        return super().get(request, *args, **kwargs)

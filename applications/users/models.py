@@ -22,6 +22,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     edad = models.PositiveIntegerField(blank=True, null=True)
     politica_privacidad = models.BooleanField(blank=True, null=True, default=False)
     encuesta_completada = models.BooleanField(default=False)
+    recibir_resultados = models.BooleanField(default=False)
 
     #Setiando el nombre de usuario al rut
     USERNAME_FIELD = 'rut'    

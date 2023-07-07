@@ -15,21 +15,25 @@
         <p class="font-level-3 text-md-left text-center">Enviaste y guardaste tus respuestas con éxito.<p>
         <p class="font-level-4 text-md-left text-center">Recuerda que no puedes volver a responder este cuestionario.</p>
         
-        <p class="font-level-4 text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las recibirás en unos minutos.</p>
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Correo electronico</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">También quiero recibir los resultados finales del proceso.</label>
-          </div>
-          <div class="col-md-6 mx-md-auto">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Recibir mis respuestas</button>
-              <button type="submit" class="btn btn-outline-primary btn-lg btn-block my-4">Volver a la pagina principal <i class="material-symbols-outlined">
-                house
-                </i></button>
+        <p class="font-level-4 text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las
+          recibirás en unos minutos.</p>
+
+        <form method="post" action="{% url 'surveys_app:enviar_formularios' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">Correo electronico</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="{{ form.email.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="recibir_resultados" name="recibir_resultados" {% if form.recibir_resultados.value %}checked{% endif %}>
+                <label class="form-check-label" for="recibir_resultados">También quiero recibir los resultados finales del proceso.</label>
+            </div>
+
+            <div class="col-md-6 mx-md-auto">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Recibir mis respuestas</button>
+                <button type="submit" class="btn btn-outline-primary btn-lg btn-block my-4">
+                  Volver a la pagina principal <i class="material-symbols-outlined">house</i>
+                </button>
             </div>
         </form>
 

@@ -313,3 +313,31 @@ class PreguntaCincoForm(forms.ModelForm):
         widgets = {
             'texto_respuesta': forms.Textarea(attrs={'required': False, 'placeholder': 'Escribe aquí tu respuesta.','class': 'form-control'})
         }
+
+
+class EnviarFormulariosForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'recibir_resultados']
+
+        labels = {
+            'email': 'Correo electrónico (obligatorio)',
+            'recibir_resultados': 'También quiero recibir los resultados finales del proceso.'
+        }
+
+        widgets = {
+            'email': forms.EmailInput(
+                attrs={
+                    'required': True,
+                    'placeholder': 'ejemplo@ejemplo.cl',
+                    'class': 'custom-input'
+                }
+            ),
+            'recibir_resultados': forms.CheckboxInput(
+                attrs={
+                    'required': False,
+                    'class': ' custom-control custom-checkbox',
+                    'style': 'width:20px ; margin: 0px 8px 8px 0px ',
+                }
+            ),
+        }
