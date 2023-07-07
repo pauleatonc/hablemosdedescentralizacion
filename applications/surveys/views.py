@@ -159,7 +159,7 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
                 'iniciativa_2': pregunta_tres.iniciativa_2,
                 'iniciativa_3': pregunta_tres.iniciativa_3,
                 'iniciativa_4': pregunta_tres.iniciativa_4,
-                'iniciativa_4': pregunta_tres.iniciativa_5,
+                'iniciativa_5': pregunta_tres.iniciativa_5,
             })
         except PreguntaTres.DoesNotExist:
             form = self.form_class()
