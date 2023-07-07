@@ -6,12 +6,17 @@ from .functions import validate_file_size_five
 
 
 class Countdown(models.Model):
+    start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField()
 
     def get_days_left(self):
         today = datetime.now().date()
         days_left = (self.end_date - today).days
         return days_left
+
+    def get_total_days(self):
+        total_days = (self.end_date - self.start_date).days
+        return total_days
 
 
 class PreguntasFrecuentes(models.Model):

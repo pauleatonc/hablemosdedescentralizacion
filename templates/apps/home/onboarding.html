@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block views %}
+{% load countdown_tags %}
 
 <section class="container-hero">
     
@@ -62,7 +63,7 @@
 
                 </div>
                 <div class="col-md-5 text-center mb-5">
-                    {% include "components/countdown.html" %}
+                    {% countdown_component %}
                 </div>
             </div>    
         </section>
