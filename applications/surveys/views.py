@@ -1,19 +1,22 @@
 from django.views.generic import TemplateView, View
-from .forms import PreguntaUnoForm, PreguntaDosForm, PreguntaTresForm, PreguntaCuatroForm, PreguntaCincoForm, DatosUsuarioForm
+from .forms import (
+    PreguntaUnoForm,
+    PreguntaDosForm,
+    PreguntaTresForm,
+    PreguntaCuatroForm,
+    PreguntaCincoForm,
+    DatosUsuarioForm,
+    EnviarFormulariosForm
+)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
-from django.contrib.sessions.backends.db import SessionStore
-from django.http import JsonResponse
 from applications.regioncomuna.models import Region, Comuna
 from applications.users.models import User
 from django.http import JsonResponse
-from django.utils import timezone
-from django.contrib import messages
-
-from formtools.wizard.views import SessionWizardView
+from .functions import send_email
+from django.conf import settings
 
 
 class ComunasPorRegionView(View):
@@ -35,6 +38,14 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
             'instance': self.request.user
         })
         return kwargs
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
+        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.save()
@@ -71,6 +82,14 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
     model = PreguntaUno
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
+        return super().get(request, *args, **kwargs)
+
     def form_valid(self, form):
         usuario = self.request.user
         try:
@@ -98,8 +117,17 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
     model = PreguntaDos
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
+
     def get(self, request, *args, **kwargs):
         usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
         try:
             pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
             form = self.form_class(initial={
@@ -107,9 +135,9 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
                 'propuesta_2': pregunta_dos.propuesta_2,
                 'propuesta_3': pregunta_dos.propuesta_3,
                 'propuesta_4': pregunta_dos.propuesta_4,
-            })
+            }, request=request)
         except PreguntaDos.DoesNotExist:
-            form = self.form_class()
+            form = self.form_class(request=request)
 
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -149,9 +177,18 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
     form_class = PreguntaTresForm
     model = PreguntaTres
     login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
     
     def get(self, request, *args, **kwargs):
         usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
         try:
             pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
             form = self.form_class(initial={
@@ -159,10 +196,10 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
                 'iniciativa_2': pregunta_tres.iniciativa_2,
                 'iniciativa_3': pregunta_tres.iniciativa_3,
                 'iniciativa_4': pregunta_tres.iniciativa_4,
-                'iniciativa_4': pregunta_tres.iniciativa_5,
-            })
+                'iniciativa_5': pregunta_tres.iniciativa_5,
+            }, request=request)
         except PreguntaTres.DoesNotExist:
-            form = self.form_class()
+            form = self.form_class(request=request)
 
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -206,9 +243,42 @@ class PreguntaCuatroView(LoginRequiredMixin, FormView):
     model = PreguntaCuatro
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
+        try:
+            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+            form = self.form_class(initial={
+                'tematica_1': pregunta_cuatro.tematica_1,
+                'tematica_2': pregunta_cuatro.tematica_2,
+                'tematica_3': pregunta_cuatro.tematica_3,
+                'tematica_4': pregunta_cuatro.tematica_4,
+                'tematica_5': pregunta_cuatro.tematica_5,
+            }, request=request)
+        except PreguntaCuatro.DoesNotExist:
+            form = self.form_class(request=request)
+
+        return self.render_to_response(self.get_context_data(form=form))
+
     def form_valid(self, form):
-        pregunta_cuatro = form.save(commit=False)
-        pregunta_cuatro.usuario = self.request.user
+        usuario = self.request.user
+        try:
+            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+        except PreguntaCuatro.DoesNotExist:
+            pregunta_cuatro = PreguntaCuatro(usuario=usuario)
+        pregunta_cuatro.tematica_1 = form.cleaned_data.get('tematica_1')
+        pregunta_cuatro.tematica_2 = form.cleaned_data.get('tematica_2')
+        pregunta_cuatro.tematica_3 = form.cleaned_data.get('tematica_3')
+        pregunta_cuatro.tematica_4 = form.cleaned_data.get('tematica_4')
+        pregunta_cuatro.tematica_5 = form.cleaned_data.get('tematica_5')
         pregunta_cuatro.save()
 
         return redirect('surveys_app:pregunta_cinco')
@@ -238,10 +308,33 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
     model = PreguntaCinco
     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
+        try:
+            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+            form = self.form_class(initial={
+                'texto_respuesta': pregunta_cinco.texto_respuesta,
+            })
+        except PreguntaCinco.DoesNotExist:
+            form = self.form_class()
+
+        return self.render_to_response(self.get_context_data(form=form))
+
     def form_valid(self, form):
-        pregunta_cinco = form.save(commit=False)
-        pregunta_cinco.usuario = self.request.user
+        usuario = self.request.user
+        try:
+            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+        except PreguntaCinco.DoesNotExist:
+            pregunta_cinco = PreguntaCinco(usuario=usuario)
+        pregunta_cinco.texto_respuesta = form.cleaned_data.get('texto_respuesta')
         pregunta_cinco.save()
+
+        usuario.encuesta_completada = True
+        usuario.save()
 
         return redirect('surveys_app:enviar_formularios')
 
@@ -257,6 +350,60 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
         return context
 
 
-class EnviarFormulariosViews(LoginRequiredMixin, TemplateView):
+class EnviarFormulariosViews(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/enviar_formularios.html'
+    form_class = EnviarFormulariosForm
     login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'instance': self.request.user
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        # Guardar el formulario y obtener la instancia del modelo
+        self.object = form.save()
+
+        # Obtener datos del formulario
+        email = form.cleaned_data['email']
+        recibir_resultados = form.cleaned_data['recibir_resultados']
+
+        self.success_url = self.request.path
+        return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if not usuario.encuesta_completada:
+            return redirect('home_app:onboarding')  # Redirige al usuario si no ha completado la encuesta
+
+        try:
+            email = usuario.email
+            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+        except (PreguntaCuatro.DoesNotExist, PreguntaCinco.DoesNotExist):
+            return redirect('home_app:onboarding')  # Redirige al usuario si no ha llenado todos los formularios
+
+        admin_email = settings.ADMIN_EMAIL
+
+        # Enviar el correo electrónico con los datos del formulario
+        send_email(
+            # Subject
+            'Resultados de la encuesta - Banco de Proyectos',
+            # Content
+            'El usuario ha completado la encuesta con las siguientes respuestas: \n' +
+            'Pregunta Cuatro - Tematica 1: ' + str(pregunta_cuatro.tematica_1) + '\n' +
+            'Pregunta Cuatro - Tematica 2: ' + str(pregunta_cuatro.tematica_2) + '\n' +
+            'Pregunta Cuatro - Tematica 3: ' + str(pregunta_cuatro.tematica_3) + '\n' +
+            'Pregunta Cuatro - Tematica 4: ' + str(pregunta_cuatro.tematica_4) + '\n' +
+            'Pregunta Cuatro - Tematica 5: ' + str(pregunta_cuatro.tematica_5) + '\n' +
+            'Pregunta Cinco - Texto Respuesta: ' + str(pregunta_cinco.texto_respuesta),
+            # From email
+            admin_email,
+            # To emails
+            [email]
+        )
+
+        return super().get(request, *args, **kwargs)

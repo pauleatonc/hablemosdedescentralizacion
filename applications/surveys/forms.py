@@ -1,5 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
+import random
+from collections import OrderedDict
 
 from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
 from applications.users.models import User
@@ -151,6 +153,20 @@ class PreguntaDosForm(forms.ModelForm):
 
         return cleaned_data
     
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
+        super(PreguntaDosForm, self).__init__(*args, **kwargs)
+
+        propuestas = ['propuesta_1', 'propuesta_2', 'propuesta_3', 'propuesta_4']
+        if 'propuestas_order' in request.session:
+            propuestas_order = request.session['propuestas_order']
+            self.fields = OrderedDict((k, self.fields[k]) for k in propuestas_order)
+        else:
+            random.shuffle(propuestas)
+            request.session['propuestas_order'] = propuestas
+            self.fields = OrderedDict((k, self.fields[k]) for k in propuestas)
+            
+    
 class PreguntaTresForm(forms.ModelForm):
     class Meta:
         model = PreguntaTres
@@ -215,6 +231,19 @@ class PreguntaTresForm(forms.ModelForm):
 
         return cleaned_data
     
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
+        super(PreguntaTresForm, self).__init__(*args, **kwargs)
+
+        iniciativas = ['iniciativa_1', 'iniciativa_2', 'iniciativa_3', 'iniciativa_4', 'iniciativa_5']
+        if 'iniciativas_order' in request.session:
+            iniciativas_order = request.session['iniciativas_order']
+            self.fields = OrderedDict((k, self.fields[k]) for k in iniciativas_order)
+        else:
+            random.shuffle(iniciativas)
+            request.session['iniciativas_order'] = iniciativas
+            self.fields = OrderedDict((k, self.fields[k]) for k in iniciativas)
+    
 
 class PreguntaCuatroForm(forms.ModelForm):
     class Meta:
@@ -260,7 +289,18 @@ class PreguntaCuatroForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
         super(PreguntaCuatroForm, self).__init__(*args, **kwargs)
+
+        tematicas = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
+        if 'tematicas_order' in request.session:
+            tematicas_order = request.session['tematicas_order']
+            self.fields = OrderedDict((k, self.fields[k]) for k in tematicas_order)
+        else:
+            random.shuffle(tematicas)
+            request.session['tematicas_order'] = tematicas
+            self.fields = OrderedDict((k, self.fields[k]) for k in tematicas)
+
         for field in self.fields:
             self.fields[field].label = self.fields[field].label + ': ' + self.fields[field].help_text
 
@@ -272,4 +312,32 @@ class PreguntaCincoForm(forms.ModelForm):
 
         widgets = {
             'texto_respuesta': forms.Textarea(attrs={'required': False, 'placeholder': 'Escribe aquí tu respuesta.','class': 'form-control'})
+        }
+
+
+class EnviarFormulariosForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'recibir_resultados']
+
+        labels = {
+            'email': 'Correo electrónico (obligatorio)',
+            'recibir_resultados': 'También quiero recibir los resultados finales del proceso.'
+        }
+
+        widgets = {
+            'email': forms.EmailInput(
+                attrs={
+                    'required': True,
+                    'placeholder': 'ejemplo@ejemplo.cl',
+                    'class': 'custom-input'
+                }
+            ),
+            'recibir_resultados': forms.CheckboxInput(
+                attrs={
+                    'required': False,
+                    'class': ' custom-control custom-checkbox',
+                    'style': 'width:20px ; margin: 0px 8px 8px 0px ',
+                }
+            ),
         }
