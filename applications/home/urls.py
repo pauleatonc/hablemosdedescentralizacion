@@ -24,7 +24,7 @@ urlpatterns = [
         ),
 
     path(
-        'documentos',
+        'documentos/',
         views.DocumentosView.as_view(),
         name='documentos',
         ),
@@ -33,6 +33,12 @@ urlpatterns = [
         'politicas-privacidad',
         views.PoliticasPrivacidadView.as_view(),
         name='politivas_privacidad',
+        ),
+
+        path(
+        'onboarding',
+        views.OnboardingView.as_view(),
+        name='onboarding',
         ),
 
 ]

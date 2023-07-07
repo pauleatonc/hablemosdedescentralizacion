@@ -9,80 +9,49 @@
       <div class="col-md-6 mx-md-auto my-2">
         {% include "components/desentralizacion_banner.html" %}
       </div>
-      <div class="col-lg-12 d-flex justify-content-between my-2">
+      <div class="col-lg-9 d-flex justify-content-between my-2">
         <button type="button" class=" btn btn-pill-primary  text-nowrap"
           onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'"><i class="material-symbols-outlined">
             chevron_left
           </i>Ir atrás</button>
-        <button type="button" class=" btn btn-pill-primary  text-nowrap"
-          onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">Siguiente<i
-            class="material-symbols-outlined">
-            chevron_right
-          </i></button>
+        {% if iniciativa_1_guardada %}
+          <button type="button" class=" btn btn-pill-primary  text-nowrap"
+            onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">Siguiente<i
+              class="material-symbols-outlined">
+              chevron_right
+            </i></button>
+        {% endif %}
       </div>
-      <div class="col-12 col-md-12  col-lg-10 mx">
+      <div class="col-lg-10">
         <p class="font-level-1  text-center my-3">Pregunta 3 de 5:</p>
-
-        <p class="font-level-5 text-justify mx-2">Te presentamos 5 de las iniciativas que podrían ser incluidas dentro
-          de la Política Nacional de Descentralización. </p>
-        <lu>
-          <p class="font-level-6 text-justify mx-2 font-weight-bold">Ordénalas de mayor a menor importancia considerando
-            que:</p>
-          <li class=" font-level-5 ml-3 "><strong>1</strong> es la <strong>más </strong>importante</li>
-          <li class=" font-level-5 ml-3"><strong>5</strong> es la <strong>menos </strong>importante.</li>
-        </lu>
-        <div id="frase" class="font-level-4 my-3">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 ml-2 mt-3"> 1 de importancia.</strong></div>
       </div>
-      <div class="col-12 col-md-8 col-lg-6 mx-5 my-3 justify-content-center ">
-
+      <div class='col-lg-9 my-2'>
+        <p class="font-level-4 text-justify">Te presentamos 5 de las iniciativas que podrían ser incluidas dentro
+          de la Política Nacional de Descentralización. </p>
+          <div class='contianer my-4 my-md-5'>
+        <lu>
+          <p class="font-level-6 text-justify">Ordénalas de mayor a menor importancia considerando
+            que:</p>
+          <li class=" font-level-6 ml-3 ">1 es la más importante</li>
+          <li class="font-level-6 ml-3">5 es la menos importante.</li>
+        </lu>
+        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 mt-3"> 1 de importancia.</strong></p>
+      </div>
+    </div>
+      <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center ">
         <form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
           {% csrf_token %}
           
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
-              id="iniciativa_1">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value }}">
-          </div>
-          
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
-              id="iniciativa_2">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value }}">
-          </div>
-          
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
-              id="iniciativa_3">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value }}">
-          </div>
-          
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
-              id="iniciativa_4">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value }}">
-          </div>
-          
-          <div class="my-2">
-            <button type="button" class="iniciativa d-flex flex-row rbg-white border border-primary border-3"
-              id="iniciativa_5">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value }}">
-          </div>
-
+          {% for iniciativa in form %}
+              <div class="my-2 w-100">
+                  <button type="button" class="iniciativa w-100 d-flex flex-row  justify-content-between border border-primary border-3"
+                  id="iniciativa_{{ forloop.counter }}">
+                  <div class="iniciativa-text text-primary m-4 text-left">{{ iniciativa.help_text }}</div>
+                  <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark  justify-content-end align-self-center">-</div>
+                  </button>
+                  <input type="hidden" name="iniciativa_{{ forloop.counter }}" id="valor_iniciativa_{{ forloop.counter }}" value="{{ iniciativa.value|default:'' }}">
+              </div>
+          {% endfor %}
           
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
@@ -112,7 +81,7 @@
     </div>
   </div>
 </section>
-<div class="my-3 col-md-12 mw-100 mx-0"">
+<div class="my-3 col-md-12 mw-100 mx-0">
   {% include "components/logo_banner.html" %}
 </div>
 {% endblock views %}
@@ -174,31 +143,29 @@
       $('#reiniciar').hide();
     });
 
-      // Función para establecer el estado inicial
-    function setInitialState(id, prioridad) {
-      // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
-      if (prioridad) {
-        $('#' + id).prop('disabled', true);
-        $('#' + id).find('.iniciativa-check').text(prioridad);
-        seleccionados[id] = prioridad;
-        prioridad++;
-        if (prioridad <= 5) {
-          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
-        }
-        if (Object.keys(seleccionados).length === 5) {
-          $('#reiniciar').show();
-        }
+    // Función para establecer el estado inicial
+  function setInitialState(id, prioridad) {
+    // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
+    if (prioridad) {
+      $('#' + id).prop('disabled', true);
+      $('#' + id).find('.iniciativa-check').text(prioridad);
+      seleccionados[id] = prioridad;
+      prioridad++;
+      if (prioridad <= 5) {
+        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+      }
+      if (Object.keys(seleccionados).length === 5) {
+        $('#reiniciar').show();
       }
     }
-  
-    // Llamamos a esta función para cada iniciativa
-    setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
-    setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
-    setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
-    setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
-    setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
-  
-    });
+  }
+
+  // Llamamos a esta función para cada iniciativa
+  setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
+  setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
+  setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
+  setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
+  setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
 
   });
 </script>
