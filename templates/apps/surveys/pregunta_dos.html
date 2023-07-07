@@ -3,7 +3,7 @@
 
 {% block views %}
 <section class="container">
-  <div class="cols-12 my-5 mx-3">
+  <div class="cols-12 my-0 mx-3">
     <div class="row justify-content-center">
       <div class="col-md-6 mx-md-auto my-2">
         {% include "components/desentralizacion_banner.html" %}
@@ -45,7 +45,7 @@
             <button type="button" class="propuesta d-flex w-100 flex-row justify-content-between border border-primary border-3"
               id="propuesta_1">
               <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_1.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-end">-</div>
+              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
             </button>
             <input type="hidden" name="propuesta_1" id="valor_propuesta_1" value="{{ form.propuesta_1.value|default:''}}">
           </div>
@@ -86,12 +86,12 @@
 
           <div>
               <!-- Botón para reiniciar selección -->
-            <div class="d-flex mt-4 mb-5">  
+            <div class="d-flex mt-4 mb-5 ">  
               <button type="button" id="reiniciar"  class="btn btn-outline-secondary btn-lg rounded text-decoration-none" style="display: none;">Limpiar ranking <i class="material-symbols-outlined">
                 delete
                 </i></button>
             </div>
-            <div class="col-md-6 mx-md-auto">
+            <div class="col-md-6 mx-md-auto px-0">
             <p class="font-level-6 mx-auto text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
               <button type="submit" class="btn btn-primary btn-lg btn-block">Inclusión de iniciativas <i class="material-symbols-outlined px-3">
                 arrow_forward_ios

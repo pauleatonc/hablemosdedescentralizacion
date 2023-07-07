@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView
+from django.shortcuts import render
 
 # importar modelos
 from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos, SeccionDocumentos
@@ -33,6 +34,12 @@ class PreguntasFrecuentesView(TemplateView):
 
 class DocumentosView(TemplateView):
     template_name = 'apps/home/documentos.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tipos_documentos = TipoDocumentos.objects.select_related('secciondocumentos_set__documentos').all()
+        context['tipos_documentos'] = tipos_documentos
+        return context
 
 class PoliticasPrivacidadView(TemplateView):
     template_name = 'apps/home/politicas_privacidad.html'

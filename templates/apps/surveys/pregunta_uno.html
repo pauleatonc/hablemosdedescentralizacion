@@ -2,14 +2,14 @@
 {% load static %}
 {% block views %}
 <section class="container">
-  <div class="cols-12 my-5 mx-3">
+  <div class="cols-12 my-0 mx-3">
     <div class="row justify-content-center">
       <div class="col-md-6 mx-md-auto my-2">
         {% include "components/desentralizacion_banner.html" %}
       </div>
 
       <div class="col-lg-9 d-flex justify-content-between my-2">
-        <button type="button" class=" btn btn-pill-primary  text-nowrap"
+        <button type="radio" class=" btn btn-pill-primary  text-nowrap active"
           onclick="window.location.href='{% url 'surveys_app:consulta_datos_usuario' %}'"><i
             class="material-symbols-outlined">
             chevron_left
@@ -25,9 +25,9 @@
       <div class="col-lg-10">
         <p class=" font-level-1  text-center my-3">Pregunta 1 de 5:</p>
 
-        <p class="font-level-5 text-justify mx-5">¿Qué valor le otorgas a la descentralización en la cotidianeidad y en
+        <p class="font-level-5 text-justify mx-2 mx-md-5">¿Qué valor le otorgas a la descentralización en la cotidianeidad y en
           la calidad de vida de las personas?</p>
-        <p class="font-level-5 text-justify mx-5">Responde desde tus propios conocimientos y experiencias.</p>
+        <p class="font-level-5 text-justify mx-2 mx-md-5">Responde desde tus propios conocimientos y experiencias.</p>
       </div>
       <div class="col-12 col-md-6 col-lg-6 mx-5 my-2 justify-content-center">
 
@@ -37,8 +37,8 @@
           <!-- Muestra input para el formulario -->
           {% for choice in form.valor.field.choices %}
           <div class="">
-              <button class="btn btn-neutral w-50 btn-lg btn-default-size text-primary border-primary bg-white  my-3 w-100"
-                  type="button" id="valor" value="{{ choice.0 }}"
+              <button class="btn btn-outline-primary w-50 btn-lg btn-default-size border-primary active-text-white my-3 w-100"
+                  type="radio" id="valor" value="{{ choice.0 }}"
                   onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'"
                   {% if valor_guardado == choice.1 %}disabled{% endif %}>{{ choice.1 }}</button>
           </div>
@@ -54,8 +54,8 @@
           <input type="hidden" id="id_valor" name="valor" value="">
 
           <!-- Botón para el envío del formulario completo -->
-          <div class="col-md-9 mx-md-auto">
-            <p class="font-level-7 font-weight-light">Continúa con la siguiente pregunta sobre:</p>
+          <div class="col-md-9 mx-md-auto my-4 px-0">
+            <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:</p>
             <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">Impacto de la
               Descentralización <i class="material-symbols-outlined px-3">
                 arrow_forward_ios
