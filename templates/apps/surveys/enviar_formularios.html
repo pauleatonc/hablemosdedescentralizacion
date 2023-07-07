@@ -17,7 +17,7 @@
         
         <p class="font-level-4 text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las
           recibirás en unos minutos.</p>
-
+​
         <form method="post" action="{% url 'surveys_app:enviar_formularios' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -28,7 +28,7 @@
                 <input type="checkbox" class="form-check-input" id="recibir_resultados" name="recibir_resultados" {% if form.recibir_resultados.value %}checked{% endif %}>
                 <label class="form-check-label" for="recibir_resultados">También quiero recibir los resultados finales del proceso.</label>
             </div>
-
+​
             <div class="col-md-6 mx-md-auto">
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Recibir mis respuestas</button>
                 <button type="submit" class="btn btn-outline-primary btn-lg btn-block my-4">
@@ -36,15 +36,15 @@
                 </button>
             </div>
         </form>
-
+​
       </div>
     </div>
   </div>
-
-
+​
+​
 </section>
 <div class="my-3 col-md-12 mw-100 mx-0">
   {% include "components/logo_banner.html" %}
 </div>
-
+​
 {% endblock views %}
