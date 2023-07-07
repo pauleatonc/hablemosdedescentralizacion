@@ -15,11 +15,13 @@
             chevron_left
           </i>
           Ir atrás</button>
-        <button type="button" class="btn btn-pill-primary text-nowrap"
-          onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Siguiente <i
-            class="material-symbols-outlined">
-            chevron_right
-          </i></button>
+        {% if valor_guardado %}
+          <button type="button" class="btn btn-pill-primary text-nowrap"
+            onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Siguiente <i
+              class="material-symbols-outlined">
+              chevron_right
+            </i></button>
+        {% endif %}
       </div>
 
       <div class="col-lg-10">

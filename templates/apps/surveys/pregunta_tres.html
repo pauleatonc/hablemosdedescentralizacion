@@ -14,11 +14,13 @@
           onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'"><i class="material-symbols-outlined">
             chevron_left
           </i>Ir atrás</button>
-        <button type="button" class=" btn btn-pill-primary  text-nowrap"
-          onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">Siguiente<i
-            class="material-symbols-outlined">
-            chevron_right
-          </i></button>
+        {% if iniciativa_1_guardada %}
+          <button type="button" class=" btn btn-pill-primary  text-nowrap"
+            onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">Siguiente<i
+              class="material-symbols-outlined">
+              chevron_right
+            </i></button>
+        {% endif %}
       </div>
       <div class="col-lg-10">
         <p class="font-level-1  text-center my-3">Pregunta 3 de 5:</p>
@@ -40,51 +42,16 @@
         <form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
           {% csrf_token %}
           
-          <div class="my-2  w-100">
-            <button type="button" class="iniciativa  w-100  d-flex flex-row justify-content-between border border-primary border-3"
-              id="iniciativa_1">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value|default:'' }}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa w-100  d-flex flex-row justify-content-between border border-primary border-3"
-              id="iniciativa_2">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value|default:'' }}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa  w-100 d-flex flex-row justify-content-between border border-primary border-3"
-              id="iniciativa_3">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value|default:'' }}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa w-100  d-flex flex-row justify-content-between border border-primary border-3"
-              id="iniciativa_4">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value|default:'' }}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa  w-100 d-flex flex-row justify-content-between border border-primary border-3"
-              id="iniciativa_5">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value|default:'' }}">
-          </div>
-
+          {% for iniciativa in form %}
+              <div class="my-2 w-100">
+                  <button type="button" class="iniciativa w-100 d-flex flex-row  justify-content-between border border-primary border-3"
+                  id="iniciativa_{{ forloop.counter }}">
+                  <div class="iniciativa-text text-primary m-4 text-left">{{ iniciativa.help_text }}</div>
+                  <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark  justify-content-end align-self-center">-</div>
+                  </button>
+                  <input type="hidden" name="iniciativa_{{ forloop.counter }}" id="valor_iniciativa_{{ forloop.counter }}" value="{{ iniciativa.value|default:'' }}">
+              </div>
+          {% endfor %}
           
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}

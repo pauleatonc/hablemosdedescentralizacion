@@ -13,11 +13,13 @@
           onclick="window.location.href='{% url 'surveys_app:pregunta_uno' %}'"><i class="material-symbols-outlined">
             chevron_left
           </i>Ir atrás</button>
-        <button type="button" class=" btn btn-pill-primary  text-nowrap"
-          onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">Siguiente <i
-            class="material-symbols-outlined">
-            chevron_right
-          </i></button>
+        {% if propuesta_1_guardada %}
+          <button type="button" class=" btn btn-pill-primary  text-nowrap"
+            onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">Siguiente <i
+              class="material-symbols-outlined">
+              chevron_right
+            </i></button>
+        {% endif %}
       </div>
       <div class="col-lg-10">
         <p class="font-level-1  text-center my-3">Pregunta 2 de 5:</p>
@@ -41,42 +43,16 @@
           {% csrf_token %}
           <p class="font-level-5 my-1">La descentralizacion:</p>
 
-          <div class=" my-2 w-100">
-            <button type="button" class="propuesta d-flex w-100 flex-row justify-content-between border border-primary border-3"
-              id="propuesta_1">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_1.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-end">-</div>
-            </button>
-            <input type="hidden" name="propuesta_1" id="valor_propuesta_1" value="{{ form.propuesta_1.value|default:''}}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="propuesta w-100 d-flex flex-row  justify-content-between border border-primary border-3"
-              id="propuesta_2">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_2.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold justify-content-md-end mx-3 text-dark  text-right align-self-center">-</div>
-            </button>
-            <input type="hidden" name="propuesta_2" id="valor_propuesta_2" value="{{ form.propuesta_2.value|default:'' }}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex w-100 flex-row  justify-content-between border border-primary border-3"
-              id="propuesta_3">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_3.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
-            </button>
-            <input type="hidden" name="propuesta_3" id="valor_propuesta_3" value="{{ form.propuesta_3.value|default:'' }}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex w-100 flex-row  justify-content-between border border-primary border-3"
-              id="propuesta_4">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_4.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark  justify-content-end align-self-center">-</div>
-            </button>
-            <input type="hidden" name="propuesta_4" id="valor_propuesta_4" value="{{ form.propuesta_4.value|default:'' }}">
-          </div>
-
+          {% for propuesta in form %}
+              <div class="my-2 w-100">
+                  <button type="button" class="propuesta w-100 d-flex flex-row  justify-content-between border border-primary border-3"
+                  id="propuesta_{{ forloop.counter }}">
+                  <div class="propuesta-text text-primary m-4 text-left">{{ propuesta.help_text }}</div>
+                  <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark  justify-content-end align-self-center">-</div>
+                  </button>
+                  <input type="hidden" name="propuesta_{{ forloop.counter }}" id="valor_propuesta_{{ forloop.counter }}" value="{{ propuesta.value|default:'' }}">
+              </div>
+          {% endfor %}
 
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
