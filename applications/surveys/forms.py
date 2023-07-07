@@ -105,7 +105,7 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta',
+                    'class': 'propuesta bg-white ',
                     'id': 'propuesta_1'
                 }
             ),
@@ -113,7 +113,8 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta',
+                    'class': 'propuesta bg-white ',
+                    'style': 'background-color:white',
                     'id': 'propuesta_2'
                 }
             ),
@@ -121,7 +122,7 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta',
+                    'class': 'propuesta bg-white ',
                     'id': 'propuesta_3'
                 }
             ),
@@ -129,7 +130,7 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta',
+                    'class': 'propuesta bg-white ',
                     'id': 'propuesta_4'
                 }
             ),

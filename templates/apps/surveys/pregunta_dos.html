@@ -33,7 +33,7 @@
           <li class=" font-level-6  ml-3">4 es la menos importante.</li>
         </lu>
 
-        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 "> 1 de importancia.</strong></p>
+        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 text-primary"> 1 de importancia.</strong></p>
       </div>
       </div>
       <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center ">
@@ -42,37 +42,37 @@
           <p class="font-level-5 my-1">La descentralizacion:</p>
 
           <div class=" my-2 w-100">
-            <button type="button" class="propuesta d-flex w-100 flex-row justify-content-between border border-primary border-3"
+            <button type="button" class="propuesta d-flex btn-outline-primary  w-100 flex-row justify-content-between border-3"
               id="propuesta_1">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_1.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
+              <div class="propuesta-text  m-4 text-left">{{ form.propuesta_1.help_text }}</div>
+              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-color-base-secondary-001-c-41 text-right align-self-center">-</div>
             </button>
             <input type="hidden" name="propuesta_1" id="valor_propuesta_1" value="{{ form.propuesta_1.value|default:''}}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta w-100 d-flex flex-row  justify-content-between border border-primary border-3"
+            <button type="button" class="propuesta w-100  btn-outline-primary d-flex flex-row  justify-content-between border-3"
               id="propuesta_2">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_2.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold justify-content-md-end mx-3 text-dark  text-right align-self-center">-</div>
+              <div class="propuesta-text  m-4 text-left">{{ form.propuesta_2.help_text }}</div>
+              <div class="propuesta-check h1 text-font-weight-bold justify-content-md-end mx-3 text-[#0A132D] text-right align-self-center">-</div>
             </button>
             <input type="hidden" name="propuesta_2" id="valor_propuesta_2" value="{{ form.propuesta_2.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex w-100 flex-row  justify-content-between border border-primary border-3"
+            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row text-[#0A132D] justify-content-between  border-3"
               id="propuesta_3">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_3.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
+              <div class="propuesta-text  m-4 text-left">{{ form.propuesta_3.help_text }}</div>
+              <div class="propuesta-check h1 text-font-weight-bold  mx-3 align-self-center">-</div>
             </button>
             <input type="hidden" name="propuesta_3" id="valor_propuesta_3" value="{{ form.propuesta_3.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex w-100 flex-row  justify-content-between border border-primary border-3"
+            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row  text-[#0A132D] justify-content-between border-3"
               id="propuesta_4">
-              <div class="propuesta-text text-primary m-4 text-left">{{ form.propuesta_4.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-dark  justify-content-end align-self-center">-</div>
+              <div class="propuesta-text m-4 text-left">{{ form.propuesta_4.help_text }}</div>
+              <div class="propuesta-check h1 text-font-weight-bold  mx-3  justify-content-end align-self-center">-</div>
             </button>
             <input type="hidden" name="propuesta_4" id="valor_propuesta_4" value="{{ form.propuesta_4.value|default:'' }}">
           </div>
@@ -140,7 +140,7 @@
         prioridad++;
         if (prioridad <= 4)
         {
-          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 mt-3 text-primary ">' + prioridad + ' de importancia.</strong> ');
         }
 
         // Mostramos el botón de reinicio si todas las propuestas tienen una prioridad
@@ -161,7 +161,7 @@
       $('input[name=propuesta_4]').val('');
       prioridad = 1;
       seleccionados = {};
-      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2  mt-3">' + prioridad + ' de importancia.</strong> ');
+      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 text-primery mt-3 ">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
     });
 
@@ -174,7 +174,7 @@
       seleccionados[id] = prioridad;
       prioridad++;
       if (prioridad <= 4) {
-        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2  mt-3">' + prioridad + ' de importancia.</strong> ');
+        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2  mt-3 text-primary ">' + prioridad + ' de importancia.</strong> ');
       }
       if (Object.keys(seleccionados).length === 4) {
         $('#reiniciar').show();

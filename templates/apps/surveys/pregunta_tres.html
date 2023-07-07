@@ -33,7 +33,7 @@
           <li class=" font-level-6 ml-3 ">1 es la más importante</li>
           <li class="font-level-6 ml-3">5 es la menos importante.</li>
         </lu>
-        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 mt-3"> 1 de importancia.</strong></p>
+        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 mt-3 text-primary "> 1 de importancia.</strong></p>
       </div>
     </div>
       <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center ">
@@ -41,46 +41,46 @@
           {% csrf_token %}
           
           <div class="my-2  w-100">
-            <button type="button" class="iniciativa  w-100  d-flex flex-row justify-content-between border border-primary border-3"
+            <button type="button" class="iniciativa  w-100  btn-outline-primary d-flex flex-row justify-content-between border-3"
               id="iniciativa_1">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
+              <div class="iniciativa-text m-4 text-justify">{{ form.iniciativa_1.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-primary align-self-center">-</div>
             </button>
             <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="iniciativa w-100  d-flex flex-row justify-content-between border border-primary border-3"
+            <button type="button" class="iniciativa w-100  btn-outline-primary d-flex flex-row justify-content-between border-3"
               id="iniciativa_2">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
+              <div class="iniciativa-text  m-4 text-justify">{{ form.iniciativa_2.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-primary align-self-center">-</div>
             </button>
             <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="iniciativa  w-100 d-flex flex-row justify-content-between border border-primary border-3"
+            <button type="button" class="iniciativa btn-outline-primary w-100 d-flex flex-row justify-content-between border-3"
               id="iniciativa_3">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
+              <div class="iniciativa-text  m-4 text-justify">{{ form.iniciativa_3.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-primary align-self-center">-</div>
             </button>
             <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="iniciativa w-100  d-flex flex-row justify-content-between border border-primary border-3"
+            <button type="button" class="iniciativa w-100 btn-outline-primary  d-flex flex-row justify-content-between  border-3"
               id="iniciativa_4">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
+              <div class="iniciativa-text m-4 text-justify">{{ form.iniciativa_4.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-primary align-self-center">-</div>
             </button>
             <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="iniciativa  w-100 d-flex flex-row justify-content-between border border-primary border-3"
+            <button type="button" class="iniciativa btn-outline-primary w-100 d-flex flex-row justify-content-between border-3"
               id="iniciativa_5">
-              <div class="iniciativa-text text-primary m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark align-self-center">-</div>
+              <div class="iniciativa-text m-4 text-justify">{{ form.iniciativa_5.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-primary align-self-center">-</div>
             </button>
             <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value|default:'' }}">
           </div>
@@ -152,7 +152,7 @@
         prioridad++;
         if (prioridad <= 5)
         {
-          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
         }
 
         // Mostramos el botón de reinicio si todas las iniciativas tienen una prioridad
@@ -174,7 +174,7 @@
       $('input[name=iniciativa_5]').val('');
       prioridad = 1;
       seleccionados = {};
-      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
     });
 
@@ -187,7 +187,7 @@
       seleccionados[id] = prioridad;
       prioridad++;
       if (prioridad <= 5) {
-        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
       }
       if (Object.keys(seleccionados).length === 5) {
         $('#reiniciar').show();
