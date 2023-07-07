@@ -33,45 +33,13 @@
 
     <div class="d-flex justify-content-center">
         <div class="col-md-8 mb-5">
-            <div id="documentos-documentosnormativos" class="my-5 pt-md-2">
-                <p class="font-level-2 pb-2 text-md-left text-black font-weight-bold m-4">
-                    Documentos Normativos
-                </p>
-                <div id="dnContainer">
 
-                                {% include "components/colapsable_documentos.html" with titulo=documento.titulo_documento seccion=seccion_documento.seccion_documento documento=documento.documento %}
+            <div id="documentos-documentosnormativos" class="my-5 pt-md-2">
+                <div id="dnContainer">
+                 {% include "components/colapsable_documentos.html" with titulo=documento.titulo_documento seccion=seccion_documento.seccion_documento documento=documento.documento %}
                 </div>              
             </div>
 
-            <div id="documentos-estudios" class="my-5 pt-md-2">
-                <p class="font-level-2 pb-2 text-md-left text-black font-weight-bold m-4">
-                    Estudios
-                </p>
-                <p class="m-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis
-                    leo id accumsan feugiat. Aliquam interdum posuere erat.
-                </p>
-                <div id="dnContainer">
-
-                                {% include "components/colapsable_documentos.html" with titulo=documento.titulo_documento seccion=seccion_documento.seccion_documento documento=documento.documento %}
-                </div>
-                
-            </div>
-
-            <div id="documentos-instrumentosparticipativos" class="my-5 pt-md-2">
-                <p class="font-level-2 pb-2 text-md-left text-black font-weight-bold m-4">
-                    Instrumentos Participativos
-                </p>
-                <p class="m-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis
-                    leo id accumsan feugiat. Aliquam interdum posuere erat.
-                </p>
-                <div id="dnContainer">
-
-                                {% include "components/colapsable_documentos.html" with titulo=documento.titulo_documento seccion=seccion_documento.seccion_documento documento=documento.documento %}
-                </div>
-                
-            </div>
             <div>{% include "components/invitacion.html"%}</div>
         </div>
     </div>
