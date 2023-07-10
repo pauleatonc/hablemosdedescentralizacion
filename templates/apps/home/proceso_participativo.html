@@ -1,6 +1,8 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block views %}
+{% load countdown_tags %}
+
 <section class="container-fluid mt-5">
 
     <div  class="d-flex justify-content-center">
@@ -21,7 +23,7 @@
                 considera otras acciones participativas paralelas. Conócelas acá:</p>
             </div>
             <div class="my-5 col-md-6">
-                {% include "components/countdown.html" %}  
+                {% countdown_component %}
             </div>
         </div>
     </div>

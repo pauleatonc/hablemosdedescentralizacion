@@ -10,13 +10,6 @@ from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos,
 class HomePageView(TemplateView):
     template_name = 'apps/home/home.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        countdown = Countdown.objects.first()  # Obtén la instancia de Countdown que deseas mostrar
-        context['end_date'] = countdown.end_date.strftime("%d/%m/%Y")  # Formatea la fecha como "dd/mm/aaaa"
-        context['days_left'] = countdown.get_days_left()  # Agrega days_left al contexto
-        return context
-
 
 class ProcesoParticipativoView(TemplateView):
     template_name = 'apps/home/proceso_participativo.html'
@@ -46,6 +39,25 @@ class PoliticasPrivacidadView(TemplateView):
 
 class OnboardingView(TemplateView):
     template_name = 'apps/home/onboarding.html'
+
+class CountdownView(TemplateView):
+    template_name = 'components/countdown.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        countdown = Countdown.objects.first()
+        context['end_date'] = countdown.end_date.strftime("%d/%m/%Y")
+        context['days_left'] = countdown.get_days_left()
+        context['total_days'] = countdown.get_total_days()
+
+        # Calcula el porcentaje de días restantes
+        if context['total_days'] != 0:  # Evita la división por cero
+            context['progress_percentage'] = (context['days_left'] / context['total_days']) * 100
+        else:
+            context['progress_percentage'] = 0  # Si total_days es 0, entonces el progreso es 0
+
+        return context
+
 
 class Error404(TemplateView):
     template_name = 'apps/errores/error404.html'

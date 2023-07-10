@@ -1,26 +1,31 @@
 {% load static %}
+<p class="font-level-2 pb-2 text-md-left text-black font-weight-bold m-4">
+  {{ tipo_documento }}
+                </p>
 <div class="card-data-list card-data-list-flush m-4 bg-gray-200">
-  <ol class="list-unstyled w-100" id="collapsibleFlushAccordion">
-          <li>
-            <button class="btn text-left w-100 d-flex align-items-start justify-content-between py-4 px-3" id="collapsibleFlushHeading{{ forloop.counter }}" type="button" data-toggle="collapse" data-target="#collapsibleFlushCollapse{{ forloop.counter }}" aria-controls="collapsibleFlushCollapse{{ forloop.counter }}" aria-expanded="true">
-              <span class="font-level-3 mb-0">{{ titulo }}</span>
-              <span class="toggler-icon cl cl-m-arrow-down cl-2x" aria-hidden="true"></span>
-            </button>
-            <div class="collapse show" id="collapsibleFlushCollapse{{ forloop.counter }}" aria-labelledby="collapsibleFlushHeading{{ forloop.counter }}" data-parent="#collapsibleFlushAccordion">
-              <div class="pr-5 pb-3 pl-3 pt-3 border-top border-gray-b">
+
+  <ol class="list-unstyled w-100" id="collapsibleFlushAccordion{{ forloop.counter }}">
+    <li>
+        <button class="btn text-left w-100 d-flex align-items-start justify-content-between py-4 px-3" id="collapsibleFlushHeading{{ forloop.counter }}" type="button" data-toggle="collapse" data-target="#collapsibleFlushCollapse{{ forloop.counter }}" aria-controls="collapsibleFlushCollapse{{ forloop.counter }}" aria-expanded="true">
+            <span class="font-level-3 mb-0">{{ seccion_documento }}</span>
+            <span class="toggler-icon cl cl-m-arrow-down cl-2x" aria-hidden="true"></span>
+        </button>
+        <div class="collapse show" id="collapsibleFlushCollapse{{ forloop.counter }}" aria-labelledby="collapsibleFlushHeading{{ forloop.counter }}" data-parent="#collapsibleFlushAccordion{{ forloop.counter }}">
+            <div class="pr-5 pb-3 pl-3 pt-3 border-top border-gray-b">
                 <ul class="list-group">
-                  <li class="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
-                    {{ seccion }}
-                    <a type="button" class="btn btn-neutral btn-lg btn-default-size text-white border-white bg-primary mb-4" type="button" href='{{ documento.url }}'>
-                      Descargar 
-                      <i class="material-symbols-outlined">
-                        download
-                      </i>
-                    </a>
-                  </li>
+                    <li class="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
+                        {{ documento }}
+                        <a type="button" class="btn btn-neutral btn-lg btn-default-size text-white border-white bg-primary mb-4" type="button" href='{{ documento.url }}'>
+                            Descargar
+                            <i class="material-symbols-outlined">
+                                download
+                            </i>
+                        </a>
+                    </li>
                 </ul>
-              </div>
             </div>
-          </li>
-  </ol>
+        </div>
+    </li>
+</ol>
+
 </div>
