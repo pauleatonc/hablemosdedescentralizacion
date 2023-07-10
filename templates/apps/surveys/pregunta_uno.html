@@ -9,14 +9,14 @@
       </div>
 
       <div class="col-lg-9 d-flex justify-content-between my-2">
-        <button type="radio" class=" btn btn-pill-primary  text-nowrap active"
+        <button type="radio" class=" btn btn-pill-primary text-primary text-nowrap active"
           onclick="window.location.href='{% url 'surveys_app:consulta_datos_usuario' %}'"><i
             class="material-symbols-outlined">
             chevron_left
           </i>
           Ir atrás</button>
         {% if valor_guardado %}
-          <button type="button" class="btn btn-pill-primary text-nowrap"
+          <button type="button" class="btn btn-pill-primary text-primary text-nowrap"
             onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Siguiente <i
               class="material-symbols-outlined">
               chevron_right
@@ -40,7 +40,7 @@
           {% for choice in form.valor.field.choices %}
           <div class="">
               <button class="btn btn-outline-primary w-50 btn-lg btn-default-size border-primary active-text-white my-3 w-100"
-                  type="radio" id="valor" value="{{ choice.0 }}"
+                  type="button" id="valor" value="{{ choice.0 }}"
                   onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'"
                   {% if valor_guardado == choice.1 %}disabled{% endif %}>{{ choice.1 }}</button>
           </div>
@@ -57,9 +57,9 @@
 
           <!-- Botón para el envío del formulario completo -->
           <div class="col-md-9 mx-md-auto my-4 px-0">
-            <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:</p>
-            <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">Impacto de la
-              Descentralización <i class="material-symbols-outlined px-3">
+            <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Impacto de la
+              Descentralización</strong></p>
+            <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">Siguiente <i class="material-symbols-outlined px-3">
                 arrow_forward_ios
               </i></button>
           </div>
@@ -78,30 +78,35 @@
 {% block scripts %}
 
 <script>
-window.addEventListener('DOMContentLoaded', (event) => {
+  window.addEventListener('DOMContentLoaded', (event) => {
     let valorGuardado = '{{ valor_guardado }}';
     if (valorGuardado) {
         let btns = document.querySelectorAll('#valor');
         btns.forEach(function (btn) {
             if (btn.textContent == valorGuardado) {
                 btn.classList.add('selected');
+                btn.classList.add('active'); // Agrega la clase 'active'
                 document.getElementById('id_valor').value = btn.value;
             }
         });
     }
 });
-document.querySelectorAll('#valor').forEach(function (element)
-{
-    element.addEventListener('click', function (event)
-    {
-        document.querySelectorAll('#valor').forEach(function (otherElement)
-        {
-            otherElement.classList.remove('selected');
-        });
-        event.target.classList.add('selected');
-        document.getElementById('id_valor').value = event.target.value;
+
+document.querySelectorAll('#valor').forEach(function (element) {
+    element.addEventListener('click', function (event) {
+        // Comprueba si el botón ya está seleccionado
+        if (!event.target.classList.contains('selected')) {
+            document.querySelectorAll('#valor').forEach(function (otherElement) {
+                otherElement.classList.remove('selected');
+                otherElement.classList.remove('active'); // Elimina la clase 'active' de todos los botones
+            });
+            event.target.classList.add('selected');
+            event.target.classList.add('active'); // Agrega la clase 'active' al botón seleccionado
+            document.getElementById('id_valor').value = event.target.value;
+        }
     });
 });
+
 </script>
 
 {% endblock scripts %}
