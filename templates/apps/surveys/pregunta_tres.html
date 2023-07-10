@@ -35,7 +35,7 @@
           <li class=" font-level-6 ml-3 ">1 es la más importante</li>
           <li class="font-level-6 ml-3">5 es la menos importante.</li>
         </lu>
-        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 mt-3"> 1 de importancia.</strong></p>
+        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 mt-3 text-primary "> 1 de importancia.</strong></p>
       </div>
     </div>
       <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center ">
@@ -44,15 +44,15 @@
           
           {% for iniciativa in form %}
               <div class="my-2 w-100">
-                  <button type="button" class="iniciativa w-100 d-flex flex-row  justify-content-between border border-primary border-3"
+                  <button type="button" class="iniciativa  w-100  btn-outline-primary d-flex flex-row justify-content-between border-3"
                   id="iniciativa_{{ forloop.counter }}">
-                  <div class="iniciativa-text text-primary m-4 text-left">{{ iniciativa.help_text }}</div>
-                  <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-dark  justify-content-end align-self-center">-</div>
+                  <div class="iniciativa-text m-4 text-justify">{{ iniciativa.help_text }}</div>
+                  <div class="iniciativa-check h1 text-font-weight-bold  mx-3 text-primary align-self-center">-</div>
                   </button>
                   <input type="hidden" name="iniciativa_{{ forloop.counter }}" id="valor_iniciativa_{{ forloop.counter }}" value="{{ iniciativa.value|default:'' }}">
               </div>
           {% endfor %}
-          
+                  
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
           <!-- Muestra el mensaje de error específico -->
@@ -119,7 +119,7 @@
         prioridad++;
         if (prioridad <= 5)
         {
-          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
         }
 
         // Mostramos el botón de reinicio si todas las iniciativas tienen una prioridad
@@ -141,7 +141,7 @@
       $('input[name=iniciativa_5]').val('');
       prioridad = 1;
       seleccionados = {};
-      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
     });
 
@@ -154,7 +154,7 @@
       seleccionados[id] = prioridad;
       prioridad++;
       if (prioridad <= 5) {
-        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3">' + prioridad + ' de importancia.</strong> ');
+        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
       }
       if (Object.keys(seleccionados).length === 5) {
         $('#reiniciar').show();
