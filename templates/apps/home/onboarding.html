@@ -20,12 +20,10 @@
             </div>
 
             <div class="my-3 d-flex flex-column align-items-center">
-                <div class="col d-flex justify-content-center">
+                <div class="mx-auto" >
                     {% if user.is_authenticated %}
                         {% if user.encuesta_completada %}
-                            <div><ul class="mb-md-5">
-                                <li class="h4">Ya has contestado esta encuesta.</li>
-                            </ul></div>
+                            <p class="h4 text-center">Ya has contestado esta encuesta.</p>
                             <div class="col d-flex justify-content-center">
                                 <button class="btn btn-neutral btn-default-size text-white border-white bg-primary mb-4"
                                         type="button"
