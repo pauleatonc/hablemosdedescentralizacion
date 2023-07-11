@@ -6,6 +6,7 @@ from collections import OrderedDict
 from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
 from applications.users.models import User
 from applications.regioncomuna.models import Comuna, Region
+from django.utils.safestring import mark_safe
 
 
 class DatosUsuarioForm(forms.ModelForm):
@@ -107,7 +108,7 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta bg-white ',
+                    'class': 'propuesta ',
                     'id': 'propuesta_1'
                 }
             ),
@@ -115,8 +116,7 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta bg-white ',
-                    'style': 'background-color:white',
+                    'class': 'propuesta ',
                     'id': 'propuesta_2'
                 }
             ),
@@ -124,7 +124,7 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta bg-white ',
+                    'class': 'propuesta ',
                     'id': 'propuesta_3'
                 }
             ),
@@ -132,7 +132,7 @@ class PreguntaDosForm(forms.ModelForm):
                 attrs={
                     'required': True,
                     'placeholder': '-',
-                    'class': 'propuesta bg-white ',
+                    'class': 'propuesta  ',
                     'id': 'propuesta_4'
                 }
             ),
@@ -254,38 +254,32 @@ class PreguntaCuatroForm(forms.ModelForm):
             'tematica_1': forms.Select(
                 attrs={
                     'required': True,
-                    'option': 'Elige una opción' ,
-                    'placeholder': 'Elige una opción',
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                } , choices=[('','Elige una opción')]
+                } 
             ),
             'tematica_2': forms.Select(
                 attrs={
                     'required': True,
-                    'placeholder': 'Elige una opción',
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }, choices=[('','Elige una opción')]
+                }
             ),
             'tematica_3': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': 'Elige una opción',
+                    'required': True,              
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }, choices=[('','Elige una opción')]
+                }
             ),
             'tematica_4': forms.Select(
                 attrs={
                     'required': True,
-                    'placeholder': 'Elige una opción',
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }, choices=[('','Elige una opción')]
+                }
             ),
             'tematica_5': forms.Select(
                 attrs={
                     'required': True,
-                    'placeholder': 'Elige una opción',
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }, choices=[('','Elige una opción')]
+                }
             ),
         }
 
@@ -303,7 +297,12 @@ class PreguntaCuatroForm(forms.ModelForm):
             self.fields = OrderedDict((k, self.fields[k]) for k in tematicas)
 
         for field in self.fields:
-            self.fields[field].label = self.fields[field].label + ': ' + self.fields[field].help_text
+            self.fields[field].label = mark_safe('<span style="font-weight: 700; ; text-decoration-line: underline;">' + self.fields[field].label + '</span>: ' + self.fields[field].help_text)
+
+        # Reemplazar la opción "---------" por "Elige una opción"
+        for field_name, field in self.fields.items():
+            field.choices = [('', 'Elige una opción')] + list(field.choices)[1:]
+
 
 class PreguntaCincoForm(forms.ModelForm):
     class Meta:

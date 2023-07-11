@@ -9,12 +9,12 @@
         {% include "components/desentralizacion_banner.html" %}
       </div>
       <div class="col-lg-9 d-flex justify-content-between my-2">
-        <button type="button" class=" btn btn-pill-primary  text-nowrap"
+        <button type="button" class=" btn btn-pill-primary text-primary text-nowrap"
           onclick="window.location.href='{% url 'surveys_app:pregunta_uno' %}'"><i class="material-symbols-outlined">
             chevron_left
           </i>Ir atrás</button>
         {% if propuesta_1_guardada %}
-          <button type="button" class=" btn btn-pill-primary  text-nowrap"
+          <button type="button" class=" btn btn-pill-primary text-primary  text-nowrap"
             onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">Siguiente <i
               class="material-symbols-outlined">
               chevron_right
@@ -44,25 +44,25 @@
           <p class="font-level-5 my-1">La descentralizacion:</p>
 
           <div class=" my-2 w-100">
-            <button type="button" class="propuesta d-flex btn-outline-primary  w-100 flex-row justify-content-between border-3"
+            <button type="button" class="propuesta d-flex  btn-outline-primary  w-100 flex-row justify-content-between "
               id="propuesta_1">
               <div class="propuesta-text  m-4 text-left">{{ form.propuesta_1.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold  mx-3 text-color-base-secondary-001-c-41 text-right align-self-center">-</div>
+              <div class="propuesta-check h1 text-font-weight-bold  text-primary  mx-3 text-right align-self-center">-</div>
             </button>
             <input type="hidden" name="propuesta_1" id="valor_propuesta_1" value="{{ form.propuesta_1.value|default:''}}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta w-100  btn-outline-primary d-flex flex-row  justify-content-between border-3"
+            <button type="button" class="propuesta w-100 btn-outline-primary  d-flex flex-row  justify-content-between "
               id="propuesta_2">
               <div class="propuesta-text  m-4 text-left">{{ form.propuesta_2.help_text }}</div>
-              <div class="propuesta-check h1 text-font-weight-bold justify-content-md-end mx-3 text-[#0A132D] text-right align-self-center">-</div>
+              <div class="propuesta-check h1 text-font-weight-bold justify-content-md-end mx-3 text-right align-self-center">-</div>
             </button>
             <input type="hidden" name="propuesta_2" id="valor_propuesta_2" value="{{ form.propuesta_2.value|default:'' }}">
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row text-[#0A132D] justify-content-between  border-3"
+            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row justify-content-between  "
               id="propuesta_3">
               <div class="propuesta-text  m-4 text-left">{{ form.propuesta_3.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3 align-self-center">-</div>
@@ -71,7 +71,7 @@
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row  text-[#0A132D] justify-content-between border-3"
+            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row  justify-content-between "
               id="propuesta_4">
               <div class="propuesta-text m-4 text-left">{{ form.propuesta_4.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3  justify-content-end align-self-center">-</div>
@@ -94,8 +94,8 @@
                 </i></button>
             </div>
             <div class="col-md-6 mx-md-auto px-0">
-            <p class="font-level-6 mx-auto text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:</p>
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Inclusión de iniciativas <i class="material-symbols-outlined px-3">
+            <p class="font-level-6 mx-auto text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Inclusión de iniciativas</strong></p>
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente<i class="material-symbols-outlined px-3">
                 arrow_forward_ios
               </i></button>
             </div>
@@ -163,7 +163,7 @@
       $('input[name=propuesta_4]').val('');
       prioridad = 1;
       seleccionados = {};
-      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 text-primery mt-3 ">' + prioridad + ' de importancia.</strong> ');
+      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 text-primary mt-3 ">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
     });
 
