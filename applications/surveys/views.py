@@ -68,10 +68,12 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
         try:
             context['genero_guardada'] = usuario.get_genero_display()
             context['edad_guardada'] = usuario.edad
+            context['pueblo_originario_guardado'] = usuario.get_pueblo_originario_display()
             context['politica_privacidad_guardada'] = usuario.politica_privacidad
         except AttributeError:
             context['genero_guardada'] = None
             context['edad_guardada'] = None
+            context['pueblo_originario_guardado'] = None
             context['politica_privacidad_guardada'] = None
         return context
 

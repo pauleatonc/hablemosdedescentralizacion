@@ -8,10 +8,27 @@ from applications.regioncomuna.models import Comuna
 class User(AbstractBaseUser, PermissionsMixin):
 
     USER_GENRE_CHOICES = (
+        ('', 'Elige una opción'),
         ('FEM', 'Femenino'),
         ('MASC', 'Masculino'),
         ('NOBIN', 'No binarie'),
         ('PND', 'Prefiero no decirlo')
+    )
+
+    USER_PUEBLOS_CHOICES = (
+        ('', 'Elige una opción'),
+        ('NP', 'No pertenece'),
+        ('AIM', 'Aimara'),
+        ('ATAC', 'Atacameño o Lickanantay'),
+        ('COLL', 'Colla'),
+        ('CHAN', 'Chango'),
+        ('DIAG', 'Diaguita'),
+        ('KAW', 'Kawésqar'),
+        ('MAPU', 'Mapuche'),
+        ('QUEC', 'Quechua'),
+        ('RAPA', 'Rapa-Nui'),
+        ('YAG', 'Yagán'),
+        ('OTRO', 'Otro'),
     )
 
     rut = models.CharField(max_length=15, validators=[validar_rut], unique=True)
@@ -23,6 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     politica_privacidad = models.BooleanField(blank=True, null=True, default=False)
     encuesta_completada = models.BooleanField(default=False)
     recibir_resultados = models.BooleanField(default=False)
+    pueblo_originario = models.CharField(max_length=5, choices=USER_PUEBLOS_CHOICES, blank=True, null=True)
 
     #Setiando el nombre de usuario al rut
     USERNAME_FIELD = 'rut'    
