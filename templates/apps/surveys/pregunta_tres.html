@@ -123,7 +123,7 @@
         }
 
         // Mostramos el botón de reinicio si todas las iniciativas tienen una prioridad
-        if (Object.keys(seleccionados).length === 5)
+        if (Object.keys(seleccionados).length === 1)
         {
           $('#reiniciar').show();
         }
@@ -156,7 +156,7 @@
       if (prioridad <= 5) {
         $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
       }
-      if (Object.keys(seleccionados).length === 5) {
+      if (Object.keys(seleccionados).length === 1) {
         $('#reiniciar').show();
       }
     }
