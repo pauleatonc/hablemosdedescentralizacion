@@ -24,8 +24,7 @@
           </p>
           <p class="font-level-5 text-justify mx-2">
             ¿qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el vínculo entre descentralización y
-            su
-            vida personal y en comunidad?<br>
+            su vida personal y en comunidad?<br>
             <br>
             Responder esta pregunta es opcional.
           </p>
@@ -38,27 +37,10 @@
           <div class="form-group">
             {{ form.label_tag }}
             {{ form.texto_respuesta }}
-            <div style="text-align:right"><span id="message-word-count" style="color:gray">0 / 250 palabras.</span>
+            <div style="text-align:right"><span id="message-word-count" style="color:gray">0 / 500 caracteres.</span>
             </div>
             {{ form.errors }}
           </div>
-
-          <!-- Trae todos los valores de los formularios previos para pasarlos al submit -->
-          {% if pregunta_uno_data %}
-          <input type="text" name="pregunta_uno_valor" value="{{ pregunta_uno_valor }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_1 %}
-          <input type="text" name="pregunta_dos_propuesta_1" value="{{ pregunta_dos_propuesta_1 }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_2 %}
-          <input type="text" name="pregunta_dos_propuesta_2" value="{{ pregunta_dos_propuesta_2 }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_3 %}
-          <input type="text" name="pregunta_dos_propuesta_3" value="{{ pregunta_dos_propuesta_3 }}" readonly>
-          {% endif %}
-          {% if pregunta_dos_propuesta_4 %}
-          <input type="text" name="pregunta_dos_propuesta_4" value="{{ pregunta_dos_propuesta_4 }}" readonly>
-          {% endif %}
 
           <!-- Botón para el envío del formulario completo -->
           <div class="d-flex flex-column my-3 px-0 align-content-center">
@@ -85,17 +67,17 @@
 {% block scripts %}
 
 <script>
-    function countWords() {
+    function countCharacters() {
         const messageInput = document.getElementById("id_texto_respuesta");
-        const wordCountElement = document.getElementById("message-word-count");
+        const charCountElement = document.getElementById("message-word-count");
 
         const message = messageInput.value;
-        const wordCount = message.trim().split(/\s+/).length;
-        wordCountElement.textContent = `${wordCount} / 250 palabras.`;
+        const charCount = message.length; // Esta línea se ha cambiado para contar caracteres.
+        charCountElement.textContent = `${charCount} / 500 caracteres.`; // Nota que el límite se ha cambiado a 500 caracteres.
     }
 
     // Agregamos el "event listener"
-    document.getElementById("id_texto_respuesta").addEventListener('input', countWords);
+    document.getElementById("id_texto_respuesta").addEventListener('input', countCharacters);
 </script>
 
 {% endblock scripts %}
