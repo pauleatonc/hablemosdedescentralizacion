@@ -1,0 +1,17 @@
+{% load static %}
+
+<div id="button-top" class="button-top d-flex justify-content-end mx-4 mb-4 d-none d-block d-md-none">
+  <a class="btn btn-outline-primary btn-lg">Volver Arriba <i class="material-symbols-outlined ml-3">keyboard_double_arrow_up</i></a>
+</div>
+
+{% block scripts %}
+<script>
+document.getElementById("button-top").addEventListener("click", function() {
+  // Obtener el elemento al que se desea hacer scroll
+  var scrollToTop = document.documentElement;
+
+  // Configurar el comportamiento del scroll suave
+  scrollToTop.scrollIntoView({ behavior: "smooth" });
+});
+</script>
+{% endblock %}
