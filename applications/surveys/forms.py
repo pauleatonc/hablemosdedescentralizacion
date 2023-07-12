@@ -78,6 +78,15 @@ class DatosUsuarioForm(forms.ModelForm):
 
         return cleaned_data
 
+    def clean_edad(self):
+        edad = self.cleaned_data.get('edad')
+
+        if edad:
+            if edad < 14 or edad > 120:
+                raise forms.ValidationError('La edad debe estar entre 14 y 120 años.')
+
+        return edad
+
 
 class PreguntaUnoForm(forms.ModelForm):
 
