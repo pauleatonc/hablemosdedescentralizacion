@@ -8,18 +8,22 @@ from datetime import datetime
 
 
 class CountdownAdmin(admin.ModelAdmin):
-    list_display = ['end_date', 'days_left']
-    readonly_fields = ['days_left']
+    list_display = ['start_date', 'end_date', 'get_days_left', 'get_total_days']
+    readonly_fields = ['get_days_left', 'get_total_days']
 
-    def days_left(self, obj):
+    def get_days_left(self, obj):
         if obj.end_date is None:
-            return None  # Opcional: Puedes retornar None o un valor específico cuando end_date es None
-        today = datetime.now().date()
-        days_left = (obj.end_date - today).days
-        return days_left
+            return None
+        return obj.get_days_left()
 
-    days_left.short_description = 'Días para el cierre del proceso'  # Descripción para la columna en la lista de objetos
+    get_days_left.short_description = 'Días para el cierre del proceso'
 
+    def get_total_days(self, obj):
+        if obj.start_date is None or obj.end_date is None:
+            return None
+        return obj.get_total_days()
+
+    get_total_days.short_description = 'Días totales del proceso'
 
 admin.site.register(Countdown, CountdownAdmin)
 

@@ -6,7 +6,7 @@ from .functions import validate_file_size_five
 
 
 class Countdown(models.Model):
-    start_date = models.DateField(auto_now_add=True)
+    start_date = models.DateField()
     end_date = models.DateField()
 
     def get_days_left(self):
