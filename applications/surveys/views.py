@@ -68,10 +68,12 @@ class ConsultaDatosUsuarioView(LoginRequiredMixin, FormView):
         try:
             context['genero_guardada'] = usuario.get_genero_display()
             context['edad_guardada'] = usuario.edad
+            context['pueblo_originario_guardado'] = usuario.get_pueblo_originario_display()
             context['politica_privacidad_guardada'] = usuario.politica_privacidad
         except AttributeError:
             context['genero_guardada'] = None
             context['edad_guardada'] = None
+            context['pueblo_originario_guardado'] = None
             context['politica_privacidad_guardada'] = None
         return context
 
@@ -161,14 +163,8 @@ class PreguntaDosView(LoginRequiredMixin, FormView):
         try:
             pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
             context['propuesta_1_guardada'] = pregunta_dos.propuesta_1
-            context['propuesta_2_guardada'] = pregunta_dos.propuesta_2
-            context['propuesta_3_guardada'] = pregunta_dos.propuesta_3
-            context['propuesta_4_guardada'] = pregunta_dos.propuesta_4
         except PreguntaDos.DoesNotExist:
             context['propuesta_1_guardada'] = None
-            context['propuesta_2_guardada'] = None
-            context['propuesta_3_guardada'] = None
-            context['propuesta_4_guardada'] = None
         return context
 
 
@@ -217,23 +213,15 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
         pregunta_tres.save()
 
         return redirect('surveys_app:pregunta_cuatro')
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         usuario = self.request.user
         try:
             pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
             context['iniciativa_1_guardada'] = pregunta_tres.iniciativa_1
-            context['iniciativa_2_guardada'] = pregunta_tres.iniciativa_2
-            context['iniciativa_3_guardada'] = pregunta_tres.iniciativa_3
-            context['iniciativa_4_guardada'] = pregunta_tres.iniciativa_4
-            context['iniciativa_5_guardada'] = pregunta_tres.iniciativa_5
         except PreguntaTres.DoesNotExist:
-            context['iniciativa_1_guardada'] = '-'
-            context['iniciativa_2_guardada'] = '-'
-            context['iniciativa_3_guardada'] = '-'
-            context['iniciativa_4_guardada'] = '-'
-            context['iniciativa_5_guardada'] = '-'
+            context['iniciativa_1_guardada'] = None
         return context
 
 
@@ -289,16 +277,10 @@ class PreguntaCuatroView(LoginRequiredMixin, FormView):
         try:
             pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
             context['tematica_1_guardada'] = pregunta_cuatro.get_tematica_1_display()
-            context['tematica_2_guardada'] = pregunta_cuatro.get_tematica_2_display()
-            context['tematica_3_guardada'] = pregunta_cuatro.get_tematica_3_display()
-            context['tematica_4_guardada'] = pregunta_cuatro.get_tematica_4_display()
-            context['tematica_5_guardada'] = pregunta_cuatro.get_tematica_5_display()
+
         except PreguntaCuatro.DoesNotExist:
             context['tematica_1_guardada'] = None
-            context['tematica_2_guardada'] = None
-            context['tematica_3_guardada'] = None
-            context['tematica_4_guardada'] = None
-            context['tematica_5_guardada'] = None
+
         return context
 
 

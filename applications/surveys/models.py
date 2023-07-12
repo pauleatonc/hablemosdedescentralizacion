@@ -103,7 +103,7 @@ class PreguntaCuatro(models.Model):
 
 
 class PreguntaCinco(models.Model):
-    texto_respuesta = models.TextField(blank=True, null=True)
+    texto_respuesta = models.CharField(max_length=500, blank=True, null=True)
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
