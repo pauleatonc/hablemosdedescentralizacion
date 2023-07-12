@@ -44,7 +44,7 @@
           <p class="font-level-5 my-1">La descentralizacion:</p>
 
           <div class=" my-2 w-100">
-            <button type="button" class="propuesta d-flex  btn-outline-primary  w-100 flex-row justify-content-between "
+            <button type="button" class="propuesta d-flex  w-100 flex-row justify-content-between "
               id="propuesta_1">
               <div class="propuesta-text  m-4 text-left">{{ form.propuesta_1.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  text-primary  mx-3 text-right align-self-center">-</div>
@@ -53,7 +53,7 @@
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta w-100 btn-outline-primary  d-flex flex-row  justify-content-between "
+            <button type="button" class="propuesta w-100  d-flex flex-row  justify-content-between "
               id="propuesta_2">
               <div class="propuesta-text  m-4 text-left">{{ form.propuesta_2.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold justify-content-md-end mx-3 text-right align-self-center">-</div>
@@ -62,7 +62,7 @@
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row justify-content-between  "
+            <button type="button" class="propuesta d-flex w-100 flex-row justify-content-between  "
               id="propuesta_3">
               <div class="propuesta-text  m-4 text-left">{{ form.propuesta_3.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3 align-self-center">-</div>
@@ -71,7 +71,7 @@
           </div>
           
           <div class="my-2 w-100">
-            <button type="button" class="propuesta d-flex btn-outline-primary w-100 flex-row  justify-content-between "
+            <button type="button" class="propuesta  d-flex w-100 flex-row  justify-content-between "
               id="propuesta_4">
               <div class="propuesta-text m-4 text-left">{{ form.propuesta_4.help_text }}</div>
               <div class="propuesta-check h1 text-font-weight-bold  mx-3  justify-content-end align-self-center">-</div>
@@ -85,14 +85,15 @@
           <!-- Muestra el mensaje de error específico -->
           <p>{{ form.non_field_errors }}</p>
           {% endif %}
-
-          <div>
-              <!-- Botón para reiniciar selección -->
-            <div class="d-flex mt-4 mb-5 ">  
-              <button type="button" id="reiniciar"  class="btn btn-outline-secondary btn-lg rounded text-decoration-none" style="display: none;">Limpiar ranking <i class="material-symbols-outlined">
-                delete
-                </i></button>
-            </div>
+          <!-- Botón para reiniciar selección -->
+          <div class="d-flex flex-column mt-4 mb-5 ">
+            <p id="frase-button" style="display: none;" class="font-level-6 font-weight-light">Si no estás conforme, puedes volver a ordenar los enunciados.</p>
+            <button type="button" id="reiniciar" class="btn btn-lg w-50 text-decoration-none" style="display: none;">
+              Limpiar ranking
+              <img class="ml-3" src="{% static 'img/trash.svg' %}" id='icon-trash' alt="Icon"/>
+            </button>
+          </div>
+            <!--boton siguiente -->
             <div class="col-md-6 mx-md-auto px-0">
             <p class="font-level-6 mx-auto text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Inclusión de iniciativas</strong></p>
               <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente<i class="material-symbols-outlined px-3">
@@ -105,7 +106,7 @@
     </div>
   </div>
 </section>
-<div class="my-3 col-md-12 mw-100 mx-0"">
+<div class="my-3 col-md-12 mw-100 mx-0 px-0" >
   {% include "components/logo_banner.html" %}
 </div>
 
@@ -149,6 +150,7 @@
         if (Object.keys(seleccionados).length === 1)
         {
           $('#reiniciar').show();
+          $('#frase-button').show();
         }
       }
     });
@@ -165,6 +167,7 @@
       seleccionados = {};
       $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 text-primary mt-3 ">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
+      $('#frase-button').hide(); // Agregamos la clase d-none para ocultar la etiqueta <p>
     });
 
     // Función para establecer el estado inicial
@@ -180,6 +183,7 @@
       }
       if (Object.keys(seleccionados).length === 1) {
         $('#reiniciar').show();
+        $('#frase-button').show(); 
       }
     }
   }
@@ -190,7 +194,8 @@
   setInitialState('propuesta_3', $('#valor_propuesta_3').val());
   setInitialState('propuesta_4', $('#valor_propuesta_4').val());
 
-  });
+
+});
 </script>
 
 {% endblock scripts %}

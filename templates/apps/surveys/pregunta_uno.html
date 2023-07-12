@@ -38,13 +38,17 @@
 
           <!-- Muestra input para el formulario -->
           {% for choice in form.valor.field.choices %}
-          <div class="">
-              <button class="btn btn-outline-primary w-50 btn-lg btn-default-size border-primary active-text-white my-3 w-100"
+              <div class="d-flex">
+                <button class="btn-question px-0 btn-lg my-3 w-100 {% if valor_guardado == choice.1 %}selected active{% endif %}"
                   type="button" id="valor" value="{{ choice.0 }}"
-                  onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'"
-                  {% if valor_guardado == choice.1 %}disabled{% endif %}>{{ choice.1 }}</button>
-          </div>
+                  onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'; toggleImage(this);">
+                  {{ choice.1 }}
+                  <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" id="img_{{ choice.0 }}"
+                    {% if valor_guardado == choice.1 %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
+                </button>
+              </div>
           {% endfor %}
+
 
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
@@ -69,7 +73,7 @@
     </div>
   </div>
 </section>
-<div class="my-3 col-md-12 mw-100 mx-0">
+<div class="my-3 col-md-12 mw-100 mx-0 px-0">
   {% include "components/logo_banner.html" %}
 </div>
 
@@ -78,35 +82,55 @@
 {% block scripts %}
 
 <script>
+  function toggleImage(button) {
+    let imageId = "img_" + button.value;
+    let image = document.getElementById(imageId);
+    if (image.style.display === "none") {
+      image.style.display = "inline-block";
+    } else {
+      image.style.display = "none";
+    }
+  }
+  
   window.addEventListener('DOMContentLoaded', (event) => {
     let valorGuardado = '{{ valor_guardado }}';
     if (valorGuardado) {
-        let btns = document.querySelectorAll('#valor');
-        btns.forEach(function (btn) {
-            if (btn.textContent == valorGuardado) {
-                btn.classList.add('selected');
-                btn.classList.add('active'); // Agrega la clase 'active'
-                document.getElementById('id_valor').value = btn.value;
-            }
-        });
-    }
-});
-
-document.querySelectorAll('#valor').forEach(function (element) {
-    element.addEventListener('click', function (event) {
-        // Comprueba si el botón ya está seleccionado
-        if (!event.target.classList.contains('selected')) {
-            document.querySelectorAll('#valor').forEach(function (otherElement) {
-                otherElement.classList.remove('selected');
-                otherElement.classList.remove('active'); // Elimina la clase 'active' de todos los botones
-            });
-            event.target.classList.add('selected');
-            event.target.classList.add('active'); // Agrega la clase 'active' al botón seleccionado
-            document.getElementById('id_valor').value = event.target.value;
+      let btns = document.querySelectorAll('#valor');
+      btns.forEach(function (btn) {
+        if (btn.textContent == valorGuardado) {
+          btn.classList.add('selected');
+          btn.classList.add('active'); // Agrega la clase 'active'
+          document.getElementById('id_valor').value = btn.value;
+          let imageId = "img_" + btn.value;
+          let image = document.getElementById(imageId);
+          image.style.display = "inline-block";
         }
+      });
+    }
+  });
+  
+  document.querySelectorAll('#valor').forEach(function (element) {
+    element.addEventListener('click', function (event) {
+      // Comprueba si el botón ya está seleccionado
+      if (!event.target.classList.contains('selected')) {
+        document.querySelectorAll('#valor').forEach(function (otherElement) {
+          otherElement.classList.remove('selected');
+          otherElement.classList.remove('active'); // Elimina la clase 'active' de todos los botones
+  
+          let imageId = "img_" + otherElement.value;
+          let image = document.getElementById(imageId);
+          image.style.display = "none";
+        });
+        event.target.classList.add('selected');
+        event.target.classList.add('active'); // Agrega la clase 'active' al botón seleccionado
+        document.getElementById('id_valor').value = event.target.value;
+  
+        let imageId = "img_" + event.target.value;
+        let image = document.getElementById(imageId);
+        image.style.display = "inline-block";
+      }
     });
-});
-
-</script>
+  });
+  </script>
 
 {% endblock scripts %}

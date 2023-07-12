@@ -1,7 +1,83 @@
-.propuesta, .iniciativa {
-  border: 2px solid #0F69C4;
+.btn-question {
+  width: 50%;
+  border: 1px solid #0f69c4;
+  color: #0f69c4;
+  font-weight: 700;
   background-color: white;
+  text-decoration: underline;
+  text-align: center;
 }
 
+.btn-question:hover {
+  border: 1px solid #0f69c4;
+}
 
+.btn-question:focus {
+  border: 2px solid #001c41;
+}
 
+.btn-question.selected {
+  border: 3px solid #0f69c4;
+  color: #0f69c4;
+  font-weight: 700;
+  background-color: white;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.propuesta,
+.iniciativa {
+  border: 1px solid #0f69c4;
+  background-color: white;
+  color: #0f69c4;
+}
+.propuesta:hover,
+.propuesta:focus,
+.propuesta:active,
+.propuesta:disabled {
+  border: 3px solid #0f69c4;
+  background-color: white;
+  color: #0f69c4;
+}
+
+.iniciativa:hover,
+.iniciativa:disabled,
+.iniciativa:active,
+.iniciativa:focus {
+  border: 3px solid #0f69c4;
+  background-color: white;
+  color: #0f69c4;
+}
+
+#reiniciar {
+  border: 1px solid #871a1a;
+  color: #871a1a;
+  border-radius: 5px;
+  fill: #871a1a;
+}
+
+#reiniciar:hover,
+#reiniciar:focus {
+  border: 1px solid #871a1a;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #871a1a;
+}
+
+#reiniciar:hover #icon-trash {
+  filter: contrast(1%) brightness(300%);
+}
+
+.btn-email {
+  background-color: #006636;
+  color: white;
+}
+
+.btn-email:hover {
+  background-color: #006636;
+  color: white;
+}
+
+#btn-back:hover #icon-house{
+  filter: contrast(1%) brightness(300%);
+}

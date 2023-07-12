@@ -17,27 +17,28 @@
         <p class="font-level-3 text-md-left text-center">Enviaste y guardaste tus respuestas con éxito.<p>
         <p class="font-level-4 text-md-left text-center">Recuerda que no puedes volver a responder este cuestionario.</p>
         
-        <p class="font-level-4  text-justify text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las
-          recibirás en unos minutos.</p>
+        <p class="font-level-4  text-justify text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las recibirás en unos minutos.</p>
 ​
-        <form method="post" action="{% url 'surveys_app:enviar_formularios' %}">
+          <form id="my-form" method="post" action="{% url 'surveys_app:enviar_formularios' %}">
             {% csrf_token %}
             <div class="form-group">
-                <label for="exampleInputEmail1">Correo electronico</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="{{ form.email.value|default_if_none:'' }}">
+              <label for="exampleInputEmail1">Correo electrónico</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="{{ form.email.value|default_if_none:'' }}">
             </div>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input text-xl w-20" id="recibir_resultados" name="recibir_resultados" {% if form.recibir_resultados.value %}checked{% endif %}>
-                <label class="form-check-label font-level-7 font-weight-light" for="recibir_resultados">También quiero recibir los resultados finales del proceso.</label>
+              <input type="checkbox" class="form-check-input text-xl w-20" id="recibir_resultados" name="recibir_resultados" {% if form.recibir_resultados.value %}checked{% endif %}>
+              <label class="form-check-label font-level-7 font-weight-light" for="recibir_resultados">También quiero recibir los resultados finales del proceso.</label>
             </div>
-​
+
             <div class="col-md-6 mx-md-auto px-0">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Recibir mis respuestas</button>
-                  <a type="button" href="/" class="btn btn-outline-primary btn-lg btn-block my-4">Volver a la pagina principal <i class="material-symbols-outlined">
-                    house
-                    </i></a>
+              <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-button">
+                <span id="button-text">Recibir mis respuestas</span>
+                <span id="response-text" style="display: none;">Recibirás un correo electrónico con <br>tus respuestas en unos minutos.</span>
+              </button>
+              <a type="button" href="/" id='btn-back' class="btn btn-outline-primary text-center btn-lg btn-block my-4">Volver a la página principal <img src="{% static 'img/house.svg' %}" class="ml-3" id="icon-house"/></a>
             </div>
-        </form>
+          </form>
+
 ​
       </div>
     </div>
@@ -45,8 +46,33 @@
 ​
 ​
 </section>
-<div class="my-3 col-md-12 mw-100 mx-0">
+<div class="my-3 col-md-12 mw-100 mx-0 px-0">
   {% include "components/logo_banner.html" %}
 </div>
-​
+
+<script>
+  document.getElementById('submit-button').addEventListener('click', function(event) {
+    event.preventDefault(); 
+    
+    // mandnado el data con  AJAX
+    var form = document.getElementById('my-form');
+    var formData = new FormData(form);
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open(form.method, form.action, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        document.getElementById('button-text').style.display = 'none';
+        document.getElementById('response-text').style.display = 'inline';
+        document.getElementById('submit-button').classList.remove('btn-primary');
+        document.getElementById('submit-button').classList.add('btn-email');
+      } else {
+        // Handle error response
+      }
+    };
+    xhr.send(formData);
+  });
+</script>
+
 {% endblock views %}
