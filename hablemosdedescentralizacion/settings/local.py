@@ -49,8 +49,8 @@ RECAPTCHA_PUBLIC_KEY = '6LemsJgmAAAAAJj8noe-1FWZgl0ltkX5SeGgBa0h'
 RECAPTCHA_PRIVATE_KEY = '6LemsJgmAAAAAG8rwzcmMJVPx1t8VLpT86vWju-i'
 
 # SENDGRID SETTINGS
-SENDGRID_API_KEY = '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'
-ADMIN_EMAIL = ['modernizacion@subdere.gov.cl']
+SENDGRID_API_KEY = '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'
+ADMIN_EMAIL = ['jhearquitecto@gmail.com']
 NOREPLY_EMAIL = ['noreply@bancoproyectos.subdere.gob.cl']
 
 #Clave Única
