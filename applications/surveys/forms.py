@@ -115,6 +115,10 @@ class PreguntaUnoForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+
+        if not self.data:
+            return cleaned_data
+
         valor = cleaned_data.get('valor')
         if not valor:
             raise ValidationError(

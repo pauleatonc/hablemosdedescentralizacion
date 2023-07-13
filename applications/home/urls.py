@@ -32,7 +32,7 @@ urlpatterns = [
     path(
         'politicas-privacidad',
         views.PoliticasPrivacidadView.as_view(),
-        name='politivas_privacidad',
+        name='politicas_privacidad',
         ),
 
         path(

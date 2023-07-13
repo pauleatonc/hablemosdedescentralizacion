@@ -39,13 +39,13 @@
           <!-- Muestra input para el formulario -->
           {% for choice in form.valor.field.choices %}
               <div class="d-flex">
-                <button class="btn-question px-0 btn-lg my-3 w-100 {% if valor_guardado == choice.1 %}selected active{% endif %}"
-                  type="button" id="valor" value="{{ choice.0 }}"
-                  onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'; toggleImage(this);">
-                  {{ choice.1 }}
-                  <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" id="img_{{ choice.0 }}"
-                    {% if valor_guardado == choice.1 %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
-                </button>
+                  <button class="btn-question px-0 btn-lg my-3 w-100 {% if valor_guardado == choice.0 %}selected active{% endif %}"
+                      type="button" id="valor" value="{{ choice.0 }}"
+                      onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'; toggleImage(this);">
+                      {{ choice.1 }}
+                      <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" id="img_{{ choice.0 }}"
+                          {% if valor_guardado == choice.0 %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
+                  </button>
               </div>
           {% endfor %}
 
@@ -57,7 +57,7 @@
           {% endif %}
 
           <!-- Campo oculto para almacenar el valor seleccionado -->
-          <input type="hidden" id="id_valor" name="valor" value="">
+          <input type="hidden" id="id_valor" name="valor" value="{{ valor_guardado }}">
 
           <!-- Botón para el envío del formulario completo -->
           <div class="col-md-9 mx-md-auto my-4 px-0">
@@ -91,7 +91,7 @@
       image.style.display = "none";
     }
   }
-  
+
   window.addEventListener('DOMContentLoaded', (event) => {
     let valorGuardado = '{{ valor_guardado }}';
     if (valorGuardado) {
@@ -108,7 +108,7 @@
       });
     }
   });
-  
+
   document.querySelectorAll('#valor').forEach(function (element) {
     element.addEventListener('click', function (event) {
       // Comprueba si el botón ya está seleccionado
@@ -116,7 +116,7 @@
         document.querySelectorAll('#valor').forEach(function (otherElement) {
           otherElement.classList.remove('selected');
           otherElement.classList.remove('active'); // Elimina la clase 'active' de todos los botones
-  
+
           let imageId = "img_" + otherElement.value;
           let image = document.getElementById(imageId);
           image.style.display = "none";
@@ -124,7 +124,7 @@
         event.target.classList.add('selected');
         event.target.classList.add('active'); // Agrega la clase 'active' al botón seleccionado
         document.getElementById('id_valor').value = event.target.value;
-  
+
         let imageId = "img_" + event.target.value;
         let image = document.getElementById(imageId);
         image.style.display = "inline-block";

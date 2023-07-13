@@ -107,7 +107,7 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
         usuario = self.request.user
         try:
             pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
-            context['valor_guardado'] = pregunta_uno.get_valor_display()
+            context['valor_guardado'] = pregunta_uno.valor  # Esto obtendrá la clave, no la etiqueta.
         except PreguntaUno.DoesNotExist:
             context['valor_guardado'] = None
         return context
