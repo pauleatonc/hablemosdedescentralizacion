@@ -18,7 +18,7 @@
         <p class="font-level-4 text-md-left text-center">Recuerda que no puedes volver a responder este cuestionario.</p>
         
         <p class="font-level-4  text-justify text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las recibirás en unos minutos.</p>
-​
+
           <form id="my-form" method="post" action="{% url 'surveys_app:enviar_formularios' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -39,16 +39,17 @@
             </div>
           </form>
 
-​
       </div>
     </div>
   </div>
-​
-​
+
 </section>
 <div class="my-3 col-md-12 mw-100 mx-0 px-0">
   {% include "components/logo_banner.html" %}
 </div>
+{% endblock views %}
+
+{% block scripts %}
 
 <script>
   document.getElementById('submit-button').addEventListener('click', function(event) {
@@ -75,4 +76,6 @@
   });
 </script>
 
-{% endblock views %}
+{% endblock scripts %}
+
+
