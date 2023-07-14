@@ -2,6 +2,7 @@
 {% load static %}
 {% block views %}
 {% load countdown_tags %}
+{% load static extra_filters %}
 <div>
     <div class="d-flex justify-content-center">
         <div class="col-md-8">
@@ -37,8 +38,46 @@
 
             <div id="documentos-documentosnormativos" class="my-5 pt-md-2">
                 <div id="dnContainer">
-                    {% include "components/colapsable_documentos.html" with titulo=documento.titulo_documento seccion=seccion_documento.seccion_documento documento=documento.documento %}
-                </div>              
+                 {% for tipo_documento in tipos_documentos %}
+                    {% if tipo_documento|has_documents:True %}
+                        <p class="font-level-2 pb-2 text-md-left text-black font-weight-bold m-4">
+                        {{ tipo_documento }}
+                        </p>
+
+                        {% for seccion_documento in tipo_documento.secciondocumentos_set.all %}
+                            {% if seccion_documento|has_public_documents %}
+                                <div class="card-data-list card-data-list-flush m-4 bg-gray-200">
+                                    <ol class="list-unstyled w-100" id="collapsibleFlushAccordion{{ forloop.counter }}">
+                                        <li>
+                                            <button class="btn text-left w-100 d-flex align-items-start justify-content-between py-4 px-3" id="collapsibleFlushHeading{{ forloop.counter }}" type="button" data-toggle="collapse" data-target="#collapsibleFlushCollapse{{ forloop.counter }}" aria-controls="collapsibleFlushCollapse{{ forloop.counter }}" aria-expanded="false">
+                                                <span class="font-level-3 mb-0">{{ seccion_documento }}</span>
+                                                <span class="toggler-icon cl cl-m-arrow-down cl-2x" aria-hidden="true"></span>
+                                            </button>
+                                            <div class="collapse" id="collapsibleFlushCollapse{{ forloop.counter }}" aria-labelledby="collapsibleFlushHeading{{ forloop.counter }}" data-parent="#collapsibleFlushAccordion{{ forloop.counter }}">
+                                                <div class="pr-5 pb-3 pl-3 pt-3 border-top border-gray-b">
+                                                    <ul class="list-group">
+                                                        {% for documento in seccion_documento|public_documents %}
+                                                            <li class="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
+                                                                {{ documento }}
+                                                                <a type="button" class="btn btn-neutral btn-lg btn-default-size text-white border-white bg-primary mb-4" type="button" href='{{ documento.url }}'>
+                                                                    Descargar
+                                                                    <i class="material-symbols-outlined">
+                                                                        download
+                                                                    </i>
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                </div>
             </div>
 
             <div>{% include "components/invitacion.html"%}</div>

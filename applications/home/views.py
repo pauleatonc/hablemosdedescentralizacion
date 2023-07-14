@@ -29,7 +29,7 @@ class DocumentosView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tipos_documentos = TipoDocumentos.objects.select_related('secciondocumentos_set__documentos').all()
+        tipos_documentos = TipoDocumentos.objects.prefetch_related('secciondocumentos_set__seccion_documentos').all()
         context['tipos_documentos'] = tipos_documentos
         return context
 
