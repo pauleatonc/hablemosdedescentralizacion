@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mt-5">
                     <li class="breadcrumb-item">
-                        <a href="/" class="text-primary">Inicio</a>
+                        <a href="{%  url 'home_app:index' %}" class="text-primary">Inicio</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">Documentos</li>
                 </ol>
@@ -37,7 +37,7 @@
 
             <div id="documentos-documentosnormativos" class="my-5 pt-md-2">
                 <div id="dnContainer">
-                 {% include "components/colapsable_documentos.html" with titulo=documento.titulo_documento seccion=seccion_documento.seccion_documento documento=documento.documento %}
+                    {% include "components/colapsable_documentos.html" with titulo=documento.titulo_documento seccion=seccion_documento.seccion_documento documento=documento.documento %}
                 </div>              
             </div>
 

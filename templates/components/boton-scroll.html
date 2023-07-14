@@ -6,12 +6,26 @@
 
 {% block scripts %}
 <script>
-document.getElementById("button-top").addEventListener("click", function() {
-  // Obtener el elemento al que se desea hacer scroll
-  var scrollToTop = document.documentElement;
+document.addEventListener("DOMContentLoaded", function() {
+  var buttonTop = document.getElementById("button-top");
+  var scrollCount = 0;
 
-  // Configurar el comportamiento del scroll suave
-  scrollToTop.scrollIntoView({ behavior: "smooth" });
+  // Mostrar el botón cuando el usuario haya realizado scroll dos veces
+  window.addEventListener("scroll", function() {
+    if (window.scrollY > window.innerHeight) {
+      scrollCount++;
+      if (scrollCount >= 2) {
+        buttonTop.classList.add("show");
+      }
+    } else {
+      buttonTop.classList.remove("show");
+    }
+  });
+
+  // Hacer scroll suave cuando se hace clic en el botón
+  buttonTop.addEventListener("click", function() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
 </script>
 {% endblock %}
