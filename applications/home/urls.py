@@ -39,6 +39,5 @@ urlpatterns = [
         'onboarding',
         views.OnboardingView.as_view(),
         name='onboarding',
-        ),
-
+    ),
 ]

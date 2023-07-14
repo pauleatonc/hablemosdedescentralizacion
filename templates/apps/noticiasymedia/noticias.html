@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+{% load static %} {% block views %}
+{% load countdown_tags %}
+<section class="container-fluid my-5">
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mt-5">
+          <li class="breadcrumb-item">
+            <a href="{%  url 'home_app:index' %}" class="text-primary">Inicio</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Noticias</li>
+        </ol>
+      </nav>
+
+      <div class="section-header mt-5">
+        <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold">
+          Noticias
+        </p>
+      </div>
+      <div class="section-body my-4">
+        {% countdown_component %}</div>
+    </div>
+  </div>
+
+  <div>{% include "components/logo_banner.html"%}</div>
+
+  <div class="cols-12 m-5">
+    <div class="row">
+      {% include "components/card_noticia.html"%}
+    </div>
+    <nav class="pagination-container flex-column flex-sm-row justify-content-start a11y-fonts-flex-column a11y-fonts-flex-lg-row">
+      <p class="text-start mr-5"></p>
+      <ul class="pagination justify-content-center align-items-center active">
+        <li class="page-item">
+          <a class="page-link border-0 text-decoration-none font-level-1" href="">
+            &lt;
+          </a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link border-0 text-decoration-none" href="">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link border-0 text-decoration-none" href="">2</a>
+        </li>
+
+        <li class="page-item">
+          <a class="page-link border-0 font-level-1 text-decoration-none" href="">
+            &gt;
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+{% endblock %}

@@ -30,6 +30,7 @@ urlpatterns = [
     re_path('', include('applications.home.urls')),
     re_path('', include('applications.surveys.urls')),
     re_path('', include('applications.claveunica.urls')),
+    re_path('', include('applications.noticiasymedia.urls')),
 ]
 
 handler404 = Error404.as_view()
