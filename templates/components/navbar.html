@@ -1,51 +1,108 @@
 {% load static %}
-<nav class="navbar navbar-light navbar-expand-lg">
-  <div class="cols-12 column ml-3 ">
-  <a class="navbar-brand " href="/">
-    <div class="blue"></div>
-    <div class="red"></div>
-    <p class="font-level-6 font-weight-bold mt-2">
-      Subsecretaría de <br class="d-md-none"> Desarrollo <br class="d-none d-sm-none d-md-block"> Regional y <br  class="d-sm-none"> Administrativo
-    </p>
-  </a>
-  <div class="toolbar align-items-end my-2 d-sm-block d-md-none">
+<nav id="navbar" class="navbar navbar-light navbar-expand-lg navbar-lines">
+  <div class="cols-12-extended column ml-3  mr-5 ">
+    <a class="navbar-brand " href="/">
+      <div class="blue"></div>
+      <div class="red"></div>
+      <p class="font-level-6 font-weight-bold mt-2">
+        Subsecretaría de <br class="d-md-none"> Desarrollo <br class="d-none d-sm-none d-md-block"> Regional y <br  class="d-sm-none"> Administrativo
+      </p>
+    </a>
+    <div class="toolbar align-items-end my-2 d-sm-block d-md-none">
       <a class="toolbar-btn toolbar-behavior-contrast" href="#"><i class="cl cl-contrast"></i></a>
-      <div class="toolbar-btn-group"><a class="toolbar-btn toolbar-behavior-decrease" href="#"><i
-        class="cl cl-decrease-text"></i></a><a class="toolbar-btn toolbar-behavior-increase" href="#"><i
-          class="cl cl-increase-text"></i></a></div>
-      <a class="toolbar-btn toolbar-toggler ml-1" href="#"><i class="cl cl-accessibility toolbar-behavior-on"></i><span
-        class="toolbar-behavior-off">X</span></a>
+      <div class="toolbar-btn-group">
+        <a class="toolbar-btn toolbar-behavior-decrease" href="#"><i class="cl cl-decrease-text"></i></a>
+        <a class="toolbar-btn toolbar-behavior-increase" href="#"><i class="cl cl-increase-text"></i></a>
+      </div>
+      <a class="toolbar-btn toolbar-toggler ml-1" href="#"><i class="cl cl-accessibility toolbar-behavior-on"></i><span class="toolbar-behavior-off">X</span></a>
     </div>
   </div>
-  <button class="navbar-toggler collapsed text-gray-600 " type="button" data-toggle="collapse"
-  data-target="#navbarLightExampleCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-  aria-label="Toggle navigation"><u>Menú</u>
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="navbar-collapse collapse" id="navbarLightExampleCollapse">
-  <ul class="navbar-nav ml-auto">
-    <div class="toolbar mx-3 d-none d-md-block">
-      <a class="toolbar-btn toolbar-behavior-contrast" href="#"><i class="cl cl-contrast"></i></a>
-      <div class="toolbar-btn-group"><a class="toolbar-btn toolbar-behavior-decrease" href="#"><i
-            class="cl cl-decrease-text"></i></a><a class="toolbar-btn toolbar-behavior-increase" href="#"><i
-            class="cl cl-increase-text"></i></a></div>
-      <a class="toolbar-btn toolbar-toggler ml-1" href="#"><i class="cl cl-accessibility toolbar-behavior-on"></i><span
-          class="toolbar-behavior-off">X</span></a>
-    </div>
-    <li class="nav-item">
-          {% if user.is_authenticated %}
-              <li class="nav-item"><a class="btn btn-block btn-outline-danger btn-cerrar-sesion" href="{% url 'users_app:user-logout' %}">Cerrar sesión</a></li>
-          {% else %}
-            <form method="GET" class="nav-item" action="{% url 'claveunica_login' %}#inicio-sesion">
-              <input id="next-url" type="hidden" name="next" value="">
-              <button class="btn btn-block btn-primary" type="submit" onclick="setNextUrl()">
-                <div class="doc-icon m-2"><span class="cl cl-claveunica"></span></div>
-                Iniciar sesión
-              </button>
-            </form>
-          {% endif %}
-    </li>
-  </ul>
-</div>
+  <button class="navbar-toggler collapsed text-gray-600" type="button" data-toggle="collapse" data-target="#navbarLightExampleCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <u>Menú</u>
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse"  id="navbarLightExampleCollapse">
+    <ul class="navbar-nav mx-md-5 my-md-3 mx-4 ">
+      <div class="toolbar mx-3 d-none d-md-block">
+        <a class="toolbar-btn toolbar-behavior-contrast" href="#"><i class="cl cl-contrast"></i></a>
+        <div class="toolbar-btn-group">
+          <a class="toolbar-btn toolbar-behavior-decrease" href="#"><i class="cl cl-decrease-text"></i></a>
+          <a class="toolbar-btn toolbar-behavior-increase" href="#"><i class="cl cl-increase-text"></i></a>
+        </div>
+        <a class="toolbar-btn toolbar-toggler ml-1" href="#"><i class="cl cl-accessibility toolbar-behavior-on"></i><span class="toolbar-behavior-off">X</span></a>
+      </div> 
+      <li class="nav-item ">
+        {% if user.is_authenticated %}
+        <li class="nav-item "><a class="btn btn-block btn-outline-danger btn-cerrar-sesion " href="{% url 'users_app:user-logout' %}">Cerrar sesión</a></li>
+        {% else %}
+        <form method="GET" class="nav-item" action="{% url 'claveunica_login' %}#inicio-sesion">
+          <input id="next-url" type="hidden" name="next" value="">
+          <button class="btn btn-block btn-primary" id="btn-clave" type="submit" onclick="setNextUrl()">
+            <div class="doc-icon m-2"><span class="cl cl-claveunica"></span></div>
+            Iniciar sesión
+          </button>
+        </form>
+        {% endif %}
+      </li>
+    </ul>
+    <ul class="navbar-nav pr-5  mx-md-auto mx-lg-auto mx-xl-auto  my-2 ml-4">      
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:index' %}">Inicio</a></li>
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:proceso_participativo' %}">Proceso Participativo</a></li>
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:preguntas_frecuentes' %}">Preguntas Frecuentes</a></li>
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:index' %}">Desentralización para el Bienestar</a></li>
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:documentos' %}">Documentación</a></li>
+    </ul>
   </div>
 </nav>
+
+{% block script %}
+<script>
+  window.addEventListener("scroll", function() {
+    let navbar = document.getElementById("navbar");
+    let scrollCount = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollCount >= (window.innerHeight * 3)) {
+      navbar.classList.add("sticky");
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  });
+
+  let navbarCollapse = document.getElementById("navbarLightExampleCollapse");
+  let navbarToggler = document.querySelector(".navbar-toggler");
+
+  navbarToggler.addEventListener("click", function() {
+    let navLinks = navbarCollapse.getElementsByClassName("nav-link");
+    if (window.innerWidth < 768) {
+      if (navbarCollapse.classList.contains("show")) {
+        navbarCollapse.style.backgroundColor = "#093F75"; // Cambiar el color de fondo a azul
+        for (let i = 0; i < navLinks.length; i++) {
+          navLinks[i].style.color = "white"; // Cambiar el color de los enlaces a blanco
+        }
+      } else {
+        navbarCollapse.style.backgroundColor = ""; // Restaurar el color de fondo original
+        for (let i = 0; i < navLinks.length; i++) {
+          navLinks[i].style.color = ""; // Restaurar el color de los enlaces original
+        }
+      }
+    }
+  });
+
+  navbarCollapse.addEventListener("show.bs.collapse", function () {
+    let navLinks = navbarCollapse.getElementsByClassName("nav-link");
+    navbarCollapse.style.backgroundColor = "#093F75"; // Cambiar el color de fondo a azul
+    for (let i = 0; i < navLinks.length; i++) {
+      navLinks[i].style.color = "white"; // Cambiar el color de los enlaces a blanco
+    }
+  });
+
+  navbarCollapse.addEventListener("hide.bs.collapse", function () {
+    let navLinks = navbarCollapse.getElementsByClassName("nav-link");
+    navbarCollapse.style.backgroundColor = ""; // Restaurar el color de fondo original
+    for (let i = 0; i < navLinks.length; i++) {
+      navLinks[i].style.color = ""; // Restaurar el color de los enlaces original
+    }
+  });
+</script>
+
+{% endblock %}
