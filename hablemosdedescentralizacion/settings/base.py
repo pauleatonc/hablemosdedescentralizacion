@@ -20,6 +20,7 @@ LOCAL_APPS = [
     'applications.home',
     'applications.surveys',
     'applications.claveunica',
+    'applications.noticiasymedia'
 ]
 
 THIRD_PARTY_APPS = [
