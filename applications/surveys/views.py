@@ -17,6 +17,7 @@ from applications.users.models import User
 from django.http import JsonResponse
 from .functions import send_email
 from django.conf import settings
+from django.template.loader import render_to_string
 
 
 class ComunasPorRegionView(View):
@@ -107,7 +108,7 @@ class PreguntaUnoView(LoginRequiredMixin, FormView):
         usuario = self.request.user
         try:
             pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
-            context['valor_guardado'] = pregunta_uno.get_valor_display()
+            context['valor_guardado'] = pregunta_uno.valor  # Esto obtendrá la clave, no la etiqueta.
         except PreguntaUno.DoesNotExist:
             context['valor_guardado'] = None
         return context
@@ -353,20 +354,28 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
         recibir_resultados = form.cleaned_data['recibir_resultados']
 
         self.success_url = self.request.path
-        return super().form_valid(form)
 
-    def get(self, request, *args, **kwargs):
+        # Obtener el usuario actual
         usuario = self.request.user
 
-        if not usuario.encuesta_completada:
-            return redirect('home_app:onboarding')  # Redirige al usuario si no ha completado la encuesta
+        # Obtener las respuestas del usuario a las preguntas
+        pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
+        pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
+        pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
+        pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+        pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
 
-        try:
-            email = usuario.email
-            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
-            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
-        except (PreguntaCuatro.DoesNotExist, PreguntaCinco.DoesNotExist):
-            return redirect('home_app:onboarding')  # Redirige al usuario si no ha llenado todos los formularios
+        # Crear el contexto para la plantilla
+        context = {
+            'pregunta_uno': pregunta_uno.get_valor_display(),
+            "pregunta_dos": pregunta_dos,
+            "pregunta_tres": pregunta_tres,
+            "pregunta_cuatro": pregunta_cuatro,
+            "pregunta_cinco": pregunta_cinco,
+        }
+
+        # Renderizar la plantilla con el contexto y obtener una cadena HTML
+        content = render_to_string('apps/surveys/resumen_respuestas_usuario.html', context)
 
         admin_email = settings.ADMIN_EMAIL
 
@@ -375,17 +384,38 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
             # Subject
             'Resultados de la encuesta - Banco de Proyectos',
             # Content
-            'El usuario ha completado la encuesta con las siguientes respuestas: \n' +
-            'Pregunta Cuatro - Tematica 1: ' + str(pregunta_cuatro.tematica_1) + '\n' +
-            'Pregunta Cuatro - Tematica 2: ' + str(pregunta_cuatro.tematica_2) + '\n' +
-            'Pregunta Cuatro - Tematica 3: ' + str(pregunta_cuatro.tematica_3) + '\n' +
-            'Pregunta Cuatro - Tematica 4: ' + str(pregunta_cuatro.tematica_4) + '\n' +
-            'Pregunta Cuatro - Tematica 5: ' + str(pregunta_cuatro.tematica_5) + '\n' +
-            'Pregunta Cinco - Texto Respuesta: ' + str(pregunta_cinco.texto_respuesta),
+            content,
             # From email
             admin_email,
             # To emails
             [email]
         )
 
-        return super().get(request, *args, **kwargs)
+        return super().form_valid(form)
+
+
+class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/surveys/resumen_respuestas_usuario.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Obtener el usuario actual
+        usuario = self.request.user
+
+        # Obtener las respuestas del usuario a las preguntas
+        pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
+        pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
+        pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
+        pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+        pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+
+        # Crear el contexto para la plantilla
+        context = {
+            'pregunta_uno': pregunta_uno.get_valor_display(),
+            "pregunta_dos": pregunta_dos,
+            "pregunta_tres": pregunta_tres,
+            "pregunta_cuatro": pregunta_cuatro,
+            "pregunta_cinco": pregunta_cinco,
+        }
+
+        return context
