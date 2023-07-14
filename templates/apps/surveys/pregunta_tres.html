@@ -42,16 +42,50 @@
         <form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
           {% csrf_token %}
           
-          {% for iniciativa in form %}
-              <div class="my-2 w-100">
-                  <button type="button" class="iniciativa  w-100  d-flex flex-row justify-content-between border-3"
-                  id="iniciativa_{{ forloop.counter }}">
-                  <div class="iniciativa-text m-4 text-justify">{{ iniciativa.help_text }}</div>
-                  <div class="iniciativa-check h1 text-font-weight-bold  mx-3  align-self-center">-</div>
-                  </button>
-                  <input type="hidden" name="iniciativa_{{ forloop.counter }}" id="valor_iniciativa_{{ forloop.counter }}" value="{{ iniciativa.value|default:'' }}">
-              </div>
-          {% endfor %}
+          <div class=" my-2 w-100">
+            <button type="button" class="iniciativa d-flex  w-100 flex-row justify-content-between "
+              id="iniciativa_1">
+              <div class="iniciativa-text  m-4 text-left">{{ form.iniciativa_1.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  text-primary  mx-3 text-right align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value|default:''}}">
+          </div>
+
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa w-100  d-flex flex-row  justify-content-between "
+              id="iniciativa_2">
+              <div class="iniciativa-text  m-4 text-left">{{ form.iniciativa_2.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold justify-content-md-end mx-3 text-right align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value|default:'' }}">
+          </div>
+
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa d-flex w-100 flex-row justify-content-between  "
+              id="iniciativa_3">
+              <div class="iniciativa-text  m-4 text-left">{{ form.iniciativa_3.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value|default:'' }}">
+          </div>
+
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa  d-flex w-100 flex-row  justify-content-between "
+              id="iniciativa_4">
+              <div class="iniciativa-text m-4 text-left">{{ form.iniciativa_4.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3  justify-content-end align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value|default:'' }}">
+          </div>
+          
+          <div class="my-2 w-100">
+            <button type="button" class="iniciativa  d-flex w-100 flex-row  justify-content-between "
+              id="iniciativa_5">
+              <div class="iniciativa-text m-4 text-left">{{ form.iniciativa_5.help_text }}</div>
+              <div class="iniciativa-check h1 text-font-weight-bold  mx-3  justify-content-end align-self-center">-</div>
+            </button>
+            <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value|default:'' }}">
+          </div>
                   
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
