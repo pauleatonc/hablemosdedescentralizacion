@@ -4,22 +4,33 @@
     <div>
         <p class="h4 mb-2">Quedan {{ days_left }} días para el cierre del proceso.</p>
     </div>
+
+    <!-- Barra de progreso -->
+    <div class="progress progress-sm">
+        <div class="progress-bar" role="progressbar"
+            style="width:{{ progress_percentage }}%"
+            aria-valuenow="{{ progress_percentage }}"
+            aria-valuemin="0" aria-valuemax="100">
+        </div>
+    </div>
+
 {% elif days_left == 1 %}
     <div>
         <p class="h4 mb-2">Queda {{ days_left }} día para el cierre del proceso.</p>
     </div>
+
+    <!-- Barra de progreso -->
+    <div class="progress progress-sm">
+        <div class="progress-bar" role="progressbar"
+            style="width:{{ progress_percentage }}%"
+            aria-valuenow="{{ progress_percentage }}"
+            aria-valuemin="0" aria-valuemax="100">
+        </div>
+    </div>
+
 {% else %}
     <div>
         <p class="h4 mb-2">Este proceso ha finalizado el {{ end_date }}.</p>
     </div>
 {% endif %}
 
-
-<!-- Barra de progreso, pendiente conectar dinamicamente -->
-<div class="progress progress-sm">
-    <div class="progress-bar" role="progressbar"
-        style="width:{{ progress_percentage }}%"
-        aria-valuenow="{{ progress_percentage }}"
-        aria-valuemin="0" aria-valuemax="100">
-    </div>
-</div>
