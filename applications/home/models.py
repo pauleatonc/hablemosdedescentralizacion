@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 
 from django.core.validators import FileExtensionValidator
-from .functions import validate_file_size_five
+from .functions import validate_file_size_twenty
 
 
 class Countdown(models.Model):
@@ -66,7 +66,7 @@ class Documentos(models.Model):
     documento = models.FileField(upload_to='documents',
                              validators=[
                                  FileExtensionValidator(
-                                    ['pdf'], message='Solo se permiten archivos PDF.'), validate_file_size_five],
+                                    ['pdf'], message='Solo se permiten archivos PDF.'), validate_file_size_twenty],
                                  null=True, blank=True)
 
 

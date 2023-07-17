@@ -11,7 +11,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('', 'Elige una opción'),
         ('FEM', 'Femenino'),
         ('MASC', 'Masculino'),
-        ('NOBIN', 'No binarie'),
+        ('TRMAS', 'Transmasculino'),
+        ('TRFEM', 'Transfemenino'),
+        ('NOBIN', 'No binario'),
+        ('OTRO', 'Otro'),
         ('PND', 'Prefiero no decirlo')
     )
 

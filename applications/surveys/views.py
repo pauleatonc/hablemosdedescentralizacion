@@ -358,17 +358,22 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
         # Obtener el usuario actual
         usuario = self.request.user
 
-        # Obtener las respuestas del usuario a las preguntas
         pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
         pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
         pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
         pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
 
-        # Crear el contexto para la plantilla
+        propuestas_respuestas_pregunta_dos = [
+            (pregunta_dos._meta.get_field('propuesta_1').help_text, pregunta_dos.propuesta_1),
+            (pregunta_dos._meta.get_field('propuesta_2').help_text, pregunta_dos.propuesta_2),
+            (pregunta_dos._meta.get_field('propuesta_3').help_text, pregunta_dos.propuesta_3),
+            (pregunta_dos._meta.get_field('propuesta_4').help_text, pregunta_dos.propuesta_4),
+        ]
+
         context = {
-            'pregunta_uno': pregunta_uno.get_valor_display(),
-            "pregunta_dos": pregunta_dos,
+            'respuesta_uno': pregunta_uno.get_valor_display(),
+            'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
             "pregunta_tres": pregunta_tres,
             "pregunta_cuatro": pregunta_cuatro,
             "pregunta_cinco": pregunta_cinco,
@@ -399,20 +404,24 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Obtener el usuario actual
         usuario = self.request.user
 
-        # Obtener las respuestas del usuario a las preguntas
         pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
         pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
         pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
         pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
 
-        # Crear el contexto para la plantilla
+        propuestas_respuestas_pregunta_dos = [
+            (pregunta_dos._meta.get_field('propuesta_1').help_text, pregunta_dos.propuesta_1),
+            (pregunta_dos._meta.get_field('propuesta_2').help_text, pregunta_dos.propuesta_2),
+            (pregunta_dos._meta.get_field('propuesta_3').help_text, pregunta_dos.propuesta_3),
+            (pregunta_dos._meta.get_field('propuesta_4').help_text, pregunta_dos.propuesta_4),
+        ]
+
         context = {
-            'pregunta_uno': pregunta_uno.get_valor_display(),
-            "pregunta_dos": pregunta_dos,
+            'respuesta_uno': pregunta_uno.get_valor_display(),
+            'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
             "pregunta_tres": pregunta_tres,
             "pregunta_cuatro": pregunta_cuatro,
             "pregunta_cinco": pregunta_cinco,
