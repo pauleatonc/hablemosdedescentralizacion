@@ -8,7 +8,7 @@
     </div>
     <div class="d-flex justify-content-between  py-0">
       <p class="font-level-8 m-0">
-      <strong> Fecha de publicación:</strong> {{ noticia.created }}
+      <strong> Fecha de publicación: </strong> {{ noticia.created|date:"l j \\d\\e F \\d\\e Y" }}
       </p>
     </div>
     <div class="body">
@@ -22,7 +22,7 @@
         {% endfor %}
       </div>
     </div>
-    <a class="btn-more" href="{% url 'noticiasymedia_app:noticia_detail' pk=noticia.id %}">Leer ></a>
+    <a class="btn-more" href="{% url 'noticiasymedia_app:noticia_detail' noticia.slug %}">Leer ></a>
   </div>
 </div>
 {% endfor %}

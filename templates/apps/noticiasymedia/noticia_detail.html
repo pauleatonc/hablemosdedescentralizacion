@@ -16,7 +16,7 @@
       <div>
         <div class="head-news my-5 ">
           <div class="title-news">
-            <p class="font-level-7"><strong>Fecha de publicación:</strong>{{ noticia.created }}</p>
+            <p class="font-level-7"><strong>Fecha de publicación: </strong>{{ noticia.created|date:"l j \\d\\e F \\d\\e Y" }}</p>
             <p class="font-level-1 text-center text-md-left ">{{ noticia.titulo_noticia }}</p>
           </div>
           <div>
