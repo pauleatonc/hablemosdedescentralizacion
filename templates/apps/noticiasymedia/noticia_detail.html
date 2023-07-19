@@ -1,5 +1,44 @@
-{% extends "base/base.html" %} 
+{% extends "base/base.html" %}
 {% load static %}
 {% block views %}
-<p class="font-level-1"vista de Noticia</p>
+
+<section class="container-fluid mt-5">
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mt-1">
+          <li class="breadcrumb-item">
+            <a href="{% url 'home_app:index' %}" class="text-primary">Inicio</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'noticiasymedia_app:noticias'%}">Noticias</a></li>
+        </ol>
+      </nav>
+      <div>
+        <div class="head-news my-5 ">
+          <div class="title-news">
+            <p class="font-level-7"><strong>Fecha de publicación:</strong>{{ noticia.created }}</p>
+            <p class="font-level-1 text-center text-md-left ">{{ noticia.titulo_noticia }}</p>
+          </div>
+          <div>
+            <img src="{{ noticia.portada_noticia.url }}" class="img-fluid mx-xl-auto" alt="Portada noticia">
+          </div>
+        </div>
+        <div class="mb-5">
+          <p class="font-level-5">{{ noticia.bajada_noticia }}</p>
+          <p class=" text-body-news">{{ noticia.contenido_noticia|linebreaksbr }}</p>
+
+          {% if noticia.galeria_url %}
+        <div class="my-4">
+          <p class="font-level-3 text-center font-weight-bold">Galeria de Imagenes</p>
+          <p class="text-body-news">Puedes ver las fotos relacionadas a esta noticia en nuestro Flickr.</p>
+          <div>
+            <a class="btn btn-primary btn-lg btn-block my-3" href="{{ noticia.galeria_url }}" type="button">Ver galería de imágenes</a>
+          </div>
+          {% endif %}
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
