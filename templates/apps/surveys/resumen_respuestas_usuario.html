@@ -129,6 +129,7 @@
         font-style: normal;
         text-decoration-line: underline;
         margin-bottom: 20px;
+        align-items: center;
     }
 
     .respuesta-dostres {
@@ -149,6 +150,23 @@
         color: #0F69C4;
         font-size: 49px;
         text-align: center;
+    }
+
+    .respuesta-cuatro{
+        padding: 9px 17px;
+        border: 1px solid #000;
+        margin-top: 15px;
+        text-align: center;
+        color: black;
+    }
+
+    .respuesta-cinco{
+        padding: 9px 17px;
+        border: 1px solid #000;
+        margin-top: 15px;
+        text-align: left;
+        color: #656565;
+        width: 100%;
     }
 
 </style>
@@ -195,7 +213,12 @@
                     <table class="column respuesta-uno" >
                         <tr>
                             <td>
-                                <a>{{ respuesta_uno }}</a>
+                                <a style="margin:30px">{{ respuesta_uno }}</a>
+                            </td>
+                            <td>
+                                <a href="">
+                                    <img src="{% static 'img/checkbox.svg' %}" alt="check" title="check">
+                                </a>
                             </td>
                         </tr>
                     </table>
@@ -261,17 +284,34 @@
                         <tr>
                             <td class="texto" width="90%">
                                 <a><strong>{{ tematica.0 }}: </strong></a>
-                                <a>{{ tematica.1 }}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a>{{ tematica.2 }}</a>
+                                <a>{{ tematica.1 }}</a><br>
+                                <p class="respuesta-cuatro">{{ tematica.2 }}</p>
                             </td>
                         </tr>
                     </table>
 
                     {% endfor %}
+
+                    <!-- Pregunta cinco -->
+                    <table class="column">
+                        <tr>
+                            <td>
+                                <h3>Pregunta 5:</h3>
+                                <p>¿Qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el vínculo entre descentralización y su vida personal y en comunidad?</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="respuesta-cinco">
+                        <tr>
+                            <td>
+                                {% if respuesta_cinco %}
+                                    <a>{{ respuesta_cinco }}</a>
+                                {% else %}
+                                    <a>No respondiste esta pregunta.</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
 
                 </td>
             </tr>
