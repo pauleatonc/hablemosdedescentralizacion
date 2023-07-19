@@ -1,10 +1,13 @@
-from django.db import models 
-from model_utils.models import  TimeStampedModel
+# standard library
+from datetime import timedelta, datetime
+#
+from django.db import models
+from django.template.defaultfilters import slugify
+# apps de terceros
+from model_utils.models import TimeStampedModel
 from imagekit.models import ImageSpecField
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
-
-
 
 
 class Tag(models.Model):
@@ -20,6 +23,7 @@ class Noticias(TimeStampedModel):
     bajada_noticia = models.CharField(max_length=150, verbose_name='Bajada noticia(obligatorio)')
     contenido_noticia = models.TextField(verbose_name='contenido Noticia (obligatorio)')
     autor = models.CharField(max_length=100, verbose_name='autor (opcional)', blank=True)
+    slug = models.SlugField(editable=False, max_length=300)
     tag = models.ManyToManyField(
         Tag, blank=False, verbose_name='Tag noticia')
     portada_noticia= ProcessedImageField(upload_to='noticias', processors=[
@@ -29,9 +33,22 @@ class Noticias(TimeStampedModel):
                             blank=True, verbose_name='Url galeria de fotos')
     public = models.BooleanField(default=True, verbose_name='publico')
 
-
     def __str__(self):
         return self.titulo_noticia
+
+    def save(self, *args, **kwargs):
+        now = datetime.now()
+        total_time = timedelta(
+            hours=now.hour,
+            minutes=now.minute,
+            seconds=now.second
+        )
+        seconds = int(total_time.total_seconds())
+        slug_unique = '%s %s' % (self.titulo_noticia, str(seconds))
+
+        self.slug = slugify(slug_unique)
+
+        super(Noticias, self).save(*args, **kwargs)
     
     
 class Multimedia(TimeStampedModel):
