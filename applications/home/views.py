@@ -1,13 +1,13 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
-
+from applications.noticiasymedia.views import NoticiasView
 # importar modelos
 from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos, SeccionDocumentos
 
 # importar apps de terceros
 
 
-class HomePageView(TemplateView):
+class HomePageView(NoticiasView):
     template_name = 'apps/home/home.html'
 
 

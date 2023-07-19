@@ -1,11 +1,12 @@
 {% extends "base/base.html" %}
-{% load static %} {% block views %}
+{% load static %}
+{% block views %}
 {% load countdown_tags %}
-<section class="container-fluid my-5">
+<section class="container-fluid my-5 px-0">
   <div class="d-flex justify-content-center">
     <div class="col-md-8">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mt-5">
+      <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb mt-0 mx-5">
           <li class="breadcrumb-item">
             <a href="{%  url 'home_app:index' %}" class="text-primary">Inicio</a>
           </li>
@@ -23,34 +24,45 @@
     </div>
   </div>
 
-  <div>{% include "components/logo_banner.html"%}</div>
-
-  <div class="cols-12 m-5">
-    <div class="row">
+  <div class="px-0">
+    {% include "components/logo_banner.html" %}
+  </div>
+  <div class="cols-12 mx-md-5 mx-lg-5 mx-xl-5 px-md-5 align-items-center">
+    <div class="row mx-md-5 px-md-5">
       {% include "components/card_noticia.html"%}
     </div>
-    <nav class="pagination-container flex-column flex-sm-row justify-content-start a11y-fonts-flex-column a11y-fonts-flex-lg-row">
-      <p class="text-start mr-5"></p>
-      <ul class="pagination justify-content-center align-items-center active">
-        <li class="page-item">
-          <a class="page-link border-0 text-decoration-none font-level-1" href="">
-            &lt;
+  </div>
+    <!-- Paginación -->
+<nav class="pagination-container flex-column flex-sm-row justify-content-center a11y-fonts-flex-column a11y-fonts-flex-lg-row">
+  <p class="text-center">{{ noticias.start_index }} - {{ noticias.end_index }} de {{ noticias.paginator.count }} noticias </p>
+  <ul class="pagination justify-content-center align-items-center active">
+      {% if noticias.has_previous %}
+      <li class="page-item">
+          <a class="page-link border-0 text-decoration-none font-level-1" href="?page={{ noticias.previous_page_number }}">
+              &lt;
           </a>
-        </li>
-        <li class="page-item active">
-          <a class="page-link border-0 text-decoration-none" href="">1</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link border-0 text-decoration-none" href="">2</a>
-        </li>
-
-        <li class="page-item">
-          <a class="page-link border-0 font-level-1 text-decoration-none" href="">
-            &gt;
+      </li>
+      {% endif %}
+      {% for num in noticias.paginator.page_range %}
+      {% if num == noticias.number %}
+      <li class="page-item active">
+          <a class="page-link border-0 text-decoration-none" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% else %}
+      <li class="page-item">
+          <a class="page-link border-0 text-decoration-none" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+      {% if noticias.has_next %}
+      <li class="page-item">
+          <a class="page-link border-0 font-level-1 text-decoration-none" href="?page={{ noticias.next_page_number }}">
+              &gt;
           </a>
-        </li>
-      </ul>
-    </nav>
+      </li>
+      {% endif %}
+  </ul>
+</nav>
   </div>
 </section>
 {% endblock %}

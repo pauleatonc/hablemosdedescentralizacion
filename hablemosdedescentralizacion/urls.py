@@ -31,7 +31,7 @@ urlpatterns = [
     re_path('', include('applications.surveys.urls')),
     re_path('', include('applications.claveunica.urls')),
     re_path('', include('applications.noticiasymedia.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = Error404.as_view()
 
