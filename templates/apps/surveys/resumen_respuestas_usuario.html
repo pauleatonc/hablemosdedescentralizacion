@@ -5,15 +5,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern HTML Email Template</title>
+<title>Resumen encuesta descentralización</title>
 <style type="text/css">
 	body {
-		margin: 0;
 		background-color: #cccccc;
 	}
 	table {
+		border-spacing: 0px;
+	}
+
+	.table-preguntas {
 		border-spacing: 15px;
 	}
+
+	.table-footer {
+		text-align: center;
+		padding: 16px;
+	}
+
 	td {
 		padding: 0;
 	}
@@ -25,8 +34,7 @@
 	    width: 100%;
 	    table-layout: fixed;
 	    background-color: #cccccc;
-	    padding-bottom: 60px;
-
+	    padding-bottom: 0px;
 	}
 
 	.main {
@@ -37,14 +45,10 @@
 	    color: black;
 	}
 
-	.main-footer{
-	    border-spacing: 0;
-	}
 
 	h2{
 	    color: #000;
         text-align: center;
-        /* title/h2/H2 - Web - Desktop */
         font-family: Roboto, sans-serif;
         font-size: 39px;
         font-style: normal;
@@ -55,13 +59,28 @@
 
 	h3{
 	    color: #000;
-        /* title/h3/H3 - Web - Mobile */
         font-family: Roboto, sans-serif;
         font-size: 25px;
         font-style: normal;
         font-weight: 500;
-        line-height: 31px; /* 124% */
+        line-height: 31px;
+        margin-bottom: 5px;
 	}
+
+	h4{
+	    color: #000;
+        font-family: Roboto, sans-serif;
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 23px;
+        margin-bottom: 5px;
+	}
+
+	p {
+        margin-top: 0px;
+
+    }
 
 	.descripcion{
 	    text-align: center;
@@ -74,7 +93,7 @@
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
-        line-height: 25px; /* 156.25% */
+        line-height: 25px;
 	}
 
 	.logo-cell {
@@ -86,15 +105,68 @@
     }
 
     .logo-img {
-        height: 140px;
+        height: 200px;
         object-fit: contain;
     }
 
     .td-content {
-        border: 2px dashed var(--color-base-inwhite-primary-80, #3F87D0);
+        border: 2px dashed #3F87D0;
         border-radius: 5px;
         padding: 30px;
         margin: 15px;
+    }
+
+    .respuesta-uno{
+        border: 3px solid #0F69C4;
+        display: flex;
+        height: 48px;
+        padding: 12px 20px;
+        justify-content: center;
+        width: 100%;
+        color: #0F69C4;
+        font-family: Roboto, sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        text-decoration-line: underline;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .respuesta-dostres {
+    border: 3px solid #0F69C4;
+    padding: 12px 20px;
+    width: 100%;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    margin-bottom: 10px;
+    }
+
+    .respuesta-dostres .texto {
+        color: #0F69C4;
+        font-size: 16px;
+    }
+
+    .respuesta-dostres .respuesta {
+        color: #0F69C4;
+        font-size: 49px;
+        text-align: center;
+    }
+
+    .respuesta-cuatro{
+        padding: 9px 17px;
+        border: 1px solid #000;
+        margin-top: 15px;
+        text-align: center;
+        color: black;
+    }
+
+    .respuesta-cinco{
+        padding: 9px 17px;
+        border: 1px solid #000;
+        margin-top: 15px;
+        text-align: left;
+        color: #656565;
+        width: 100%;
     }
 
 </style>
@@ -116,22 +188,21 @@
 
             <!-- Inicio -->
             <tr>
-                <td height="207" style="background-color: #FFF">
-                    <table class="column">
-                        <tr>
-                            <td>
-                                <h2>Gracias por participar en la consulta ciudadana</h2>
-                                <p class="descripcion">A continuación te compartimos un resumen de tus respuestas:</p>
-                            </td>
-                        </tr>
-                    </table>
+                <td>
+                    <h2>Gracias por participar en la consulta ciudadana</h2>
+                    <p class="descripcion">A continuación te compartimos un resumen de tus respuestas:</p>
                 </td>
             </tr>
 
-            <!-- Bloque preguntas -->
+        </table>
+
+        <!-- Bloque preguntas -->
+        <table class="main table-preguntas" width="100%">
             <tr>
                 <td height="207" class="td-content" style="background-color: #FFF">
-                    <table class="column" >
+
+                    <!-- Pregunta uno -->
+                    <table class="column">
                         <tr>
                             <td>
                                 <h3>Pregunta 1:</h3>
@@ -139,36 +210,124 @@
                             </td>
                         </tr>
                     </table>
+                    <table class="column respuesta-uno" >
+                        <tr>
+                            <td>
+                                <a style="margin:30px">{{ respuesta_uno }}</a>
+                            </td>
+                            <td>
+                                <a href="">
+                                    <img src="{% static 'img/checkbox.svg' %}" alt="check" title="check">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Pregunta dos -->
                     <table class="column">
                         <tr>
                             <td>
                                 <h3>Pregunta 2:</h3>
-                                <p class="descripcion">A continuación te compartimos un resumen de tus respuestas:</p>
+                                <p>Te presentamos 4 afirmaciones sobre el impacto de la descentralización en las personas y comunidades.</p>
+                                <h4>Este es tu ranking por importancia. </h4>
+                                <p><strong>La descentralización:</strong></p>
                             </td>
                         </tr>
                     </table>
-                </td>
-            </tr>
+                    {% for propuesta, respuesta in propuestas_respuestas_pregunta_dos %}
+                    <table class="column respuesta-dostres" width="100%">
+                        <tr>
+                            <td class="texto" width="90%">
+                                <a>{{ propuesta }}</a>
+                            </td>
+                            <td class="respuesta" width="10%">
+                                <a>{{ respuesta }}</a>
+                            </td>
+                        </tr>
+                    </table>
+                    {% endfor %}
 
-            <!-- Footer -->
-            <tr>
-                <td height="220" class="main-footer" style="background-color: #001C41">
+                    <!-- Pregunta tres -->
                     <table class="column">
                         <tr>
                             <td>
-                                <a href=""><img src="{% static 'img/logo-subdere-blanco.svg' %}" alt="Logo SUBDERE"
-                                title="Logo SUBDERE"></a>
-                                <p class="texto-footer">Teatinos 92 - Pisos 2 y 3.</p>
-                                <p class="texto-footer">Santiago, Chile.</p>
+                                <h3>Pregunta 3:</h3>
+                                <p>Te presentamos 5 de las iniciativas que podrían ser incluidas dentro de la Política Nacional de Descentralización. </p>
+                                <h4>Este es tu ranking por importancia. </h4>
                             </td>
                         </tr>
                     </table>
+                    {% for iniciativa, respuesta in iniciativas_respuestas_pregunta_tres %}
+                    <table class="column respuesta-dostres" width="100%">
+                        <tr>
+                            <td class="texto" width="90%">
+                                <a>{{ iniciativa }}</a>
+                            </td>
+                            <td class="respuesta" width="10%">
+                                <a>{{ respuesta }}</a>
+                            </td>
+                        </tr>
+                    </table>
+                    {% endfor %}
+
+                    <!-- Pregunta cuatro -->
+                    <table class="column">
+                        <tr>
+                            <td>
+                                <h3>Pregunta 4:</h3>
+                                <p>Evalúa la importancia de las siguientes temáticas a incluir en la Política Nacional de Descentralización.</p>
+                            </td>
+                        </tr>
+                    </table>
+                    {% for tematica in pregunta_cuatro %}
+                    <table class="column respuesta-dostres" width="100%">
+                        <tr>
+                            <td class="texto" width="90%">
+                                <a><strong>{{ tematica.0 }}: </strong></a>
+                                <a>{{ tematica.1 }}</a><br>
+                                <p class="respuesta-cuatro">{{ tematica.2 }}</p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    {% endfor %}
+
+                    <!-- Pregunta cinco -->
+                    <table class="column">
+                        <tr>
+                            <td>
+                                <h3>Pregunta 5:</h3>
+                                <p>¿Qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el vínculo entre descentralización y su vida personal y en comunidad?</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="respuesta-cinco">
+                        <tr>
+                            <td>
+                                {% if respuesta_cinco %}
+                                    <a>{{ respuesta_cinco }}</a>
+                                {% else %}
+                                    <a>No respondiste esta pregunta.</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+
                 </td>
             </tr>
-
-
-
         </table>
+
+        <!-- Footer -->
+        <table class="main table-footer " width="100%" style="background-color: #001C41">
+            <tr>
+                <td>
+                    <a href=""><img class="texto-footer" src="{% static 'img/logo-subdere-blanco.svg' %}" alt="Logo SUBDERE" title="Logo SUBDERE"></a>
+                    <p class="texto-footer">Teatinos 92 - Pisos 2 y 3.</p>
+                    <p class="texto-footer">Santiago, Chile.</p>
+                </td>
+            </tr>
+        </table>
+
     </center>
 
 </body>
