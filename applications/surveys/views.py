@@ -18,6 +18,8 @@ from django.http import JsonResponse
 from .functions import send_email
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.forms.models import model_to_dict
+
 
 
 class ComunasPorRegionView(View):
@@ -412,6 +414,12 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
         pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
 
+        pregunta_cuatro_dict = model_to_dict(pregunta_cuatro)
+        pregunta_cuatro_list = []
+        for field in pregunta_cuatro._meta.fields:
+            if field.name.startswith('tematica_'):
+                pregunta_cuatro_list.append((field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
+
         propuestas_respuestas_pregunta_dos = [
             (pregunta_dos._meta.get_field('propuesta_1').help_text, pregunta_dos.propuesta_1),
             (pregunta_dos._meta.get_field('propuesta_2').help_text, pregunta_dos.propuesta_2),
@@ -419,12 +427,20 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
             (pregunta_dos._meta.get_field('propuesta_4').help_text, pregunta_dos.propuesta_4),
         ]
 
+        iniciativas_respuestas_pregunta_tres = [
+            (pregunta_tres._meta.get_field('iniciativa_1').help_text, pregunta_tres.iniciativa_1),
+            (pregunta_tres._meta.get_field('iniciativa_2').help_text, pregunta_tres.iniciativa_2),
+            (pregunta_tres._meta.get_field('iniciativa_3').help_text, pregunta_tres.iniciativa_3),
+            (pregunta_tres._meta.get_field('iniciativa_4').help_text, pregunta_tres.iniciativa_4),
+            (pregunta_tres._meta.get_field('iniciativa_5').help_text, pregunta_tres.iniciativa_5),
+        ]
+
         context = {
-            'respuesta_uno': pregunta_uno.get_valor_display(),
-            'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
-            "pregunta_tres": pregunta_tres,
-            "pregunta_cuatro": pregunta_cuatro,
-            "pregunta_cinco": pregunta_cinco,
-        }
+                'respuesta_uno': pregunta_uno.get_valor_display(),
+                'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
+                'iniciativas_respuestas_pregunta_tres': iniciativas_respuestas_pregunta_tres,
+                'pregunta_cuatro': pregunta_cuatro_list,
+                'pregunta_cinco': pregunta_cinco,
+            }
 
         return context
