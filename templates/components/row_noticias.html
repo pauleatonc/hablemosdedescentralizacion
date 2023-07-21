@@ -1,8 +1,8 @@
 {% load static %}
 {% block content %}
 {% for noticia in noticias|slice:"-3:" %}
-<div class="col-md-3 mx-auto">
-  <div class="card">
+<div class="col-4 ">
+  <div class="card ">
     <div class="card-img">
       <img class="img-portada" src="{{ noticia.portada_noticia.url }}" alt="img-miniatura" />
     </div>
