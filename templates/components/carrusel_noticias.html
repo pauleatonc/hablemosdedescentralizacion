@@ -1,17 +1,17 @@
 {% load static %}
 {% block content %}
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div id="carouselNoticiasIndicators" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     {% for noticia in noticias|slice:"-3:" %}
     <div class="carousel-item {% if forloop.first %}active{% endif %}">
-      <div class="col-md-5 col-lg-6 col-xl-4 my-3 px-0">
-          <div class="card mx-auto mx-md-1 mx-lg-1">
+      <div class="col-md-5 col-lg-6 col-xl-8 my-3  mx-auto w-100 ">
+          <div class="card">
             <div class="card-img">
               <img class="img-portada" src="{{ noticia.portada_noticia.url }}" alt="img-miniatura" />
             </div>
             <div class="d-flex justify-content-between  py-0">
               <p class="font-level-8 m-0">
-                <strong>Fecha de publicación:</strong> {{ noticia.created }}
+                <strong>Fecha de publicación:</strong>{{ noticia.created|date:"l j \\d\\e F \\d\\e Y" }}
               </p>
             </div>
             <div class="body">
@@ -31,13 +31,11 @@
       </div>
       {% endfor %}
     </div>
-    <ol <ol class="carousel-indicators carousel-indicators-custom ">
+    <ol  class="carousel-indicators carousel-indicators-custom ">
       {% for noticia in noticias|slice:"-3:" %}
-        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+        <li data-target="#carouselNoticiasIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
       {% endfor %}
     </ol>
 </div>
 {% endblock content %}
 
-{% block scripts %}
-{% endblock %}

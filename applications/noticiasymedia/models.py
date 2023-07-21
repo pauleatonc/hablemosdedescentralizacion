@@ -58,10 +58,22 @@ class Multimedia(TimeStampedModel):
     video_url = models.URLField(max_length=200, null=True,
                             verbose_name='Url video Youtube (obligatorio)')
     tag = models.ManyToManyField(
-            Tag, blank=False, verbose_name='Tag noticia')
-
+            Tag, blank=False, verbose_name='Tag Multimedia')
+    slug = models.SlugField(editable=False, max_length=300, default='video') 
     public = models.BooleanField(default=True, verbose_name='publico')
 
     def __str__(self):
         return self.titulo_multimedia
-    
+    def save(self, *args, **kwargs):
+        now = datetime.now()
+        total_time = timedelta(
+            hours=now.hour,
+            minutes=now.minute,
+            seconds=now.second
+        )    
+        seconds = int(total_time.total_seconds())
+        slug_unique = '%s %s' % (self.titulo_multimedia, str(seconds))
+        
+        self.slug = slugify(slug_unique)
+        
+        super(Multimedia, self).save(*args,**kwargs)
