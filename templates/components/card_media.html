@@ -1,38 +1,32 @@
 {% load static %}
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-img">
-          <img class="img-portada" src="" alt="img-miniatura" />
-        </div>
-        <div class="d-flex justify-content-between w-100 h-20">
-          <p class=" font-level-8 m-0">
-            Fecha:
-          </p>
-        </div>
-        <div class="body">
-          <p class="h2"></p>
-          <p class="description-card font-base text-sm-left">
-          </p>
-          <div class="tags row ">
-            <div class="col-auto pb-2">
-              <div class="badge border border-primary font-level-7">
+{% block content %}
+{% for multimedia in multimedias %}
 
-              </div>
-            </div>
-            <div class="col-auto pb-2">
-              <div class="badge border  border-primary font-level-7">
-              </div>
-            </div>
-            <div class="col-auto pb-2">
-              <div class="badge border  border-primary font-level-7 ">
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="btn-more" href="">Ver
-          más ></a>
+<div class="col-md-5 col-lg-6 col-xl-4 my-3 px-0 ">
+  <div class="card mx-auto mx-md-1 mx-lg-1">
+    <div class="card-img">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/PoJNbEXnTsU?start=5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </div>
+    <div class="d-flex justify-content-between  py-0">
+      <p class="font-level-8 m-0">
+      <strong> Fecha de publicación:</strong> {{ multimedia.created }}
+      </p>
+    </div>
+    <div class="body">
+      <p class="h3 text-decoration-underline"><u>{{ multimedia.titulo_multimedia }}</u></p>
+      <p class="description-card font-base text-left">{{ multimedia.descripcion_multimedia }}</p>
+      <div class="tags row">
+        {% for tag in multimedia.tag.all %}
+        <div class="col-auto pb-2">
+          <div class="badge border border-primary font-level-7">{{ tag.tag }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <a class="btn-more" href="{% url 'noticiasymedia_app:multimedia_detail'  multimedia.slug %}">ver ></a>
   </div>
 </div>
+{% endfor %}
+{% endblock content %}
