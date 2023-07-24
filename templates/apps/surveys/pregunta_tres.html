@@ -103,9 +103,9 @@
           </div>
             <div class="col-md-6 mx-md-auto px-0">
             <p class="font-level-6 text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Inclusión de temáticas </strong></p>
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente <i class="material-symbols-outlined px-3">
-                arrow_forward_ios
-              </i></button>
+              <button type="submit" class="btn btn-primary btn-lg btn-block" id="next-button" disabled>Siguiente<i class="material-symbols-outlined px-3">
+                    arrow_forward_ios
+                </i></button>
             </div>
             </div>
 
@@ -163,6 +163,12 @@
           $('#frase-button').show();
         }
       }
+      // Comprobar si todas las propuestas están seleccionadas
+        if(Object.keys(seleccionados).length === 5)
+      {
+          // Habilitar el botón 'Siguiente'
+          $('#next-button').prop('disabled', false);
+      }
     });
 
     $('#reiniciar').on('click', function ()
@@ -176,35 +182,41 @@
       $('input[name=iniciativa_5]').val('');
       prioridad = 1;
       seleccionados = {};
-      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
+      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 text-primary mt-3 ">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
-      $('#frase-button').hide(); 
+      $('#frase-button').hide();
+
+      // Deshabilitar el botón 'Siguiente'
+      $('#next-button').prop('disabled', true);
     });
 
     // Función para establecer el estado inicial
   function setInitialState(id, prioridad) {
     // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
     if (prioridad) {
-      $('#' + id).prop('disabled', true);
-      $('#' + id).find('.iniciativa-check').text(prioridad);
-      seleccionados[id] = prioridad;
-      prioridad++;
-      if (prioridad <= 5) {
-        $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
-      }
-      if (Object.keys(seleccionados).length === 1) {
-        $('#reiniciar').show();
-        $('#frase-button').show(); 
+        $('#' + id).prop('disabled', true);
+        $('#' + id).find('.iniciativa-check').text(prioridad);
+        seleccionados[id] = prioridad;
+        prioridad++;
+        if (prioridad <= 5) {
+          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
+        }
+        if (Object.keys(seleccionados).length === 1) {
+          $('#reiniciar').show();
+          $('#frase-button').show();
+        }
       }
     }
-  }
 
-  // Llamamos a esta función para cada iniciativa
-  setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
-  setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
-  setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
-  setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
-  setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
+    // Llamamos a esta función para cada iniciativa
+    setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
+    setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
+    setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
+    setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
+    setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
+
+    // Deshabilitar el botón 'Siguiente'
+        $('#next-button').prop('disabled', false);
 
   });
 </script>
