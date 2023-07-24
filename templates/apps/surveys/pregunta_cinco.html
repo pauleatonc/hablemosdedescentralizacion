@@ -34,8 +34,8 @@
           {% csrf_token %}
 
           <!-- Muestra input para el formulario -->
-          <div class="form-group">
-            {{ form.label_tag }}
+          <div class="form-group-textarea">
+            {{ form.texto_respuesta.label_tag }}
             {{ form.texto_respuesta }}
             <div style="text-align:right"><span id="message-word-count" style="color:gray">0 / 500 caracteres.</span>
             </div>
@@ -44,7 +44,7 @@
 
           <!-- Botón para el envío del formulario completo -->
           <div class="d-flex flex-column my-3 px-0 align-content-center">
-            <p class="font-level-6  text-md-center font-weight-light ">Continua para guardar y enviar tus respuestas.</p>
+            <p class="font-level-6  text-md-center font-weight-light ">Continúa para guardar y enviar tus respuestas.</p>
             <button type="submit" class="btn btn-primary btn-lg btn-block align-self-center col-md-6 text-nowrap">Enviar mis respuestas <i
                 class="material-symbols-outlined px-2">
                 arrow_forward_ios
@@ -100,6 +100,9 @@
             charCountElement.style.color = "gray";
         }
     }
+
+    // This will run the function when the page loads
+    countCharacters();
 
     document.getElementById("id_texto_respuesta").addEventListener('input', countCharacters);
 </script>
