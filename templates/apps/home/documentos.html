@@ -40,13 +40,13 @@
                 <div id="dnContainer">
                  {% for tipo_documento in tipos_documentos %}
                     {% if tipo_documento|has_documents:True %}
-                        <p class="font-level-2 pb-2 text-md-left text-black font-weight-bold m-4">
+                        <p class="font-level-2 pb-2 text-md-left text-black font-weight-bold m-4" id="{{ tipo_documento }}">
                         {{ tipo_documento }}
                         </p>
 
                         {% for seccion_documento in tipo_documento.secciondocumentos_set.all %}
                             {% if seccion_documento|has_public_documents %}
-                                <div class="card-data-list card-data-list-flush m-4 bg-gray-200">
+                                <div class="card-data-list card-data-list-flush m-4 bg-gray-200" id="{{ seccion_documento }}">
                                     <ol class="list-unstyled w-100" id="collapsibleFlushAccordion{{ forloop.counter }}">
                                         <li>
                                             <button class="btn text-left w-100 d-flex align-items-start justify-content-between py-4 px-3" id="collapsibleFlushHeading{{ forloop.counter }}" type="button" data-toggle="collapse" data-target="#collapsibleFlushCollapse{{ forloop.counter }}" aria-controls="collapsibleFlushCollapse{{ forloop.counter }}" aria-expanded="false">
@@ -85,3 +85,7 @@
     </div>
 </div>
 {% endblock views %}
+
+{% block scripts %}
+
+{% endblock %}
