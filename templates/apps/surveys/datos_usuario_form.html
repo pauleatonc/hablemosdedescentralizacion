@@ -91,11 +91,29 @@
     {% include "components/logo_banner.html" %}
 </div>
 
+{% include "components/advertencia_salida_encuesta.html" %}
+
 {% endblock views %}
 
 {% block scripts %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Identificar todos los enlaces del navbar y footer
+    $('nav a, footer a').on('click', function(e) {
+      e.preventDefault();
+
+      // Guardar el href del enlace en el botón de confirmación del modal
+      $('#confirmExitButton').attr('href', $(this).attr('href'));
+
+      // Mostrar el modal
+      $('#exitSurveyModal').modal('show');
+    });
+  });
+</script>
+
 <script>
     $(document).ready(function ()
     {
