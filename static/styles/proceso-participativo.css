@@ -8,17 +8,17 @@
 .parent {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(15, 1fr);
+  grid-template-rows: repeat(24, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   }
   
-  .div1 { grid-area: 1 / 1 / 5 / 2; }
-  .div2 { grid-area: 5 / 1 / 6 / 2; }
-  .div3 { grid-area: 6 / 1 / 10 / 2; }
-  .div4 { grid-area: 10 / 1 / 11 / 2; }
-  .div5 { grid-area: 11 / 1 / 15 / 2; }
-  .div6 { grid-area: 15 / 1 / 16 / 2; }
+  .div1 { grid-area: 1 / 1 / 8 / 2; }
+  .div2 { grid-area: 8 / 1 / 9 / 2; }
+  .div3 { grid-area: 9 / 1 / 16 / 2; }
+  .div4 { grid-area: 16 / 1 / 17 / 2; }
+  .div5 { grid-area: 17 / 1 / 24 / 2; }
+  .div6 { grid-area: 24 / 1 / 25 / 2; }
 
 @media (min-width: 992px) {
   .parent {
@@ -26,7 +26,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 40px;
-    grid-row-gap: 0px;
+    grid-row-gap: 20px;
     }
     
     .div1 { grid-area: 1 / 1 / 5 / 2; }
