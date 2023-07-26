@@ -2,7 +2,7 @@
 {% load static %}
 {% block views %}
 {% load countdown_tags %}
-<section class="container-fluid mt-5">
+<section class="container-fluid mt-5  ">
 
   <div class="container-hero">
     <div class="row d-flex justify-content-center">
@@ -13,7 +13,7 @@
           desde las que se está levantando la Política Nacional de Descentralización.</p>
         <div class="w-md-75">
           <button type="button" class="btn btn-primary btn-lg px-5 w-100"
-            onclick="window.location.href='{% url 'home_app:onboarding' %}'">Participar</button>
+            onclick="window.location.href='/onboarding'">Participar</button>
           <div class="my-5">
             {% countdown_component %}
           </div>
@@ -31,7 +31,7 @@
   </section>
 
   <div class="container">
-    <section class="col-md-12">
+    <section class="col-lg-12">
       <div class="section-header mt-5 ">
         <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold" id="secciones">Consulta
           Ciudadana para la Descentralización</p>
@@ -44,7 +44,7 @@
       </div>
       <div class="my-3 d-flex justify-content-center">
         <button class="btn btn-neutral btn-default-size text-primary border-primary bg-white mb-5" type="button"
-          onclick="window.location.href='{% url 'home_app:proceso_participativo' %}'">Conocer Proceso Participativo
+          onclick="window.location.href='/proceso-participativo'">Conocer Proceso Participativo
           <i class="material-symbols-outlined">
             chevron_right
           </i>
@@ -83,7 +83,7 @@
         </div>
         <div class="my-3 d-flex justify-content-center ">
           <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
-            onclick="window.location.href='{% url 'home_app:preguntas_frecuentes' %}'">Preguntas Frecuentes
+            onclick="window.location.href='/preguntas-frecuentes'">Preguntas Frecuentes
             <i class="material-symbols-outlined">
               chevron_right
             </i>
@@ -101,7 +101,7 @@
         </div>
         <div class="my-3 d-flex justify-content-center">
           <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
-            onclick="window.location.href='{% url 'home_app:documentos' %}'">Ver Documentación
+            onclick="window.location.href='/documentos'">Ver Documentación
             <i class="material-symbols-outlined">
               chevron_right
             </i>
@@ -111,41 +111,99 @@
 
     </div>
   </div>
-
-  <div class="container-fluid mx-md-5 px-md-3 ">
-    <p class="font-level-2 text-center text-md-left pl-md-5 ml-md-5 text-black font-weight-bold">Noticias </p>
-  </div>
-    <div class="container-fluid px-md-5 mx-md-5 d-none d-md-block my-md-2">
-      <p class="h4 ml-md-5 pl-md-3">Últimas publicaciones:</p>
-      <div class="cols-12">
-        <div class="row">
-          {% include "components/row_noticias.html" %}
+  <div class="container px-0">
+    {% if noticias %}
+    <div class="container my-3">
+      <div>
+        <p class="font-level-2 text-center text-xl-left ml-lg-5 text-black font-weight-bold">Noticias </p>
+      </div>
+      <!-- Hacer visible en pantallas lg hacia arriba -->
+      <div class="container-fluid d-lg-block d-none ">
+        <p class="h4 text-left">Últimas publicaciones:</p>
+        <div class="cols-12">
+          <div class="row ">
+            {% include "components/row_noticias.html" %}
+          </div>
+        </div>
+          <div class="my-4">
+            <div class="text-center">
+              <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
+                onclick="window.location.href='/noticias'">Ver todas las noticias
+                <i class="material-symbols-outlined">
+                  chevron_right
+                </i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Adaptar a pantallas md, sm y móviles más pequeños (390px) -->
+      <div class=" cols-cards-12 my-2  d-block  d-lg-none">
+        <p class="h4 text-left ml-5 ml-sm-5 ml-md-5">Últimas publicaciones</p>
+        <div class="row mx-auto ">
+          <div class="col-12  col-sm-12">
+        {% include "components/carrusel_noticias.html" %}
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="text-center">
+            <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
+              onclick="window.location.href='/noticias'">Ver todas las noticias
+              <i class="material-symbols-outlined">
+                chevron_right
+              </i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="container my-2 w-100 d-block d-md-none ">
-      <p class="h4 ml-4 my-0 py-0">Últimas publicaciones:</p>
-      {% include "components/carrusel_noticias.html" %}
+    {% endif %}
+    {% if multimedias %}
+    <div class="container my-3">
+      <div>
+        <p class="font-level-2 text-center text-xl-left ml-xl-5 text-black font-weight-bold">Videos </p>
+      </div>
+      <!-- Hacer visible en pantallas lg hacia arriba -->
+      <div class="container-fluid  d-lg-block d-none ">
+        <p class="h4 text-left">Últimos videos:</p>
+        <div class="cols-12">
+          <div class="row ">
+            {% include "components/row_media.html" %}
+          </div>
+        </div>
+          <div class="my-4 text-center">
+            <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
+              onclick="window.location.href='/multimedia'">Ver todos los videos
+              <i class="material-symbols-outlined">
+                chevron_right
+              </i>
+            </button>
+        </div>
+        </div>
+      </div>
+      <!-- Adaptar a pantallas md, sm y móviles más pequeños (390px) -->
+      <div class=" cols-cards-12 my-2 d-block  d-lg-none">
+        <p class="h4 text-left  ml-5 ml-sm-5 ml-md-5">Últimos videos </p>
+        <div class="row mx-auto">
+          <div class="col-12  col-sm-12">
+        {% include "components/carrusel_media.html" %}
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="text-center">
+            <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
+            onclick="window.location.href='/multimedia'">Ver todos los videos
+            <i class="material-symbols-outlined">
+              chevron_right
+            </i>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="my-4 d-flex justify-content-center">
-      <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
-        onclick="window.location.href='{% url 'noticiasymedia_app:noticias' %}'">Ver todas las noticias
-        <i class="material-symbols-outlined">
-          chevron_right
-        </i>
-      </button>
+      </div>
     </div>
   </div>
-
+  {% endif %}
+  </div>
 </section>
-
 {% endblock views %}
-
-{% block scripts %}
-<script>
-  $(document).ready(function ()
-  {
-    $('#carouselExampleIndicators').carousel();
-  });
-</script>
-{% endblock %}

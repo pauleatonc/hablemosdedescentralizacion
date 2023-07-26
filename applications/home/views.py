@@ -8,8 +8,9 @@ from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos,
 
 
 class HomePageView(NoticiasView,MultimediaView):
-    template_name = 'apps/home/home.html'
-
+    template_name = 'apps/home/home.html'   
+    
+    
 
 class ProcesoParticipativoView(TemplateView):
     template_name = 'apps/home/proceso_participativo.html'

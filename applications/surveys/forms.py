@@ -23,7 +23,7 @@ class DatosUsuarioForm(forms.ModelForm):
         widgets = {
             'comuna': forms.Select(
                 attrs={
-                    'required': True,
+                    'required': False,
                     'id': 'id_comuna',
                     'placeholder': 'Ingresa una opción',
                     'class': 'form-control border border-2 border-accent rounded text-muted',
@@ -31,7 +31,7 @@ class DatosUsuarioForm(forms.ModelForm):
             ),
             'genero': forms.Select(
                 attrs={
-                    'required': True,
+                    'required': False,
                     'placeholder': "Elige una opción",
                     'class': 'form-control border border-2 border-accent rounded text-muted',
                     'style': 'font-level-5',
@@ -39,14 +39,14 @@ class DatosUsuarioForm(forms.ModelForm):
             ),
             'edad': forms.NumberInput(
                 attrs={
-                    'required': True,
+                    'required': False,
                     'placeholder': 'Ingresa tu edad',
                     'class': 'form-control border border-2 border-accent rounded text-muted'
                 }
             ),
             'pueblo_originario': forms.Select(
                 attrs={
-                    'required': True,
+                    'required': False,
                     'placeholder': "Elige una opción",
                     'class': 'form-control border border-2 border-accent rounded text-muted',
                     'style': 'font-level-5',
@@ -54,7 +54,7 @@ class DatosUsuarioForm(forms.ModelForm):
             ),
             'politica_privacidad': forms.CheckboxInput(
                 attrs={
-                    'required': True,
+                    'required': False,
                     'class': ' custom-control custom-checkbox',
                     'style':'width:20px ; margin: 0px 8px 8px 0px ',
                 }
@@ -280,31 +280,31 @@ class PreguntaCuatroForm(forms.ModelForm):
         widgets = {
             'tematica_1': forms.Select(
                 attrs={
-                    'required': True,
+                    'required': False,   
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
                 } 
             ),
             'tematica_2': forms.Select(
                 attrs={
-                    'required': True,
+                    'required': False,   
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
                 }
             ),
             'tematica_3': forms.Select(
                 attrs={
-                    'required': True,              
+                    'required': False,              
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
                 }
             ),
             'tematica_4': forms.Select(
                 attrs={
-                    'required': True,
+                    'required': False,   
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
                 }
             ),
             'tematica_5': forms.Select(
                 attrs={
-                    'required': True,
+                    'required': False,   
                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
                 }
             ),

@@ -290,3 +290,11 @@
 .hidden {
     display: none;
 }
+
+/* tooltip */
+.custom-tooltip .tooltip-inner {
+  background-color: #007bff; 
+  color: #fff; 
+}
+
+

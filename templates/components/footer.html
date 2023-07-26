@@ -1,4 +1,5 @@
 {% load static %}
+
 <footer class="content-always-on-display">
   <div class="container-fluid">
     <div class="row">
@@ -18,6 +19,8 @@
         <a href="{% url 'home_app:preguntas_frecuentes' %}">Preguntas Frecuentes </a>
         <a href="">Historia de la Descentralización</a>
         <a href="{% url 'home_app:documentos' %}">Documentos</a>
+        <a href="{% url 'noticiasymedia_app:noticias' %}">Noticias</a>
+        <a href="{% url 'noticiasymedia_app:multimedia' %}">Videos</a>
       </div>
 
       <div class="ml-4 d-block d-md-none">
@@ -25,11 +28,12 @@
           <path d="M0 1.31836H302.058" stroke="white"/>
         </svg>
       </div>
-
-      <div class="col-md-4 m-2 ml-4 a11y-fonts-col-12">
-        <div class="mb-2">¿Necesitas ayuda? Escríbenos a:</div>
-        <a class="py-0" href="">descentralización@subdere.gov.cl</a>
-        <p class="d-block mt-3 font-base">
+      <div class="col-md-4 m-sm-1 ml-lg-4 a11y-fonts-col-12">
+        <div class="mb-2">¿Necesitas ayuda? <br class="d-sm-block d-lg-none">Escríbenos a:</div>
+        <div>
+        <p class="py-0 my-0 text-underline m-0" id="email-link" data-toggle="tooltip" data-placement="bottom" title="Haz clic para copiar" style="cursor: pointer;">descentralizacion@subdere.gov.cl</p>
+        </div>
+        <p class="d-block mt-5 font-base">
           Teatinos 92 - Pisos 2 y 3. Santiago,
         </p>
         <p class="d-block mt-3 font-base">Chile</p>
@@ -38,3 +42,48 @@
     </div>
   </div>
 </footer>
+
+{% block scripts %}
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap 4 (popper.js es requerido por los tooltips de Bootstrap) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Inicializar los tooltips usando Bootstrap 4
+      $('[data-toggle="tooltip"]').tooltip({
+        // Restablecer el título del tooltip cuando se oculta
+        hide: function (event, ui) {
+          $(this).attr('data-original-title', 'Haz clic para copiar');
+        }
+      });
+  
+      // Función para copiar el correo al portapapeles
+      function copyToClipboard(text) {
+        var dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+      }
+  
+      // Agregar evento clic al enlace
+      $("#email-link").click(function() {
+        var email = $(this).text(); // Obtener el correo electrónico del enlace
+        copyToClipboard(email); // Copiar al portapapeles
+      
+        // Mostrar el tooltip usando Bootstrap 4
+        $(this).attr('data-original-title', 'Correo copiado con éxito!').tooltip('show').addClass('custom-tooltip');
+      
+        // Ocultar el tooltip después de 2 segundos
+        setTimeout(function() {
+          $("#email-link").tooltip("hide");
+        }, 2000);
+      });
+    });
+  </script>
+  
+{% endblock %}
