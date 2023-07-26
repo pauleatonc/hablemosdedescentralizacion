@@ -35,9 +35,9 @@
                         {{ field.label_tag }}
                         {{ field }}
                         {% if field.errors %}
-                            <div class="alert alert-danger">
-                                {{ field.errors|striptags }}
-                            </div>
+                        <div class="alert text-danger">
+                        {{ field.errors|striptags }}
+                        </div>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -64,4 +64,11 @@
 
 
     {% block scripts %}
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            $('form select').removeAttr('required');
+        });
+        </script>
     {% endblock scripts %}

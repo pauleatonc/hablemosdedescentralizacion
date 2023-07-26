@@ -1,14 +1,14 @@
 {% load static %}
-<nav id="navbar" class="navbar navbar-light navbar-expand-lg navbar-lines">
+<nav id="navbar" class="navbar navbar-light navbar-expand-lg navbar-lg navbar-lines">
   <div class="cols-12-extended column ml-3  mr-5 ">
     <a class="navbar-brand " href="/">
       <div class="blue"></div>
       <div class="red"></div>
       <p class="font-level-6 font-weight-bold mt-2">
-        Subsecretaría de <br class="d-md-none"> Desarrollo <br class="d-none d-sm-none d-md-block"> Regional y <br  class="d-sm-none"> Administrativo
+        Subsecretaría de <br class="d-xl-none d-block"> Desarrollo <br class="d-none d-sm-none d-lg-block"> Regional y<br class="d-xl-none d-none"> <br  class="d-sm-none d-md-block"> Administrativo
       </p>
     </a>
-    <div class="toolbar align-items-end my-2 d-sm-block d-md-none">
+    <div class="toolbar align-items-end my-2 d-sm-block d-lg-none">
       <a class="toolbar-btn toolbar-behavior-contrast" href="#"><i class="cl cl-contrast"></i></a>
       <div class="toolbar-btn-group">
         <a class="toolbar-btn toolbar-behavior-decrease" href="#"><i class="cl cl-decrease-text"></i></a>
@@ -22,8 +22,8 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="navbar-collapse collapse"  id="navbarLightExampleCollapse">
-    <ul class="navbar-nav mx-md-5 my-md-3 mx-4 ">
-      <div class="toolbar mx-3 d-none d-md-block">
+    <ul class="navbar-nav mx-lg-5 my-lg-3 mx-lg-4 ">
+      <div class="toolbar mx-3 d-none d-lg-block">
         <a class="toolbar-btn toolbar-behavior-contrast" href="#"><i class="cl cl-contrast"></i></a>
         <div class="toolbar-btn-group">
           <a class="toolbar-btn toolbar-behavior-decrease" href="#"><i class="cl cl-decrease-text"></i></a>
@@ -31,13 +31,13 @@
         </div>
         <a class="toolbar-btn toolbar-toggler ml-1" href="#"><i class="cl cl-accessibility toolbar-behavior-on"></i><span class="toolbar-behavior-off">X</span></a>
       </div> 
-      <li class="nav-item ">
+      <li class="nav-item">
         {% if user.is_authenticated %}
-        <li class="nav-item "><a class="btn btn-block btn-outline-danger btn-cerrar-sesion " href="{% url 'users_app:user-logout' %}">Cerrar sesión</a></li>
+        <li class="nav-item "><a class="btn btn-lg btn-block btn-outline-danger btn-cerrar-sesion " href="{% url 'users_app:user-logout' %}">Cerrar sesión</a></li>
         {% else %}
-        <form method="GET" class="nav-item" action="{% url 'claveunica_login' %}#inicio-sesion">
+        <form method="GET" class="nav-item ml-sm-3" action="{% url 'claveunica_login' %}#inicio-sesion">
           <input id="next-url" type="hidden" name="next" value="">
-          <button class="btn btn-block btn-primary" id="btn-clave" type="submit" onclick="setNextUrl()">
+          <button class="btn  ml-3 pl-2 btn-lg btn-block  btn-primary" id="btn-clave" type="submit" onclick="setNextUrl()">
             <div class="doc-icon m-2"><span class="cl cl-claveunica"></span></div>
             Iniciar sesión
           </button>
@@ -45,15 +45,68 @@
         {% endif %}
       </li>
     </ul>
-    <ul class="navbar-nav  my-2">      
+    <ul class="navbar-nav justify-content-lg-start  my-2">      
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:index' %}">Inicio</a></li>
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:proceso_participativo' %}">Proceso Participativo</a></li>
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:preguntas_frecuentes' %}">Preguntas Frecuentes</a></li>
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:index' %}">Desentralización para el Bienestar</a></li>
-      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:documentos' %}">Documentación</a></li>
-      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'noticiasymedia_app:noticias' %}">Noticias</a></li>
-      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'noticiasymedia_app:multimedia' %}">Multimedia</a></li>
+      <div class="dropdown mr-lg-5 my-2">
+        <a class="dropdown-toggle ml-2 pl-2 mt-4 font-level-6" id="navbarLinesLightExampleDropdown"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publicaciones</a>
+        <div class="dropdown-menu border-0 " aria-labelledby="dropdown">
+          <a class="nav-item btn btn-drop font-level-6 " id="item-drop1" href="{% url 'home_app:documentos' %}">Documentación</a>
+          <a class="nav-item btn btn-drop font-level-6 " id="item-drop2" href="{% url 'noticiasymedia_app:noticias' %}">Noticias</a></a>
+          <a class="nav-item btn btn-drop font-level-6 " id="item-drop3"  href="{% url 'noticiasymedia_app:multimedia' %}">Videos</a></a>
+      </div>
+    </div>
     </ul>
   </div>
 </nav>
+{% block scripts%}
+<script>
+  
+  // Encuentra todos los elementos con la clase 'btn'
+let buttons = document.querySelectorAll('.btn-drop');
+
+// Aplica los estilos a cada botón
+buttons.forEach((btn) => {
+  // Estilo base
+  btn.style.color = "#001C41";
+  btn.style.backgroundColor = "#CFE1F3";
+  btn.style.fontsize= "16px";
+  btn.style.fontweight="400"; 
+  btn.style.textDecoration = "underline";
+  
+  // Estilo para :focus
+  btn.addEventListener('focus', function() {
+    this.style.fontWeight = "bold";
+    this.style.textDecoration = "underline";
+  });
+
+  // Estilo para :hover
+  btn.addEventListener('mouseover', function() {
+    this.style.fontWeight = "bold";
+    this.style.textDecoration = "underline";
+  });
+
+  // Estilo para :active
+  btn.addEventListener('mousedown', function() {
+    this.style.fontWeight = "bold";
+    this.style.border = "2px solid #3F87D0";
+    this.style.textDecoration = "underline";
+  });
+
+  // Estilo para cuando el botón se desenfoca o el mouse se aleja
+  btn.addEventListener('blur', function() {
+    this.style.fontWeight = "normal";
+    this.style.textDecoration = "none";
+  });
+  btn.addEventListener('mouseout', function() {
+    this.style.outline = "";
+    this.style.border = "";
+    this.style.fontWeight = "normal";
+    this.style.textDecoration = "underline";
+  });
+});
+</script>
+{% endblock %}
 

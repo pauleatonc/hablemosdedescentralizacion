@@ -2,7 +2,7 @@
 {% load static %}
 {% block views %}
 {% load countdown_tags %}
-<section class="container-fluid my-5">
+<section class="container-fluid my-5 px-0">
   <div class="d-flex justify-content-center">
     <div class="col-md-8">
       <nav aria-label="breadcrumb">
@@ -10,13 +10,13 @@
           <li class="breadcrumb-item">
             <a href="{%  url 'home_app:index' %}" class="text-primary">Inicio</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">Multimedia</li>
+          <li class="breadcrumb-item active" aria-current="page">Videos</li>
         </ol>
       </nav>
 
-      <div class="section-header mt-5">
+      <div class="section-header mt-5 px-0">
         <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold">
-          Multimedia
+          Videos
         </p>
       </div>
       <div class="section-body my-4">
@@ -26,21 +26,23 @@
   <div class="px-0">
     {% include "components/logo_banner.html" %}
   </div>
+
+  <!--card videos -->
   {% if multimedias %}
-  <div class="cols-12 mx-md-5 mx-lg-5 mx-xl-5 px-md-5 align-items-center">
-    <div class="row mx-md-5 px-md-5">
+  <div class="cols-cards-12">
+    <div class="row mx-md-1 mx-auto">
       {% include "components/card_media.html"%}
     </div>
   </div>
   {% else %}
   <!-- Mostrar el mensaje si no hay contenido multimedia registrado -->
   <div class="container my-2">
-    <p class="font-level-3 text-center ">Aún no hay contenido multimedia publicado</p>
+    <p class="font-level-3 text-center font-weight-bolder ">Aún no hay videos publicado</p>
   </div>
 {% endif %}
     <!-- Paginación -->
 <nav class="pagination-container flex-column flex-sm-row justify-content-center a11y-fonts-flex-column a11y-fonts-flex-lg-row">
-  <p class="text-center">{{ multimedias.start_index }} - {{ multimedias.end_index }} de {{ multimedias.paginator.count }} multimedias </p>
+  <p class="text-center">{{ multimedias.start_index }} - {{ multimedias.end_index }} de {{ multimedias.paginator.count }} videos </p>
   <ul class="pagination justify-content-center align-items-center active">
       {% if multimedias.has_previous %}
       <li class="page-item">

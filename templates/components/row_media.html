@@ -1,29 +1,35 @@
 {% load static %}
 {% block content %}
 {% for multimedia in multimedias|slice:"-3:" %}
-<div class="col-4 ">
-  <div class="card ">
-    <div class="embed-responsive embed-responsive-16by9">
-      <iframe class="embed-responsive-item"  src="{{ multimedia.video_url }}" allowfullscreen></iframe>
+<div class="col-4">
+  <div class="card  w-100 my-2">
+    <div>
+    <div class="card-img">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe  src="{{ multimedia.video_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
     <div class="d-flex justify-content-between  py-0">
       <p class="font-level-8 m-0">
-      <strong> Fecha de publicación: </strong> {{ mutimedia.created|date:"l j \\d\\e F \\d\\e Y" }} }}
+      <strong> Fecha de publicación:</strong> {{ multimedia.created|date:"l j \\d\\e F \\d\\e Y" }}
       </p>
     </div>
     <div class="body">
-      <p class="h3 text-decoration-underline"><u>{{ multimedia.titulo_multimedia}}</u></p>
+      <p class="h3 text-decoration-underline"><u>{{ multimedia.titulo_multimedia }}</u></p>
       <p class="description-card font-base text-left">{{ multimedia.descripcion_multimedia }}</p>
       <div class="tags row">
         {% for tag in multimedia.tag.all %}
         <div class="col-auto pb-2">
           <div class="badge border border-primary font-level-7">{{ tag.tag }}</div>
         </div>
+
         {% endfor %}
       </div>
     </div>
-    <a class="btn-more" href="{% url 'noticiasymedia_app:multimedia_detail' multimedia.slug %}"> Ver ></a>
+    </div>
+    <a class="btn-more" href="{% url 'noticiasymedia_app:multimedia_detail'  multimedia.slug %}">ver ></a>
   </div>
 </div>
+
 {% endfor %}
-{% endblock %}
+{% endblock content %}
