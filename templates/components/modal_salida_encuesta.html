@@ -4,17 +4,17 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exitSurveyModalLabel">Estás saliendo de la encuesta</h5>
+        <h5 class="font-level-5 text-black" id="exitSurveyModalLabel">Si vas a otra página dentro del sitio, tus respuestas no se guardarán</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        ¿Estás seguro de que quieres salir de la encuesta? Podrías perder tu progreso.
+      <div class="modal-body text-left text-body pb-5">
+        ¿Quieres volver a la consulta?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver a la encuesta</button>
-        <a href="#" id="confirmExitButton" class="btn btn-primary">Ir a la página</a>
+        <a href="#" id="confirmExitButton" class="text-black">No, quiero salir</a>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Si, quiero volver</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,5 @@
 {% endblock views %}
 
 {% block scripts %}
-
-
 
 {% endblock scripts %}
