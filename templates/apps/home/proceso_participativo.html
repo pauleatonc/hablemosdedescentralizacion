@@ -7,7 +7,6 @@
 
     <div  class="d-flex justify-content-center">
         <div class="col-md-8">
-            
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mt-5">
                   <li class="breadcrumb-item text-primary"><a href="/" class="text-primary">Inicio</a></li>
@@ -33,61 +32,55 @@
     </div>
 
     <div class="container my-md-5">
-        <div class="row align-items-end">
-            <div class="col-md-4 px-3">
-                <div class="section-header">
-                    <p class="font-level-2 text-center pb-4 text-black">Dialogos regionales para la Política Nacional de Descentralización</p>
+<!-- aqui estan las columnas -->
+        <div class="d-flex justify-content-center">
+            <div class="parent col-lg-10 align-items-start">
+                
+                <div class="div1 section-header">
+                    <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Dialogos regionales para la Política Nacional de Descentralización</p>
+                    <p class="h4 text-left mb-md-0 text-body mt-4">Se realizarán en las 16 regiones del país, convocando a autoridades nacionales, regionales y locales, mundo académico, sector público, sociedad civil organizada - representada por los presidentes/as de los COSOC municipales y regionales - y otras representaciones relevantes de cada región.</p>
                 </div>
-                <div class="section-body">
-                    <p class="h4 text-left pb-4 mb-md-0 text-body h-50">Se realizarán en las 16 regiones del país, convocando a autoridades nacionales, regionales y locales, mundo académico, sector público, sociedad civil organizada - representada por los presidentes/as de los COSOC municipales y regionales - y otras representaciones relevantes de cada región.</p>
-                </div>
-                <div class="d-flex flex-column align-items-center w-100">
-                    <button class="btn btn-neutral btn-lg w-50 text-nowrap text-primary border-primary bg-white my-5 mt-auto" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}'">
+                <div class="div2 d-flex flex-column align-items-center w-100 mt-4">
+                    <button class="btn btn-neutral btn-lg text-nowrap text-primary border-primary bg-white" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}#Documentos Normativos'">
                         Ver Documentos
                         <i class="material-symbols-outlined">
                             chevron_right
                         </i>
                     </button>
                 </div>
-            </div>
-            <div class="col-md-4 px-3">
-                <div class="section-header">
-                    <p class="font-level-2 text-center pb-5 text-black mt-md-2">Seminarios Virtuales</p>
+                <div class="div3 section-header mt-5 mt-lg-0">
+                    <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Seminarios Virtuales</p>
+                    <p class="h4 text-left mb-md-0 text-body mt-4">Se realizarán cinco encuentros de manera telemática, se convocará a centros de pensamiento, asociaciones gremiales de funcionarios y funcionarias de gobiernos regionales y municipales, funcionarios y funcionarias del nivel central, organizaciones no gubernamentales, y organismos internacionales.</p>
                 </div>
-                <div class="section-body">
-                    <p class="h4 text-left pb-4 text-body h-50">Se realizarán cinco encuentros de manera telemática, se convocará a centros de pensamiento, asociaciones gremiales de funcionarios y funcionarias de gobiernos regionales y municipales, funcionarios y funcionarias del nivel central, organizaciones no gubernamentales, y organismos internacionales.</p>
-                </div>
-                <div class="d-flex flex-column align-items-center w-100">
-                    <button class="btn btn-neutral btn-lg w-50 text-nowrap text-primary border-primary bg-white my-5 mt-auto" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}'">
+                <div class="div4 d-flex flex-column align-items-center w-100 mt-4">
+                    <button class="btn btn-neutral btn-lg text-nowrap text-primary border-primary bg-white" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}#Seminarios Virtuales'">
                         Ver Documentos
                         <i class="material-symbols-outlined">
                             chevron_right
                         </i>
                     </button>
                 </div>
-            </div>
-            <div class="col-md-4 px-3">
-                <div class="section-header">
-                    <p class="font-level-2 text-center pb-5 text-black">Participación en los Consejos de Sociedad Civil (COSOC)</p>
+                <div class="div5 section-header mt-5 mt-lg-0">
+                    <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Participación en los Consejos de Sociedad Civil (COSOC)</p>
+                    <p class="h4 text-left mb-md-0 text-body mt-4">En encuentros similares a los Diálogos Regionales, se convoca a representantes de los COSOC de los gobiernos regionales y municipalidades a ser parte de este proceso en sesiones extraordinarias para abordar los contenidos de la Política, y recoger sus aportes y miradas.</p>
                 </div>
-                <div class="section-body">
-                    <p class="h4 text-left pb-4 text-body h-50">En encuentros similares a los Diálogos Regionales, se convoca a representantes de los COSOC de los gobiernos regionales y municipalidades a ser parte de este proceso en sesiones extraordinarias para abordar los contenidos de la Política, y recoger sus aportes y miradas.</p>
-                </div>
-                <div class="d-flex flex-column align-items-center w-100">
-                    <button class="btn btn-neutral btn-lg w-50 text-nowrap text-primary border-primary bg-white my-5 mt-auto" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}'">
+                <div class="div6 d-flex flex-column align-items-center w-100 mt-4">
+                    <button class="btn btn-neutral btn-lg text-nowrap text-primary border-primary bg-white" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}#Participación de los Consejos de la Sociedad Civil (COSOC)'">
                         Ver Documentos
                         <i class="material-symbols-outlined">
                             chevron_right
                             </i>
                     </button>
-                </div>
+                </div>  
             </div>
         </div>
-        <div class="col-12 my-4">
-            {% include "components/invitacion.html"%}
+
+        <div class="d-flex justify-content-center">
+            <div class="col-md-10">
+                {% include "components/invitacion.html"%}
+            </div>
         </div>
     </div>
 </div>
 </section>
-
 {% endblock views %}

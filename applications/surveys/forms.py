@@ -334,11 +334,19 @@ class PreguntaCuatroForm(forms.ModelForm):
 class PreguntaCincoForm(forms.ModelForm):
     class Meta:
         model = PreguntaCinco
-        fields = ['texto_respuesta']
-        label = 'Escribe tu respuesta'
+        fields = ('texto_respuesta',)
+        labels = {
+            'texto_respuesta': 'Escribe tu respuesta ',
+        }
 
         widgets = {
-            'texto_respuesta': forms.Textarea(attrs={'required': False, 'placeholder': 'Escribe aquí tu respuesta.','class': 'custom-textarea'})
+            'texto_respuesta': forms.Textarea(
+                attrs={
+                    'required': False,
+                    'placeholder': 'Texto de ejemplo.',
+                    'class': 'custom-input'
+                }
+            )
         }
 
 

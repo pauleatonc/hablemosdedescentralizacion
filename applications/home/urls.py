@@ -35,9 +35,16 @@ urlpatterns = [
         name='politicas_privacidad',
         ),
 
-        path(
+    path(
         'onboarding',
         views.OnboardingView.as_view(),
         name='onboarding',
     ),
+
+    path(
+        'descentralizacion_para_bienestar',
+        views.DescentralizacionBienestarView.as_view(),
+        name='descentralizacion-bienestar',
+    ),
+
 ]

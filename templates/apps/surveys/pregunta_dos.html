@@ -95,10 +95,10 @@
           </div>
             <!--boton siguiente -->
             <div class="col-md-6 mx-md-auto px-0">
-            <p class="font-level-6 mx-auto text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Inclusión de iniciativas</strong></p>
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente<i class="material-symbols-outlined px-3">
-                arrow_forward_ios
-              </i></button>
+                <p class="font-level-6 mx-auto text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Inclusión de iniciativas</strong></p>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="next-button" disabled>Siguiente<i class="material-symbols-outlined px-3">
+                    arrow_forward_ios
+                </i></button>
             </div>
 
         </form>
@@ -110,11 +110,28 @@
   {% include "components/logo_banner.html" %}
 </div>
 
+{% include "components/modal_salida_encuesta.html" %}
+
 {% endblock views %}
 
 {% block scripts %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+      // Identificar todos los enlaces del navbar y footer
+      $('nav a, footer a').on('click', function(e) {
+        e.preventDefault();
+
+        // Guardar el href del enlace en el botón de confirmación del modal
+        $('#confirmExitButton').attr('href', $(this).attr('href'));
+
+        // Mostrar el modal
+        $('#exitSurveyModal').modal('show');
+      });
+    });
+</script>
 <script>
   $(document).ready(function ()
   {
@@ -139,8 +156,9 @@
         // Cambiamos el valor del campo oculto asociado
         $('input[name=' + propuestaId + ']').val(prioridad);
 
-        // Cambiamos el texto de la frase
         prioridad++;
+
+        // Cambiamos el texto de la frase
         if (prioridad <= 4)
         {
           $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 mt-3 text-primary ">' + prioridad + ' de importancia.</strong> ');
@@ -153,7 +171,13 @@
           $('#frase-button').show();
         }
       }
-    });
+      // Comprobar si todas las propuestas están seleccionadas
+        if(Object.keys(seleccionados).length === 4)
+      {
+          // Habilitar el botón 'Siguiente'
+          $('#next-button').prop('disabled', false);
+      }
+      });
 
     $('#reiniciar').on('click', function ()
     {
@@ -167,7 +191,10 @@
       seleccionados = {};
       $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 text-primary mt-3 ">' + prioridad + ' de importancia.</strong> ');
       $('#reiniciar').hide();
-      $('#frase-button').hide(); // Agregamos la clase d-none para ocultar la etiqueta <p>
+      $('#frase-button').hide();
+
+      // Deshabilitar el botón 'Siguiente'
+      $('#next-button').prop('disabled', true);
     });
 
     // Función para establecer el estado inicial
@@ -183,7 +210,7 @@
       }
       if (Object.keys(seleccionados).length === 1) {
         $('#reiniciar').show();
-        $('#frase-button').show(); 
+        $('#frase-button').show();
       }
     }
   }
@@ -194,8 +221,9 @@
   setInitialState('propuesta_3', $('#valor_propuesta_3').val());
   setInitialState('propuesta_4', $('#valor_propuesta_4').val());
 
-
-});
+  // Deshabilitar el botón 'Siguiente'
+      $('#next-button').prop('disabled', false);
+ });
 </script>
 
 {% endblock scripts %}

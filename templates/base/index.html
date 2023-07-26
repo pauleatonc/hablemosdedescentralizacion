@@ -35,12 +35,18 @@
   <link type="text/css" href="{% static 'styles\scroll.css' %}" rel="stylesheet" />
   <link type="text/css" href="{% static 'styles\cards.css' %}" rel="stylesheet" />
   <link type="text/css" href="{% static 'styles\carrusel.css' %}" rel="stylesheet" />
+  <link type="text/css" href="{% static 'styles\timeline.css' %}" rel="stylesheet" />
+  <link type="text/css" href="{% static 'styles\footer.css' %}" rel="stylesheet" />
+  <link type="text/css" href="{% static 'styles\timeline.css' %}" rel="stylesheet" />
+
 
   {% include 'components/google_analytics.html' %}
-</head>
-
+    
+  </head>
+  
 <body>
-  {% block content %} {% endblock content %}
+  {% block content %} 
+  {% endblock content %}
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   

@@ -1,0 +1,27 @@
+{% block views %}
+
+<div class="modal fade" id="exitSurveyModal" tabindex="-1" role="dialog" aria-labelledby="exitSurveyModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="font-level-5 text-black" id="exitSurveyModalLabel">Si vas a otra página dentro del sitio, tus respuestas no se guardarán</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-left text-body pb-5">
+        ¿Quieres volver a la consulta?
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="confirmExitButton" class="text-black">No, quiero salir</a>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Si, quiero volver</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock views %}
+
+{% block scripts %}
+
+{% endblock scripts %}
