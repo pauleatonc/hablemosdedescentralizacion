@@ -75,6 +75,8 @@
 }
 
 .flag-icon{
+  display: flex;
+  align-items: start;
   color: #0F69C4;
   flex-shrink: 0;
   font-size: 60px;
@@ -88,8 +90,8 @@
 .desafio{
     width: 100%;
     display: grid;
-    grid-template-columns: 40px auto;
-    grid-gap: 25px;
+    grid-template-columns: 60px auto;
+    grid-gap: 20px;
     align-items: center;
     min-height: 80px;
 }
