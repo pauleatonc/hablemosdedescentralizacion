@@ -41,4 +41,10 @@ urlpatterns = [
         name='onboarding',
     ),
 
+    path(
+        'descentralizacion_para_bienestar',
+        views.DescentralizacionBienestarView.as_view(),
+        name='descentralizacion-bienestar',
+    ),
+
 ]

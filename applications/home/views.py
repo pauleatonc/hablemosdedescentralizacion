@@ -42,8 +42,13 @@ class OnboardingView(TemplateView):
     template_name = 'apps/home/onboarding.html'
 
 
+class DescentralizacionBienestarView(TemplateView):
+    template_name = 'apps/home/descentralizacion_bienestar.html'
+
+
 class Error404(TemplateView):
     template_name = 'apps/errores/error404.html'
+
    
 class Error500(TemplateView):
     template_name = 'apps/errores/error500.html'

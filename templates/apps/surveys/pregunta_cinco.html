@@ -34,8 +34,8 @@
           {% csrf_token %}
 
           <!-- Muestra input para el formulario -->
-          <div class="form-group">
-            {{ form.label_tag }}
+          <div class="form-group-textarea">
+            {{ form.texto_respuesta.label_tag }}
             {{ form.texto_respuesta }}
             <div style="text-align:right"><span id="message-word-count" style="color:gray">0 / 500 caracteres.</span>
             </div>
@@ -44,7 +44,7 @@
 
           <!-- Botón para el envío del formulario completo -->
           <div class="d-flex flex-column my-3 px-0 align-content-center">
-            <p class="font-level-6  text-md-center font-weight-light ">Continua para guardar y enviar tus respuestas.</p>
+            <p class="font-level-6  text-md-center font-weight-light ">Continúa para guardar y enviar tus respuestas.</p>
             <button type="submit" class="btn btn-primary btn-lg btn-block align-self-center col-md-6 text-nowrap">Enviar mis respuestas <i
                 class="material-symbols-outlined px-2">
                 arrow_forward_ios
@@ -62,9 +62,29 @@
 {% include "components/logo_banner.html" %}
 </div>
 
+{% include "components/advertencia_salida_encuesta.html" %}
+
 {% endblock views %}
 
 {% block scripts %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Identificar todos los enlaces del navbar y footer
+    $('nav a, footer a').on('click', function(e) {
+      e.preventDefault();
+
+      // Guardar el href del enlace en el botón de confirmación del modal
+      $('#confirmExitButton').attr('href', $(this).attr('href'));
+
+      // Mostrar el modal
+      $('#exitSurveyModal').modal('show');
+    });
+  });
+
+</script>
 
 <script>
     function countCharacters() {
@@ -72,11 +92,20 @@
         const charCountElement = document.getElementById("message-word-count");
 
         const message = messageInput.value;
-        const charCount = message.length; // Esta línea se ha cambiado para contar caracteres.
-        charCountElement.textContent = `${charCount} / 500 caracteres.`; // Nota que el límite se ha cambiado a 500 caracteres.
+        const charCount = message.length;
+
+        charCountElement.textContent = `${charCount} / 500 caracteres.`;
+
+        if (charCount >= 500) {
+            charCountElement.style.color = "red";
+        } else {
+            charCountElement.style.color = "gray";
+        }
     }
 
-    // Agregamos el "event listener"
+    // This will run the function when the page loads
+    countCharacters();
+
     document.getElementById("id_texto_respuesta").addEventListener('input', countCharacters);
 </script>
 
