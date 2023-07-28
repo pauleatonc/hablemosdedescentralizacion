@@ -4,9 +4,9 @@
 {% load countdown_tags %}
 <section class="container-fluid my-5 px-0">
   <div class="d-flex justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12 col-md-10 col-lg-10 col-xl-8">
       <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mt-5">
+        <ol class="breadcrumb mt-0">
           <li class="breadcrumb-item">
             <a href="{%  url 'home_app:index' %}" class="text-primary">Inicio</a>
           </li>
@@ -23,7 +23,7 @@
         {% countdown_component %}</div>
     </div>
   </div>
-  <div class="px-0">
+  <div class="container-fluid">
     {% include "components/logo_banner.html" %}
   </div>
 

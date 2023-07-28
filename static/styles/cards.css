@@ -135,7 +135,8 @@
 /* Estilos para tamaños de pantalla entre 688px y 820px */
 @media only screen and (min-width: 688px) and (max-width: 820px) {
   .card {
-    width: 70%;
+    width: 90%;
+    margin: auto;
   }
   .cols-card-12{
     display: flex;
@@ -154,7 +155,7 @@
   }
 
   .card {
-    width: 85%;
-    margin: 5px 5px 5px 5px;
+    width: 70%;
+    margin: auto;
   }
 }
