@@ -1,16 +1,9 @@
-.text-body {
-  line-height: 30px;
-}
-.text-title {
-  line-height: 40px;
-}
-
 @media (min-width: 992px) {
   .parent {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 40px;
+    grid-column-gap: 50px;
     grid-row-gap: 20px;
     }
     
