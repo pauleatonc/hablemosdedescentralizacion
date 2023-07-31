@@ -7,7 +7,7 @@ __pycache__
 #Ambientes de desarrollo
 /env
 /venv
-*.env
+
 .vscode
 node_modules/
 .idea
