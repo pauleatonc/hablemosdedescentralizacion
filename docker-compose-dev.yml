@@ -33,7 +33,7 @@ services:
       - .env
     # The only required settings on this part should be DJANGO_SETTINGS_MODULE, all the others can be loaded in the .env file
     environment:
-      - DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.prod
+      - DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.dev
 
   # This proxy is used to route between the app and the static files (and serve them). Could be others alternatives to explore.
   proxy:
