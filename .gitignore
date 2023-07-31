@@ -1,5 +1,8 @@
+package-lock.json
+
 #Cache de python
 *.pyc
+__pycache__
 
 #Ambientes de desarrollo
 /env
@@ -7,6 +10,16 @@
 *.env
 .vscode
 node_modules/
+.idea
+
+#Images and Documents
+media/
+/media/project_documents/*
+/media/projects/*
+/media/CACHE/*
 
 #Otros (cómo .idea)
 .idea
+
+# For this specific project, in prod we collect the estatics file in this folder (for now)
+staticfiles
