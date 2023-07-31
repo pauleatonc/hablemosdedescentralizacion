@@ -41,7 +41,7 @@ services:
     depends_on:
       - web
     environment:
-      - VIRTUAL_HOST=hablemosdedescentralizacion.cl
+      - VIRTUAL_HOST=qahablemosdedescentralizacion.subdere.gob.cl
     networks:
       - frontend
       - default
