@@ -28,7 +28,7 @@ COPY . /app/
 ENV DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.dev
 
 # Collect static files
-# RUN python manage.py collectstatic --no-input
+RUN python manage.py collectstatic --no-input
 
 # Especificar el comando para ejecutar la aplicación
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"] 
