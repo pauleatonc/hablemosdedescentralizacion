@@ -5,8 +5,7 @@ from applications.noticiasymedia.views import NoticiasView, MultimediaView
 from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos, SeccionDocumentos
 
 # importar apps de terceros
-from django.conf import settings
-print(settings.SETTINGS_MODULE)
+
 
 class HomePageView(NoticiasView,MultimediaView):
     template_name = 'apps/home/home.html'   
