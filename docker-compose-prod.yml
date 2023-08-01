@@ -47,16 +47,12 @@ services:
       - default
     # dont expose ports in production, we use autodiscovery with the VIRTUAL_HOST env variable
     # ports:
-    #   - "80:80"
+      - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./staticfiles:/home/app/web/staticfiles
 
-# In production we use an external proxy network for exposing the services
-networks:
-  frontend:
-    external: true
-    name: proxy-net
+
 
 # Just in case this is a prodcution-like env
 volumes:
