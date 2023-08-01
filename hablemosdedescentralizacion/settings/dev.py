@@ -10,13 +10,11 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-07n!hx-8et1p@wmnn0+w59x1g)qzxj^(m+)e&yrs#b6g7*m*-a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'qahablemosdedescentralizacion.subdere.gob.cl',
     'www.qahablemosdedescentralizacion.subdere.gob.cl',
-    'http://qahablemosdedescentralizacion.subdere.gob.cl',
-    'http://www.qahablemosdedescentralizacion.subdere.gob.cl',
     '*',
 ]
 
