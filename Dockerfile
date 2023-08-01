@@ -25,7 +25,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Variable de entorno para apuntar a dev.py
-# ENV DJANGO_SETTINGS_MODULE=projectbank.settings.dev
+ENV DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.dev
 
 # Collect static files
 # RUN python manage.py collectstatic --no-input
