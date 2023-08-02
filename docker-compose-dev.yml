@@ -20,20 +20,20 @@ services:
     build: .
     command: bash -c "python manage.py migrate && gunicorn hablemosdedescentralizacion.wsgi:application --bind 0.0.0.0:8000"
     volumes:
-      #- .:/app
+      - .:/app
       - ./staticfiles:/staticfiles
     networks:
       - default
     # dont expose ports in production, unless you are testing conectivity
-    # ports:
-      # - "8000:8000"
+     ports:
+      - "8000:8000"
     depends_on:
       - db
     env_file:
       - .env
     # The only required settings on this part should be DJANGO_SETTINGS_MODULE, all the others can be loaded in the .env file
     environment:
-      - DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.dev
+      - DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.prod
 
   # This proxy is used to route between the app and the static files (and serve them). Could be others alternatives to explore.
   proxy:
@@ -43,7 +43,7 @@ services:
     environment:
       - VIRTUAL_HOST=qahablemosdedescentralizacion.subdere.gob.cl
     networks:
-      - frontend
+      #- frontend
       - default
     # dont expose ports in production, we use autodiscovery with the VIRTUAL_HOST env variable
     ports:
@@ -54,6 +54,3 @@ services:
 
 volumes:
   postgres_data:
-networks:
-  frontend:
-  default:

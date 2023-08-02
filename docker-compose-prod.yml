@@ -20,13 +20,13 @@ services:
     build: .
     command: bash -c "python manage.py migrate && gunicorn hablemosdedescentralizacion.wsgi:application --bind 0.0.0.0:8000"
     volumes:
-      #- .:/app
+      - .:/app
       - ./staticfiles:/staticfiles
     networks:
       - default
     # dont expose ports in production, unless you are testing conectivity
-    # ports:
-      # - "8000:8000"
+    ports:
+      - "8000:8000"
     depends_on:
       - db
     env_file:
@@ -43,14 +43,14 @@ services:
     environment:
       - VIRTUAL_HOST=hablemosdedescentralizacion.cl
     networks:
-      - frontend
+      #- frontend
       - default
     # dont expose ports in production, we use autodiscovery with the VIRTUAL_HOST env variable
-    # ports:
+    ports:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./staticfiles:/home/app/web/staticfiles
+      - ./staticfiles:/home/app/staticfiles
 
 
 
