@@ -162,6 +162,7 @@
         if (prioridad <= 4)
         {
           $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 mt-3 text-primary ">' + prioridad + ' de importancia.</strong> ');
+          $('#next-button').prop('disabled', true);
         }
 
         // Mostramos el botón de reinicio si todas las propuestas tienen una prioridad

@@ -17,6 +17,7 @@ ALLOWED_HOSTS = [
     'www.qahablemosdedescentralizacion.subdere.gob.cl',
     'http://qahablemosdedescentralizacion.subdere.gob.cl',
     'http://www.qahablemosdedescentralizacion.subdere.gob.cl',
+    '127.0.0.1'
 ]
 
 # Database
