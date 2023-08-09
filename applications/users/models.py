@@ -56,8 +56,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    def save(self, *args, **kwargs):
-        # Formatear el RUT antes de guardar
-        rut_formateado = validar_rut(self.rut)
-        self.rut = rut_formateado
-        super().save(*args, **kwargs)
+#    def save(self, *args, **kwargs):
+#        # Formatear el RUT antes de guardar
+#        rut_formateado = self.rut
+#        self.rut = rut_formateado
+#        super().save(*args, **kwargs)
