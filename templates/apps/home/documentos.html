@@ -45,13 +45,22 @@
                         {% for seccion_documento in tipo_documento.secciondocumentos_set.all %}
                             {% if seccion_documento|has_public_documents %}
                                 <div class="card-data-list card-data-list-flush m-4 bg-gray-200" id="{{ seccion_documento }}">
-                                    <ol class="list-unstyled w-100" id="collapsibleFlushAccordion{{ forloop.counter }}">
+                                    <ol class="list-unstyled w-100"  id="collapsibleFlushAccordion{{ forloop.parentloop.counter }}_{{ forloop.counter }}" >
                                         <li>
-                                            <button class="btn text-left w-100 d-flex align-items-start justify-content-between py-4 px-3" id="collapsibleFlushHeading{{ forloop.counter }}" type="button" data-toggle="collapse" data-target="#collapsibleFlushCollapse{{ forloop.counter }}" aria-controls="collapsibleFlushCollapse{{ forloop.counter }}" aria-expanded="false">
+                                            <button class="btn text-left w-100 d-flex align-items-start justify-content-between py-4 px-3"
+                                            id="collapsibleFlushHeading{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapsibleFlushCollapse{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
+                                            aria-controls="collapsibleFlushCollapse{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
+                                            aria-expanded="false">
                                                 <span class="font-level-3 mb-0">{{ seccion_documento }}</span>
                                                 <span class="toggler-icon cl cl-m-arrow-down cl-2x" aria-hidden="true"></span>
                                             </button>
-                                            <div class="collapse" id="collapsibleFlushCollapse{{ forloop.counter }}" aria-labelledby="collapsibleFlushHeading{{ forloop.counter }}" data-parent="#collapsibleFlushAccordion{{ forloop.counter }}">
+                                            <div class="collapse"
+                                            id="collapsibleFlushCollapse{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
+                                            aria-labelledby="collapsibleFlushHeading{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
+                                            data-parent="#collapsibleFlushAccordion{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
                                                 <div class="pr-5 pb-3 pl-3 pt-3 border-top border-gray-b">
                                                     <ul class="list-group">
                                                         {% for documento in seccion_documento|public_documents %}
