@@ -1,0 +1,127 @@
+.btn-question {
+  width: 50%;
+  border: 1px solid #0f69c4;
+  color: #0f69c4;
+  font-weight: 700;
+  background-color: white;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.btn-question:hover {
+  border: 1px solid #0f69c4;
+}
+
+.btn-question:focus {
+  border: 2px solid #001c41;
+}
+
+.btn-question.selected {
+  border: 3px solid #0f69c4;
+  color: #0f69c4;
+  font-weight: 700;
+  background-color: white;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.propuesta,
+.iniciativa {
+  border: 1px solid #0f69c4;
+  background-color: white;
+  color: #0f69c4;
+}
+.propuesta:hover,
+.propuesta:focus,
+.propuesta:active,
+.propuesta:disabled {
+  border: 3px solid #0f69c4;
+  background-color: white;
+  color: #0f69c4;
+}
+
+.iniciativa:hover,
+.iniciativa:disabled,
+.iniciativa:active,
+.iniciativa:focus {
+  border: 3px solid #0f69c4;
+  background-color: white;
+  color: #0f69c4;
+}
+
+#reiniciar {
+  border: 1px solid #871a1a;
+  color: #871a1a;
+  border-radius: 5px;
+  fill: #871a1a;
+}
+
+#reiniciar:hover,
+#reiniciar:focus {
+  border: 1px solid #871a1a;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #871a1a;
+}
+
+#reiniciar:hover #icon-trash {
+  filter: contrast(1%) brightness(300%);
+}
+
+.btn-email {
+  background-color: #006636;
+  color: white;
+}
+
+.btn-email:hover {
+  background-color: #006636;
+  color: white;
+}
+
+#btn-back:hover #icon-house{
+  filter: contrast(1%) brightness(300%);
+}
+
+.form-group-textarea {
+    text-align: left;
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px
+    }
+
+.form-group-textarea label {
+    margin-left: 15px;
+    position: absolute;
+    top: -10px;
+    background-color: var(--color-gray-ffffff);
+    color: var(--color-gray-373737, #373737);
+    text-shadow: -1px 0px 0px 0px #FFF, -2px 0px 0px 0px #FFF, 1px 0px 0px 0px #FFF, 2px 0px 0px 0px #FFF, 3px 0px 0px 0px #FFF, -3px 0px 0px 0px #FFF;
+    /* Labels/Label - Desktop - Inactive */
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 23px;
+    }
+
+.custom-input {
+    width: 100%;
+    height: 225px;
+    padding: 15px 14px;
+    border: solid 1px var(--color-gray-373737);
+    background-color: var(--color-gray-ffffff);
+    color: var(--color-gray-656565, #656565);
+    font-feature-settings: 'clig' off, 'liga' off;
+    /* body/p/p - Body Text - Desktop */
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.modal-footer{
+    height:80px;
+    grid-gap: 20px;
+    align-items: center;
+}

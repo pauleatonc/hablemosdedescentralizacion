@@ -7,27 +7,34 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./pg_config:/etc/postgresql
     networks:
-      - default
+      - development
+    env_file:
+      - .env
 
-  web:
+  hablemos_web:
     build: .
     command: bash -c "python manage.py migrate && gunicorn hablemosdedescentralizacion.wsgi:application --bind 0.0.0.0:8080"
     volumes:
       - .:/app
-      - ./staticfiles:/staticfiles
+      - ./hablemos_staticfiles:/staticfiles
     networks:
-      - default
+      - development
     depends_on:
       - db
     env_file:
       - .env
     environment:
       - DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.dev
+    ports:
+      - "8080:8080"
 
 volumes:
   postgres_data:
+
+networks:
+  development:
+    external: true
