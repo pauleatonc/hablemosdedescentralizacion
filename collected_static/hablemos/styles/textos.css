@@ -1,0 +1,11 @@
+.text-body {
+  line-height: 30px;
+}.text-body-news { 
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+}.text-title {
+  line-height: 40px;
+}

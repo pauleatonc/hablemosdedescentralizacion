@@ -1,0 +1,36 @@
+/* Estilos para el carrusel */
+.carousel-item {
+  width: 100%;
+}
+
+/* Estilos para el carrusel móvil */
+@media (max-width: 767px) {
+  .carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x:hidden;
+  }
+}
+
+
+.carousel-indicators-custom {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.carousel-indicators-custom li {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+  background-color: #9FC3E7;
+  cursor: pointer;
+}
+
+.carousel-indicators-custom .active {
+  background-color: #0F69C4;
+}
