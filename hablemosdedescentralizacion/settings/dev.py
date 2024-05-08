@@ -1,4 +1,5 @@
 import environ
+import os
 from .base import *
 
 # we load the variables from the .env file to the environment
@@ -15,8 +16,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'qahablemosdedescentralizacion.subdere.gob.cl',
     'www.qahablemosdedescentralizacion.subdere.gob.cl',
-    '*',
-]
+    ]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -24,11 +24,11 @@ DATABASES = {
     # Base de datos de aplicación
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
+        'NAME': 'hablemosdescentralizacion',
+        'USER': 'postgres',
+        'PASSWORD': 'Subdere.2022',
+        'HOST': 'db',
+        'PORT': '5432',
         },
     }
 
@@ -36,7 +36,8 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR.child('static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static', 'hablemos')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.child('media')
