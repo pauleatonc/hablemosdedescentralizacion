@@ -136,35 +136,31 @@ class PreguntaDosForm(forms.ModelForm):
         model = PreguntaDos
         fields = ('propuesta_1', 'propuesta_2', 'propuesta_3', 'propuesta_4')
         widgets = {
-            'propuesta_1': forms.NumberInput(
+            'propuesta_1': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_1'
                 }
             ),
-            'propuesta_2': forms.NumberInput(
+            'propuesta_2': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_2'
                 }
             ),
-            'propuesta_3': forms.NumberInput(
+            'propuesta_3': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_3'
                 }
             ),
-            'propuesta_4': forms.NumberInput(
+            'propuesta_4': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta  ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_4'
                 }
             ),

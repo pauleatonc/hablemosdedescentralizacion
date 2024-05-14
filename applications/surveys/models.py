@@ -3,10 +3,10 @@ from django.db import models
 
 class PreguntaUno(models.Model):
     VALORES = (
-        ('1', 'Es muy importante'),
-        ('2', 'Es importante'),
-        ('3', 'Es algo importante'),
-        ('4', 'No es importante'),
+        ('1', 'No es importante'),
+        ('2', 'Algo importante'),
+        ('3', 'Importante'),
+        ('4', 'Muy importante'),
         ('5', 'No sabría responder'),
     )
 
@@ -21,21 +21,26 @@ class PreguntaUno(models.Model):
 
 
 class PreguntaDos(models.Model):
-    ITEMS = (
-        (1, 'Prioridad 1'),
-        (2, 'Prioridad 2'),
-        (3, 'Prioridad 3'),
-        (4, 'Prioridad 4'),
+    VALORACION = (
+        (1, '1: Poco prioritario'),
+        (2, '2: Algo prioritario'),
+        (3, '3: Prioritario'),
+        (4, '4: Muy prioritario'),
+        (5, 'No sabría responder'),
     )
 
-    propuesta_1 = models.IntegerField(choices=ITEMS,
-                                      help_text='Permite tomar decisiones, a partir de las características, conocimientos y experiencias de los territorios y sus comunidades.')
-    propuesta_2 = models.IntegerField(choices=ITEMS,
-                                      help_text='Fortalece la democracia a nivel de regiones y comunas.')
-    propuesta_3 = models.IntegerField(choices=ITEMS,
-                                      help_text='Permite satisfacer necesidades de manera oportuna y eficiente.')
-    propuesta_4 = models.IntegerField(choices=ITEMS,
-                                      help_text='Disminuye las desigualdades sociales y territoriales.')
+    propuesta_1 = models.IntegerField(verbose_name='Rendimiento de cuentas', choices=VALORACION,
+                                     help_text='Que las autoridades elegidas directamente y por sufragio universal, rindan cuenta a la ciudadanía.')
+
+    propuesta_2 = models.IntegerField(verbose_name='Acceso a bienes y prestación de servicios', choices=VALORACION,
+                                     help_text='Que la ciudadanía tenga acceso a bienes y prestación de servicios públicos, por parte de los gobiernos regionales y municipalidades.')
+
+    propuesta_3 = models.IntegerField(verbose_name='Mayores recursos públicos', choices=VALORACION,
+                                     help_text='Que los gobiernos regionales y municipalidades cuenten con mayores recursos financieros, y sus usos sean definidos en el territorio.')
+
+    propuesta_4 = models.IntegerField(verbose_name='Más profesionales,', choices=VALORACION,
+                                     help_text='Que los gobiernos regionales y municipalidades cuenten con más profesionales, para el cumplimiento de sus objetivos.')
+
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
