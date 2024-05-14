@@ -1,15 +1,10 @@
 from django.urls import path
-from . import views
+from .views import keycloak_login, keycloak_callback, keycloak_logout
+
+app_name = 'claveunica'
 
 urlpatterns = [
-    # otras rutas...
-
-    # Ruta para iniciar el proceso de login con Clave Única
-    path('claveunica/login/', views.claveunica_login, name='claveunica_login'),
-    # Ruta para el callback de Clave Única
-    path('claveunica/callback/', views.callback, name='claveunica_callback'),
-    # Ruta para el logout
-    path('logout/', views.logout, name='logout'),
-
-    # otras rutas...
+    path('keycloak_login/', keycloak_login, name='keycloak_login'),
+    path('callback/', keycloak_callback, name='keycloak_callback'),
+    path('keycloak_logout/', keycloak_logout, name='keycloak_logout'),
 ]

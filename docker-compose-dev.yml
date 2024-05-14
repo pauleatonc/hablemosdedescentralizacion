@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  db:
+  hablemos_db:
     image: postgres:14
     environment:
       - POSTGRES_DB=${DB_NAME}
@@ -24,7 +24,7 @@ services:
     networks:
       - development
     depends_on:
-      - db
+      - hablemos_db
     env_file:
       - .env
     environment:
