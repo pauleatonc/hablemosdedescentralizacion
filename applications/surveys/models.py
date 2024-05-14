@@ -50,23 +50,21 @@ class PreguntaDos(models.Model):
 
 class PreguntaTres(models.Model):
     ITEMS = (
-        (1, 'Prioridad 1'),
-        (2, 'Prioridad 2'),
-        (3, 'Prioridad 3'),
-        (4, 'Prioridad 4'),
-        (5, 'Prioridad 5'),
+        (1, 'Gobierno Regional'),
+        (2, 'Municipalidad'),
+        (3, 'No sabría responder')
     )
 
-    iniciativa_1 = models.IntegerField(choices=ITEMS,
-                                       help_text='Definir las tareas de la administración pública a nivel nacional, regional y comunal.')
-    iniciativa_2 = models.IntegerField(choices=ITEMS,
-                                       help_text='Fortalecer habilidades técnicas y profesionales en comunas y regiones para impulsar el desarrollo económico, social y cultural.')
-    iniciativa_3 = models.IntegerField(choices=ITEMS,
-                                       help_text='Establecer mecanismos de participación ciudadana y rendición de cuentas.')
-    iniciativa_4 = models.IntegerField(choices=ITEMS,
-                                       help_text='Garantizar la autonomía y el buen uso de los recursos financieros públicos.')
-    iniciativa_5 = models.IntegerField(choices=ITEMS,
-                                       help_text='Coordinar a distintos actores públicos, privados y sociales, para la mejor obtención de objetivos de desarrollo.')
+    iniciativa_1 = models.IntegerField(verbose_name='Ambientales', choices=ITEMS,
+                                       help_text='Ambientales')
+    iniciativa_2 = models.IntegerField(verbose_name='Infraestructura', choices=ITEMS,
+                                       help_text='Infraestructura')
+    iniciativa_3 = models.IntegerField(verbose_name='Servicios o beneficios sociales', choices=ITEMS,
+                                       help_text='Servicios o beneficios sociales')
+    iniciativa_4 = models.IntegerField(verbose_name='Económicas', choices=ITEMS,
+                                       help_text='Económicas')
+    iniciativa_5 = models.IntegerField(verbose_name='Ordenamiento del territorio', choices=ITEMS,
+                                       help_text='Ordenamiento del territorio')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
@@ -77,27 +75,27 @@ class PreguntaTres(models.Model):
 
 class PreguntaCuatro(models.Model):
     VALORACION = (
-        (1, 'Muy importante'),
-        (2, 'Importante'),
-        (3, 'Poco importante'),
-        (4, 'No es importante'),
-        (5, 'No sabría responder')
+        (1, '1: Poco prioritario'),
+        (2, '2: Algo prioritario'),
+        (3, '3: Prioritario'),
+        (4, '4: Muy prioritario'),
+        (5, 'No sabría responder'),
     )
 
-    tematica_1 = models.IntegerField(verbose_name='Enfoque de género', choices=VALORACION,
-                                     help_text='las medidas deben considerar de manera transversal la perspectiva de género, entendida como una mirada destinada a hacer que las preocupaciones y experiencias de las mujeres, así como las de los hombres y de las diversidades sexo genéricas, sean un elemento integrante de la elaboración de la Política.')
+    tematica_1 = models.IntegerField(verbose_name='Probidad y transparencia:', choices=VALORACION,
+                                     help_text='Promueve la honradez, integridad y rectitud en el actuar de las autoridades, como asimismo el acceso de información a la comunidad.')
 
-    tematica_2 = models.IntegerField(verbose_name='Diversidad territorial', choices=VALORACION,
-                                     help_text='las medidas deben considerar e integrar el respeto a la diversidad territorial en cuanto a las características identitarias de los territorios, su historia, sus características económicas, sociales y culturales, entre otras.')
+    tematica_2 = models.IntegerField(verbose_name='Participación ciudadana:', choices=VALORACION,
+                                     help_text='Fomenta la implicación directa y activa de la sociedad civil en los asuntos públicos.')
 
-    tematica_3 = models.IntegerField(verbose_name='Participación ciudadana', choices=VALORACION,
-                                     help_text='las medidas y acciones deben promover la participación activa de la sociedad civil en las decisiones de los territorios.')
+    tematica_3 = models.IntegerField(verbose_name='Autonomía:', choices=VALORACION,
+                                     help_text='Reconoce la capacidad de los gobiernos regionales y las municipalidades en la elección de sus autoridades, la administración de sus recursos, y en el ejercicio de sus funciones, atribuciones y facultades normativas.')
 
-    tematica_4 = models.IntegerField(verbose_name='Capital humano territorial', choices=VALORACION,
-                                     help_text='las medidas deben considerar capacidades técnicas y profesionales para enfrentar los desafíos de desarrollo económico, social y cultural.')
+    tematica_4 = models.IntegerField(verbose_name='Diversidad e inclusión:', choices=VALORACION,
+                                     help_text='Garantiza que todas las personas tengan igualdad de oportunidades, sin importar su grupo étnico, país de procedencia, orientación sexual, raza, habilidad, género, edad o incluso intereses personales.')
 
-    tematica_5 = models.IntegerField(verbose_name='Protección del medioambiente', choices=VALORACION,
-                                     help_text='las medidas deben minimizar su impacto negativo sobre el medio ambiente.')
+    tematica_5 = models.IntegerField(verbose_name='Igualdad de género:', choices=VALORACION,
+                                     help_text='Garantiza que mujeres, hombres, niñas y niños gocen, por igual, de los mismos derechos, recursos, oportunidades y protecciones.')
 
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 

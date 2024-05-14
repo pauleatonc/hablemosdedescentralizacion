@@ -201,7 +201,7 @@ class PreguntaTresForm(forms.ModelForm):
         model = PreguntaTres
         fields = ('iniciativa_1', 'iniciativa_2', 'iniciativa_3', 'iniciativa_4', 'iniciativa_5')
         widgets = {
-            'iniciativa_1': forms.NumberInput(
+            'iniciativa_1': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -209,7 +209,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_1'
                 }
             ),
-            'iniciativa_2': forms.NumberInput(
+            'iniciativa_2': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -217,7 +217,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_2'
                 }
             ),
-            'iniciativa_3': forms.NumberInput(
+            'iniciativa_3': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -225,7 +225,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_3'
                 }
             ),
-            'iniciativa_4': forms.NumberInput(
+            'iniciativa_4': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -233,7 +233,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_4'
                 }
             ),
-            'iniciativa_5': forms.NumberInput(
+            'iniciativa_5': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
