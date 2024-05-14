@@ -5,7 +5,7 @@ class PreguntaUno(models.Model):
     VALORES = (
         ('1', 'Es muy importante'),
         ('2', 'Es importante'),
-        ('3', 'Es poco importante'),
+        ('3', 'Es algo importante'),
         ('4', 'No es importante'),
         ('5', 'No sabría responder'),
     )
