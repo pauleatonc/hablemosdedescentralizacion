@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 import random
 from collections import OrderedDict
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.users.models import User
 from applications.regioncomuna.models import Comuna, Region
 from django.utils.safestring import mark_safe
@@ -350,6 +350,47 @@ class PreguntaCincoForm(forms.ModelForm):
             )
         }
 
+class PreguntaSeisForm(forms.ModelForm):
+
+    valor = forms.ChoiceField(choices=PreguntaSeis.VALORES, required=True)
+
+    class Meta:
+        model = PreguntaSeis
+        fields = ['valor']
+        widgets = {
+            'valor': forms.RadioSelect
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not self.data:
+            return cleaned_data
+
+        valor = cleaned_data.get('valor')
+        if not valor:
+            raise ValidationError(
+                'Debes elegir una opción antes de continuar.')
+        return cleaned_data
+    
+class PreguntaSieteForm(forms.ModelForm):
+    class Meta:
+        model = PreguntaSiete
+        fields = ('texto_respuesta',)
+        labels = {
+            'texto_respuesta': 'Escribe tu respuesta ',
+        }
+
+        widgets = {
+            'texto_respuesta': forms.Textarea(
+                attrs={
+                    'required': False,
+                    'placeholder': 'Texto de ejemplo.',
+                    'class': 'custom-input'
+                }
+            )
+        }
+    
 
 class EnviarFormulariosForm(forms.ModelForm):
     class Meta:

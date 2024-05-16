@@ -13,6 +13,8 @@ urlpatterns = [
     path('pregunta-tres/', views.PreguntaTresView.as_view(), name='pregunta_tres'),
     path('pregunta-cuatro/', views.PreguntaCuatroView.as_view(), name='pregunta_cuatro'),
     path('pregunta-cinco/', views.PreguntaCincoView.as_view(), name='pregunta_cinco'),
+    path('pregunta-seis/', views.PreguntaSeisView.as_view(), name='pregunta_seis'),
+    path('pregunta-siete/', views.PreguntaSieteView.as_view(), name='pregunta_siete'),
     path('enviar-formularios/', views.EnviarFormulariosViews.as_view(), name='enviar_formularios'),
     path('resumen-encuesta/', views.ResumenRespuestasUsuarioView.as_view(), name='resumen_encuesta')
     

@@ -113,3 +113,29 @@ class PreguntaCinco(models.Model):
         verbose_name = 'Pregunta 5: ¿Qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el ' \
                        'vínculo entre descentralización y su vida personal y en comunidad?'
         unique_together = ('usuario',)
+
+
+class PreguntaSeis(models.Model):
+    VALORES = (
+        ('1', 'Mejorará la calidad de vida de las personas.'),
+        ('2', 'Mantendrá de igual manera la calidad de vida de las personas.'),
+        ('3', 'Generará un retroceso en la calidad de vida de las personas.'),
+        ('4', 'No sabría responder'),
+    )
+
+    valor = models.CharField(
+        max_length=1, choices=VALORES, verbose_name='Valor')
+    usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Considerando que una Política de Descentralización de Chile contaría con una agenda de trabajo con un plazo de implementación a 10 años, ¿con cuál de las siguientes alternativas usted está más de acuerdo?'
+        unique_together = ('usuario',)
+
+
+class PreguntaSiete(models.Model):
+    texto_respuesta = models.CharField(max_length=200, blank=True, null=True)
+    usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Para finalizar y considerando sus respuestas anteriores, ¿qué temática o medida agregaría, para serconsiderada en una Política de Descentralización de Chile? Esta pregunta es opcional.'
+        unique_together = ('usuario',)
