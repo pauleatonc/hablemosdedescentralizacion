@@ -373,7 +373,7 @@ class PreguntaSeisView(LoginRequiredMixin, FormView):
     
 
 class PreguntaSieteView(LoginRequiredMixin, FormView):
-    template_name = 'apps/surveys/pregunta_cinco.html'
+    template_name = 'apps/surveys/pregunta_siete.html'
     form_class = PreguntaSieteForm
     model = PreguntaSiete
     login_url = 'users_app:user-login'  # URL de inicio de sesión
