@@ -13,6 +13,11 @@ class Countdown(models.Model):
         today = datetime.now().date()
         days_left = (self.end_date - today).days
         return days_left
+    
+    def get_days_until_start(self):
+        today = datetime.now().date()
+        days_until_start = (self.start_date - today).days
+        return days_until_start if days_until_start > 0 else 0
 
     def get_total_days(self):
         total_days = (self.end_date - self.start_date).days
