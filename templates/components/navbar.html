@@ -33,9 +33,9 @@
       </div> 
       <li class="nav-item">
         {% if user.is_authenticated %}
-        <li class="nav-item "><a class="btn btn-lg btn-block btn-outline-danger btn-cerrar-sesion " href="{% url 'users_app:user-logout' %}">Cerrar sesión</a></li>
+        <li class="nav-item "><a class="btn btn-lg btn-block btn-outline-danger btn-cerrar-sesion " href="{% url 'claveunica:keycloak_logout' %}">Cerrar sesión</a></li>
         {% else %}
-        <form method="GET" class="nav-item ml-sm-3" action="{% url 'claveunica_login' %}#inicio-sesion">
+        <form method="GET" class="nav-item ml-sm-3" action="{% url 'claveunica:keycloak_login' %}">
           <input id="next-url" type="hidden" name="next" value="">
           <button class="btn  ml-3 ml-sm-0 ml-md-0 pl-2  pl-md-0 btn-lg btn-block  btn-primary" id="btn-clave" type="submit" onclick="setNextUrl()">
             <div class="doc-icon m-2"><span class="cl cl-claveunica"></span></div>
