@@ -28,7 +28,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hablemosdescentralizacion',
         'USER': 'postgres',
-        'PASSWORD': 'Subdere.2022',
+        'PASSWORD': '214momia', #'Subdere.2022',
         'HOST': 'localhost',
         'PORT': '5432',
         },

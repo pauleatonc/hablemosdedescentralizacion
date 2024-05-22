@@ -128,7 +128,7 @@ class PreguntaSeis(models.Model):
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Considerando que una Política de Descentralización de Chile contaría con una agenda de trabajo con un plazo de implementación a 10 años, ¿con cuál de las siguientes alternativas usted está más de acuerdo?'
+        verbose_name = 'Pregunta 6: Considerando que una Política de Descentralización de Chile contaría con una agenda de trabajo con un plazo de implementación a 10 años, ¿con cuál de las siguientes alternativas usted está más de acuerdo?'
         unique_together = ('usuario',)
 
 
@@ -137,5 +137,5 @@ class PreguntaSiete(models.Model):
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Para finalizar y considerando sus respuestas anteriores, ¿qué temática o medida agregaría, para serconsiderada en una Política de Descentralización de Chile? Esta pregunta es opcional.'
+        verbose_name = 'Pregunta 7: Para finalizar y considerando sus respuestas anteriores, ¿qué temática o medida agregaría, para serconsiderada en una Política de Descentralización de Chile? Esta pregunta es opcional.'
         unique_together = ('usuario',)
