@@ -1,5 +1,6 @@
 import environ
 from .base import *
+import os
 
 # we load the variables from the .env file to the environment
 env = environ.Env()
@@ -17,7 +18,9 @@ ALLOWED_HOSTS = [
     'www.qahablemosdedescentralizacion.subdere.gob.cl',
     'http://qahablemosdedescentralizacion.subdere.gob.cl',
     'http://www.qahablemosdedescentralizacion.subdere.gob.cl',
-    '127.0.0.1'
+    'http://127.0.0.1:8000/',
+    'http://localhost:8000/',
+    'localhost'
 ]
 
 # Database
@@ -28,7 +31,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hablemosdescentralizacion',
         'USER': 'postgres',
-        'PASSWORD': '214momia', #'Subdere.2022',
+        'PASSWORD': 'Subdere.2022',
         'HOST': 'localhost',
         'PORT': '5432',
         },
@@ -64,3 +67,14 @@ CLAVE_UNICA_CLIENT_ID = 'f0a29848899147da8e17f90d7b8a142e'
 CLAVE_UNICA_CLIENT_SECRET ='55bdcfe678324f7baf7f559dd5c35aeb'
 CLAVE_UNICA_REDIRECT_URI = 'https://www.qadescentralizacion.subdere.gob.cl/pregunta-uno/'
 
+# LOCAL KEYCLOAK CONFIGURATION
+KEYCLOAK_REALM='app-qa'
+KEYCLOAK_AUTH_SERVER_URL='https://oid.subdere.gob.cl/'
+KEYCLOAK_SSL_REQUIRED='external'
+KEYCLOAK_RESOURCE='hablemosdescentralizacion'
+KEYCLOAK_CREDENTIALS_SECRET='aSiHvZa5YwtGQRUDsEFJN5imFGcYqsa6'
+KEYCLOAK_CONFIDENTIAL_PORT=0
+KEYCLOAK_REDIRECT_URI='http://localhost:8000'
+KEYCLOAK_TOKEN_URL='https://oid.subdere.gob.cl/realms/app-qa/protocol/openid-connect/token'
+KEYCLOAK_LOGOUT_URL='https://oid.subdere.gob.cl/realms/app-qa/protocol/openid-connect/logout'
+KEYCLOAK_LOGOUT_URL='http://localhost:8000'

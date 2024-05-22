@@ -17,12 +17,14 @@ def countdown_component():
         }
 
     days_left = countdown.get_days_left()
+    days_until_start = countdown.get_days_until_start()
     total_days = countdown.get_total_days()
 
     today = datetime.now().date()
     days_since_start = (today - countdown.start_date).days
 
-    if total_days != 0:
+    # Calcula el porcentaje de días transcurridos
+    if total_days != 0 and days_left is not None:  # Evita la división por cero y cuando aún no ha iniciado
         progress_percentage = (days_since_start / float(total_days)) * 100
     else:
         progress_percentage = 0
@@ -30,6 +32,7 @@ def countdown_component():
     return {
         'end_date': countdown.end_date.strftime("%d/%m/%Y"),
         'days_left': days_left,
+        'days_until_start': days_until_start,
         'total_days': total_days,
-        'progress_percentage': int(progress_percentage),
+        'progress_percentage': int(progress_percentage),  # Se convierte a entero
     }
