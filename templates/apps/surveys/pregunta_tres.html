@@ -23,92 +23,36 @@
         {% endif %}
       </div>
       <div class="col-lg-10">
-        <p class="font-level-1  text-center my-3">Pregunta 3 de 5:</p>
+        <p class="font-level-1  text-center my-3">Pregunta 3 de 7:</p>
       </div>
+
       <div class='col-lg-9 my-2'>
-        <p class="font-level-4 text-justify">Te presentamos 5 de las iniciativas que podrían ser incluidas dentro
-          de la Política Nacional de Descentralización. </p>
-          <div class='contianer my-4 my-md-5'>
-        <lu>
-          <p class="font-level-6 text-justify">Ordénalas de mayor a menor importancia considerando
-            que:</p>
-          <li class=" font-level-6 ml-3 ">1 es la más importante</li>
-          <li class="font-level-6 ml-3">5 es la menos importante.</li>
-        </lu>
-        <p id="frase" class="font-level-6 my-4">Elige cuál enunciado ocupa el lugar:<br><strong class="font-level-2 mt-3 text-primary "> 1 de importancia.</strong></p>
+        <p class="font-level-4 text-justify">Pensando en el lugar donde usted vive, seleccione la institución que preferiría atienda los siguientes ámbitos. </p>
       </div>
-    </div>
-      <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center ">
-        <form method="post" action="{% url 'surveys_app:pregunta_tres' %}">
-          {% csrf_token %}
-          
-          <div class=" my-2 w-100">
-            <button type="button" class="iniciativa d-flex  w-100 flex-row justify-content-between "
-              id="iniciativa_1">
-              <div class="iniciativa-text  m-4 text-left">{{ form.iniciativa_1.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  text-primary  mx-3 text-right align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_1" id="valor_iniciativa_1" value="{{ form.iniciativa_1.value|default:''}}">
-          </div>
 
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa w-100  d-flex flex-row  justify-content-between "
-              id="iniciativa_2">
-              <div class="iniciativa-text  m-4 text-left">{{ form.iniciativa_2.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold justify-content-md-end mx-3 text-right align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_2" id="valor_iniciativa_2" value="{{ form.iniciativa_2.value|default:'' }}">
-          </div>
+      <div class="col-12 col-md-8 col-lg-9 mx-5 my-2 justify-content-center">
+        <form method="POST">
+            {% csrf_token %}
 
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa d-flex w-100 flex-row justify-content-between  "
-              id="iniciativa_3">
-              <div class="iniciativa-text  m-4 text-left">{{ form.iniciativa_3.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3 align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_3" id="valor_iniciativa_3" value="{{ form.iniciativa_3.value|default:'' }}">
-          </div>
-
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa  d-flex w-100 flex-row  justify-content-between "
-              id="iniciativa_4">
-              <div class="iniciativa-text m-4 text-left">{{ form.iniciativa_4.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3  justify-content-end align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_4" id="valor_iniciativa_4" value="{{ form.iniciativa_4.value|default:'' }}">
-          </div>
-          
-          <div class="my-2 w-100">
-            <button type="button" class="iniciativa  d-flex w-100 flex-row  justify-content-between "
-              id="iniciativa_5">
-              <div class="iniciativa-text m-4 text-left">{{ form.iniciativa_5.help_text }}</div>
-              <div class="iniciativa-check h1 text-font-weight-bold  mx-3  justify-content-end align-self-center">-</div>
-            </button>
-            <input type="hidden" name="iniciativa_5" id="valor_iniciativa_5" value="{{ form.iniciativa_5.value|default:'' }}">
-          </div>
-                  
-          <!-- Muestra errores del campo valor -->
-          {% if form.non_field_errors %}
-          <!-- Muestra el mensaje de error específico -->
-          <p>{{ form.non_field_errors }}</p>
-          {% endif %}
-
-          <!-- Botón para reiniciar selección -->
-          <div class="d-flex flex-column mt-4 mb-5 ">
-            <p id="frase-button" style="display: none;" class="font-level-6 font-weight-light">Si no estás conforme, puedes volver a ordenar los enunciados.</p>
-            <button type="button" id="reiniciar" class="btn btn-lg w-50 text-decoration-none" style="display: none;">
-              Limpiar ranking
-              <img class="ml-3" src="{% static 'img/trash.svg' %}" id='icon-trash' alt="Icon"/>
-            </button>
-          </div>
-            <div class="col-md-6 mx-md-auto px-0">
-            <p class="font-level-6 text-md-center font-weight-light ">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Inclusión de temáticas </strong></p>
-              <button type="submit" class="btn btn-primary btn-lg btn-block" id="next-button" disabled>Siguiente<i class="material-symbols-outlined px-3">
-                    arrow_forward_ios
-                </i></button>
+            {% for field in form %}
+            <div class="card h-50 w-100 border-primary mb-3 text-primary font-level-6 font-weight-light p-3">
+              <div class="mb-3">
+                {{ field.help_text }}
+              </div>
+              {{ field }}
+              {% if field.errors %}
+              <div class="alert text-danger">
+                {{ field.errors|striptags }}
+              </div>
+              {% endif %}
             </div>
-            </div>
+          {% endfor %}
 
+          <div class="col-md-6 mx-md-auto mt-4 px-0">
+            <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Tu opinión sobre Descentralización</strong></p>
+            <button type="submit"  class="btn btn-primary btn-lg btn-block mb-3" >Siguiente<i class="material-symbols-outlined px-3">
+                arrow_forward_ios
+            </i></button>
           </div>
 
         </form>
@@ -128,6 +72,7 @@
 {% block scripts %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
   $(document).ready(function() {
     // Identificar todos los enlaces del navbar y footer
@@ -140,104 +85,10 @@
       // Mostrar el modal
       $('#exitSurveyModal').modal('show');
     });
+    // Elimina la clase de required de bootstrapp
+    $('form select').removeAttr('required');
   });
 
-</script>
-<script>
-  $(document).ready(function ()
-  {
-    var prioridad = 1;
-    var seleccionados = {};
-
-    $('.iniciativa').on('click', function ()
-    {
-      var iniciativaId = $(this).attr('id');
-
-      if (!$(this).prop("disabled"))
-      {
-        // Marcamos la iniciativa como seleccionada
-        $(this).prop('disabled', true);
-
-        // Cambiamos el contenido del div de verificación
-        $(this).find('.iniciativa-check').text(prioridad);
-
-        // Guardamos la prioridad en un objeto
-        seleccionados[ iniciativaId ] = prioridad;
-
-        // Cambiamos el valor del campo oculto asociado
-        $('input[name=' + iniciativaId + ']').val(prioridad);
-
-        // Cambiamos el texto de la frase
-        prioridad++;
-        if (prioridad <= 5)
-        {
-          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
-          $('#next-button').prop('disabled', true);
-        }
-
-        // Mostramos el botón de reinicio si todas las iniciativas tienen una prioridad
-        if (Object.keys(seleccionados).length === 1)
-        {
-          $('#reiniciar').show();
-          $('#frase-button').show();
-        }
-      }
-      // Comprobar si todas las propuestas están seleccionadas
-        if(Object.keys(seleccionados).length === 5)
-      {
-          // Habilitar el botón 'Siguiente'
-          $('#next-button').prop('disabled', false);
-      }
-    });
-
-    $('#reiniciar').on('click', function ()
-    {
-      $('.iniciativa').prop('disabled', false);
-      $('.iniciativa-check').text('-');
-      $('input[name=iniciativa_1]').val('');
-      $('input[name=iniciativa_2]').val('');
-      $('input[name=iniciativa_3]').val('');
-      $('input[name=iniciativa_4]').val('');
-      $('input[name=iniciativa_5]').val('');
-      prioridad = 1;
-      seleccionados = {};
-      $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 text-primary mt-3 ">' + prioridad + ' de importancia.</strong> ');
-      $('#reiniciar').hide();
-      $('#frase-button').hide();
-
-      // Deshabilitar el botón 'Siguiente'
-      $('#next-button').prop('disabled', true);
-    });
-
-    // Función para establecer el estado inicial
-  function setInitialState(id, prioridad) {
-    // Si el valor es no nulo, establecemos la prioridad y desactivamos el botón
-    if (prioridad) {
-        $('#' + id).prop('disabled', true);
-        $('#' + id).find('.iniciativa-check').text(prioridad);
-        seleccionados[id] = prioridad;
-        prioridad++;
-        if (prioridad <= 5) {
-          $('#frase').html('Elige cuál enunciado ocupa el lugar :<br> <strong  class="font-level-2 ml-2 mt-3 text-primary">' + prioridad + ' de importancia.</strong> ');
-        }
-        if (Object.keys(seleccionados).length === 1) {
-          $('#reiniciar').show();
-          $('#frase-button').show();
-        }
-      }
-    }
-
-    // Llamamos a esta función para cada iniciativa
-    setInitialState('iniciativa_1', $('#valor_iniciativa_1').val());
-    setInitialState('iniciativa_2', $('#valor_iniciativa_2').val());
-    setInitialState('iniciativa_3', $('#valor_iniciativa_3').val());
-    setInitialState('iniciativa_4', $('#valor_iniciativa_4').val());
-    setInitialState('iniciativa_5', $('#valor_iniciativa_5').val());
-
-    // Deshabilitar el botón 'Siguiente'
-        $('#next-button').prop('disabled', false);
-
-  });
 </script>
 
 {% endblock scripts %}
