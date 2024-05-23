@@ -5,13 +5,15 @@ from .forms import (
     PreguntaTresForm,
     PreguntaCuatroForm,
     PreguntaCincoForm,
+    PreguntaSeisForm,
+    PreguntaSieteForm,
     DatosUsuarioForm,
     EnviarFormulariosForm
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.regioncomuna.models import Region, Comuna
 from applications.users.models import User
 from django.http import JsonResponse
@@ -330,6 +332,89 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
             context['valor_guardado'] = pregunta_cinco.texto_respuesta
         except PreguntaCinco.DoesNotExist:
+            context['valor_guardado'] = None
+
+        return context
+    
+
+class PreguntaSeisView(LoginRequiredMixin, FormView):
+    template_name = 'apps/surveys/pregunta_seis.html'
+    form_class = PreguntaSeisForm
+    model = PreguntaSeis
+    login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        usuario = self.request.user
+        try:
+            pregunta_seis = PreguntaSeis.objects.get(usuario=usuario)
+        except PreguntaSeis.DoesNotExist:
+            pregunta_seis = PreguntaSeis(usuario=usuario)
+        pregunta_seis.valor = form.cleaned_data.get('valor')
+        pregunta_seis.save()
+        return redirect('surveys_app:pregunta_dos')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usuario = self.request.user
+        try:
+            pregunta_seis = PreguntaSeis.objects.get(usuario=usuario)
+            context['valor_guardado'] = pregunta_seis.valor  # Esto obtendrá la clave, no la etiqueta.
+        except PreguntaSeis.DoesNotExist:
+            context['valor_guardado'] = None
+        return context
+    
+
+class PreguntaSieteView(LoginRequiredMixin, FormView):
+    template_name = 'apps/surveys/pregunta_siete.html'
+    form_class = PreguntaSieteForm
+    model = PreguntaSiete
+    login_url = 'users_app:user-login'  # URL de inicio de sesión
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+
+        if usuario.encuesta_completada:
+            return redirect('surveys_app:enviar_formularios')
+
+        try:
+            pregunta_siete = PreguntaSiete.objects.get(usuario=usuario)
+            form = self.form_class(initial={
+                'texto_respuesta': pregunta_siete.texto_respuesta,
+            })
+        except PreguntaSiete.DoesNotExist:
+            form = self.form_class()
+
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def form_valid(self, form):
+        usuario = self.request.user
+        try:
+            pregunta_siete = PreguntaSiete.objects.get(usuario=usuario)
+        except PreguntaSiete.DoesNotExist:
+            pregunta_siete = PreguntaSiete(usuario=usuario)
+        pregunta_siete.texto_respuesta = form.cleaned_data.get('texto_respuesta')
+        pregunta_siete.save()
+
+        usuario.encuesta_completada = True
+        usuario.save()
+
+        return redirect('surveys_app:enviar_formularios')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usuario = self.request.user
+        try:
+            pregunta_siete = PreguntaSiete.objects.get(usuario=usuario)
+            context['valor_guardado'] = pregunta_siete.texto_respuesta
+        except PreguntaSiete.DoesNotExist:
             context['valor_guardado'] = None
 
         return context

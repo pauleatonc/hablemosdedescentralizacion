@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 import random
 from collections import OrderedDict
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.users.models import User
 from applications.regioncomuna.models import Comuna, Region
 from django.utils.safestring import mark_safe
@@ -12,12 +12,13 @@ from django.utils.safestring import mark_safe
 class DatosUsuarioForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('comuna', 'genero', 'edad', 'pueblo_originario', 'politica_privacidad')
+        fields = ('comuna', 'genero', 'edad', 'pueblo_originario', 'familiaridad', 'politica_privacidad')
         labels = {
             'comuna': '¿En qué comuna vives?',
             'genero': '¿Con qué género te identificas?',
-            'edad': '¿Qué edad tienes?',
+            'edad': 'Ingresa tu rango de edad',
             'pueblo_originario': '¿Pertenece a algún pueblo originario?',
+            'familiaridad': '¿Se encuentra usted familiarizado con la temática de descentralización?',
             'politica_privacidad': 'Leí y acepto la Política de Privacidad.'
         }
         widgets = {
@@ -37,14 +38,22 @@ class DatosUsuarioForm(forms.ModelForm):
                     'style': 'font-level-5',
                 }
             ),
-            'edad': forms.NumberInput(
+            'edad': forms.Select(
                 attrs={
                     'required': False,
-                    'placeholder': 'Ingresa tu edad',
+                    'placeholder': 'Ingresa tu rango de edad',
                     'class': 'form-control border border-2 border-accent rounded text-muted'
                 }
             ),
             'pueblo_originario': forms.Select(
+                attrs={
+                    'required': False,
+                    'placeholder': "Elige una opción",
+                    'class': 'form-control border border-2 border-accent rounded text-muted',
+                    'style': 'font-level-5',
+                }
+            ),
+            'familiaridad': forms.Select(
                 attrs={
                     'required': False,
                     'placeholder': "Elige una opción",
@@ -69,6 +78,7 @@ class DatosUsuarioForm(forms.ModelForm):
         edad = cleaned_data.get('edad')
         pueblo_originario = cleaned_data.get('pueblo_originario')
         politica_privacidad = cleaned_data.get('politica_privacidad')
+        familiaridad = cleaned_data.get('familiaridad')
 
         if not comuna:
             self.add_error(
@@ -90,16 +100,11 @@ class DatosUsuarioForm(forms.ModelForm):
             self.add_error(
                 'politica_privacidad', 'Debes aceptar la Política de Privacidad antes de continuar.')
 
+        if not familiaridad:
+            self.add_error(
+                'familiaridad', 'Debes indicar tu familiaridad con la temática de descentralización.')
+                         
         return cleaned_data
-
-    def clean_edad(self):
-        edad = self.cleaned_data.get('edad')
-
-        if edad:
-            if edad < 14 or edad > 120:
-                raise forms.ValidationError('La edad debe estar entre 14 y 120 años.')
-
-        return edad
 
 
 class PreguntaUnoForm(forms.ModelForm):
@@ -131,35 +136,31 @@ class PreguntaDosForm(forms.ModelForm):
         model = PreguntaDos
         fields = ('propuesta_1', 'propuesta_2', 'propuesta_3', 'propuesta_4')
         widgets = {
-            'propuesta_1': forms.NumberInput(
+            'propuesta_1': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_1'
                 }
             ),
-            'propuesta_2': forms.NumberInput(
+            'propuesta_2': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_2'
                 }
             ),
-            'propuesta_3': forms.NumberInput(
+            'propuesta_3': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_3'
                 }
             ),
-            'propuesta_4': forms.NumberInput(
+            'propuesta_4': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta  ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_4'
                 }
             ),
@@ -200,7 +201,7 @@ class PreguntaTresForm(forms.ModelForm):
         model = PreguntaTres
         fields = ('iniciativa_1', 'iniciativa_2', 'iniciativa_3', 'iniciativa_4', 'iniciativa_5')
         widgets = {
-            'iniciativa_1': forms.NumberInput(
+            'iniciativa_1': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -208,7 +209,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_1'
                 }
             ),
-            'iniciativa_2': forms.NumberInput(
+            'iniciativa_2': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -216,7 +217,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_2'
                 }
             ),
-            'iniciativa_3': forms.NumberInput(
+            'iniciativa_3': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -224,7 +225,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_3'
                 }
             ),
-            'iniciativa_4': forms.NumberInput(
+            'iniciativa_4': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -232,7 +233,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_4'
                 }
             ),
-            'iniciativa_5': forms.NumberInput(
+            'iniciativa_5': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -349,6 +350,47 @@ class PreguntaCincoForm(forms.ModelForm):
             )
         }
 
+class PreguntaSeisForm(forms.ModelForm):
+
+    valor = forms.ChoiceField(choices=PreguntaSeis.VALORES, required=True)
+
+    class Meta:
+        model = PreguntaSeis
+        fields = ['valor']
+        widgets = {
+            'valor': forms.RadioSelect
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not self.data:
+            return cleaned_data
+
+        valor = cleaned_data.get('valor')
+        if not valor:
+            raise ValidationError(
+                'Debes elegir una opción antes de continuar.')
+        return cleaned_data
+    
+class PreguntaSieteForm(forms.ModelForm):
+    class Meta:
+        model = PreguntaSiete
+        fields = ('texto_respuesta',)
+        labels = {
+            'texto_respuesta': 'Escribe tu respuesta ',
+        }
+
+        widgets = {
+            'texto_respuesta': forms.Textarea(
+                attrs={
+                    'required': False,
+                    'placeholder': 'Texto de ejemplo.',
+                    'class': 'custom-input'
+                }
+            )
+        }
+    
 
 class EnviarFormulariosForm(forms.ModelForm):
     class Meta:

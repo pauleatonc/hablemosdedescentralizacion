@@ -10,31 +10,29 @@
 
       <div class="col-lg-9 d-flex justify-content-between my-2">
         <button type="radio" class=" btn btn-pill-primary text-primary text-nowrap active"
-          onclick="window.location.href='{% url 'surveys_app:consulta_datos_usuario' %}'"><i
+          onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'"><i
             class="material-symbols-outlined">
             chevron_left
           </i>
           Ir atrás</button>
-        {% if valor_guardado %}
           <button type="button" class="btn btn-pill-primary text-primary text-nowrap"
-            onclick="window.location.href='{% url 'surveys_app:pregunta_dos' %}'">Siguiente <i
+            onclick="window.location.href='{% url 'surveys_app:pregunta_siete' %}'">Siguiente <i
               class="material-symbols-outlined">
               chevron_right
             </i></button>
-        {% endif %}
       </div>
 
       <div class="col-lg-10">
-        <p class=" font-level-1  text-center my-3">Pregunta 1 de 7:</p>
+        <p class=" font-level-1  text-center my-3">Pregunta 6 de 7:</p>
 
-        <p class="font-level-5 text-justify mx-2 mx-md-5">¿Qué tan importante es para usted contar con una Política de Descentralización que permita
-          transferir poder, decisiones y recursos desde el gobierno central o nacional, a los gobiernos regionales
-          y municipalidades?</p>
+        <p class="font-level-5 text-justify mx-2 mx-md-5">Considerando que una Política de Descentralización de Chile contaría con una agenda de trabajo
+            con un plazo de implementación a 10 años, ¿con cuál de las siguientes alternativas usted está más de
+            acuerdo?</p>
         <p class="font-level-5 text-justify mx-2 mx-md-5">Seleccione una de las siguientes alternativas.</p>
       </div>
       <div class="col-12 col-md-6 col-lg-6 mx-5 my-2 justify-content-center">
 
-        <form id="pregunta-uno-form" method="post" action="{% url 'surveys_app:pregunta_uno' %}">
+        <form id="pregunta-seis-form" method="post" action="{% url 'surveys_app:pregunta_seis' %}">
           {% csrf_token %}
 
           <!-- Muestra input para el formulario -->

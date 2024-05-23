@@ -10,40 +10,32 @@
       </div>
       <div class="col-lg-9 d-flex justify-content-between my-2">
         <button type="button" class="btn btn-pill-primary  text-nowrap"
-          onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'"><i
+          onclick="window.location.href='{% url 'surveys_app:pregunta_seis' %}'"><i
             class="material-symbols-outlined">
             chevron_left
           </i>
           Ir atrás</button>
-          
-          <button type="button" class=" btn btn-pill-primary text-primary text-nowrap"
-            onclick="window.location.href='{% url 'surveys_app:pregunta_seis' %}'">Siguiente<i
-            class="material-symbols-outlined">
-            chevron_right
-            </i></button>
-          
       </div>
       <div class="col-lg-10">
-        <p class="font-level-1  text-center my-3">Pregunta 5 de 7:</p>
+        <p class="font-level-1  text-center my-3">Pregunta 7 de 7:</p>
       </div>
       <div class='col-lg-9 my-2 mx-1'>
-          <p class="font-level-5 mx-2">Para finalizar, a partir de las  respuestas dadas anteriormente:
-          </p>
-          <p class="font-level-5 text-justify mx-2">
-            ¿Qué tema, iniciativa o aspecto profundizarías o agregarías, considerando el vínculo entre descentralización y tu vida personal y en comunidad?<br>
+          <p class="font-level-5 mx-2">Para finalizar y considerando sus respuestas anteriores,</p>
+          <p class="font-level-5 text-justify mx-2 mb-4">
+            ¿qué temática o medida agregaría, para ser considerada en una Política de Descentralización de Chile?<br>
             <br>
-            Responder esta pregunta es opcional.
+            Esta pregunta es opcional.
           </p>
       </div>
       <div class="col-12 col-md-8 col-lg-9 mx-5 justify-content-center">
-        <form method="post" class="form col-12" action=" {% url 'surveys_app:pregunta_cinco' %}">
+        <form method="post" class="form col-12" action=" {% url 'surveys_app:pregunta_siete' %}">
           {% csrf_token %}
 
           <!-- Muestra input para el formulario -->
           <div class="form-group-textarea">
             {{ form.texto_respuesta.label_tag }}
             {{ form.texto_respuesta }}
-            <div style="text-align:right"><span id="message-word-count" style="color:gray">0 / 500 caracteres.</span>
+            <div style="text-align:right"><span id="message-word-count" style="color:gray">0 / 200 caracteres.</span>
             </div>
             {{ form.errors }}
           </div>
@@ -100,9 +92,9 @@
         const message = messageInput.value;
         const charCount = message.length;
 
-        charCountElement.textContent = `${charCount} / 500 caracteres.`;
+        charCountElement.textContent = `${charCount} / 200 caracteres.`;
 
-        if (charCount >= 500) {
+        if (charCount >= 200) {
             charCountElement.style.color = "red";
         } else {
             charCountElement.style.color = "gray";
