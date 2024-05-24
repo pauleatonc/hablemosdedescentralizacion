@@ -8,9 +8,8 @@ from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos,
 
 
 class HomePageView(NoticiasView,MultimediaView):
-    template_name = 'apps/home/home.html'   
-    
-    
+    template_name = 'apps/home/home.html'
+   
 
 class ProcesoParticipativoView(TemplateView):
     template_name = 'apps/home/proceso_participativo.html'
@@ -41,6 +40,17 @@ class PoliticasPrivacidadView(TemplateView):
 
 class OnboardingView(TemplateView):
     template_name = 'apps/home/onboarding.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        countdown = Countdown.objects.first()
+        if countdown is None:
+            context['is_active'] = False
+        else:
+            days_until_start = countdown.get_days_until_start()
+            days_left = countdown.get_days_left()
+            context['is_active'] = (days_until_start <= 0) and (days_left >= 0)
+        return context
 
 
 class DescentralizacionBienestarView(TemplateView):
