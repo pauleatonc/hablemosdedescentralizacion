@@ -4,14 +4,14 @@ from applications.home.models import Countdown  # Reemplaza con el camino a tu m
 
 register = template.Library()
 
-
-@register.inclusion_tag('components/countdown.html')
-def countdown_component():
+@register.inclusion_tag('components/countdown.html', takes_context=True)
+def countdown_component(context):
     countdown = Countdown.objects.first()
     if countdown is None:
         return {
             'end_date': 'No disponible',
             'days_left': 0,
+            'days_until_start': 0,
             'total_days': 0,
             'progress_percentage': 0,
         }
