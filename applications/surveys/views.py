@@ -303,9 +303,7 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
 
         try:
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
-            form = self.form_class(initial={
-                'texto_respuesta': pregunta_cinco.texto_respuesta,
-            })
+            form = self.form_class(instance=pregunta_cinco)
         except PreguntaCinco.DoesNotExist:
             form = self.form_class()
 
@@ -317,7 +315,8 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
         except PreguntaCinco.DoesNotExist:
             pregunta_cinco = PreguntaCinco(usuario=usuario)
-        pregunta_cinco.texto_respuesta = form.cleaned_data.get('texto_respuesta')
+        pregunta_cinco = form.save(commit=False)
+        pregunta_cinco.usuario = usuario
         pregunta_cinco.save()
 
         usuario.encuesta_completada = True
@@ -330,12 +329,11 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
         usuario = self.request.user
         try:
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
-            context['valor_guardado'] = pregunta_cinco.texto_respuesta
+            context['form'] = self.form_class(instance=pregunta_cinco, initial={'opciones': pregunta_cinco.opciones})
         except PreguntaCinco.DoesNotExist:
-            context['valor_guardado'] = None
-
+            context['form'] = self.form_class()
         return context
-    
+        
 
 class PreguntaSeisView(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/pregunta_seis.html'
@@ -478,7 +476,7 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
             'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
             'iniciativas_respuestas_pregunta_tres': iniciativas_respuestas_pregunta_tres,
             'pregunta_cuatro': pregunta_cuatro_list,
-            'respuesta_cinco': pregunta_cinco.texto_respuesta,
+            'respuesta_cinco': pregunta_cinco.opciones,
         }
 
         # Renderizar la plantilla con el contexto y obtener una cadena HTML
@@ -540,7 +538,7 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
                 'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
                 'iniciativas_respuestas_pregunta_tres': iniciativas_respuestas_pregunta_tres,
                 'pregunta_cuatro': pregunta_cuatro_list,
-                'respuesta_cinco': pregunta_cinco.texto_respuesta,
+                'respuesta_cinco': pregunta_cinco.opciones,
             }
 
         return context

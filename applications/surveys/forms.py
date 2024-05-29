@@ -333,22 +333,18 @@ class PreguntaCuatroForm(forms.ModelForm):
 
 
 class PreguntaCincoForm(forms.ModelForm):
+    opciones = forms.MultipleChoiceField(choices=PreguntaCinco.OPCIONES, widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = PreguntaCinco
-        fields = ('texto_respuesta',)
-        labels = {
-            'texto_respuesta': 'Escribe tu respuesta ',
-        }
+        fields = ['opciones']
 
-        widgets = {
-            'texto_respuesta': forms.Textarea(
-                attrs={
-                    'required': False,
-                    'placeholder': 'Texto de ejemplo.',
-                    'class': 'custom-input'
-                }
-            )
-        }
+    def clean_opciones(self):
+        opciones_elegidas = self.cleaned_data.get('opciones')
+        print("Opciones seleccionadas:", opciones_elegidas)
+        if len(opciones_elegidas) != 3:
+            raise ValidationError('Debes seleccionar tres opciones.')
+        return opciones_elegidas
+
 
 class PreguntaSeisForm(forms.ModelForm):
 
