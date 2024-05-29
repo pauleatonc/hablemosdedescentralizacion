@@ -313,16 +313,17 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
         usuario = self.request.user
         try:
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+            # Actualizar el objeto pregunta_cinco con los datos del formulario
+            pregunta_cinco.opciones = form.cleaned_data.get('opciones')
         except PreguntaCinco.DoesNotExist:
-            pregunta_cinco = PreguntaCinco(usuario=usuario)
-        pregunta_cinco = form.save(commit=False)
-        pregunta_cinco.usuario = usuario
+            pregunta_cinco = PreguntaCinco(usuario=usuario, opciones=form.cleaned_data.get('opciones'))
+        
         pregunta_cinco.save()
 
         usuario.encuesta_completada = True
         usuario.save()
 
-        return redirect('surveys_app:enviar_formularios')
+        return redirect('surveys_app:pregunta_seis')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -357,7 +358,7 @@ class PreguntaSeisView(LoginRequiredMixin, FormView):
             pregunta_seis = PreguntaSeis(usuario=usuario)
         pregunta_seis.valor = form.cleaned_data.get('valor')
         pregunta_seis.save()
-        return redirect('surveys_app:pregunta_dos')
+        return redirect('surveys_app:pregunta_siete')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
