@@ -42,7 +42,7 @@
               <div class="d-flex">
                   <button class="btn-question px-0 btn-lg my-3 w-100 {% if valor_guardado == choice.0 %}selected active{% endif %}"
                       type="button" id="valor" value="{{ choice.0 }}"
-                      onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'; toggleImage(this);">
+                      onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'">
                       {{ choice.1 }}
                       <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" 
                         id="img_{{ choice.0 }}"
