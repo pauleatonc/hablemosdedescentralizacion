@@ -21,7 +21,7 @@ class PreguntaCuatroAdmin(admin.ModelAdmin):
 
 @admin.register(PreguntaCinco)
 class PreguntaCincoAdmin(admin.ModelAdmin):
-    list_display = ['texto_respuesta']
+    list_display = ['opciones']
 
 @admin.register(PreguntaSeis)
 class PreguntaSeisAdmin(admin.ModelAdmin):
