@@ -9,79 +9,65 @@
         {% include "components/desentralizacion_banner.html" %}
       </div>
       <div class="col-lg-9 d-flex justify-content-between my-2">
-        <button type="button" class="btn btn-pill-primary  text-nowrap"
-          onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'"><i
-            class="material-symbols-outlined">
-            chevron_left
-          </i>
-          Ir atrás</button>
-          
-          <button type="button" class=" btn btn-pill-primary text-primary text-nowrap"
-            onclick="window.location.href='{% url 'surveys_app:pregunta_seis' %}'">Siguiente<i
-            class="material-symbols-outlined">
-            chevron_right
-            </i></button>
-          
+        <button type="button" class="btn btn-pill-primary text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'">
+          <i class="material-symbols-outlined">chevron_left</i>
+          Ir atrás
+        </button>
+        <button type="button" class="btn btn-pill-primary text-primary text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_seis' %}'">
+          Siguiente<i class="material-symbols-outlined">chevron_right</i>
+        </button>
       </div>
 
       <div class="col-lg-10">
-        <p class="font-level-1  text-center my-3">Pregunta 5 de 7:</p>
+        <p class="font-level-1 text-center my-3">Pregunta 5 de 7:</p>
       </div>
       <div class='col-lg-9 my-2 mx-1'>
-          <p class="font-level-5 mx-2">Para usted ¿cuáles de las siguientes medidas preferiría que fuesen implementadas por una Política
-            de Descentralización de Chile? Marcar tres alternativas.
-          </p>
-          
+        <p class="font-level-5 mx-2">Para usted ¿cuáles de las siguientes medidas preferiría que fuesen implementadas por una Política de Descentralización de Chile? Marcar tres alternativas.</p>
       </div>
       <div class="col-12 col-md-8 col-lg-9 mx-5 justify-content-center">
-        <form method="post" class="form col-12" action=" {% url 'surveys_app:pregunta_cinco' %}">
+        <form method="post" class="form col-12" action="{% url 'surveys_app:pregunta_cinco' %}" onsubmit="return validateForm()">
           {% csrf_token %}
-
-          <!-- Muestra input para el formulario -->
-          {% for choice in form.opciones.field.choices %}
-              <div class="d-flex">
-                  <button class="btn-question px-0 btn-lg my-3 w-100 {% if valor_guardado == choice.0 %}selected active{% endif %}"
-                      type="button" id="valor" value="{{ choice.0 }}"
-                      onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'">
-                      {{ choice.1 }}
-                      <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" 
-                        id="img_{{ choice.0 }}"
-                        {% if choice.0 in form.initial.opciones %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
-                  </button>
-              </div>
+          
+          {% for choice in opciones %}
+            <div class="d-flex">
+              <button class="font-weight-light text-primary font-level-5 px-0 btn-lg my-3 w-100
+                {% if choice.id in initial_opciones %}selected active{% endif %}"
+                type="button" value="{{ choice.id }}" style="background-color: white;"
+                onclick="toggleSelection(this)">
+                {{ choice.texto }}
+                <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" 
+                  id="img_{{ choice.id }}"
+                  {% if choice.id in initial_opciones %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
+              </button>
+            </div>
           {% endfor %}
+
+          <!-- Campo oculto para almacenar los valores seleccionados -->
+          <input type="hidden" id="id_opciones" name="opciones" value="{{ initial_opciones|join:',' }}">
 
           <!-- Muestra errores del campo valor -->
           {% if form.non_field_errors %}
-          <!-- Muestra el mensaje de error específico -->
-          <p>{{ form.non_field_errors }}</p>
+            <p>{{ form.non_field_errors }}</p>
           {% endif %}
-
-          <!-- Campo oculto para almacenar el valor seleccionado -->
-          <input type="hidden" id="id_valor" name="valor" value="{{ valor_guardado }}">
-
-
-
 
           <!-- Botón para el envío del formulario completo -->
           <div class="col-md-9 mx-md-auto my-4 px-0">
             <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:
               <br><strong class="font-level-6">Tu opinión sobre la Descentralización</strong>
             </p>
-            <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">Siguiente <i class="material-symbols-outlined px-3">
-                arrow_forward_ios
-              </i></button>
+            <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">
+              Siguiente <i class="material-symbols-outlined px-3">arrow_forward_ios</i>
+            </button>
           </div>
-
-
         </form>
       </div>
-      
     </div>
   </div>
 </section>
 <div class="my-3 col-md-12 mw-100 mx-0 px-0">
-{% include "components/logo_banner.html" %}
+  {% include "components/logo_banner.html" %}
 </div>
 
 {% include "components/modal_salida_encuesta.html" %}
@@ -97,42 +83,47 @@
     // Identificar todos los enlaces del navbar y footer
     $('nav a, footer a').on('click', function(e) {
       e.preventDefault();
-
       // Guardar el href del enlace en el botón de confirmación del modal
       $('#confirmExitButton').attr('href', $(this).attr('href'));
-
       // Mostrar el modal
       $('#exitSurveyModal').modal('show');
     });
   });
-</script>
 
-<script>
-  document.querySelectorAll('#valor').forEach(function (element) {
-    element.addEventListener('click', function (event) {
-      let selectedButtons = document.querySelectorAll('.selected');
-      // Verifica si ya hay tres opciones seleccionadas
-      if (selectedButtons.length >= 3 && !event.target.classList.contains('selected')) {
-        // Si ya hay tres opciones seleccionadas y se hace clic en una no seleccionada,
-        // deselecciona la primera opción seleccionada
-        let firstSelectedButton = selectedButtons[0];
-        firstSelectedButton.classList.remove('selected');
-        firstSelectedButton.classList.remove('active');
-        let firstImageId = "img_" + firstSelectedButton.value;
-        let firstImage = document.getElementById(firstImageId);
-        firstImage.style.display = "none";
-      }
-      // Cambia el estado de selección del botón clicado
-      event.target.classList.toggle('selected');
-      event.target.classList.toggle('active'); // Agrega o elimina la clase 'active'
-      let imageId = "img_" + event.target.value;
-      let image = document.getElementById(imageId);
-      image.style.display = event.target.classList.contains('selected') ? "inline-block" : "none";
-      // Actualiza el valor del campo oculto
-      document.getElementById('id_valor').value = [...document.querySelectorAll('.selected')].map(btn => btn.value).join(',');
-    });
-  });
-</script>
+  function toggleSelection(button) {
+    let selectedButtons = document.querySelectorAll('.selected');
+    // Verifica si ya hay tres opciones seleccionadas
+    if (selectedButtons.length >= 3 && !button.classList.contains('selected')) {
+      // Si ya hay tres opciones seleccionadas y se hace clic en una no seleccionada,
+      // deselecciona la primera opción seleccionada
+      let firstSelectedButton = selectedButtons[0];
+      firstSelectedButton.classList.remove('selected');
+      firstSelectedButton.classList.remove('active');
+      let firstImageId = "img_" + firstSelectedButton.value;
+      let firstImage = document.getElementById(firstImageId);
+      firstImage.style.display = "none";
+    }
+    // Cambia el estado de selección del botón clicado
+    button.classList.toggle('selected');
+    button.classList.toggle('active'); // Agrega o elimina la clase 'active'
+    let imageId = "img_" + button.value;
+    let image = document.getElementById(imageId);
+    image.style.display = button.classList.contains('selected') ? "inline-block" : "none";
+    
+    // Actualiza el valor del campo oculto
+    let selectedValues = [...document.querySelectorAll('.selected')].map(btn => btn.value).join(',');
+    document.getElementById('id_opciones').value = selectedValues;
+    console.log("Selected values:", selectedValues);  // Debug statement
+  }
 
+  function validateForm() {
+    let selectedValues = document.getElementById('id_opciones').value;
+    if (selectedValues.split(',').length !== 3) {
+      alert("Debe seleccionar exactamente tres opciones.");
+      return false;
+    }
+    return true;
+  }
+</script>
 
 {% endblock scripts %}

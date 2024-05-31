@@ -13,7 +13,7 @@ from .forms import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, OpcionesPreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.regioncomuna.models import Region, Comuna
 from applications.users.models import User
 from django.http import JsonResponse
@@ -304,37 +304,61 @@ class PreguntaCincoView(LoginRequiredMixin, FormView):
         try:
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
             form = self.form_class(instance=pregunta_cinco)
+            initial_opciones = list(pregunta_cinco.opciones.values_list('id', flat=True))
         except PreguntaCinco.DoesNotExist:
             form = self.form_class()
+            initial_opciones = []
 
-        return self.render_to_response(self.get_context_data(form=form))
+        opciones = OpcionesPreguntaCinco.objects.all()
+        return self.render_to_response(self.get_context_data(form=form, opciones=opciones, initial_opciones=initial_opciones))
+
+    def post(self, request, *args, **kwargs):
+        usuario = self.request.user
+        
+        # Transformar 'opciones' en una lista de IDs
+        post_data = request.POST.copy()
+        if 'opciones' in post_data:
+            post_data.setlist('opciones', post_data['opciones'].split(','))
+
+        form = self.form_class(post_data)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
     def form_valid(self, form):
         usuario = self.request.user
-        try:
-            pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
-            # Actualizar el objeto pregunta_cinco con los datos del formulario
-            pregunta_cinco.opciones = form.cleaned_data.get('opciones')
-        except PreguntaCinco.DoesNotExist:
-            pregunta_cinco = PreguntaCinco(usuario=usuario, opciones=form.cleaned_data.get('opciones'))
+
+        # Get or create the PreguntaCinco instance
+        pregunta_cinco, created = PreguntaCinco.objects.get_or_create(usuario=usuario)
+
+        # Set the selected options
+        opciones_seleccionadas = form.cleaned_data['opciones']
         
+        pregunta_cinco.opciones.set(opciones_seleccionadas)
         pregunta_cinco.save()
 
-        usuario.encuesta_completada = True
         usuario.save()
 
         return redirect('surveys_app:pregunta_seis')
+
+    def form_invalid(self, form):
+        print("Form is invalid.")
+        print(form.errors)
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         usuario = self.request.user
         try:
             pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
-            context['form'] = self.form_class(instance=pregunta_cinco, initial={'opciones': pregunta_cinco.opciones})
+            context['form'] = self.form_class(instance=pregunta_cinco)
         except PreguntaCinco.DoesNotExist:
             context['form'] = self.form_class()
+        context['opciones'] = OpcionesPreguntaCinco.objects.all()
+        context['initial_opciones'] = kwargs.get('initial_opciones', [])
         return context
-        
+
 
 class PreguntaSeisView(LoginRequiredMixin, FormView):
     template_name = 'apps/surveys/pregunta_seis.html'

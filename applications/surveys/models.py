@@ -106,31 +106,21 @@ class PreguntaCuatro(models.Model):
         unique_together = ('usuario',)
 
 
-class PreguntaCinco(models.Model):
-    OPCIONES = (
-        (1, 'Institucionalizar una instancia de coordinación de los distintos niveles de gobierno (nacional, regional y comunal), a objeto de establecer de forma conjunta acciones estratégicas y de colaboración para el desarrollo de los territorios.'),
-        (2, 'Exigir la presentación de programas de campaña para las candidaturas de alcalde o alcaldesa.'),
-        (3, 'Impedir las candidaturas de gobernadores/as regionales y de alcaldes/as que se encuentren formalizados por casos de corrupción u otro tipo de delitos.'),
-        (4, 'Orientar la distribución de competencias o atribuciones para cada nivel de gobierno (nacional, regional y local), distinguiendo las responsabilidades de cada uno.'),
-        (5, 'Robustecer las finanzas de los gobiernos regionales y municipalidades, posibilitando nuevos ingresos con regulación de gastos.'),
-        (6, 'Incorporar mecanismos de control y rendición de cuentas de los recursos que administran los gobiernos regionales y municipalidades.'),
-        (7, 'Fomentar la atracción y retención de técnicos y profesionales para que trabajen en comunas de menores recursos, mediante la difusión y/o creación de normas y programas públicos específicos.'),
-        (8, 'No sabría responder'),
-        
-    )
+class OpcionesPreguntaCinco(models.Model):
+    clave = models.CharField(max_length=2)
+    texto = models.TextField()
 
-    opciones = models.CharField(max_length=2000, choices=OPCIONES, verbose_name='Selecciona tres opciones')
+    def __str__(self):
+        return self.texto
+    
+
+class PreguntaCinco(models.Model):
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    opciones = models.ManyToManyField(OpcionesPreguntaCinco, verbose_name='Selecciona tres opciones')
 
     class Meta:
         verbose_name = 'Pregunta 5: Para usted ¿cuáles de las siguientes medidas preferiría que fuesen implementadas por una Política de Descentralización de Chile? Marcar tres alternativas.'
         unique_together = ('usuario',)
-
-    def clean(self):
-        opciones_elegidas = self.opciones.split(',') if self.opciones else []
-        if len(opciones_elegidas) != 3:
-            raise ValidationError('Debes seleccionar exactamente tres opciones.')
-
 
 
 class PreguntaSeis(models.Model):
