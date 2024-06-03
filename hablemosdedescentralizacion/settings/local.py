@@ -19,6 +19,7 @@ ALLOWED_HOSTS = [
     'http://qahablemosdedescentralizacion.subdere.gob.cl',
     'http://www.qahablemosdedescentralizacion.subdere.gob.cl',
     'http://127.0.0.1:8000/',
+    '127.0.0.1',
     'http://localhost:8000/',
     'localhost'
 ]

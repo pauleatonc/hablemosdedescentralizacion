@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete, OpcionesPreguntaCinco
+
 
 
 @admin.register(PreguntaUno)
@@ -21,7 +22,11 @@ class PreguntaCuatroAdmin(admin.ModelAdmin):
 
 @admin.register(PreguntaCinco)
 class PreguntaCincoAdmin(admin.ModelAdmin):
-    list_display = ['opciones']
+    list_display = ['usuario', 'get_opciones']
+
+    def get_opciones(self, obj):
+        return ", ".join([opcion.texto for opcion in obj.opciones.all()])
+    get_opciones.short_description = 'Opciones Seleccionadas'
 
 @admin.register(PreguntaSeis)
 class PreguntaSeisAdmin(admin.ModelAdmin):
@@ -30,3 +35,7 @@ class PreguntaSeisAdmin(admin.ModelAdmin):
 @admin.register(PreguntaSiete)
 class PreguntaCSieteAdmin(admin.ModelAdmin):
     list_display = ['texto_respuesta']
+
+@admin.register(OpcionesPreguntaCinco)
+class OpcionesPreguntaCincoAdmin(admin.ModelAdmin):
+    list_display = ['clave', 'texto']

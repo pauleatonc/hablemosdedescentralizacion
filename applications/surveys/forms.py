@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 import random
 from collections import OrderedDict
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, OpcionesPreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.users.models import User
 from applications.regioncomuna.models import Comuna, Region
 from django.utils.safestring import mark_safe
@@ -333,18 +333,24 @@ class PreguntaCuatroForm(forms.ModelForm):
 
 
 class PreguntaCincoForm(forms.ModelForm):
-    opciones = forms.MultipleChoiceField(choices=PreguntaCinco.OPCIONES, widget=forms.CheckboxSelectMultiple)
+    opciones = forms.ModelMultipleChoiceField(
+        queryset=OpcionesPreguntaCinco.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+        error_messages={'required': 'Debes seleccionar exactamente tres opciones.'}
+    )
+
     class Meta:
         model = PreguntaCinco
         fields = ['opciones']
 
     def clean_opciones(self):
-        opciones_elegidas = self.cleaned_data.get('opciones')
-        print("Opciones seleccionadas:", opciones_elegidas)
-        if len(opciones_elegidas) != 3:
-            raise ValidationError('Debes seleccionar tres opciones.')
-        return opciones_elegidas
-
+        opciones = self.cleaned_data.get('opciones')
+        print("Cleaned data for opciones:", opciones)
+        if len(opciones) != 3:
+            raise forms.ValidationError('Debes seleccionar exactamente tres opciones.')
+        return opciones
+    
 
 class PreguntaSeisForm(forms.ModelForm):
 
