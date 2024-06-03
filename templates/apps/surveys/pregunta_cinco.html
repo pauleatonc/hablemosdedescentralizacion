@@ -32,7 +32,7 @@
           
           {% for choice in opciones %}
             <div class="d-flex">
-              <button class="font-weight-light text-primary font-level-5 px-0 btn-lg my-3 w-100
+              <button class="btn-question font-weight-light text-primary font-level-5 px-0 btn-lg my-3 w-100
                 {% if choice.id in initial_opciones %}selected active{% endif %}"
                 type="button" value="{{ choice.id }}" style="background-color: white;"
                 onclick="toggleSelection(this)">
