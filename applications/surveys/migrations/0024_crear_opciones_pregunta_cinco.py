@@ -5,14 +5,14 @@ from django.db import migrations
 def create_opciones(apps, schema_editor):
     OpcionesPreguntaCinco = apps.get_model('surveys', 'OpcionesPreguntaCinco')
     opciones = [
-        ('1', 'Institucionalizar una instancia de coordinación de los distintos niveles de gobierno (nacional, regional y comunal), a objeto de establecer de forma conjunta acciones estratégicas y de colaboración para el desarrollo de los territorios.'),
-        ('2', 'Exigir la presentación de programas de campaña para las candidaturas de alcalde o alcaldesa.'),
-        ('3', 'Impedir las candidaturas de gobernadores/as regionales y de alcaldes/as que se encuentren formalizados por casos de corrupción u otro tipo de delitos.'),
-        ('4', 'Orientar la distribución de competencias o atribuciones para cada nivel de gobierno (nacional, regional y local), distinguiendo las responsabilidades de cada uno.'),
-        ('5', 'Robustecer las finanzas de los gobiernos regionales y municipalidades, posibilitando nuevos ingresos con regulación de gastos.'),
-        ('6', 'Incorporar mecanismos de control y rendición de cuentas de los recursos que administran los gobiernos regionales y municipalidades.'),
-        ('7', 'Fomentar la atracción y retención de técnicos y profesionales para que trabajen en comunas de menores recursos, mediante la difusión y/o creación de normas y programas públicos específicos.'),
-        ('8', 'No sabría responder'),
+        ('1', '<strong>Institucionalizar una instancia de coordinación</strong> de los distintos niveles de gobierno (nacional, regional y comunal), a objeto de establecer de forma conjunta acciones estratégicas y de colaboración para el desarrollo de los territorios.'),
+        ('2', '<strong>Exigir la presentación de programas</strong> de campaña para las candidaturas de alcalde o alcaldesa.'),
+        ('3', '<strong>Impedir las candidaturas</strong> de gobernadores/as regionales y de alcaldes/as que se encuentren <strong>formalizados por casos de corrupción u otro tipo de delitos.</strong>'),
+        ('4', '<strong>Orientar la distribución de competencias o atribuciones para cada nivel de gobierno (nacional, regional y local), distinguiendo las responsabilidades de cada uno.'),
+        ('5', '<strong>Robustecer las finanzas de los gobiernos regionales y municipalidades,</strong> posibilitando nuevos ingresos con regulación de gastos.'),
+        ('6', '<strong>Incorporar mecanismos de control y rendición de cuentas</strong> de los recursos que administran los gobiernos regionales y municipalidades.'),
+        ('7', '<strong>Fomentar la atracción y retención de técnicos y profesionales</strong> para que trabajen en comunas de menores recursos, mediante la difusión y/o creación de normas y programas públicos específicos.'),
+        ('8', 'No sabe / No responde'),
     ]
 
     for clave, texto in opciones:
