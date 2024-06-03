@@ -32,11 +32,11 @@
           
           {% for choice in opciones %}
             <div class="d-flex">
-              <button class="btn-question font-weight-light text-primary font-level-5 px-0 btn-lg my-3 w-100
+              <button class="btn-option text-primary font-level-5 px-0 btn-lg my-3 w-100
                 {% if choice.id in initial_opciones %}selected active{% endif %}"
                 type="button" value="{{ choice.id }}" style="background-color: white;"
                 onclick="toggleSelection(this)">
-                {{ choice.texto }}
+                {{ choice.texto|safe }}
                 <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" 
                   id="img_{{ choice.id }}"
                   {% if choice.id in initial_opciones %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
