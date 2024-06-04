@@ -7,6 +7,7 @@ from django.conf import settings
 from jose import jwt
 import requests
 
+
 def get_keycloak_config():
     return {
         'server_url': settings.KEYCLOAK_AUTH_SERVER_URL,
@@ -16,14 +17,16 @@ def get_keycloak_config():
         'verify': True
     }
 
+
 def create_keycloak_client(config):
     return KeycloakOpenID(
         server_url=config['server_url'],
         client_id=config['client_id'],
         realm_name=config['realm_name'],
         client_secret_key=config['client_secret'],
-        verify=config['verify']        
+        verify=config['verify']
     )
+
 
 def get_jwks_uri(server_url, realm_name):
     well_known_url = f"{server_url}/realms/{realm_name}/.well-known/openid-configuration"
@@ -34,11 +37,13 @@ def get_jwks_uri(server_url, realm_name):
     else:
         raise Exception("Failed to load OIDC configuration")
 
+
 def keycloak_login(request):
     config = get_keycloak_config()
     client = create_keycloak_client(config)
     auth_url = client.auth_url(redirect_uri=settings.KEYCLOAK_REDIRECT_URI, scope='openid claveUnica')
     return redirect(auth_url)
+
 
 def keycloak_callback(request):
     config = get_keycloak_config()
@@ -49,7 +54,7 @@ def keycloak_callback(request):
     print("client: ", client)
     if not code:
         return JsonResponse({'error': 'No authorization code provided'}, status=400)
-    
+
     try:
         redirect_uri = settings.KEYCLOAK_REDIRECT_URI
         token_response = client.token(grant_type='authorization_code', code=code, redirect_uri=redirect_uri)
@@ -75,7 +80,7 @@ def keycloak_callback(request):
                 print("Decoded JWT payload:", payload)
             except jwt.JWTError as e:
                 print("JWT Error:", e)
-        
+
             # Extraer información del payload
             rut_numero = payload.get("rut_numero")
             rut_dv = payload.get("rut_dv")
@@ -96,7 +101,8 @@ def keycloak_callback(request):
     except Exception as e:
         print("Error details:", e)
         return JsonResponse({'error': str(e)}, status=500)
-    
+
+
 def keycloak_logout(request):
     print("entra al método logout")
     keycloak_config = get_keycloak_config()
@@ -109,7 +115,8 @@ def keycloak_logout(request):
 
     client_id = keycloak_config['client_id']
     client_secret = keycloak_config['client_secret']
-    logout_url = keycloak_config['server_url'] + '/realms/' + keycloak_config['realm_name'] + '/protocol/openid-connect/logout'
+    logout_url = keycloak_config['server_url'] + '/realms/' + keycloak_config[
+        'realm_name'] + '/protocol/openid-connect/logout'
 
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
