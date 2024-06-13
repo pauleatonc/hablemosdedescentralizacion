@@ -59,8 +59,8 @@ RECAPTCHA_PUBLIC_KEY = '6LemsJgmAAAAAJj8noe-1FWZgl0ltkX5SeGgBa0h'
 RECAPTCHA_PRIVATE_KEY = '6LemsJgmAAAAAG8rwzcmMJVPx1t8VLpT86vWju-i'
 
 # SENDGRID SETTINGS
-SENDGRID_API_KEY = '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'
-ADMIN_EMAIL = 'jhearquitecto@gmail.com'
+SENDGRID_API_KEY = ''
+ADMIN_EMAIL = ''
 NOREPLY_EMAIL = ['noreply@bancoproyectos.subdere.gob.cl']
 
 #Clave Única

@@ -91,6 +91,9 @@ class PreguntaCinco(models.Model):
         verbose_name = 'Pregunta 5: Para usted ¿cuáles de las siguientes medidas preferiría que fuesen implementadas por una Política de Descentralización de Chile? Marcar tres alternativas.'
         unique_together = ('usuario',)
 
+    def get_opciones_texto(self):
+        return [opcion.texto for opcion in self.opciones.all()]
+
 
 class PreguntaSeis(models.Model):
     VALORES = (

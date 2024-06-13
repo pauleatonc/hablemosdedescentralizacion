@@ -472,29 +472,35 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
         pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
         pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+        pregunta_seis = PreguntaSeis.objects.get(usuario=usuario)
+        pregunta_siete = PreguntaSiete.objects.get(usuario=usuario)
 
+        pregunta_dos_list = []
+        for field in pregunta_dos._meta.fields:
+            if field.name.startswith('propuesta_'):
+                pregunta_dos_list.append(
+                    (field.help_text, getattr(pregunta_dos, f'get_{field.name}_display')()))
 
-        propuestas_respuestas_pregunta_dos = [
-            (pregunta_dos._meta.get_field('propuesta_1').help_text, pregunta_dos.propuesta_1),
-            (pregunta_dos._meta.get_field('propuesta_2').help_text, pregunta_dos.propuesta_2),
-            (pregunta_dos._meta.get_field('propuesta_3').help_text, pregunta_dos.propuesta_3),
-            (pregunta_dos._meta.get_field('propuesta_4').help_text, pregunta_dos.propuesta_4),
-        ]
+        pregunta_tres_list = []
+        for field in pregunta_tres._meta.fields:
+            if field.name.startswith('iniciativa_'):
+                pregunta_tres_list.append(
+                    (field.help_text, getattr(pregunta_tres, f'get_{field.name}_display')()))
 
-        iniciativas_respuestas_pregunta_tres = [
-            (pregunta_tres._meta.get_field('iniciativa_1').help_text, pregunta_tres.iniciativa_1),
-            (pregunta_tres._meta.get_field('iniciativa_2').help_text, pregunta_tres.iniciativa_2),
-            (pregunta_tres._meta.get_field('iniciativa_3').help_text, pregunta_tres.iniciativa_3),
-            (pregunta_tres._meta.get_field('iniciativa_4').help_text, pregunta_tres.iniciativa_4),
-            (pregunta_tres._meta.get_field('iniciativa_5').help_text, pregunta_tres.iniciativa_5),
-        ]
+        # pregunta_cuatro_list = []
+        # for field in pregunta_cuatro._meta.fields:
+        #     if field.name.startswith('tematica_'):
+        #         pregunta_cuatro_list.append(
+        #             (field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
 
         context = {
             'respuesta_uno': pregunta_uno.get_valor_display(),
-            'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
-            'iniciativas_respuestas_pregunta_tres': iniciativas_respuestas_pregunta_tres,
+            'pregunta_dos': pregunta_dos_list,
+            'pregunta_tres': pregunta_tres_list,
             # 'pregunta_cuatro': pregunta_cuatro_list,
-            'respuesta_cinco': pregunta_cinco.opciones,
+            'pregunta_cinco': pregunta_cinco.get_opciones_texto(),
+            'respuesta_seis': pregunta_seis.get_valor_display(),
+            'respuesta_siete': pregunta_siete.texto_respuesta,
         }
 
         # Renderizar la plantilla con el contexto y obtener una cadena HTML
@@ -504,14 +510,10 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
 
         # Enviar el correo electrónico con los datos del formulario
         send_email(
-            # Subject
-            'Resultados de la encuesta - Banco de Proyectos',
-            # Content
-            content,
-            # From email
-            admin_email,
-            # To emails
-            [email]
+            'Resultados de la encuesta - Banco de Proyectos',  # Asunto
+            content,  # Contenido HTML
+            admin_email,  # Email del remitente
+            [email]  # Email del destinatario
         )
 
         return super().form_valid(form)
@@ -521,7 +523,6 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
     template_name = 'apps/surveys/resumen_respuestas_usuario.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
         usuario = self.request.user
 
         pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
@@ -529,34 +530,35 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
         pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
         # pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
+        pregunta_seis = PreguntaSeis.objects.get(usuario=usuario)
+        pregunta_siete = PreguntaSiete.objects.get(usuario=usuario)
 
-        # pregunta_cuatro_dict = model_to_dict(pregunta_cuatro)
+        pregunta_dos_list = []
+        for field in pregunta_dos._meta.fields:
+            if field.name.startswith('propuesta_'):
+                pregunta_dos_list.append(
+                    (field.help_text, getattr(pregunta_dos, f'get_{field.name}_display')()))
+
+        pregunta_tres_list = []
+        for field in pregunta_tres._meta.fields:
+            if field.name.startswith('iniciativa_'):
+                pregunta_tres_list.append(
+                    (field.help_text, getattr(pregunta_tres, f'get_{field.name}_display')()))
+
         # pregunta_cuatro_list = []
         # for field in pregunta_cuatro._meta.fields:
         #     if field.name.startswith('tematica_'):
         #         pregunta_cuatro_list.append((field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
 
-        propuestas_respuestas_pregunta_dos = [
-            (pregunta_dos._meta.get_field('propuesta_1').help_text, pregunta_dos.propuesta_1),
-            (pregunta_dos._meta.get_field('propuesta_2').help_text, pregunta_dos.propuesta_2),
-            (pregunta_dos._meta.get_field('propuesta_3').help_text, pregunta_dos.propuesta_3),
-            (pregunta_dos._meta.get_field('propuesta_4').help_text, pregunta_dos.propuesta_4),
-        ]
-
-        iniciativas_respuestas_pregunta_tres = [
-            (pregunta_tres._meta.get_field('iniciativa_1').help_text, pregunta_tres.iniciativa_1),
-            (pregunta_tres._meta.get_field('iniciativa_2').help_text, pregunta_tres.iniciativa_2),
-            (pregunta_tres._meta.get_field('iniciativa_3').help_text, pregunta_tres.iniciativa_3),
-            (pregunta_tres._meta.get_field('iniciativa_4').help_text, pregunta_tres.iniciativa_4),
-            (pregunta_tres._meta.get_field('iniciativa_5').help_text, pregunta_tres.iniciativa_5),
-        ]
 
         context = {
                 'respuesta_uno': pregunta_uno.get_valor_display(),
-                'propuestas_respuestas_pregunta_dos': propuestas_respuestas_pregunta_dos,
-                'iniciativas_respuestas_pregunta_tres': iniciativas_respuestas_pregunta_tres,
+                'pregunta_dos': pregunta_dos_list,
+                'pregunta_tres': pregunta_tres_list,
                 # 'pregunta_cuatro': pregunta_cuatro_list,
-                'respuesta_cinco': pregunta_cinco.opciones,
+                'pregunta_cinco': pregunta_cinco.get_opciones_texto(),
+                'respuesta_seis': pregunta_seis.get_valor_display(),
+                'respuesta_siete': pregunta_siete.texto_respuesta,
             }
 
         return context
