@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportMixin
 from import_export.resources import ModelResource
 
-from .models import Countdown, TipoDocumentos, SeccionDocumentos, Documentos, PreguntasFrecuentes
+from .models import Countdown, TipoDocumentos, SeccionDocumentos, Documentos, PreguntasFrecuentes, ConsejoAsesor
 
 from datetime import datetime
 
@@ -83,3 +84,19 @@ class RegionAdmin(ImportExportMixin, admin.ModelAdmin):
 
     # Agregar las acciones personalizadas al administrador
     actions = [make_public, make_private]
+
+
+class ConsejoAsesorAdmin(admin.ModelAdmin):
+    list_display = ('nombre_asesor', 'region', 'curriculum', 'avatar_preview')
+    list_filter = ('region',)
+    search_fields = ('nombre_asesor', 'curriculum')
+    readonly_fields = ('avatar_preview',)
+
+    def avatar_preview(self, obj):
+        if obj.avatar:
+            return mark_safe(f'<img src="{obj.avatar.url}" width="150" height="150" />')
+        return "No Image"
+
+    avatar_preview.short_description = 'Avatar'
+
+admin.site.register(ConsejoAsesor, ConsejoAsesorAdmin)

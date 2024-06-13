@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.core.validators import FileExtensionValidator
 from .functions import validate_file_size_twenty
+from ..regioncomuna.models import Region
 
 
 class Countdown(models.Model):
@@ -81,3 +82,17 @@ class Documentos(models.Model):
 
     def __str__(self):
         return self.titulo_documento
+
+
+class ConsejoAsesor(models.Model):
+    nombre_asesor = models.CharField(max_length=200)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='regiones',  null=True, blank=True)
+    curriculum = models.CharField(max_length=500, null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Consejo Asesor'
+        verbose_name_plural = 'Consejos Asesores'
+
+    def __str__(self):
+        return self.nombre_asesor
