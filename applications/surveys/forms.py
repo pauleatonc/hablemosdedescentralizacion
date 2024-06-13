@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 import random
 from collections import OrderedDict
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, OpcionesPreguntaCinco, PreguntaSeis, PreguntaSiete
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, OpcionesPreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.users.models import User
 from applications.regioncomuna.models import Comuna, Region
 from django.utils.safestring import mark_safe
@@ -274,62 +274,62 @@ class PreguntaTresForm(forms.ModelForm):
             self.fields = OrderedDict((k, self.fields[k]) for k in iniciativas)
     
 
-class PreguntaCuatroForm(forms.ModelForm):
-    class Meta:
-        model = PreguntaCuatro
-        fields = ('tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5') 
-        widgets = {
-            'tematica_1': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                } 
-            ),
-            'tematica_2': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-            'tematica_3': forms.Select(
-                attrs={
-                    'required': False,              
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-            'tematica_4': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-            'tematica_5': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-        }
+# class PreguntaCuatroForm(forms.ModelForm):
+#     class Meta:
+#         model = PreguntaCuatro
+#         fields = ('tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5') 
+#         widgets = {
+#             'tematica_1': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 } 
+#             ),
+#             'tematica_2': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#             'tematica_3': forms.Select(
+#                 attrs={
+#                     'required': False,              
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#             'tematica_4': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#             'tematica_5': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#         }
 
-    def __init__(self, *args, **kwargs):
-        request = kwargs.pop('request', None)
-        super(PreguntaCuatroForm, self).__init__(*args, **kwargs)
+#     def __init__(self, *args, **kwargs):
+#         request = kwargs.pop('request', None)
+#         super(PreguntaCuatroForm, self).__init__(*args, **kwargs)
 
-        tematicas = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
-        if 'tematicas_order' in request.session:
-            tematicas_order = request.session['tematicas_order']
-            self.fields = OrderedDict((k, self.fields[k]) for k in tematicas_order)
-        else:
-            random.shuffle(tematicas)
-            request.session['tematicas_order'] = tematicas
-            self.fields = OrderedDict((k, self.fields[k]) for k in tematicas)
+#         tematicas = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
+#         if 'tematicas_order' in request.session:
+#             tematicas_order = request.session['tematicas_order']
+#             self.fields = OrderedDict((k, self.fields[k]) for k in tematicas_order)
+#         else:
+#             random.shuffle(tematicas)
+#             request.session['tematicas_order'] = tematicas
+#             self.fields = OrderedDict((k, self.fields[k]) for k in tematicas)
 
-        for field in self.fields:
-            self.fields[field].label = mark_safe('<span style="font-weight: 700; ; text-decoration-line: underline;">' + self.fields[field].label + '</span>: ' + self.fields[field].help_text)
+#         for field in self.fields:
+#             self.fields[field].label = mark_safe('<span style="font-weight: 700; ; text-decoration-line: underline;">' + self.fields[field].label + '</span>: ' + self.fields[field].help_text)
 
-        # Reemplazar la opción "---------" por "Elige una opción"
-        for field_name, field in self.fields.items():
-            field.choices = [('', 'Elige una opción')] + list(field.choices)[1:]
+#         # Reemplazar la opción "---------" por "Elige una opción"
+#         for field_name, field in self.fields.items():
+#             field.choices = [('', 'Elige una opción')] + list(field.choices)[1:]
 
 
 class PreguntaCincoForm(forms.ModelForm):
