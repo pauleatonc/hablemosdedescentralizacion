@@ -46,5 +46,10 @@ urlpatterns = [
         views.DescentralizacionBienestarView.as_view(),
         name='descentralizacion-bienestar',
     ),
+    path(
+        'consejo_asesor',
+        views.ConsejoAsesorListView.as_view(),
+        name='consejo-asesor',
+    ),
 
 ]

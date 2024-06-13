@@ -1,8 +1,9 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.shortcuts import render
 from applications.noticiasymedia.views import NoticiasView, MultimediaView
 # importar modelos
-from . models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos, SeccionDocumentos
+from .models import Countdown, PreguntasFrecuentes, Documentos, TipoDocumentos, SeccionDocumentos, ConsejoAsesor
+
 
 # importar apps de terceros
 
@@ -55,6 +56,12 @@ class OnboardingView(TemplateView):
 
 class DescentralizacionBienestarView(TemplateView):
     template_name = 'apps/home/descentralizacion_bienestar.html'
+
+
+class ConsejoAsesorListView(ListView):
+    model = ConsejoAsesor
+    template_name = 'apps/home/consejo_asesor_list.html'
+    context_object_name = 'asesores'
 
 
 class Error404(TemplateView):
