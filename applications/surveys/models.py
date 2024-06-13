@@ -75,38 +75,6 @@ class PreguntaTres(models.Model):
         unique_together = ('usuario',)
 
 
-# class PreguntaCuatro(models.Model):
-#     VALORACION = (
-#         (1, '1: Poco prioritario'),
-#         (2, '2: Algo prioritario'),
-#         (3, '3: Prioritario'),
-#         (4, '4: Muy prioritario'),
-#         (5, 'No sabría responder'),
-#     )
-
-#     tematica_1 = models.IntegerField(verbose_name='Probidad y transparencia:', choices=VALORACION,
-#                                      help_text='Promueve la honradez, integridad y rectitud en el actuar de las autoridades, como asimismo el acceso de información a la comunidad.')
-
-#     tematica_2 = models.IntegerField(verbose_name='Participación ciudadana:', choices=VALORACION,
-#                                      help_text='Fomenta la implicación directa y activa de la sociedad civil en los asuntos públicos.')
-
-#     tematica_3 = models.IntegerField(verbose_name='Autonomía:', choices=VALORACION,
-#                                      help_text='Reconoce la capacidad de los gobiernos regionales y las municipalidades en la elección de sus autoridades, la administración de sus recursos, y en el ejercicio de sus funciones, atribuciones y facultades normativas.')
-
-#     tematica_4 = models.IntegerField(verbose_name='Diversidad e inclusión:', choices=VALORACION,
-#                                      help_text='Garantiza que todas las personas tengan igualdad de oportunidades, sin importar su grupo étnico, país de procedencia, orientación sexual, raza, habilidad, género, edad o incluso intereses personales.')
-
-#     tematica_5 = models.IntegerField(verbose_name='Igualdad de género:', choices=VALORACION,
-#                                      help_text='Garantiza que mujeres, hombres, niñas y niños gocen, por igual, de los mismos derechos, recursos, oportunidades y protecciones.')
-
-#     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
-
-#     class Meta:
-#         verbose_name = 'Pregunta 4: ¿Qué tan importante es incluir las siguientes temáticas de forma transversal en la Política ' \
-#                        'Nacional de Descentralización?'
-#         unique_together = ('usuario',)
-
-
 class OpcionesPreguntaCinco(models.Model):
     clave = models.CharField(max_length=2)
     texto = models.TextField()

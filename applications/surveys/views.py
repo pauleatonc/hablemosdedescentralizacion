@@ -471,15 +471,8 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
         pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
         pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
         pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
-        # pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
 
-        # pregunta_cuatro_dict = model_to_dict(pregunta_cuatro)
-        # pregunta_cuatro_list = []
-        # for field in pregunta_cuatro._meta.fields:
-        #     if field.name.startswith('tematica_'):
-        #         pregunta_cuatro_list.append(
-        #             (field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
 
         propuestas_respuestas_pregunta_dos = [
             (pregunta_dos._meta.get_field('propuesta_1').help_text, pregunta_dos.propuesta_1),
