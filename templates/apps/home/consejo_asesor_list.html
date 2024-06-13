@@ -23,7 +23,7 @@
             <div id="colapsables_container">
                 <div>
                     {% for asesor in asesores %}
-                    <div class="card mb-3">
+                    <div class="card mb-3" data-toggle="modal" data-target="#modal-{{ asesor.id }}">
                         <div class="row no-gutters">
                             <div class="col-md-4">
                                 {% if asesor.avatar %}
@@ -35,8 +35,31 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ asesor.nombre_asesor }}</h5>
-                                    <p class="card-text">{{ asesor.curriculum }}</p>
                                     <p class="card-text"><small class="text-muted">Región: {{ asesor.region.region|default:"No especificado" }}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modal-{{ asesor.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ asesor.id }}-label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="p-4">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="text-center">
+                                        {% if asesor.avatar %}
+                                            <img src="{{ asesor.avatar.url }}" class="img-fluid rounded-circle mb-3" alt="Avatar de {{ asesor.nombre_asesor }}">
+                                        {% else %}
+                                            <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-circle mb-3" alt="Avatar por defecto">
+                                        {% endif %}
+                                    </div>
+                                    <p><strong>{{ asesor.nombre_asesor }}</strong> </p>
+                                    <p>{{ asesor.region.region|default:"No especificado" }}</p>
+                                    <p>{{ asesor.curriculum }}</p>
                                 </div>
                             </div>
                         </div>
