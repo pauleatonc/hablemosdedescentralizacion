@@ -69,7 +69,38 @@
     justify-content: center; 
     align-items: center; 
     height: auto;
-  }
+}
+
+.card-asesores {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 9px 10px 9px;
+  border: solid 2px purple;
+  overflow: hidden;
+  margin-right: 15px;
+}
+.avatar-asesores {
+  height: 150;
+  width: 150px;
+  border: 2px solid purple;
+  border-radius: 50%;
+  background-color: plum;
+  overflow: hidden;
+  margin: 0 0 0px;
+  object-fit: cover;
+}
+.container-asesores {
+  border: 2px solid lightcoral;
+  display: flex;
+  flex-direction: row;
+  
+  flex-wrap: wrap;
+}
 
 /* Estilos para tamaños de pantalla entre 576px y 767px */
 @media only screen and (max-width: 767px) {
