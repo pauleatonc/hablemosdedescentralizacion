@@ -53,7 +53,8 @@ class PreguntaTres(models.Model):
     ITEMS = (
         (1, 'Gobierno Regional'),
         (2, 'Municipalidad'),
-        (3, 'No sabría responder')
+        (3, 'Ambas'),
+        (4, 'No sabría responder')
     )
 
     iniciativa_1 = models.IntegerField(verbose_name='Ambientales', choices=ITEMS,
