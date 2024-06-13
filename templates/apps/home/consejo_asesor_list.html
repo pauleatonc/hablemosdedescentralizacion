@@ -1,0 +1,50 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block views %}
+<div>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8">
+            
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mt-5">
+                  <li class="breadcrumb-item text-primary"><a href="/" class="text-primary">Inicio</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Consejo Asesor</li>
+                </ol>
+            </nav>
+
+            <div class="section-header mt-5">
+                <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold" id="secciones">Consejo Asesor</p>
+            </div>
+            <div class="section-body">
+                <p class="h4 pb-4">Conoce a los expertos que nos acompañan en el desarrollo de políticas y toma de decisiones.</p>
+            </div>
+
+            <div id="colapsables_container">
+                <div>
+                    {% for asesor in asesores %}
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                {% if asesor.avatar %}
+                                    <img src="{{ asesor.avatar.url }}" class="card-img" alt="Avatar de {{ asesor.nombre_asesor }}">
+                                {% else %}
+                                    <img src="{% static 'images/default-avatar.png' %}" class="card-img" alt="Avatar por defecto">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ asesor.nombre_asesor }}</h5>
+                                    <p class="card-text">{{ asesor.curriculum }}</p>
+                                    <p class="card-text"><small class="text-muted">Región: {{ asesor.region.region|default:"No especificado" }}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>     
+    </div>
+</div>
+{% endblock views %}
