@@ -25,27 +25,29 @@
     </div>
 
     <div class="container">
-        <div id="colapsables-container">
-            <div class="container-asesores">
+        <div id="d-flex justify-content-center align-items-center">
+            <div class="ms-md-4 container-asesores">
                 {% for asesor in asesores %}
-                <div class="card-asesores mb-3" data-toggle="modal" data-target="#modal-{{ asesor.id }}">
-                    <div class="col no-gutters">
-                        <div class="">
+                <!-- card asesores -->
+                <div class="card-asesores" data-toggle="modal" data-target="#modal-{{ asesor.id }}">
+                    <div class="col m-0 p-0">
+                        <div class="text-center">
                             {% if asesor.avatar %}
-                                <img src="{{ asesor.avatar.url }}" class="avatar-asesores" alt="Avatar de {{ asesor.nombre_asesor }}">
+                                <img src="{{ asesor.avatar.url }}" class="avatar-asesores-s" alt="Avatar de {{ asesor.nombre_asesor }}">
                             {% else %}
-                                <img src="{% static 'images/default-avatar.png' %}" class="avatar-asesores" alt="Avatar por defecto">
+                                <img src="{% static 'images/default-avatar.png' %}" class="avatar-asesores-s" alt="Avatar por defecto">
                             {% endif %}
                         </div>
                         <div class="">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">{{ asesor.nombre_asesor }}</h5>
-                                <p class="card-text text-center"><small class="text-muted">{{ asesor.region.region|default:"No especificado" }}</small></p>
+                            <div class="m-0 p-0 mt-2">
+                                <h5 class="text-center asesores-nombre-font">{{ asesor.nombre_asesor }}</h5>
+                                <p class="asesores-region-font text-center">{{ asesor.region.region|default:"No especificado" }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
         
+                <!-- modal -->
                 <div class="modal fade" id="modal-{{ asesor.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ asesor.id }}-label" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -57,14 +59,14 @@
                             <div class="modal-body">
                                 <div class="text-center">
                                     {% if asesor.avatar %}
-                                        <img src="{{ asesor.avatar.url }}" class="img-fluid rounded-circle mb-3" alt="Avatar de {{ asesor.nombre_asesor }}">
+                                        <img src="{{ asesor.avatar.url }}" class="avatar-asesores mb-3" alt="Avatar de {{ asesor.nombre_asesor }}">
                                     {% else %}
-                                        <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-circle mb-3" alt="Avatar por defecto">
+                                        <img src="{% static 'images/default-avatar.png' %}" class="avatar-asesores mb-3" alt="Avatar por defecto">
                                     {% endif %}
                                 </div>
-                                <p><strong>{{ asesor.nombre_asesor }}</strong> </p>
-                                <p>{{ asesor.region.region|default:"No especificado" }}</p>
-                                <p>{{ asesor.curriculum }}</p>
+                                <p class="text-center bodylinkl-regular-sans-serif mb-0"><strong>{{ asesor.nombre_asesor }}</strong> </p>
+                                <p class="text-center bodypm-regular-sans-serif">{{ asesor.region.region|default:"No especificado" }}</p>
+                                <p class="text-center bodypm-regular-sans-serif">{{ asesor.curriculum }}</p>
                             </div>
                         </div>
                     </div>

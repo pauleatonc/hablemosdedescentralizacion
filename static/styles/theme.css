@@ -267,4 +267,17 @@
   color: #fff; 
 }
 
+.asesores-nombre-font {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+.asesores-region-font {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+}
+
 
