@@ -15,7 +15,22 @@
                 <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold" id="secciones">Consejo Asesor</p>
             </div>
             <div class="section-body">
-                <p class="h4 pb-4">Conoce a los expertos que nos acompañan en el desarrollo de políticas y toma de decisiones.</p>
+                <p class="h4 pb-4 mb-3">
+                    El proceso de elaboración e instalación de la Política de Descentralización de Chile será
+                    acompañado por un Consejo Asesor, de carácter consultivo, paritario, y representativo de distintas
+                    regiones. Su objetivo será asesorar a la Subsecretaria de Desarrollo Regional y Administrativo,
+                    quien lo preside.
+                </p>
+                <p class="h4 pb-4 mb-2">Para el cumplimiento de su cometido, corresponden al Consejo las siguientes funciones:</p>
+                <p class="h4 pb-2">a) Pronunciarse respecto a consultas efectuadas por la Subsecretaria de Desarrollo Regional y Administrativo.</p>
+                <p class="h4 pb-2">b) Formular sugerencias en base a la experiencia comparada y la legislación nacional e internacional vigente.</p>
+                <p class="h4 pb-2">c) Plantear mejoras al itinerario y ejecución del proceso participativo para la elaboración e instalación de la Política.</p>
+                <p class="h4 pb-2">d) Sugerir propuestas de contenido para la Política, a presentar a la autoridad ejecutiva.</p>
+                <p class="h4 pb-4 mb-2">e) Apoyar con propuestas operativas la instalación de las principales medidas de la Política, dentro de los primeros 100 días desde su puesta en marcha.</p>
+                <p class="h4 pb-4 mb-3">
+                    El Consejo se encuentra integrado por las siguientes personas, de reconocida trayectoria y
+                    liderazgo en materia de descentralización y desarrollo territorial:
+                </p>
             </div>   
         </div>     
     </div>
@@ -64,7 +79,7 @@
                                         <img src="{% static 'images/default-avatar.png' %}" class="avatar-asesores mb-3" alt="Avatar por defecto">
                                     {% endif %}
                                 </div>
-                                <p class="text-center bodylinkl-regular-sans-serif mb-0"><strong>{{ asesor.nombre_asesor }}</strong> </p>
+                                <p class="text-center bodylinkl-regular-sans-serif mb-0 mt-3"><strong>{{ asesor.nombre_asesor }}</strong> </p>
                                 <p class="text-center bodypm-regular-sans-serif">{{ asesor.region.region|default:"No especificado" }}</p>
                                 <p class="text-center bodypm-regular-sans-serif">{{ asesor.curriculum }}</p>
                             </div>

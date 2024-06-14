@@ -100,12 +100,18 @@
   overflow: hidden;
   margin: 0 0 0px;
 }
+.avatar-asesores-s:hover {
+  opacity: 60%;
+}
 .container-asesores {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+.modal-content{
+  border-radius: 10px;
 }
 
 /* Estilos para tamaños de pantalla entre 576px y 767px */
