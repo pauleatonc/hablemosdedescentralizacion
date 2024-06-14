@@ -63,13 +63,56 @@
   color: #ffffff;
 }
 
-
 .cols-cards-12 {
     display: flex;
     justify-content: center; 
     align-items: center; 
     height: auto;
-  }
+}
+
+.card-asesores {
+  width: 200px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 9px 10px 9px;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.avatar-asesores {
+  height: 150;
+  width: 150px;
+  border-radius: 50%;
+  background-color: plum;
+  overflow: hidden;
+  margin: 0 0 0px;
+  object-fit: cover;
+}
+.avatar-asesores-s {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: plum;
+  overflow: hidden;
+  margin: 0 0 0px;
+}
+.avatar-asesores-s:hover {
+  opacity: 60%;
+}
+.container-asesores {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.modal-content{
+  border-radius: 10px;
+}
 
 /* Estilos para tamaños de pantalla entre 576px y 767px */
 @media only screen and (max-width: 767px) {

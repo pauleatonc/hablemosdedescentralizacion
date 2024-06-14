@@ -3,7 +3,7 @@ from .forms import (
     PreguntaUnoForm,
     PreguntaDosForm,
     PreguntaTresForm,
-    PreguntaCuatroForm,
+    # PreguntaCuatroForm,
     PreguntaCincoForm,
     PreguntaSeisForm,
     PreguntaSieteForm,
@@ -13,7 +13,7 @@ from .forms import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, OpcionesPreguntaCinco, PreguntaSeis, PreguntaSiete
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, OpcionesPreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.regioncomuna.models import Region, Comuna
 from applications.users.models import User
 from django.http import JsonResponse
@@ -217,7 +217,7 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
         pregunta_tres.iniciativa_5 = form.cleaned_data.get('iniciativa_5')
         pregunta_tres.save()
 
-        return redirect('surveys_app:pregunta_cuatro')
+        return redirect('surveys_app:pregunta_cinco')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -230,63 +230,63 @@ class PreguntaTresView(LoginRequiredMixin, FormView):
         return context
 
 
-class PreguntaCuatroView(LoginRequiredMixin, FormView):
-    template_name = 'apps/surveys/pregunta_cuatro.html'
-    form_class = PreguntaCuatroForm
-    model = PreguntaCuatro
-    login_url = 'users_app:user-login'  # URL de inicio de sesión
+# class PreguntaCuatroView(LoginRequiredMixin, FormView):
+#     template_name = 'apps/surveys/pregunta_cuatro.html'
+#     form_class = PreguntaCuatroForm
+#     model = PreguntaCuatro
+#     login_url = 'users_app:user-login'  # URL de inicio de sesión
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.update({'request': self.request})
-        return kwargs
+#     def get_form_kwargs(self):
+#         kwargs = super().get_form_kwargs()
+#         kwargs.update({'request': self.request})
+#         return kwargs
 
-    def get(self, request, *args, **kwargs):
-        usuario = self.request.user
+#     def get(self, request, *args, **kwargs):
+#         usuario = self.request.user
 
-        if usuario.encuesta_completada:
-            return redirect('surveys_app:enviar_formularios')
+#         if usuario.encuesta_completada:
+#             return redirect('surveys_app:enviar_formularios')
 
-        try:
-            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
-            form = self.form_class(initial={
-                'tematica_1': pregunta_cuatro.tematica_1,
-                'tematica_2': pregunta_cuatro.tematica_2,
-                'tematica_3': pregunta_cuatro.tematica_3,
-                'tematica_4': pregunta_cuatro.tematica_4,
-                'tematica_5': pregunta_cuatro.tematica_5,
-            }, request=request)
-        except PreguntaCuatro.DoesNotExist:
-            form = self.form_class(request=request)
+#         try:
+#             pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+#             form = self.form_class(initial={
+#                 'tematica_1': pregunta_cuatro.tematica_1,
+#                 'tematica_2': pregunta_cuatro.tematica_2,
+#                 'tematica_3': pregunta_cuatro.tematica_3,
+#                 'tematica_4': pregunta_cuatro.tematica_4,
+#                 'tematica_5': pregunta_cuatro.tematica_5,
+#             }, request=request)
+#         except PreguntaCuatro.DoesNotExist:
+#             form = self.form_class(request=request)
 
-        return self.render_to_response(self.get_context_data(form=form))
+#         return self.render_to_response(self.get_context_data(form=form))
 
-    def form_valid(self, form):
-        usuario = self.request.user
-        try:
-            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
-        except PreguntaCuatro.DoesNotExist:
-            pregunta_cuatro = PreguntaCuatro(usuario=usuario)
-        pregunta_cuatro.tematica_1 = form.cleaned_data.get('tematica_1')
-        pregunta_cuatro.tematica_2 = form.cleaned_data.get('tematica_2')
-        pregunta_cuatro.tematica_3 = form.cleaned_data.get('tematica_3')
-        pregunta_cuatro.tematica_4 = form.cleaned_data.get('tematica_4')
-        pregunta_cuatro.tematica_5 = form.cleaned_data.get('tematica_5')
-        pregunta_cuatro.save()
+#     def form_valid(self, form):
+#         usuario = self.request.user
+#         try:
+#             pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+#         except PreguntaCuatro.DoesNotExist:
+#             pregunta_cuatro = PreguntaCuatro(usuario=usuario)
+#         pregunta_cuatro.tematica_1 = form.cleaned_data.get('tematica_1')
+#         pregunta_cuatro.tematica_2 = form.cleaned_data.get('tematica_2')
+#         pregunta_cuatro.tematica_3 = form.cleaned_data.get('tematica_3')
+#         pregunta_cuatro.tematica_4 = form.cleaned_data.get('tematica_4')
+#         pregunta_cuatro.tematica_5 = form.cleaned_data.get('tematica_5')
+#         pregunta_cuatro.save()
 
-        return redirect('surveys_app:pregunta_cinco')
+#         return redirect('surveys_app:pregunta_cinco')
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        usuario = self.request.user
-        try:
-            pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
-            context['tematica_1_guardada'] = pregunta_cuatro.get_tematica_1_display()
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         usuario = self.request.user
+#         try:
+#             pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+#             context['tematica_1_guardada'] = pregunta_cuatro.get_tematica_1_display()
 
-        except PreguntaCuatro.DoesNotExist:
-            context['tematica_1_guardada'] = None
+#         except PreguntaCuatro.DoesNotExist:
+#             context['tematica_1_guardada'] = None
 
-        return context
+#         return context
 
 
 class PreguntaCincoView(LoginRequiredMixin, FormView):
@@ -471,7 +471,6 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
         pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
         pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
         pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
-        pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
         pregunta_seis = PreguntaSeis.objects.get(usuario=usuario)
         pregunta_siete = PreguntaSiete.objects.get(usuario=usuario)
@@ -488,17 +487,17 @@ class EnviarFormulariosViews(LoginRequiredMixin, FormView):
                 pregunta_tres_list.append(
                     (field.help_text, getattr(pregunta_tres, f'get_{field.name}_display')()))
 
-        pregunta_cuatro_list = []
-        for field in pregunta_cuatro._meta.fields:
-            if field.name.startswith('tematica_'):
-                pregunta_cuatro_list.append(
-                    (field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
+        # pregunta_cuatro_list = []
+        # for field in pregunta_cuatro._meta.fields:
+        #     if field.name.startswith('tematica_'):
+        #         pregunta_cuatro_list.append(
+        #             (field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
 
         context = {
             'respuesta_uno': pregunta_uno.get_valor_display(),
             'pregunta_dos': pregunta_dos_list,
             'pregunta_tres': pregunta_tres_list,
-            'pregunta_cuatro': pregunta_cuatro_list,
+            # 'pregunta_cuatro': pregunta_cuatro_list,
             'pregunta_cinco': pregunta_cinco.get_opciones_texto(),
             'respuesta_seis': pregunta_seis.get_valor_display(),
             'respuesta_siete': pregunta_siete.texto_respuesta,
@@ -529,7 +528,7 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
         pregunta_uno = PreguntaUno.objects.get(usuario=usuario)
         pregunta_dos = PreguntaDos.objects.get(usuario=usuario)
         pregunta_tres = PreguntaTres.objects.get(usuario=usuario)
-        pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
+        # pregunta_cuatro = PreguntaCuatro.objects.get(usuario=usuario)
         pregunta_cinco = PreguntaCinco.objects.get(usuario=usuario)
         pregunta_seis = PreguntaSeis.objects.get(usuario=usuario)
         pregunta_siete = PreguntaSiete.objects.get(usuario=usuario)
@@ -546,17 +545,17 @@ class ResumenRespuestasUsuarioView(LoginRequiredMixin, TemplateView):
                 pregunta_tres_list.append(
                     (field.help_text, getattr(pregunta_tres, f'get_{field.name}_display')()))
 
-        pregunta_cuatro_list = []
-        for field in pregunta_cuatro._meta.fields:
-            if field.name.startswith('tematica_'):
-                pregunta_cuatro_list.append((field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
+        # pregunta_cuatro_list = []
+        # for field in pregunta_cuatro._meta.fields:
+        #     if field.name.startswith('tematica_'):
+        #         pregunta_cuatro_list.append((field.verbose_name, field.help_text, getattr(pregunta_cuatro, f'get_{field.name}_display')()))
 
 
         context = {
                 'respuesta_uno': pregunta_uno.get_valor_display(),
                 'pregunta_dos': pregunta_dos_list,
                 'pregunta_tres': pregunta_tres_list,
-                'pregunta_cuatro': pregunta_cuatro_list,
+                # 'pregunta_cuatro': pregunta_cuatro_list,
                 'pregunta_cinco': pregunta_cinco.get_opciones_texto(),
                 'respuesta_seis': pregunta_seis.get_valor_display(),
                 'respuesta_siete': pregunta_siete.texto_respuesta,

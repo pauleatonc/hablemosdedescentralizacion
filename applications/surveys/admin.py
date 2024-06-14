@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco, PreguntaSeis, PreguntaSiete, \
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, PreguntaSeis, PreguntaSiete, \
     OpcionesPreguntaCinco
 
 
@@ -19,9 +19,9 @@ class PreguntaTresAdmin(admin.ModelAdmin):
     list_display = ['iniciativa_1', 'iniciativa_2', 'iniciativa_3', 'iniciativa_4', 'iniciativa_5']
 
 
-@admin.register(PreguntaCuatro)
-class PreguntaCuatroAdmin(admin.ModelAdmin):
-    list_display = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
+# @admin.register(PreguntaCuatro)
+# class PreguntaCuatroAdmin(admin.ModelAdmin):
+#     list_display = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
 
 
 @admin.register(PreguntaCinco)
