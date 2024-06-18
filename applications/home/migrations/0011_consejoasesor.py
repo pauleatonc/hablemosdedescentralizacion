@@ -10,7 +10,7 @@ def agregar_asesores(apps, schema_editor):
 
     asesores_data = [
         ("Gonzalo Delamaza Escobar", "Región Metropolitana de Santiago",
-         "Doctor en Sociología por la Universidad de Leiden, Máster en la Escuela de Altos Estudios en Ciencias Sociales de París, Sociólogo de la Pontificia Universidad Católica de Chile (PUC), y actual Académico de la Universidad de Los Lagos (Centro de Estudios del Desarrollo Regional y Políticas Públicas, CEDER).")
+         "Doctor en Sociología por la Universidad de Leiden, Máster en la Escuela de Altos Estudios en Ciencias Sociales de París, Sociólogo de la Pontificia Universidad Católica de Chile (PUC), y actual Académico de la Universidad de Los Lagos (Centro de Estudios del Desarrollo Regional y Políticas Públicas, CEDER)."),
         ("Yasna Cortés Garriga", "Antofagasta",
          "Doctora en Economía de la Universidad de Verona, Profesora Asistente de la Facultad de Economía y Administración de la Universidad Católica del Norte, y parte de la Sociedad Chilena de Estudios Regionales (SOCHER)."),
         ("Egon Montecinos Montecinos", "Región de Los Ríos",
@@ -32,7 +32,7 @@ def agregar_asesores(apps, schema_editor):
         ("Ramiro Mendoza Zúñiga", "Región Metropolitana de Santiago",
          "Abogado, Licenciado en Ciencias Jurídicas y Sociales de la Universidad de Chile, ex Contralor General de la República, ex Decano de la Facultad de Derecho de la Universidad Adolfo Ibáñez (UAI), y Consejero del Colegio de Abogados de Chile."),
         ("María Paz Troncoso Pulgar", "Región Metropolitana de Santiago",
-         "Administradora Pública de la Universidad de Chile, actual Académica directiva de la Universidad San Sebastián (USS) en el Centro de Políticas Públicas y ex Subsecretaria de Desarrollo Regional y Administrativo."),
+         "Administradora Pública de la Universidad de Chile, actual Académica directiva de la Universidad San Sebastián (USS) en el Centro de Políticas Públicas y ex Subsecretaria de Desarrollo Regional y Administrativo.")
      ]
 
     for nombre, region_nombre, curriculum in asesores_data:
