@@ -5,6 +5,7 @@ from .managers import UserManager
 from applications.regioncomuna.models import Comuna
 
 
+
 class User(AbstractBaseUser, PermissionsMixin):
 
     USER_GENRE_CHOICES = (
@@ -58,6 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     edad = models.CharField(choices=USER_AGE_CHOICES, blank=True, null=True)
     politica_privacidad = models.BooleanField(blank=True, null=True, default=False)
     encuesta_completada = models.BooleanField(default=False)
+    fecha_encuesta_completada = models.DateTimeField(blank=True, null=True)
     recibir_resultados = models.BooleanField(default=False)
     pueblo_originario = models.CharField(max_length=5, choices=USER_PUEBLOS_CHOICES, blank=True, null=True)
     familiaridad = models.CharField(choices=FAMILIARIDAD_CHOICES, blank=True, null=True)
@@ -68,9 +70,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField('Usuario administrador', default=False)
     is_active = models.BooleanField(default=True)
 
-    #Campos requeridos
-    REQUIRED_FIELDS = ['email']
-
     objects = UserManager()
 
 #    def save(self, *args, **kwargs):
@@ -78,3 +77,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 #        rut_formateado = self.rut
 #        self.rut = rut_formateado
 #        super().save(*args, **kwargs)
+

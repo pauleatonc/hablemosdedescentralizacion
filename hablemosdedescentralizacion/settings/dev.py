@@ -36,7 +36,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles/'
+STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [BASE_DIR.child('static')]
 
 MEDIA_URL = '/media/'

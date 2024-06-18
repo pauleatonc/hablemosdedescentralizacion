@@ -44,6 +44,11 @@
         </form>
         {% endif %}
       </li>
+      {% if user.is_superuser %}
+      <li class="nav-item">
+        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'home_app:generar_reporte_completo' %}">Descargar Reporte</a>
+      </li>
+      {% endif %}
     </ul>
     <ul class="navbar-nav justify-content-lg-start  my-2">      
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:index' %}">Inicio</a></li>
