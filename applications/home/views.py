@@ -76,6 +76,11 @@ class ConsejoAsesorListView(ListView):
     template_name = 'apps/home/consejo_asesor_list.html'
     context_object_name = 'asesores'
 
+    def get_queryset(self):
+        # Ordenar por ID de manera descendente
+        return ConsejoAsesor.objects.all().order_by('-id')
+
+
 
 class Error404(TemplateView):
     template_name = 'apps/errores/error404.html'
