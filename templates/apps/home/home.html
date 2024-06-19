@@ -4,26 +4,37 @@
 {% load countdown_tags %}
 <section class="container-fluid mt-5  ">
 
-  <div class="container-hero">
+  <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col-md-4">
-        <p class="h5 mb-5 text-black text-center text-md-left font-weight-bold">Necesitamos tu opinión sobre la descentralización</p>
-        <p class="h1 mb-5 text-black text-center text-md-left font-weight-bold">¡Participa en esta consulta!</p>
-        <p class="h4 mb-5">Te damos la bienvenida a esta consulta ciudadana, donde puedes acceder vía Clave Única, y a través de seis preguntas ser parte 
-          de la construcción de la Política de Descentralización de Chile, con la que buscamos contribuir al bienestar 
-          de las diversas comunidades del país.<br></p>
-        <div class="w-md-75">
-          <button type="button" class="btn btn-primary btn-lg px-5 w-100"
-            onclick="window.location.href='/onboarding'">Participar</button>
-          <div class="my-5">
-            {% countdown_component %}
-          </div>          
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center align-items-md-end">
+        <div class="col">
+          <p class="h5 mb-5 text-black text-center text-md-left font-weight-bold">Necesitamos tu opinión sobre la descentralización</p>
+          <p class="h1 mb-5 text-black text-center text-md-left font-weight-bold">¡Participa en esta consulta!</p>
+          <p class="h4 mb-5">Te damos la bienvenida a esta consulta ciudadana, donde puedes acceder vía Clave Única, y a través de seis preguntas ser parte 
+            de la construcción de la Política de Descentralización de Chile, con la que buscamos contribuir al bienestar 
+            de las diversas comunidades del país.<br></p>
+          <div class="w-md-75">
+            <button type="button" class="btn btn-primary btn-lg px-5 w-100 p-3"
+              onclick="window.location.href='/onboarding'">Responder Consulta</button>
+          </div>
+        </div>
+
+        <div class="col d-flex flex-column justify-content-center mx-5 w-100 ">
+          <img src="{% static 'img/logo_descentralizacion.svg' %}" alt="logo-desentralizacion" class="w-100 mb-md-5" />
+          <button class="btn btn-neutral text-primary border-primary bg-white" type="button"
+            onclick="window.location.href='/consejo_asesor'">Conoce al Consejo Asesor
+            <i class="material-symbols-outlined">
+              chevron_right
+            </i>
+          </button>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center m-5 w-100 ">
-        <img src="{% static 'img/logo_descentralizacion.svg' %}" alt="logo-desentralizacion" class="w-100 h-100" />
-      </div>
+  <div class="container">
+    <div class="col-lg-6 my-5 px-0 pr-lg-5">
+      {% countdown_component %}
     </div>
   </div>
 
