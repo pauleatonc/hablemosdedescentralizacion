@@ -9,31 +9,31 @@ def agregar_asesores(apps, schema_editor):
     Region = apps.get_model('regioncomuna', 'Region')
 
     asesores_data = [
-        ("María Paz Troncoso Pulgar", "Región Metropolitana de Santiago",
-         "Administradora Pública de la Universidad de Chile, actual Académica directiva de la Universidad San Sebastián (USS) en el Centro de Políticas Públicas y ex Subsecretaria de Desarrollo Regional y Administrativo."),
-        ("Ramiro Mendoza Zúñiga", "Región Metropolitana de Santiago",
-         "Abogado, Licenciado en Ciencias Jurídicas y Sociales de la Universidad de Chile, ex Contralor General de la República, ex Decano de la Facultad de Derecho de la Universidad Adolfo Ibáñez (UAI), y Consejero del Colegio de Abogados de Chile."),
-        ("Adriana Delpiano Puelma", "Región Metropolitana de Santiago",
-         "Asistente Social de la Pontificia Universidad Católica de Chile (PUC), Magíster en Ciencias de la Educación por el Centro de Estudios Avanzados de México, y Ex Subsecretaria de Desarrollo Regional y Administrativo."),
-        ("Heinrich Von Baer Von Lochow", "Región de la Araucanía",
-         "Doctor en Medicina Veterinaria, Ex Rector de la Universidad de La Frontera (UFRO), Past President de la Fundación Chile Descentralizado, y Académico de la UFRO."),
-        ("Julieta Suárez-Cao", "Región Metropolitana de Santiago",
-         "Doctora en Ciencia Política por la Universidad de Northwestern, y Jefa de Pregrado del Instituto de Ciencia Política de la Pontificia Universidad Católica de Chile (PUC)."),
-        ("Sergio Galilea Ocón", "Región Metropolitana de Santiago",
-         "Ingeniero Civil Industrial de la Universidad de Chile y Magíster en Planificación del Desarrollo Urbano y Regional de la Pontificia Universidad Católica de Chile (PUC), actual Académico de la Facultad de Gobierno de la Universidad de Chile."),
-        ("Amaya Álvez Marín", "Región del Biobío",
-         "Doctora en Derecho por la Universidad de York, Magíster en Derecho de la Universidad de Toronto, Profesora Titular de la Universidad de Concepción, y Ex Convencional Constituyente."),
-        ("Ismael Toloza Bravo", "Región de la Araucanía",
-         "Doctor en Economía de la Universidad Nacional Autónoma de México (UNAM), Magíster en Economía y Gestión Regional de la Universidad Austral, y actual Presidente de la Fundación Chile Descentralizado."),
-        ("María Ignacia Jiménez Suárez", "Región Metropolitana de Santiago",
-         "Trabajadora Social y Magíster en Asentamientos Humanos y Medio Ambiente de la Pontificia Universidad Católica de Chile (PUC), Asesora Principal de la Agencia Alemana de Cooperación Internacional (GIZ), y Vicepresidenta de la Fundación Chile Descentralizado."),
-        ("Egon Montecinos Montecinos", "Región de Los Ríos",
-         "Trabajador Social de la Universidad de la Frontera (UFRO), Magíster en Ciencias Sociales de la Universidad de Los Lagos, Doctor en Investigación en Ciencias Sociales mención Ciencia Política por Flacso-México, Decano de la Facultad de Ciencias Económicas y Administrativas de la Universidad Austral (UACH) y Director del Centro de Estudios Regionales de la UACH."),
+        ("Gonzalo Delamaza Escobar", "Región Metropolitana de Santiago",
+         "Doctor en Sociología por la Universidad de Leiden, Máster en la Escuela de Altos Estudios en Ciencias Sociales de París, Sociólogo de la Pontificia Universidad Católica de Chile (PUC), y actual Académico de la Universidad de Los Lagos (Centro de Estudios del Desarrollo Regional y Políticas Públicas, CEDER)."),
         ("Yasna Cortés Garriga", "Antofagasta",
          "Doctora en Economía de la Universidad de Verona, Profesora Asistente de la Facultad de Economía y Administración de la Universidad Católica del Norte, y parte de la Sociedad Chilena de Estudios Regionales (SOCHER)."),
-        ("Gonzalo Delamaza Escobar", "Región Metropolitana de Santiago",
-         "Doctor en Sociología por la Universidad de Leiden, Máster en la Escuela de Altos Estudios en Ciencias Sociales de París, Sociólogo de la Pontificia Universidad Católica de Chile (PUC), y actual Académico de la Universidad de Los Lagos (Centro de Estudios del Desarrollo Regional y Políticas Públicas, CEDER).")
-    ]
+        ("Egon Montecinos Montecinos", "Región de Los Ríos",
+         "Trabajador Social de la Universidad de la Frontera (UFRO), Magíster en Ciencias Sociales de la Universidad de Los Lagos, Doctor en Investigación en Ciencias Sociales mención Ciencia Política por Flacso-México, Decano de la Facultad de Ciencias Económicas y Administrativas de la Universidad Austral (UACH) y Director del Centro de Estudios Regionales de la UACH."),
+        ("María Ignacia Jiménez Suárez", "Región Metropolitana de Santiago",
+         "Trabajadora Social y Magíster en Asentamientos Humanos y Medio Ambiente de la Pontificia Universidad Católica de Chile (PUC), Asesora Principal de la Agencia Alemana de Cooperación Internacional (GIZ), y Vicepresidenta de la Fundación Chile Descentralizado."),
+        ("Ismael Toloza Bravo", "Región de la Araucanía",
+         "Doctor en Economía de la Universidad Nacional Autónoma de México (UNAM), Magíster en Economía y Gestión Regional de la Universidad Austral, y actual Presidente de la Fundación Chile Descentralizado."),
+        ("Amaya Álvez Marín", "Región del Biobío",
+         "Doctora en Derecho por la Universidad de York, Magíster en Derecho de la Universidad de Toronto, Profesora Titular de la Universidad de Concepción, y Ex Convencional Constituyente."),
+        ("Sergio Galilea Ocón", "Región Metropolitana de Santiago",
+         "Ingeniero Civil Industrial de la Universidad de Chile y Magíster en Planificación del Desarrollo Urbano y Regional de la Pontificia Universidad Católica de Chile (PUC), actual Académico de la Facultad de Gobierno de la Universidad de Chile."),
+        ("Julieta Suárez-Cao", "Región Metropolitana de Santiago",
+         "Doctora en Ciencia Política por la Universidad de Northwestern, y Jefa de Pregrado del Instituto de Ciencia Política de la Pontificia Universidad Católica de Chile (PUC)."),
+        ("Heinrich Von Baer Von Lochow", "Región de la Araucanía",
+         "Doctor en Medicina Veterinaria, Ex Rector de la Universidad de La Frontera (UFRO), Past President de la Fundación Chile Descentralizado, y Académico de la UFRO."),
+        ("Adriana Delpiano Puelma", "Región Metropolitana de Santiago",
+         "Asistente Social de la Pontificia Universidad Católica de Chile (PUC), Magíster en Ciencias de la Educación por el Centro de Estudios Avanzados de México, y Ex Subsecretaria de Desarrollo Regional y Administrativo."),
+        ("Ramiro Mendoza Zúñiga", "Región Metropolitana de Santiago",
+         "Abogado, Licenciado en Ciencias Jurídicas y Sociales de la Universidad de Chile, ex Contralor General de la República, ex Decano de la Facultad de Derecho de la Universidad Adolfo Ibáñez (UAI), y Consejero del Colegio de Abogados de Chile."),
+        ("María Paz Troncoso Pulgar", "Región Metropolitana de Santiago",
+         "Administradora Pública de la Universidad de Chile, actual Académica directiva de la Universidad San Sebastián (USS) en el Centro de Políticas Públicas y ex Subsecretaria de Desarrollo Regional y Administrativo.")
+     ]
 
     for nombre, region_nombre, curriculum in asesores_data:
         region = Region.objects.filter(

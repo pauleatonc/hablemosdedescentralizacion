@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import generar_reporte_completo
 
 from . import views
 
@@ -51,5 +52,6 @@ urlpatterns = [
         views.ConsejoAsesorListView.as_view(),
         name='consejo-asesor',
     ),
+     path('generar_reporte_completo/', generar_reporte_completo, name='generar_reporte_completo'),
 
 ]
