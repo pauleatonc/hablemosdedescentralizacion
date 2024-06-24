@@ -31,10 +31,10 @@ class PreguntaDos(models.Model):
     )
 
     propuesta_1 = models.IntegerField(verbose_name='Rendimiento de cuentas', choices=VALORACION,
-                                     help_text='Que las autoridades elegidas directamente y por sufragio universal, rindan cuenta a la ciudadanía.')
+                                     help_text='Que las autoridades elegidas directamente, rindan cuenta a la ciudadanía.')
 
     propuesta_2 = models.IntegerField(verbose_name='Acceso a bienes y prestación de servicios', choices=VALORACION,
-                                     help_text='Que la ciudadanía tenga acceso a bienes y prestación de servicios públicos, por parte de los gobiernos regionales y municipalidades.')
+                                     help_text='Que la ciudadanía tenga acceso a bienes y prestaciones de servicios públicos, a través de los gobiernos regionales y municipalidades.')
 
     propuesta_3 = models.IntegerField(verbose_name='Mayores recursos públicos', choices=VALORACION,
                                      help_text='Que los gobiernos regionales y municipalidades cuenten con mayores recursos financieros, y sus usos sean definidos en el territorio.')
