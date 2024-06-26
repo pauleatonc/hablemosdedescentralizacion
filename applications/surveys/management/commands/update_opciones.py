@@ -17,7 +17,7 @@ class Command(BaseCommand):
             ('5',
              '<strong>Robustecer las finanzas de los gobiernos regionales y municipalidades,</strong> posibilitando nuevos ingresos con regulación de gastos.'),
             ('6',
-             '<strong>Incorporar mecanismos de control y rendición de cuentas</strong> de los recursos que administran los gobiernos regionales y municipalidades.'),
+             '<strong>Incorporar mayores mecanismos de control y rendición de cuentas</strong> de los recursos que administran los gobiernos regionales y municipalidades.'),
             ('7',
              '<strong>Fomentar la atracción y retención de técnicos y profesionales</strong> para que trabajen en comunas de menores recursos, mediante la difusión y/o creación de normas y programas públicos específicos.'),
         ]
