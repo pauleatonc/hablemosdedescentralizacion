@@ -7,7 +7,7 @@ from django.urls import path
 from django.utils.html import format_html
 from .views import generar_reporte_completo
 from applications.regioncomuna.models import Region, Comuna
-from applications.surveys.models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, PreguntaSeis, PreguntaSiete
+from applications.surveys.models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, PreguntaSeis, PreguntaSiete, OpcionesPreguntaCinco
 from applications.users.models import User
 
 from .models import Countdown, TipoDocumentos, SeccionDocumentos, Documentos, PreguntasFrecuentes, ConsejoAsesor
@@ -117,4 +117,5 @@ admin_site.register(PreguntaTres)
 admin_site.register(PreguntaCinco)
 admin_site.register(PreguntaSeis)
 admin_site.register(PreguntaSiete)
+admin_site.register(OpcionesPreguntaCinco)
 admin_site.register(User)
