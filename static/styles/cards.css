@@ -21,10 +21,22 @@
   border: solid 2px rgb(63, 135, 208);
   overflow: hidden;
 }
-@media (min-width: 768px) { /* Breakpoint for tablets and up */
+.imagen-card{
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+  object-fit: cover;
+  margin:5px;
+
+}
+@media (min-width: 768px) {
   .card-s {
     height: 370px;
   }
+  .imagen-card{
+    width: 280px;
+    height: 200px;
+  } 
 }
 
 .card-img {
@@ -112,7 +124,7 @@
   height: 150;
   width: 150px;
   border-radius: 50%;
-  background-color: plum;
+  background-color: transparent;
   overflow: hidden;
   margin: 0 0 0px;
   object-fit: cover;
@@ -121,7 +133,7 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background-color: plum;
+  background-color: transparent;
   overflow: hidden;
   margin: 0 0 0px;
 }
@@ -139,6 +151,11 @@
   border-radius: 10px;
 }
 
+.modal-imagen{
+  border-radius: 10px;
+  width: 90%;
+  height: auto;
+}
 /* Estilos para tamaños de pantalla entre 576px y 767px */
 @media only screen and (max-width: 767px) {
   .card {

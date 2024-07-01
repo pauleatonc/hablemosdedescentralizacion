@@ -2,9 +2,10 @@
 {% load static %}
 {% block views %}
 {% load countdown_tags %}
-<section class="container-fluid my-5 px-0">
+
+<section class="container my-5 px-0">
   <div class="d-flex justify-content-center">
-    <div class="col-12 col-md-10 col-lg-10 col-xl-8">
+    <div class="col-12 col-md-10">
       <nav aria-label="breadcrumb ">
         <ol class="breadcrumb mt-0 mx-5">
           <li class="breadcrumb-item">
@@ -15,9 +16,8 @@
       </nav>
 
       <div class="section-header mt-5">
-        <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold">
-          Noticias
-        </p>
+        <p>Última actualización: </p>
+        <p class="font-level-1 pb-1 text-md-left text-center text-black font-weight-bold">Diálogo Regional {{ region_name }}</p>
       </div>
       <div class="section-body my-4">
         {% countdown_component %}</div>
@@ -27,27 +27,45 @@
     {% include "components/logo_banner.html" %}
   </div>
 
-
-<div class="container my-md-5">
-    <div class="section-header mt-5">
-        <p class="font-level-1 pb-1 text-md-left text-center text-black font-weight-bold">Diálogo Regional {{ region_name }}</p>
-    </div>
+  <!-- albums -->
+  <div class="container col-md-10 my-md-5">
     {% for album in albums %}
         <div class="container my-md-5">
             {% if album.titulo_album %}
-                <p class="font-level-1 pb-1 text-md-left text-center text-black font-weight-bold">{{ album.titulo_album }}</p>
+                <p class="font-level-1 pb-1 text-md-left text-start text-black font-weight-bold">{{ album.titulo_album }}</p>
             {% else %}
-                <p class="font-level-1 pb-1 text-md-left text-center text-black font-weight-bold">Diálogo regional {{ region_name }} realizado el {{ album.date }}</p>
+                <p class="font-level-1 pb-1 text-md-left text-start text-black font-weight-bold">Diálogo regional {{ region_name }} realizado el {{ album.date }}</p>
             {% endif %}
             <p>{{ album.descripcion_album }}</p>
-            <div>
+            <div class="d-flex flex-wrap">
                 {% for photo in album.photo_set.all %}
-                    <img src="{{ photo.foto.url }}" alt="{{ photo.descripcion }}" style="width: 100%;">
+                    <img src="{{ photo.foto.url }}" alt="{{ photo.descripcion }}" class="imagen-card" data-toggle="modal" data-target="#photo-modal-{{ photo.id }}">
                 {% endfor %}
             </div>
         </div>
     {% endfor %}
 </div>
+
+<!-- modal -->
+{% for album in albums %}
+    {% for photo in album.photo_set.all %}
+    <div class="modal fade" id="photo-modal-{{ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="photo-modal-label-{{ photo.id }}" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="photo-modal-label-{{ photo.id }}">{{ photo.descripcion }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="{{ photo.foto.url }}" alt="{{ photo.descripcion }}" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endfor %}
 
 </section>
 {% endblock %}
