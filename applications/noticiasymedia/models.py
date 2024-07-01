@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 #
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.utils.safestring import mark_safe
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 # apps de terceros
@@ -83,16 +84,16 @@ class Multimedia(TimeStampedModel):
 
 
 class PhotoAlbum(TimeStampedModel):
-    titulo_album = models.CharField(max_length=200, verbose_name='Titulo Album (obligatorio)', null=True, blank=True)
+    titulo_album = models.CharField(max_length=200, verbose_name='Titulo Album', null=True, blank=True)
     descripcion_album = models.CharField(max_length=500, verbose_name='Descripcion Album (obligatorio)')
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name='Region')
-    date = models.DateField(verbose_name='Fecha del Álbum')
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name='Region (obligatorio)')
+    date = models.DateField(verbose_name='Fecha del Álbum (obligatorio)')
     foto_portada = ProcessedImageField(upload_to='album_photos', processors=[
         ResizeToFill(1200, 630)], format='WEBP', options={'quality': 60}, null=True,
         blank=False, verbose_name='Foto Portada (obligatorio)')
     autor = models.ForeignKey(
         'users.User', on_delete=models.CASCADE, verbose_name='Autor')
-    public = models.BooleanField(default=True, verbose_name='publico')
+    public = models.BooleanField(default=True, verbose_name='Público')
 
     def __str__(self):
         return self.titulo_album if self.titulo_album else "Álbum sin título"
@@ -122,3 +123,10 @@ class Photo(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.clean()  # Llama a clean para realizar la validación antes de guardar
         super().save(*args, **kwargs)
+
+    def preview(self):
+        if self.foto:
+            return mark_safe(f'<img src="{self.foto.url}" width="150" height="150" />')
+        return "No Image"
+
+    preview.short_description = 'Preview'
