@@ -74,6 +74,25 @@ class LatestAlbumsByRegionView(TemplateView):
         return context
 
 
+class LatestAlbumsHome(TemplateView):
+    paginate_by = 3  # Define cuántos elementos por página quieres mostrar
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Ordenar todos los álbumes por fecha de última modificación
+        all_albums = PhotoAlbum.objects.all().order_by(
+            '-modified')
+
+        # Aplicar la paginación
+        paginator = Paginator(all_albums, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context['latest_albums'] = page_obj
+        return context
+
+
 class AlbumsByRegionView(ListView):
     model = PhotoAlbum
     template_name = 'apps/noticiasymedia/albums_by_region.html'

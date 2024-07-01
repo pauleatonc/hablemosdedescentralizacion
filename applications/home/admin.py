@@ -121,27 +121,23 @@ class ConsejoAsesorAdmin(admin.ModelAdmin):
 
 class PhotoInline(admin.TabularInline):
     model = Photo
-    fields = ['foto', 'descripcion']
+    fields = ['foto', 'descripcion', 'preview']
+    readonly_fields = ['preview']
     extra = 1  # Número de formas extras para cargar por defecto
 
 
+
 class PhotoAlbumAdmin(admin.ModelAdmin):
-    list_display = ['titulo_album', 'autor', 'region', 'date', 'public']
+    list_display = ['titulo_album', 'autor', 'region', 'date', 'public', 'modified']
+    exclude = ('autor',)
     inlines = [PhotoInline]
+    ordering = ['-modified']
 
     def save_model(self, request, obj, form, change):
-        if not obj.autor_id:  # Asigna el autor solo si es una nueva instancia
+        if not obj.autor_id:
             obj.autor = request.user
         super().save_model(request, obj, form, change)
 
-
-class PhotoAdmin(admin.ModelAdmin):
-    list_display = ['album', 'foto', 'descripcion']
-    search_fields = ['descripcion', 'album__titulo_album']
-
-    def save_model(self, request, obj, form, change):
-        obj.clean()  # Llama a clean para realizar la validación antes de guardar
-        super().save_model(request, obj, form, change)
 
 
 # Registrar los modelos con admin_site en lugar de admin.site
@@ -162,4 +158,3 @@ admin_site.register(PreguntaSiete)
 admin_site.register(OpcionesPreguntaCinco)
 admin_site.register(User)
 admin_site.register(PhotoAlbum, PhotoAlbumAdmin)
-admin_site.register(Photo, PhotoAdmin)
