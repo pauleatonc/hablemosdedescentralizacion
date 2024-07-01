@@ -1,0 +1,53 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block views %}
+{% load countdown_tags %}
+<section class="container-fluid my-5 px-0">
+  <div class="d-flex justify-content-center">
+    <div class="col-12 col-md-10 col-lg-10 col-xl-8">
+      <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb mt-0 mx-5">
+          <li class="breadcrumb-item">
+            <a href="{%  url 'home_app:index' %}" class="text-primary">Inicio</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Fotos</li>
+        </ol>
+      </nav>
+
+      <div class="section-header mt-5">
+        <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold">
+          Noticias
+        </p>
+      </div>
+      <div class="section-body my-4">
+        {% countdown_component %}</div>
+    </div>
+  </div>
+  <div class="px-0">
+    {% include "components/logo_banner.html" %}
+  </div>
+
+
+<div class="container my-md-5">
+    <div class="section-header mt-5">
+        <p class="font-level-1 pb-1 text-md-left text-center text-black font-weight-bold">Diálogo Regional {{ region_name }}</p>
+    </div>
+    {% for album in albums %}
+        <div class="container my-md-5">
+            {% if album.titulo_album %}
+                <p class="font-level-1 pb-1 text-md-left text-center text-black font-weight-bold">{{ album.titulo_album }}</p>
+            {% else %}
+                <p class="font-level-1 pb-1 text-md-left text-center text-black font-weight-bold">Diálogo regional {{ region_name }} realizado el {{ album.date }}</p>
+            {% endif %}
+            <p>{{ album.descripcion_album }}</p>
+            <div>
+                {% for photo in album.photo_set.all %}
+                    <img src="{{ photo.foto.url }}" alt="{{ photo.descripcion }}" style="width: 100%;">
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+</section>
+{% endblock %}
