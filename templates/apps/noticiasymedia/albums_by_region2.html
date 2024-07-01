@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Álbumes en {{ region_name }}</h1>
+<div class="row">
+    {% for album in albums %}
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{{ album.foto_portada.url }}" class="card-img-top" alt="{{ album.titulo_album }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ album.titulo_album }}</h5>
+                <p class="card-text">{{ album.descripcion_album }}</p>
+                <p>Fecha: {{ album.date }}</p>
+                <div>
+                    {% for photo in album.photo_set.all %}
+                        <img src="{{ photo.foto.url }}" alt="{{ photo.descripcion }}" style="width: 100%;">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

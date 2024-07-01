@@ -1,8 +1,12 @@
 from typing import Any, Dict
 from django.shortcuts import render
-from applications.noticiasymedia.models import Noticias, Multimedia
-from django.views.generic import TemplateView, DetailView
+from applications.noticiasymedia.models import Noticias, Multimedia, PhotoAlbum, Photo
+from django.views.generic import TemplateView, DetailView, ListView
 from django.core.paginator import Paginator
+from django.db.models import Max
+
+from applications.regioncomuna.models import Region
+from django.db import models
 
 
 class NoticiasView(TemplateView):
@@ -45,4 +49,44 @@ class MultimediaDetailView(DetailView):
     template_name = 'apps/noticiasymedia/media_detail.html'
     model = Multimedia
     context_object_name = 'multimedia'
-    
+
+
+class LatestAlbumsByRegionView(TemplateView):
+    template_name = 'apps/noticiasymedia/album.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        regions_with_latest_album_date = Region.objects.annotate(
+            latest_album_date=Max('photoalbum__date')
+        ).order_by('id')  # Ordena las regiones por nombre
+
+        latest_albums = []
+        for region in regions_with_latest_album_date:
+            latest_album = PhotoAlbum.objects.filter(
+                region=region,
+                date=region.latest_album_date
+            ).order_by('-date').first()  # Asegúrate de que también aquí se ordena por fecha si es necesario
+            if latest_album:
+                latest_albums.append(latest_album)
+
+        context['albums'] = latest_albums
+        return context
+
+
+class AlbumsByRegionView(ListView):
+    model = PhotoAlbum
+    template_name = 'apps/noticiasymedia/albums_by_region.html'
+    context_object_name = 'albums'
+
+    def get_queryset(self):
+        # Recuperar el ID de la región desde los parámetros de la URL
+        region_id = self.kwargs['region_id']
+        # Filtrar los álbumes por la región y ordenarlos por fecha
+        return PhotoAlbum.objects.filter(region_id=region_id).order_by('-date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        region = Region.objects.get(pk=self.kwargs['region_id'])
+        context['region_name'] = region.region
+        return context

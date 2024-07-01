@@ -1,0 +1,23 @@
+{% load static %}
+{% block content %}
+{% for album in albums %}
+<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4  d-flex justify-content-center">
+  <div class="card my-2">
+    <div>
+    <div class="card-img">
+      <img class="img-portada" src="{{ album.foto_portada.url }}" alt="img-miniatura" />
+    </div>
+    <div class="d-flex justify-content-between  py-0">
+      <p class="font-level-8 m-0">
+      <strong> Última actualización:</strong> {{ album.modified|date:"l j \\d\\e F \\d\\e Y" }}
+    </p>
+    </div>
+    <div class="body">
+      <p class="h3 text-decoration-underline"><u>Diálogo regional {{ album.region }}</u></p>
+    </div>
+    </div>
+    <a class="btn-more" href="{% url 'noticiasymedia_app:albums_by_region' album.region.id %}">Leer más ></a>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}
