@@ -49,9 +49,9 @@
 <!-- modal -->
 {% for album in albums %}
     {% for photo in album.photo_set.all %}
-    <div class="modal fade" id="photo-modal-{{ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="photo-modal-label-{{ photo.id }}" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+    <div class="modal fade custom-photo-modal" id="photo-modal-{{ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="photo-modal-label-{{ photo.id }}" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered custom-modal-dialog" role="document">
+        <div class="modal-content custom-modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="photo-modal-label-{{ photo.id }}">{{ photo.descripcion }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
@@ -59,7 +59,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <img src="{{ photo.foto.url }}" alt="{{ photo.descripcion }}" class="img-fluid">
+            <img src="{{ photo.foto.url }}" alt="{{ photo.descripcion }}" class="img-fluid custom-modal-image">
           </div>
         </div>
       </div>

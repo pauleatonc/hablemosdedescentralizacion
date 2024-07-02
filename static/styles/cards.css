@@ -167,7 +167,6 @@
 .modal-content{
   border-radius: 10px;
 }
-
 .modal-imagen{
   border-radius: 10px;
   width: 90%;
@@ -259,5 +258,28 @@
   .card {
     width: 70%;
     margin: auto;
+  }
+}
+
+/* Estilos para el modal personalizado */
+.custom-modal-dialog {
+  max-width: 80%; /* Ajusta el tamaño máximo del modal */
+  width: auto; /* Asegura que el modal se ajuste al contenido */
+}
+.custom-modal-content {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.custom-modal-image {
+  display: block;
+  max-width: 100%; /* Asegura que la imagen no exceda el ancho del modal */
+  max-height: 80vh; /* Limita la altura máxima de la imagen */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+  object-fit: contain; /* Escala la imagen para que quepa dentro del contenedor manteniendo la proporción */
+}
+@media (max-width: 767px) {
+  .custom-modal-dialog {
+    max-width: 100%;
+    margin: 0 10px; /* Añade un poco de margen para evitar que el modal toque los bordes de la pantalla */
   }
 }
