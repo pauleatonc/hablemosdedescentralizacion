@@ -1,10 +1,10 @@
 {% load static %}
 {% block content %}
 <div class="container-fluid">
-<div id="carouselNoticiasIndicators" class="carousel slide border" data-ride="carousel">
+<div id="carouselNoticiasIndicators" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     {% for album in latest_albums|slice:3 %}
-    <div class="carousel-item {% if forloop.first %} active {% endif %} border">
+    <div class="carousel-item {% if forloop.first %} active {% endif %}">
       <div class="card-carrusel">
         <div>
           <div class="card-img">
