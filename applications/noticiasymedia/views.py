@@ -66,7 +66,7 @@ class LatestAlbumsByRegionView(TemplateView):
             latest_album = PhotoAlbum.objects.filter(
                 region=region,
                 date=region.latest_album_date,
-                publie=True
+                public=True
             ).order_by('-date').first()  # Asegúrate de que también aquí se ordena por fecha si es necesario
             if latest_album:
                 latest_albums.append(latest_album)

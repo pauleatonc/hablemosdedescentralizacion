@@ -7,7 +7,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFill, ResizeToFit, Transpose
 # apps de terceros
 from model_utils.models import TimeStampedModel
 
@@ -30,9 +30,14 @@ class Noticias(TimeStampedModel):
     slug = models.SlugField(editable=False, max_length=300)
     tag = models.ManyToManyField(
         Tag, blank=False, verbose_name='Tag noticia')
-    portada_noticia= ProcessedImageField(upload_to='noticias', processors=[
-        ResizeToFill(1200, 630)], format='WEBP', options={'quality': 60}, null=True,
-        blank=False, verbose_name='Foto Portada (obligatorio)')
+    portada_noticia= ProcessedImageField(
+        upload_to='noticias', processors=[Transpose(), ResizeToFit(1200, 630)],
+        format='WEBP',
+        options={'quality': 60},
+        null=True,
+        blank=False,
+        verbose_name='Foto Portada (obligatorio)'
+    )
     galeria_url = models.URLField(max_length=200, null=True,
                             blank=True, verbose_name='Url galeria de fotos')
     public = models.BooleanField(default=True, verbose_name='publico')
@@ -106,9 +111,15 @@ class PhotoAlbum(TimeStampedModel):
 class Photo(TimeStampedModel):
     album = models.ForeignKey(
         PhotoAlbum, on_delete=models.CASCADE, verbose_name='Album')
-    foto = ProcessedImageField(upload_to='album', processors=[
-        ResizeToFill(1200, 630)], format='WEBP', options={'quality': 60}, null=True,
-        blank=False, verbose_name='Foto (obligatorio)')
+    foto = ProcessedImageField(
+        upload_to='album',
+        processors=[Transpose(), ResizeToFit(1200, 630)],
+        format='WEBP',
+        options={'quality': 60},
+        null=True,
+        blank=False,
+        verbose_name='Foto (obligatorio)'
+    )
     descripcion = models.CharField(
         max_length=500, verbose_name='Descripcion Foto (obligatorio)')
 
