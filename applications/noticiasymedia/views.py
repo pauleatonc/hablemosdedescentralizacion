@@ -65,12 +65,33 @@ class LatestAlbumsByRegionView(TemplateView):
         for region in regions_with_latest_album_date:
             latest_album = PhotoAlbum.objects.filter(
                 region=region,
-                date=region.latest_album_date
+                date=region.latest_album_date,
+                publie=True
             ).order_by('-date').first()  # Asegúrate de que también aquí se ordena por fecha si es necesario
             if latest_album:
                 latest_albums.append(latest_album)
 
         context['albums'] = latest_albums
+        return context
+
+
+class LatestAlbumsHome(TemplateView):
+    paginate_by = 3  # Define cuántos elementos por página quieres mostrar
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Ordenar todos los álbumes por fecha de última modificación
+        all_albums = PhotoAlbum.objects.filter(
+            public=True  # Añadir filtro para mostrar solo álbumes públicos
+        ).order_by('-modified')
+
+        # Aplicar la paginación
+        paginator = Paginator(all_albums, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context['latest_albums'] = page_obj
         return context
 
 
@@ -80,10 +101,11 @@ class AlbumsByRegionView(ListView):
     context_object_name = 'albums'
 
     def get_queryset(self):
-        # Recuperar el ID de la región desde los parámetros de la URL
         region_id = self.kwargs['region_id']
-        # Filtrar los álbumes por la región y ordenarlos por fecha
-        return PhotoAlbum.objects.filter(region_id=region_id).order_by('-date')
+        return PhotoAlbum.objects.filter(
+            region_id=region_id,
+            public=True  # Añadir filtro para mostrar solo álbumes públicos
+        ).order_by('-date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
