@@ -9,7 +9,7 @@
   border: solid 2px rgb(63, 135, 208);
   overflow: hidden;
 }
-.card-m {
+.card-carrusel {
   width: 370px;
   height: 400px;
   display: flex;
@@ -19,6 +19,12 @@
   padding: 10px 9px 10px 9px;
   border: solid 2px rgb(63, 135, 208);
   overflow: hidden;
+  position: relative;
+}
+@media only screen and (min-width: 300px) and (max-width: 460px) {
+  .card-carrusel{
+    width:100%;
+  }
 }
 
 .card-s {
