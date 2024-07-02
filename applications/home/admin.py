@@ -12,7 +12,7 @@ from applications.surveys.models import PreguntaUno, PreguntaDos, PreguntaTres, 
 from applications.users.models import User
 
 from .models import Countdown, TipoDocumentos, SeccionDocumentos, Documentos, PreguntasFrecuentes, ConsejoAsesor
-from ..noticiasymedia.models import PhotoAlbum, Photo
+from applications.noticiasymedia.models import PhotoAlbum, Photo,  Noticias, Multimedia
 
 
 # Definir el CustomAdminSite
@@ -158,3 +158,5 @@ admin_site.register(PreguntaSiete)
 admin_site.register(OpcionesPreguntaCinco)
 admin_site.register(User)
 admin_site.register(PhotoAlbum, PhotoAlbumAdmin)
+admin_site.register(Noticias)
+admin_site.register(Multimedia)
