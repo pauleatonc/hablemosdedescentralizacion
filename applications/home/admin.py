@@ -7,26 +7,33 @@ from django.urls import path
 from django.utils.html import format_html
 from .views import generar_reporte_completo
 from applications.regioncomuna.models import Region, Comuna
-from applications.surveys.models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, PreguntaSeis, PreguntaSiete
+from applications.surveys.models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, PreguntaSeis, \
+    PreguntaSiete, OpcionesPreguntaCinco
 from applications.users.models import User
 
 from .models import Countdown, TipoDocumentos, SeccionDocumentos, Documentos, PreguntasFrecuentes, ConsejoAsesor
+from applications.noticiasymedia.models import PhotoAlbum, Photo, Noticias, Multimedia, Tag
+
 
 # Definir el CustomAdminSite
 class CustomAdminSite(admin.AdminSite):
     def get_urls(self):
         urls = super().get_urls()
         custom_urls = [
-            path('generar_reporte_completo/', self.admin_view(generar_reporte_completo), name='generar_reporte_completo'),
+            path('generar_reporte_completo/', self.admin_view(generar_reporte_completo),
+                 name='generar_reporte_completo'),
         ]
         return custom_urls + urls
 
     def index(self, request, extra_context=None):
         extra_context = extra_context or {}
-        extra_context['custom_button'] = format_html('<a class="button" href="{}">Generar Reporte Completo</a>', '/admin/generar_reporte_completo/')
+        extra_context['custom_button'] = format_html('<a class="button" href="{}">Generar Reporte Completo</a>',
+                                                     '/admin/generar_reporte_completo/')
         return super().index(request, extra_context=extra_context)
 
+
 admin_site = CustomAdminSite(name='custom_admin')
+
 
 # Definir los ModelAdmin
 class CountdownAdmin(admin.ModelAdmin):
@@ -47,32 +54,40 @@ class CountdownAdmin(admin.ModelAdmin):
 
     get_total_days.short_description = 'Días totales del proceso'
 
+
 class PreguntasFrecuentesResource(ModelResource):
     class Meta:
         model = PreguntasFrecuentes
 
+
 class PreguntasFrecuentesAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = PreguntasFrecuentesResource
+
 
 class TipoDocumentosResource(ModelResource):
     class Meta:
         model = TipoDocumentos
 
+
 class TipoDocumentosAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = TipoDocumentosResource
+
 
 class SeccionDocumentosResource(ModelResource):
     class Meta:
         model = SeccionDocumentos
+
 
 class SeccionDocumentosAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = SeccionDocumentosResource
     list_display = ('seccion_documento', 'tipo_documento')
     list_filter = ('tipo_documento',)
 
+
 class DocumentosResource(ModelResource):
     class Meta:
         model = Documentos
+
 
 class DocumentosAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = DocumentosResource
@@ -89,6 +104,7 @@ class DocumentosAdmin(ImportExportMixin, admin.ModelAdmin):
     make_private.short_description = "Marcar como privado"
     actions = [make_public, make_private]
 
+
 class ConsejoAsesorAdmin(admin.ModelAdmin):
     list_display = ('nombre_asesor', 'region', 'curriculum', 'avatar_preview')
     list_filter = ('region',)
@@ -101,6 +117,28 @@ class ConsejoAsesorAdmin(admin.ModelAdmin):
         return "No Image"
 
     avatar_preview.short_description = 'Avatar'
+
+
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    fields = ['foto', 'descripcion', 'preview']
+    readonly_fields = ['preview']
+    extra = 1  # Número de formas extras para cargar por defecto
+
+
+
+class PhotoAlbumAdmin(admin.ModelAdmin):
+    list_display = ['titulo_album', 'autor', 'region', 'date', 'public', 'modified']
+    exclude = ('autor',)
+    inlines = [PhotoInline]
+    ordering = ['-modified']
+
+    def save_model(self, request, obj, form, change):
+        if not obj.autor_id:
+            obj.autor = request.user
+        super().save_model(request, obj, form, change)
+
+
 
 # Registrar los modelos con admin_site en lugar de admin.site
 admin_site.register(Countdown, CountdownAdmin)
@@ -117,4 +155,9 @@ admin_site.register(PreguntaTres)
 admin_site.register(PreguntaCinco)
 admin_site.register(PreguntaSeis)
 admin_site.register(PreguntaSiete)
+admin_site.register(OpcionesPreguntaCinco)
 admin_site.register(User)
+admin_site.register(PhotoAlbum, PhotoAlbumAdmin)
+admin_site.register(Noticias)
+admin_site.register(Tag)
+admin_site.register(Multimedia)

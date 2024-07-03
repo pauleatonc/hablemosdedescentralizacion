@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models  import  Tag, Noticias, Multimedia
+from .models  import  Tag, Noticias, Multimedia,  PhotoAlbum, Photo
 
 # Register your models here.
 

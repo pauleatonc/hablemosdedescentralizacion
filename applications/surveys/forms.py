@@ -12,13 +12,12 @@ from django.utils.safestring import mark_safe
 class DatosUsuarioForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('comuna', 'genero', 'edad', 'pueblo_originario', 'familiaridad', 'politica_privacidad')
+        fields = ('comuna', 'genero', 'edad', 'pueblo_originario', 'politica_privacidad')
         labels = {
             'comuna': '¿En qué comuna vives?',
             'genero': '¿Con qué género te identificas?',
             'edad': 'Ingresa tu rango de edad',
             'pueblo_originario': '¿Pertenece a algún pueblo originario?',
-            'familiaridad': '¿Se encuentra usted familiarizado con la temática de descentralización?',
             'politica_privacidad': 'Leí y acepto la Política de Privacidad.'
         }
         widgets = {
@@ -53,14 +52,6 @@ class DatosUsuarioForm(forms.ModelForm):
                     'style': 'font-level-5',
                 }
             ),
-            'familiaridad': forms.Select(
-                attrs={
-                    'required': False,
-                    'placeholder': "Elige una opción",
-                    'class': 'form-control border border-2 border-accent rounded text-muted',
-                    'style': 'font-level-5',
-                }
-            ),
             'politica_privacidad': forms.CheckboxInput(
                 attrs={
                     'required': False,
@@ -78,7 +69,6 @@ class DatosUsuarioForm(forms.ModelForm):
         edad = cleaned_data.get('edad')
         pueblo_originario = cleaned_data.get('pueblo_originario')
         politica_privacidad = cleaned_data.get('politica_privacidad')
-        familiaridad = cleaned_data.get('familiaridad')
 
         if not comuna:
             self.add_error(
@@ -99,11 +89,7 @@ class DatosUsuarioForm(forms.ModelForm):
         if not politica_privacidad:
             self.add_error(
                 'politica_privacidad', 'Debes aceptar la Política de Privacidad antes de continuar.')
-
-        if not familiaridad:
-            self.add_error(
-                'familiaridad', 'Debes indicar tu familiaridad con la temática de descentralización.')
-                         
+                 
         return cleaned_data
 
 

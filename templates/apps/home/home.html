@@ -167,6 +167,55 @@
       </div>
     </div>
     {% endif %}
+
+  <div class="container px-0">
+    {% if latest_albums %}
+    <div class="container my-3">
+      <div>
+        <p class="font-level-2 text-center text-xl-left ml-lg-5 text-black font-weight-bold">Fotos </p>
+      </div>
+      <!-- Hacer visible en pantallas lg hacia arriba -->
+      <div class="container-fluid d-lg-block d-none ">
+        <p class="h4 text-left">Últimas publicaciones:</p>
+        <div class="cols-12">
+          <div class="row px-0">
+            {% include "components/row_fotos.html" %}
+          </div>
+        </div>
+          <div class="my-4">
+            <div class="text-center">
+              <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
+                onclick="window.location.href='/fotos/'">Ver todas las fotos
+                <i class="material-symbols-outlined">
+                  chevron_right
+                </i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Adaptar a pantallas md, sm y móviles más pequeños (390px) -->
+      <div class="cols-cards-12 my-2  d-block  d-lg-none">
+        <p class="h4 text-left ml-3">Últimas publicaciones:</p>
+        <div class="row mx-auto ">
+          <div class="col-12  col-sm-12">
+        {% include "components/carrusel_fotos.html" %}
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="text-center">
+            <button class="btn btn-neutral text-nowrap text-primary border-primary bg-white mb-5" type="button"
+              onclick="window.location.href='/fotos/'">Ver todas las fotos
+              <i class="material-symbols-outlined">
+                chevron_right
+              </i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
     {% if multimedias %}
     <div class="container my-3">
       <div>

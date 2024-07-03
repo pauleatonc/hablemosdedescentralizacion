@@ -31,10 +31,10 @@ class PreguntaDos(models.Model):
     )
 
     propuesta_1 = models.IntegerField(verbose_name='Rendimiento de cuentas', choices=VALORACION,
-                                     help_text='Que las autoridades elegidas directamente y por sufragio universal, rindan cuenta a la ciudadanía.')
+                                     help_text='Que las autoridades elegidas directamente, rindan cuenta a la ciudadanía.')
 
     propuesta_2 = models.IntegerField(verbose_name='Acceso a bienes y prestación de servicios', choices=VALORACION,
-                                     help_text='Que la ciudadanía tenga acceso a bienes y prestación de servicios públicos, por parte de los gobiernos regionales y municipalidades.')
+                                     help_text='Que la ciudadanía tenga acceso a bienes y prestaciones de servicios públicos, que hoy entrega el gobierno central, a través de los gobiernos regionales y municipalidades.')
 
     propuesta_3 = models.IntegerField(verbose_name='Mayores recursos públicos', choices=VALORACION,
                                      help_text='Que los gobiernos regionales y municipalidades cuenten con mayores recursos financieros, y sus usos sean definidos en el territorio.')
@@ -57,14 +57,14 @@ class PreguntaTres(models.Model):
         (4, 'No sabría responder')
     )
 
-    iniciativa_1 = models.IntegerField(verbose_name='Ambientales', choices=ITEMS,
-                                       help_text='Ambientales')
-    iniciativa_2 = models.IntegerField(verbose_name='Infraestructura', choices=ITEMS,
-                                       help_text='Infraestructura')
+    iniciativa_1 = models.IntegerField(verbose_name='Iniciativas ambientales', choices=ITEMS,
+                                       help_text='Iniciativas ambientales')
+    iniciativa_2 = models.IntegerField(verbose_name='Infraestructura pública', choices=ITEMS,
+                                       help_text='Infraestructura pública')
     iniciativa_3 = models.IntegerField(verbose_name='Servicios o beneficios sociales', choices=ITEMS,
                                        help_text='Servicios o beneficios sociales')
-    iniciativa_4 = models.IntegerField(verbose_name='Económicas', choices=ITEMS,
-                                       help_text='Económicas')
+    iniciativa_4 = models.IntegerField(verbose_name='Fomento productivo', choices=ITEMS,
+                                       help_text='Fomento productivo')
     iniciativa_5 = models.IntegerField(verbose_name='Ordenamiento del territorio', choices=ITEMS,
                                        help_text='Ordenamiento del territorio')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
