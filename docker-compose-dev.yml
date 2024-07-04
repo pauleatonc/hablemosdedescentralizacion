@@ -20,7 +20,7 @@ services:
     command: bash -c "python manage.py migrate && gunicorn hablemosdedescentralizacion.wsgi:application --bind 0.0.0.0:8080"
     volumes:
       - .:/app
-      - ./hablemos_staticfiles:/staticfiles
+      - ./staticfiles:/staticfiles
     networks:
       - development
     depends_on:
