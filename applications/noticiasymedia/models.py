@@ -121,10 +121,13 @@ class Photo(TimeStampedModel):
         verbose_name='Foto (obligatorio)'
     )
     descripcion = models.CharField(
-        max_length=500, verbose_name='Descripcion Foto (obligatorio)')
+        max_length=500, verbose_name='Descripcion Foto (opcional)', 
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
-        return self.descripcion
+        return self.descripcion or ""
 
     def clean(self):
         # Comprobar si el álbum ya tiene 12 fotos

@@ -53,7 +53,11 @@
       <div class="modal-dialog modal-dialog-centered custom-modal-dialog" role="document">
         <div class="modal-content custom-modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="photo-modal-label-{{ photo.id }}">{{ photo.descripcion }}</h5>
+            {% if photo.descripcion %}
+              <h5 class="modal-title" id="photo-modal-label-{{ photo.id }}">{{ photo.descripcion }}</h5>
+            {% else %}
+              <h5 class="modal-title" id="photo-modal-label-{{ photo.id }}"></h5>
+            {% endif %}
             <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
               <span aria-hidden="true">&times;</span>
             </button>
