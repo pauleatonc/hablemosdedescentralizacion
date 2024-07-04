@@ -9,6 +9,52 @@
   border: solid 2px rgb(63, 135, 208);
   overflow: hidden;
 }
+.card-carrusel-fotos {
+  width: 370px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 9px 10px 9px;
+  border: solid 2px rgb(63, 135, 208);
+  overflow: hidden;
+  position: relative;
+}
+@media only screen and (min-width: 300px) and (max-width: 460px) {
+  .card-carrusel-fotos{
+    width:100%;
+  }
+}
+
+.card-s {
+  width: 370px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 9px 10px 9px;
+  border: solid 2px rgb(63, 135, 208);
+  overflow: hidden;
+}
+
+.imagen-card{
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+  object-fit: cover;
+  margin:5px;
+}
+@media (min-width: 768px) {
+  .card-s {
+    height: 370px;
+  }
+  .imagen-card{
+    width: 280px;
+    height: 200px;
+  } 
+}
 
 .card-img {
   width: auto;
@@ -22,15 +68,12 @@
   height: 100%;
 }
 
-
-
 @media only screen and (max-width: 576px) {
   .img-small {
     width: 100%;
     height: 100%; 
   }
 }
-
 
 .description-card {
   overflow: hidden;
@@ -63,6 +106,17 @@
   color: #ffffff;
 }
 
+.btn-card-s {
+  width: fit-content; 
+  height: auto; 
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  background-color: rgb(15, 105, 196);
+  color: #ffffff;
+}
+
 .cols-cards-12 {
     display: flex;
     justify-content: center; 
@@ -87,7 +141,7 @@
   height: 150;
   width: 150px;
   border-radius: 50%;
-  background-color: plum;
+  background-color: transparent;
   overflow: hidden;
   margin: 0 0 0px;
   object-fit: cover;
@@ -96,7 +150,7 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background-color: plum;
+  background-color: transparent;
   overflow: hidden;
   margin: 0 0 0px;
 }
@@ -113,7 +167,11 @@
 .modal-content{
   border-radius: 10px;
 }
-
+.modal-imagen{
+  border-radius: 10px;
+  width: 90%;
+  height: auto;
+}
 /* Estilos para tamaños de pantalla entre 576px y 767px */
 @media only screen and (max-width: 767px) {
   .card {
@@ -200,5 +258,28 @@
   .card {
     width: 70%;
     margin: auto;
+  }
+}
+
+/* Estilos para el modal fotos */
+.custom-modal-dialog {
+  max-width: 80%; 
+  width: auto; 
+}
+.custom-modal-content {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.custom-modal-image {
+  display: block;
+  max-width: 100%; 
+  max-height: 80vh; 
+  margin: 0 auto; 
+  object-fit: contain; 
+}
+@media (max-width: 767px) {
+  .custom-modal-dialog {
+    max-width: 100%;
+    margin: 0 10px; 
   }
 }

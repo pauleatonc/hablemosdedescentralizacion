@@ -78,7 +78,7 @@ class ConsejoAsesorListView(ListView):
 
     def get_queryset(self):
         # Ordenar por ID de manera descendente
-        return ConsejoAsesor.objects.all().order_by('-id')
+        return ConsejoAsesor.objects.all().order_by('id')
 
 
 
