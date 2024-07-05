@@ -52,6 +52,15 @@ urlpatterns = [
         views.ConsejoAsesorListView.as_view(),
         name='consejo-asesor',
     ),
-     path('generar_reporte_completo/', generar_reporte_completo, name='generar_reporte_completo'),
+    path(
+        'calendario_dialogos',
+        views.CalendarioDialogosView.as_view(),
+        name='calendario_dialogos',
+    ),
+     path(
+         'generar_reporte_completo/', 
+         generar_reporte_completo, 
+         name='generar_reporte_completo'
+    ),
 
 ]
