@@ -51,6 +51,9 @@ class DocumentosView(TemplateView):
 class PoliticasPrivacidadView(TemplateView):
     template_name = 'apps/home/politicas_privacidad.html'
 
+class CalendarioDialogosView(TemplateView):
+    template_name = 'apps/home/calendario_dialogos.html'
+
 
 class OnboardingView(TemplateView):
     template_name = 'apps/home/onboarding.html'

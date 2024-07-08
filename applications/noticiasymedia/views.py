@@ -1,5 +1,6 @@
 from typing import Any, Dict
-from django.shortcuts import render
+import datetime
+from django.shortcuts import render, redirect
 from applications.noticiasymedia.models import Noticias, Multimedia, PhotoAlbum, Photo
 from django.views.generic import TemplateView, DetailView, ListView
 from django.core.paginator import Paginator
@@ -7,6 +8,11 @@ from django.db.models import Max
 
 from applications.regioncomuna.models import Region
 from django.db import models
+from .forms import FileFieldForm
+from django.views.generic.edit import FormView
+from applications.regioncomuna.models import Region
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import user_passes_test
 
 
 class NoticiasView(TemplateView):
@@ -112,3 +118,21 @@ class AlbumsByRegionView(ListView):
         region = Region.objects.get(pk=self.kwargs['region_id'])
         context['region_name'] = region.region
         return context
+    
+
+@method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
+class FileFieldFormView(FormView):
+    form_class = FileFieldForm
+    template_name = "components/upload_photos.html"
+    success_url = "/upload_photos/"  # Redirige al índice del admin después de la subida
+
+    def form_valid(self, form):
+        try:
+            last_album = PhotoAlbum.objects.latest('id')  # Obtener el último álbum creado
+        except PhotoAlbum.DoesNotExist:
+            return self.form_invalid(form)  # Si no hay álbumes, manejar el error adecuadamente
+
+        files = form.cleaned_data["file_field"]
+        for f in files:
+            Photo.objects.create(album=last_album, foto=f)
+        return super().form_valid(form)
