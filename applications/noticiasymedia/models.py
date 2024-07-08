@@ -129,11 +129,6 @@ class Photo(TimeStampedModel):
     def __str__(self):
         return self.descripcion or ""
 
-    def clean(self):
-        # Comprobar si el álbum ya tiene 12 fotos
-        if Photo.objects.filter(album=self.album).count() >= 12:
-            raise ValidationError(f"El álbum '{self.album.titulo_album}' no puede tener más de 12 fotos.")
-
     def save(self, *args, **kwargs):
         self.clean()  # Llama a clean para realizar la validación antes de guardar
         super().save(*args, **kwargs)
