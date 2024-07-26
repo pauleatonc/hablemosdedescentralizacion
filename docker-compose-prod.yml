@@ -56,6 +56,12 @@ services:
       - ./staticfiles:/home/app/staticfiles
       - ./../:/etc/nginx/certificados
 
+# In production we use an external proxy network for exposing the services
+networks:
+  frontend:
+    external: true
+    name: proxy-net
+
 # Just in case this is a prodcution-like env
 volumes:
   postgres_data:

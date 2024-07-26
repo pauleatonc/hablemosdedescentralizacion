@@ -1,0 +1,94 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block views %}
+<div class="container-fluid mt-5">
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mt-5">
+                  <li class="breadcrumb-item text-primary"><a href="/" class="text-primary">Inicio</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Consejo Asesor</li>
+                </ol>
+            </nav>
+            <div class="section-header mt-5">
+                <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold" id="secciones">Consejo Asesor</p>
+            </div>
+            <div class="section-body">
+                <p class="h4 pb-4 mb-3">
+                    El proceso de elaboración e instalación de la Política de Descentralización de Chile será
+                    acompañado por un Consejo Asesor, de carácter consultivo, paritario, y representativo de distintas
+                    regiones. Su objetivo será asesorar a la Subsecretaria de Desarrollo Regional y Administrativo,
+                    quien lo preside.
+                </p>
+                <p class="h4 pb-4 mb-2">Para el cumplimiento de su cometido, corresponden al Consejo las siguientes funciones:</p>
+                <p class="h4 pb-2">a) Pronunciarse respecto a consultas efectuadas por la Subsecretaria de Desarrollo Regional y Administrativo.</p>
+                <p class="h4 pb-2">b) Formular sugerencias en base a la experiencia comparada y la legislación nacional e internacional vigente.</p>
+                <p class="h4 pb-2">c) Plantear mejoras al itinerario y ejecución del proceso participativo para la elaboración e instalación de la Política.</p>
+                <p class="h4 pb-2">d) Sugerir propuestas de contenido para la Política, a presentar a la autoridad ejecutiva.</p>
+                <p class="h4 pb-4 mb-2">e) Apoyar con propuestas operativas la instalación de las principales medidas de la Política, dentro de los primeros 100 días desde su puesta en marcha.</p>
+                <p class="h4 pb-4 mb-3">
+                    El Consejo se encuentra integrado por las siguientes personas, de reconocida trayectoria y
+                    liderazgo en materia de descentralización y desarrollo territorial:
+                </p>
+            </div>   
+        </div>     
+    </div>
+
+    <div class="my-4">
+        {% include "components/logo_banner.html"%}
+    </div>
+
+    <div class="container">
+        <div id="d-flex justify-content-center align-items-center">
+            <div class="ms-md-4 container-asesores mb-5 pb-5">
+                {% for asesor in asesores %}
+                <!-- card asesores -->
+                <div class="card-asesores" data-toggle="modal" data-target="#modal-{{ asesor.id }}">
+                    <div class="col m-0 p-0">
+                        <div class="text-center">
+                            {% if asesor.avatar %}
+                                <img src="{{ asesor.avatar.url }}" class="avatar-asesores-s" alt="Avatar de {{ asesor.nombre_asesor }}">
+                            {% else %}
+                                <img src="{% static 'images/default-avatar.png' %}" class="avatar-asesores-s" alt="Avatar por defecto">
+                            {% endif %}
+                        </div>
+                        <div class="">
+                            <div class="m-0 p-0 mt-2">
+                                <h5 class="text-center asesores-nombre-font">{{ asesor.nombre_asesor }}</h5>
+                                <p class="asesores-region-font text-center">{{ asesor.region.region|default:"No especificado" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- modal -->
+                <div class="modal fade" id="modal-{{ asesor.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ asesor.id }}-label" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="p-4">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    {% if asesor.avatar %}
+                                        <img src="{{ asesor.avatar.url }}" class="avatar-asesores mb-3" alt="Avatar de {{ asesor.nombre_asesor }}">
+                                    {% else %}
+                                        <img src="{% static 'images/default-avatar.png' %}" class="avatar-asesores mb-3" alt="Avatar por defecto">
+                                    {% endif %}
+                                </div>
+                                <p class="text-center bodylinkl-regular-sans-serif mb-0 mt-3"><strong>{{ asesor.nombre_asesor }}</strong> </p>
+                                <p class="text-center bodypm-regular-sans-serif">{{ asesor.region.region|default:"No especificado" }}</p>
+                                <p class="text-center bodypm-regular-sans-serif">{{ asesor.curriculum }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock views %}

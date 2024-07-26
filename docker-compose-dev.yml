@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  db:
+  hablemos_db:
     image: postgres:14
     environment:
       - POSTGRES_DB=${DB_NAME}
@@ -20,11 +20,11 @@ services:
     command: bash -c "python manage.py migrate && gunicorn hablemosdedescentralizacion.wsgi:application --bind 0.0.0.0:8080"
     volumes:
       - .:/app
-      - ./hablemos_staticfiles:/staticfiles
+      - ./staticfiles:/staticfiles
     networks:
       - development
     depends_on:
-      - db
+      - hablemos_db
     env_file:
       - .env
     environment:

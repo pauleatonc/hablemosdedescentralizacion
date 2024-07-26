@@ -17,7 +17,7 @@
         <p class="font-level-3 text-md-left text-center">Enviaste y guardaste tus respuestas con éxito.<p>
         <p class="font-level-4 text-md-left text-center">Recuerda que no puedes volver a responder este cuestionario.</p>
         
-        <p class="font-level-4  text-justify text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las recibirás en unos minutos.</p>
+        <p class="font-level-4  text-justify text-left">Si quieres una copia de tus respuestas, escribe tu correo electrónico y las recibirás al cierre del proceso.</p>
 
           <form id="my-form" method="post" action="{% url 'surveys_app:enviar_formularios' %}">
             {% csrf_token %}
@@ -33,9 +33,9 @@
             <div class="col-md-6 mx-md-auto px-0">
               <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-button">
                 <span id="button-text">Recibir mis respuestas</span>
-                <span id="response-text" style="display: none;">Recibirás un correo electrónico con <br>tus respuestas en unos minutos.</span>
+                <span id="response-text" style="display: none;">Recibirás un correo electrónico con <br>tus respuestas al cierre del proceso.</span>
               </button>
-              <a type="button" href="{% url 'home_app:index' %}"" id='btn-back' class="btn btn-outline-primary text-center btn-lg btn-block my-4">Volver a la página principal <img src="{% static 'img/house.svg' %}" class="ml-3" id="icon-house"/></a>
+              <a type="button" href="{% url 'home_app:index' %}" id='btn-back' class="btn btn-outline-primary text-center btn-lg btn-block my-4">Volver a la página principal <img src="{% static 'img/house.svg' %}" class="ml-3" id="icon-house"/></a>
             </div>
           </form>
 

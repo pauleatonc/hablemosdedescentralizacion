@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 import random
 from collections import OrderedDict
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, OpcionesPreguntaCinco, PreguntaSeis, PreguntaSiete
 from applications.users.models import User
 from applications.regioncomuna.models import Comuna, Region
 from django.utils.safestring import mark_safe
@@ -16,7 +16,7 @@ class DatosUsuarioForm(forms.ModelForm):
         labels = {
             'comuna': '¿En qué comuna vives?',
             'genero': '¿Con qué género te identificas?',
-            'edad': '¿Qué edad tienes?',
+            'edad': 'Ingresa tu rango de edad',
             'pueblo_originario': '¿Pertenece a algún pueblo originario?',
             'politica_privacidad': 'Leí y acepto la Política de Privacidad.'
         }
@@ -37,10 +37,10 @@ class DatosUsuarioForm(forms.ModelForm):
                     'style': 'font-level-5',
                 }
             ),
-            'edad': forms.NumberInput(
+            'edad': forms.Select(
                 attrs={
                     'required': False,
-                    'placeholder': 'Ingresa tu edad',
+                    'placeholder': 'Ingresa tu rango de edad',
                     'class': 'form-control border border-2 border-accent rounded text-muted'
                 }
             ),
@@ -89,17 +89,8 @@ class DatosUsuarioForm(forms.ModelForm):
         if not politica_privacidad:
             self.add_error(
                 'politica_privacidad', 'Debes aceptar la Política de Privacidad antes de continuar.')
-
+                 
         return cleaned_data
-
-    def clean_edad(self):
-        edad = self.cleaned_data.get('edad')
-
-        if edad:
-            if edad < 14 or edad > 120:
-                raise forms.ValidationError('La edad debe estar entre 14 y 120 años.')
-
-        return edad
 
 
 class PreguntaUnoForm(forms.ModelForm):
@@ -131,35 +122,31 @@ class PreguntaDosForm(forms.ModelForm):
         model = PreguntaDos
         fields = ('propuesta_1', 'propuesta_2', 'propuesta_3', 'propuesta_4')
         widgets = {
-            'propuesta_1': forms.NumberInput(
+            'propuesta_1': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_1'
                 }
             ),
-            'propuesta_2': forms.NumberInput(
+            'propuesta_2': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_2'
                 }
             ),
-            'propuesta_3': forms.NumberInput(
+            'propuesta_3': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_3'
                 }
             ),
-            'propuesta_4': forms.NumberInput(
+            'propuesta_4': forms.Select(
                 attrs={
-                    'required': True,
-                    'placeholder': '-',
-                    'class': 'propuesta  ',
+                    'required': False,
+                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto',
                     'id': 'propuesta_4'
                 }
             ),
@@ -200,7 +187,7 @@ class PreguntaTresForm(forms.ModelForm):
         model = PreguntaTres
         fields = ('iniciativa_1', 'iniciativa_2', 'iniciativa_3', 'iniciativa_4', 'iniciativa_5')
         widgets = {
-            'iniciativa_1': forms.NumberInput(
+            'iniciativa_1': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -208,7 +195,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_1'
                 }
             ),
-            'iniciativa_2': forms.NumberInput(
+            'iniciativa_2': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -216,7 +203,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_2'
                 }
             ),
-            'iniciativa_3': forms.NumberInput(
+            'iniciativa_3': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -224,7 +211,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_3'
                 }
             ),
-            'iniciativa_4': forms.NumberInput(
+            'iniciativa_4': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -232,7 +219,7 @@ class PreguntaTresForm(forms.ModelForm):
                     'id': 'iniciativa_4'
                 }
             ),
-            'iniciativa_5': forms.NumberInput(
+            'iniciativa_5': forms.Select(
                 attrs={
                     'required': True,
                     'placeholder': '-',
@@ -273,67 +260,110 @@ class PreguntaTresForm(forms.ModelForm):
             self.fields = OrderedDict((k, self.fields[k]) for k in iniciativas)
     
 
-class PreguntaCuatroForm(forms.ModelForm):
-    class Meta:
-        model = PreguntaCuatro
-        fields = ('tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5') 
-        widgets = {
-            'tematica_1': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                } 
-            ),
-            'tematica_2': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-            'tematica_3': forms.Select(
-                attrs={
-                    'required': False,              
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-            'tematica_4': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-            'tematica_5': forms.Select(
-                attrs={
-                    'required': False,   
-                    'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
-                }
-            ),
-        }
+# class PreguntaCuatroForm(forms.ModelForm):
+#     class Meta:
+#         model = PreguntaCuatro
+#         fields = ('tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5') 
+#         widgets = {
+#             'tematica_1': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 } 
+#             ),
+#             'tematica_2': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#             'tematica_3': forms.Select(
+#                 attrs={
+#                     'required': False,              
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#             'tematica_4': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#             'tematica_5': forms.Select(
+#                 attrs={
+#                     'required': False,   
+#                     'class': 'form-control w-50 border border-2 border-gray-a align-self-center mx-auto'
+#                 }
+#             ),
+#         }
 
-    def __init__(self, *args, **kwargs):
-        request = kwargs.pop('request', None)
-        super(PreguntaCuatroForm, self).__init__(*args, **kwargs)
+#     def __init__(self, *args, **kwargs):
+#         request = kwargs.pop('request', None)
+#         super(PreguntaCuatroForm, self).__init__(*args, **kwargs)
 
-        tematicas = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
-        if 'tematicas_order' in request.session:
-            tematicas_order = request.session['tematicas_order']
-            self.fields = OrderedDict((k, self.fields[k]) for k in tematicas_order)
-        else:
-            random.shuffle(tematicas)
-            request.session['tematicas_order'] = tematicas
-            self.fields = OrderedDict((k, self.fields[k]) for k in tematicas)
+#         tematicas = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
+#         if 'tematicas_order' in request.session:
+#             tematicas_order = request.session['tematicas_order']
+#             self.fields = OrderedDict((k, self.fields[k]) for k in tematicas_order)
+#         else:
+#             random.shuffle(tematicas)
+#             request.session['tematicas_order'] = tematicas
+#             self.fields = OrderedDict((k, self.fields[k]) for k in tematicas)
 
-        for field in self.fields:
-            self.fields[field].label = mark_safe('<span style="font-weight: 700; ; text-decoration-line: underline;">' + self.fields[field].label + '</span>: ' + self.fields[field].help_text)
+#         for field in self.fields:
+#             self.fields[field].label = mark_safe('<span style="font-weight: 700; ; text-decoration-line: underline;">' + self.fields[field].label + '</span>: ' + self.fields[field].help_text)
 
-        # Reemplazar la opción "---------" por "Elige una opción"
-        for field_name, field in self.fields.items():
-            field.choices = [('', 'Elige una opción')] + list(field.choices)[1:]
+#         # Reemplazar la opción "---------" por "Elige una opción"
+#         for field_name, field in self.fields.items():
+#             field.choices = [('', 'Elige una opción')] + list(field.choices)[1:]
 
 
 class PreguntaCincoForm(forms.ModelForm):
+    opciones = forms.ModelMultipleChoiceField(
+        queryset=OpcionesPreguntaCinco.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+        error_messages={'required': 'Debes seleccionar exactamente tres opciones.'}
+    )
+
     class Meta:
         model = PreguntaCinco
+        fields = ['opciones']
+
+    def clean_opciones(self):
+        opciones = self.cleaned_data.get('opciones')
+        print("Cleaned data for opciones:", opciones)
+        if len(opciones) != 3:
+            raise forms.ValidationError('Debes seleccionar exactamente tres opciones.')
+        return opciones
+    
+
+class PreguntaSeisForm(forms.ModelForm):
+
+    valor = forms.ChoiceField(choices=PreguntaSeis.VALORES, required=True)
+
+    class Meta:
+        model = PreguntaSeis
+        fields = ['valor']
+        widgets = {
+            'valor': forms.RadioSelect
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not self.data:
+            return cleaned_data
+
+        valor = cleaned_data.get('valor')
+        if not valor:
+            raise ValidationError(
+                'Debes elegir una opción antes de continuar.')
+        return cleaned_data
+    
+class PreguntaSieteForm(forms.ModelForm):
+    class Meta:
+        model = PreguntaSiete
         fields = ('texto_respuesta',)
         labels = {
             'texto_respuesta': 'Escribe tu respuesta ',
@@ -348,7 +378,7 @@ class PreguntaCincoForm(forms.ModelForm):
                 }
             )
         }
-
+    
 
 class EnviarFormulariosForm(forms.ModelForm):
     class Meta:

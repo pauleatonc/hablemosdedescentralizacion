@@ -18,7 +18,8 @@
             <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold" id="secciones">Proceso Participativo</p>
             </div>
             <div class="section-body">
-            <p class="h4 pb-4">El proceso de desarrollo de la Política Nacional de Descentralización considera cuatro instancias de participación ciudadana. Conoce en qué consiste cada una y a quiénes van dirigidas.</p>
+            <p class="h4 pb-4">El proceso participativo para la elaboración de la Política de Descentralización de Chile considera cuatro instancias. 
+                Conoce en qué consiste cada una y a quiénes van dirigidas.</p>
             </div>
             <div class="my-5 col-md-6">
                 {% countdown_component %}
@@ -33,11 +34,17 @@
     <div class="container my-md-5">
 <!-- aqui estan las columnas -->
         <div class="d-flex justify-content-center">
+            <div class="col-md-10">
+                {% include "components/invitacion.html"%}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
             <div class="parent col-lg-10 align-items-start">
                 
                 <div class="div1 section-header">
-                    <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Diálogos regionales para la Política Nacional de Descentralización</p>
-                    <p class="h4 text-left mb-md-0 text-body mt-4">Se realizarán en las 16 regiones del país, convocando a autoridades nacionales, regionales y locales, mundo académico, sector público, sociedad civil organizada -a través de los COSOC municipales y de gobiernos regionales- y otras representaciones relevantes de cada región.</p>
+                    <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Diálogos regionales para la Política de Descentralización de Chile</p>
+                    <p class="h4 text-left mb-md-0 text-body mt-4">Se realizarán diálogos participativos en cada una de las 16 regiones del país, convocando a autoridades 
+                        nacionales, regionales y locales, mundo académico, sector público, sociedad civil, y representantes de cada región.</p>
                 </div>
                 <div class="div2 d-flex flex-column align-items-center w-100 mt-4">
                     <button class="btn btn-neutral btn-lg text-nowrap text-primary border-primary bg-white" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}#Documentos Normativos'">
@@ -49,7 +56,9 @@
                 </div>
                 <div class="div3 section-header mt-5 mt-lg-0">
                     <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Seminarios Virtuales</p>
-                    <p class="h4 text-left mb-md-0 text-body mt-4">Se realizarán cinco encuentros de manera telemática, convocando a centros de pensamiento, asociaciones gremiales de funcionarios y funcionarias de gobiernos regionales y municipales, funcionarios y funcionarias del nivel central, organizaciones no gubernamentales y organismos internacionales.</p>
+                    <p class="h4 text-left mb-md-0 text-body mt-4">Se realizarán encuentros telemáticos, convocando a audiencias específicas, tales como centros de estudios, 
+                        asociaciones gremiales de funcionarios y funcionarias de gobiernos regionales y municipios, funcionarios y funcionarias del nivel central, organizaciones 
+                        no gubernamentales, organismos internacionales, y organizaciones de pueblos indígenas.</p>
                 </div>
                 <div class="div4 d-flex flex-column align-items-center w-100 mt-4">
                     <button class="btn btn-neutral btn-lg text-nowrap text-primary border-primary bg-white" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}#Seminarios Virtuales'">
@@ -60,8 +69,10 @@
                     </button>
                 </div>
                 <div class="div5 section-header mt-5 mt-lg-0">
-                    <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Participación en los Consejos de Sociedad Civil (COSOC)</p>
-                    <p class="h4 text-left mb-md-0 text-body mt-4">En encuentros similares a los Diálogos Regionales, se convoca a representantes de los COSOC de los gobiernos regionales y municipalidades para participar a través de sesiones extraordinarias, donde puedan entregar sus aportes y miradas junto con abordar los contenidos de la Política.</p>
+                    <p class="font-level-2 text-center pb-4 text-black font-weight-bold">Encuentros Macrozonales de Asociaciones de Municipalidades</p>
+                    <p class="h4 text-left mb-md-0 text-body mt-4">En el marco del Tercer Encuentro de Asociaciones de Municipios, se desarrollarán tres encuentros en las 
+                        macrozonas norte, centro y sur del país, que contribuyan a la Política de Descentralización de Chile. Botón “Revisa aquí el calendario de los 
+                        Encuentros Macrozonales de Asociaciones de Municipalidades” y redirecciona.</p>
                 </div>
                 <div class="div6 d-flex flex-column align-items-center w-100 mt-4">
                     <button class="btn btn-neutral btn-lg text-nowrap text-primary border-primary bg-white" type="button" onclick="window.location.href='{% url 'home_app:documentos' %}#Participación de los Consejos de la Sociedad Civil (COSOC)'">
@@ -71,12 +82,6 @@
                             </i>
                     </button>
                 </div>  
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-center">
-            <div class="col-md-10">
-                {% include "components/invitacion.html"%}
             </div>
         </div>
     </div>

@@ -25,6 +25,25 @@
   text-align: center;
 }
 
+.btn-option {
+  width: 50%;
+  border: 1px solid #0f69c4;
+  color: #0f69c4;
+  font-weight: 200;
+  background-color: white;
+  text-align: center;
+}
+.btn-option:hover {
+  border: 1px solid #0f69c4;
+}
+.btn-option.selected {
+  border: 3px solid #0f69c4;
+  color: #0f69c4;
+  font-weight: 700;
+  background-color: white;
+  text-align: center;
+}
+
 .propuesta,
 .iniciativa {
   border: 1px solid #0f69c4;

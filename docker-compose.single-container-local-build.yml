@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=database
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - default
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.single-container
+    volumes:
+      - .env:/home/app/.env
+    networks:
+      - default
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=hablemosdedescentralizacion.settings.prod
+    ports:
+      - "80:80"
+
+
+volumes:
+  postgres_data:
+

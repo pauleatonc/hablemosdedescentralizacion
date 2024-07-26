@@ -9,56 +9,65 @@
         {% include "components/desentralizacion_banner.html" %}
       </div>
       <div class="col-lg-9 d-flex justify-content-between my-2">
-        <button type="button" class="btn btn-pill-primary  text-nowrap"
-          onclick="window.location.href='{% url 'surveys_app:pregunta_cuatro' %}'"><i
-            class="material-symbols-outlined">
-            chevron_left
-          </i>
-          Ir atrás</button>
+        <button type="button" class="btn btn-pill-primary text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_tres' %}'">
+          <i class="material-symbols-outlined">chevron_left</i>
+          Ir atrás
+        </button>
+        <button type="button" class="btn btn-pill-primary text-primary text-nowrap"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_seis' %}'">
+          Siguiente<i class="material-symbols-outlined">chevron_right</i>
+        </button>
       </div>
+
       <div class="col-lg-10">
-        <p class="font-level-1  text-center my-3">Pregunta 5 de 5:</p>
+        <p class="font-level-1 text-center my-3">Pregunta 4 de 6:</p>
       </div>
       <div class='col-lg-9 my-2 mx-1'>
-          <p class="font-level-5 mx-2">Para finalizar, a partir de las  respuestas dadas anteriormente:
-          </p>
-          <p class="font-level-5 text-justify mx-2">
-            ¿Qué tema, iniciativa o aspecto profundizarías o agregarías, considerando el vínculo entre descentralización y tu vida personal y en comunidad?<br>
-            <br>
-            Responder esta pregunta es opcional.
-          </p>
+        <p class="font-level-5 mx-2">¿Cuáles de las siguientes medidas preferirías que fuesen promovidas por una Política de Descentralización de Chile? Marcar tres alternativas.</p>
       </div>
       <div class="col-12 col-md-8 col-lg-9 mx-5 justify-content-center">
-        <form method="post" class="form col-12" action=" {% url 'surveys_app:pregunta_cinco' %}">
+        <form method="post" class="form col-12" action="{% url 'surveys_app:pregunta_cinco' %}" onsubmit="return validateForm()">
           {% csrf_token %}
-
-          <!-- Muestra input para el formulario -->
-          <div class="form-group-textarea">
-            {{ form.texto_respuesta.label_tag }}
-            {{ form.texto_respuesta }}
-            <div style="text-align:right"><span id="message-word-count" style="color:gray">0 / 500 caracteres.</span>
+          
+          {% for choice in opciones %}
+            <div class="d-flex">
+              <button class="btn-option text-primary font-level-5 px-0 btn-lg my-3 w-100
+                {% if choice.id in initial_opciones %}selected active{% endif %}"
+                type="button" value="{{ choice.id }}" style="background-color: white;"
+                onclick="toggleSelection(this)">
+                {{ choice.texto|safe }}
+                <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" 
+                  id="img_{{ choice.id }}"
+                  {% if choice.id in initial_opciones %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
+              </button>
             </div>
-            {{ form.errors }}
-          </div>
+          {% endfor %}
+
+          <!-- Campo oculto para almacenar los valores seleccionados -->
+          <input type="hidden" id="id_opciones" name="opciones" value="{{ initial_opciones|join:',' }}">
+
+          <!-- Muestra errores del campo valor -->
+          {% if form.non_field_errors %}
+            <p>{{ form.non_field_errors }}</p>
+          {% endif %}
 
           <!-- Botón para el envío del formulario completo -->
-          <div class="d-flex flex-column my-3 px-0 align-content-center">
-            <p class="font-level-6  text-md-center font-weight-light ">Continúa para guardar y enviar tus respuestas.</p>
-            <button type="submit" class="btn btn-primary btn-lg btn-block align-self-center col-md-6 text-nowrap">Enviar mis respuestas <i
-                class="material-symbols-outlined px-2">
-                arrow_forward_ios
-              </i></button>
-        </div>
-
-
+          <div class="col-md-9 mx-md-auto my-4 px-0">
+            <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:
+              <br><strong class="font-level-6">Tu opinión sobre la Descentralización</strong>
+            </p>
+            <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">
+              Siguiente <i class="material-symbols-outlined px-3">arrow_forward_ios</i>
+            </button>
+          </div>
         </form>
       </div>
-      
     </div>
   </div>
 </section>
 <div class="my-3 col-md-12 mw-100 mx-0 px-0">
-{% include "components/logo_banner.html" %}
+  {% include "components/logo_banner.html" %}
 </div>
 
 {% include "components/modal_salida_encuesta.html" %}
@@ -74,38 +83,47 @@
     // Identificar todos los enlaces del navbar y footer
     $('nav a, footer a').on('click', function(e) {
       e.preventDefault();
-
       // Guardar el href del enlace en el botón de confirmación del modal
       $('#confirmExitButton').attr('href', $(this).attr('href'));
-
       // Mostrar el modal
       $('#exitSurveyModal').modal('show');
     });
   });
 
-</script>
-
-<script>
-    function countCharacters() {
-        const messageInput = document.getElementById("id_texto_respuesta");
-        const charCountElement = document.getElementById("message-word-count");
-
-        const message = messageInput.value;
-        const charCount = message.length;
-
-        charCountElement.textContent = `${charCount} / 500 caracteres.`;
-
-        if (charCount >= 500) {
-            charCountElement.style.color = "red";
-        } else {
-            charCountElement.style.color = "gray";
-        }
+  function toggleSelection(button) {
+    let selectedButtons = document.querySelectorAll('.selected');
+    // Verifica si ya hay tres opciones seleccionadas
+    if (selectedButtons.length >= 3 && !button.classList.contains('selected')) {
+      // Si ya hay tres opciones seleccionadas y se hace clic en una no seleccionada,
+      // deselecciona la primera opción seleccionada
+      let firstSelectedButton = selectedButtons[0];
+      firstSelectedButton.classList.remove('selected');
+      firstSelectedButton.classList.remove('active');
+      let firstImageId = "img_" + firstSelectedButton.value;
+      let firstImage = document.getElementById(firstImageId);
+      firstImage.style.display = "none";
     }
+    // Cambia el estado de selección del botón clicado
+    button.classList.toggle('selected');
+    button.classList.toggle('active'); // Agrega o elimina la clase 'active'
+    let imageId = "img_" + button.value;
+    let image = document.getElementById(imageId);
+    image.style.display = button.classList.contains('selected') ? "inline-block" : "none";
+    
+    // Actualiza el valor del campo oculto
+    let selectedValues = [...document.querySelectorAll('.selected')].map(btn => btn.value).join(',');
+    document.getElementById('id_opciones').value = selectedValues;
+    console.log("Selected values:", selectedValues);  // Debug statement
+  }
 
-    // This will run the function when the page loads
-    countCharacters();
-
-    document.getElementById("id_texto_respuesta").addEventListener('input', countCharacters);
+  function validateForm() {
+    let selectedValues = document.getElementById('id_opciones').value;
+    if (selectedValues.split(',').length !== 3) {
+      alert("Debe seleccionar exactamente tres opciones.");
+      return false;
+    }
+    return true;
+  }
 </script>
 
 {% endblock scripts %}

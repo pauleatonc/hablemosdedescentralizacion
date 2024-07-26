@@ -1,8 +1,19 @@
 {% load static %}
 <!-- Conteo de días para finalizar el proceso -->
-{% if days_left > 1 %}
+
+{% if days_until_start == 1 %}
     <div>
-        <p class="h4 mb-2">Quedan {{ days_left }} días para el cierre del proceso.</p>
+        <p class="h4 mb-2">Queda {{ days_until_start }} día para el inicio de la consulta.</p>
+    </div>
+
+{% elif days_until_start > 0 %}
+    <div>
+        <p class="h4 mb-2">Quedan {{ days_until_start }} días para el inicio de la consulta.</p>
+    </div>
+
+{% elif days_left > 1 %}
+    <div>
+        <p class="h4 mb-2">Quedan {{ days_left }} días para el cierre de la consulta.</p>
     </div>
 
     <!-- Barra de progreso -->
@@ -16,7 +27,7 @@
 
 {% elif days_left == 1 %}
     <div>
-        <p class="h4 mb-2">Queda {{ days_left }} día para el cierre del proceso.</p>
+        <p class="h4 mb-2">Queda {{ days_left }} día para el cierre de la consulta.</p>
     </div>
 
     <!-- Barra de progreso -->
@@ -30,7 +41,7 @@
 
 {% else %}
     <div>
-        <p class="h4 mb-2">Este proceso ha finalizado el {{ end_date }}.</p>
+        <p class="h4 mb-2">La consulta ha finalizado el {{ end_date }}.</p>
     </div>
 {% endif %}
 

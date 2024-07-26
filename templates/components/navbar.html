@@ -33,9 +33,9 @@
       </div> 
       <li class="nav-item">
         {% if user.is_authenticated %}
-        <li class="nav-item "><a class="btn btn-lg btn-block btn-outline-danger btn-cerrar-sesion " href="{% url 'users_app:user-logout' %}">Cerrar sesión</a></li>
+        <li class="nav-item "><a class="btn btn-lg btn-block btn-outline-danger btn-cerrar-sesion " href="{% url 'claveunica:keycloak_logout' %}">Cerrar sesión</a></li>
         {% else %}
-        <form method="GET" class="nav-item ml-sm-3" action="{% url 'claveunica_login' %}#inicio-sesion">
+        <form method="GET" class="nav-item ml-sm-3" action="{% url 'claveunica:keycloak_login' %}">
           <input id="next-url" type="hidden" name="next" value="">
           <button class="btn  ml-3 ml-sm-0 ml-md-0 pl-2  pl-md-0 btn-lg btn-block  btn-primary" id="btn-clave" type="submit" onclick="setNextUrl()">
             <div class="doc-icon m-2"><span class="cl cl-claveunica"></span></div>
@@ -44,18 +44,26 @@
         </form>
         {% endif %}
       </li>
+      {% if user.is_superuser %}
+      <li class="nav-item">
+        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'home_app:generar_reporte_completo' %}">Descargar Reporte</a>
+      </li>
+      {% endif %}
     </ul>
     <ul class="navbar-nav justify-content-lg-start  my-2">      
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:index' %}">Inicio</a></li>
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:proceso_participativo' %}">Proceso Participativo</a></li>
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:calendario_dialogos' %}">Calendario de Diálogos Regionales</a></li>
       <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:preguntas_frecuentes' %}">Preguntas Frecuentes</a></li>
-      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:descentralizacion-bienestar' %}">Desentralización para el Bienestar</a></li>
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:descentralizacion-bienestar' %}">Descentralización para el Bienestar</a></li>
+      <li class="nav-item"><a class="nav-link font-level-6" href="{% url 'home_app:consejo-asesor' %}">Consejo Asesor</a></li>
       <div class="dropdown mr-lg-5 my-2">
         <a class="dropdown-toggle ml-2 pl-2 mt-4 font-level-6" id="navbarLinesLightExampleDropdown"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publicaciones</a>
         <div class="dropdown-menu border-0 " aria-labelledby="dropdown">
           <a class="nav-item btn btn-drop font-level-6 " id="item-drop1" href="{% url 'home_app:documentos' %}">Documentación</a>
           <a class="nav-item btn btn-drop font-level-6 " id="item-drop2" href="{% url 'noticiasymedia_app:noticias' %}">Noticias</a></a>
           <a class="nav-item btn btn-drop font-level-6 " id="item-drop3"  href="{% url 'noticiasymedia_app:multimedia' %}">Videos</a></a>
+          <a class="nav-item btn btn-drop font-level-6 " id="item-drop3"  href="{% url 'noticiasymedia_app:albums' %}">Fotos</a></a>
       </div>
     </div>
     </ul>

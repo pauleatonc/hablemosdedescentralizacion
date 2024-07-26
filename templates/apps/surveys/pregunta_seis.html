@@ -1,0 +1,153 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block views %}
+<section class="container">
+  <div class="cols-12 my-0 mx-3">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mx-md-auto my-2">
+        {% include "components/desentralizacion_banner.html" %}
+      </div>
+
+      <div class="col-lg-9 d-flex justify-content-between my-2">
+        <button type="radio" class=" btn btn-pill-primary text-primary text-nowrap active"
+          onclick="window.location.href='{% url 'surveys_app:pregunta_cinco' %}'"><i
+            class="material-symbols-outlined">
+            chevron_left
+          </i>
+          Ir atrás</button>
+          <button type="button" class="btn btn-pill-primary text-primary text-nowrap"
+            onclick="window.location.href='{% url 'surveys_app:pregunta_siete' %}'">Siguiente <i
+              class="material-symbols-outlined">
+              chevron_right
+            </i></button>
+      </div>
+
+      <div class="col-lg-10">
+        <p class=" font-level-1  text-center my-3">Pregunta 5 de 6:</p>
+
+        <p class="font-level-5 text-justify mx-2 mx-md-5">Crees que una Política de Descentralización con un horizonte de 10 años...</p>
+        <p class="font-level-5 text-justify mx-2 mx-md-5">Selecciona una de las siguientes alternativas.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-6 mx-5 my-2 justify-content-center">
+
+        <form id="pregunta-seis-form" method="post" action="{% url 'surveys_app:pregunta_seis' %}">
+          {% csrf_token %}
+
+          <!-- Muestra input para el formulario -->
+          {% for choice in form.valor.field.choices %}
+              <div class="d-flex">
+                  <button class="btn-question px-0 btn-lg my-3 w-100 {% if valor_guardado == choice.0 %}selected active{% endif %}"
+                      type="button" id="valor" value="{{ choice.0 }}"
+                      onclick="document.getElementById('id_valor').value = '{{ choice.0 }}'; toggleImage(this);">
+                      {{ choice.1 }}
+                      <img src="{% static 'img/checkbox.svg' %}" class="align-self-end-end ml-5" id="img_{{ choice.0 }}"
+                          {% if valor_guardado == choice.0 %}style="display: inline-block;"{% else %}style="display: none;"{% endif %} />
+                  </button>
+              </div>
+          {% endfor %}
+
+
+          <!-- Muestra errores del campo valor -->
+          {% if form.non_field_errors %}
+          <!-- Muestra el mensaje de error específico -->
+          <p>{{ form.non_field_errors }}</p>
+          {% endif %}
+
+          <!-- Campo oculto para almacenar el valor seleccionado -->
+          <input type="hidden" id="id_valor" name="valor" value="{{ valor_guardado }}">
+
+          <!-- Botón para el envío del formulario completo -->
+          <div class="col-md-9 mx-md-auto my-4 px-0">
+            <p class="font-level-6 font-weight-light">Continúa con la siguiente pregunta sobre:<br><strong class="font-level-6">Impacto de la
+              Descentralización</strong></p>
+            <button type="submit" id="enviar_button" class="btn btn-primary btn-lg btn-block">Siguiente <i class="material-symbols-outlined px-3">
+                arrow_forward_ios
+              </i></button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="my-3 col-md-12 mw-100 mx-0 px-0">
+  {% include "components/logo_banner.html" %}
+</div>
+
+{% include "components/modal_salida_encuesta.html" %}
+
+{% endblock views %}
+
+{% block scripts %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Identificar todos los enlaces del navbar y footer
+    $('nav a, footer a').on('click', function(e) {
+      e.preventDefault();
+
+      // Guardar el href del enlace en el botón de confirmación del modal
+      $('#confirmExitButton').attr('href', $(this).attr('href'));
+
+      // Mostrar el modal
+      $('#exitSurveyModal').modal('show');
+    });
+  });
+
+</script>
+
+<script>
+  function toggleImage(button) {
+    let imageId = "img_" + button.value;
+    let image = document.getElementById(imageId);
+    if (image.style.display === "none") {
+      image.style.display = "inline-block";
+    } else {
+      image.style.display = "none";
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+    let valorGuardado = '{{ valor_guardado }}';
+    if (valorGuardado) {
+      let btns = document.querySelectorAll('#valor');
+      btns.forEach(function (btn) {
+        if (btn.textContent == valorGuardado) {
+          btn.classList.add('selected');
+          btn.classList.add('active'); // Agrega la clase 'active'
+          document.getElementById('id_valor').value = btn.value;
+          let imageId = "img_" + btn.value;
+          let image = document.getElementById(imageId);
+          image.style.display = "inline-block";
+        }
+      });
+    }
+  });
+
+  document.querySelectorAll('#valor').forEach(function (element) {
+    element.addEventListener('click', function (event) {
+      // Comprueba si el botón ya está seleccionado
+      if (!event.target.classList.contains('selected')) {
+        document.querySelectorAll('#valor').forEach(function (otherElement) {
+          otherElement.classList.remove('selected');
+          otherElement.classList.remove('active'); // Elimina la clase 'active' de todos los botones
+
+          let imageId = "img_" + otherElement.value;
+          let image = document.getElementById(imageId);
+          image.style.display = "none";
+        });
+        event.target.classList.add('selected');
+        event.target.classList.add('active'); // Agrega la clase 'active' al botón seleccionado
+        document.getElementById('id_valor').value = event.target.value;
+
+        let imageId = "img_" + event.target.value;
+        let image = document.getElementById(imageId);
+        image.style.display = "inline-block";
+      }
+    });
+  });
+  </script>
+
+{% endblock scripts %}

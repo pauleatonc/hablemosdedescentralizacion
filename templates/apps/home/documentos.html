@@ -25,7 +25,7 @@
                     Si quieres tener más antecedentes para participar en la consulta, o para seguir este proceso, tenemos un repositorio de documentos de interés.
                 </p>
             </div>
-            <div class="my-5 col-md-6">{% countdown_component %}</div>
+            <div class="my-3 col-md-6">{% countdown_component %}</div>
         </div>
     </div>
 
@@ -66,7 +66,7 @@
                                                         {% for documento in seccion_documento|public_documents %}
                                                             <li class="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center">
                                                                 {{ documento }}
-                                                                <a type="button" class="btn btn-neutral btn-lg btn-default-size text-white border-white bg-primary mb-4" type="button" href='{{ documento.url }}'>
+                                                                <a type="button" class="btn btn-neutral btn-lg btn-default-size text-white border-white bg-primary mb-4" type="button" href="{{ documento.documento.url }}" target="_blank">
                                                                     Descargar
                                                                     <i class="material-symbols-outlined">
                                                                         download

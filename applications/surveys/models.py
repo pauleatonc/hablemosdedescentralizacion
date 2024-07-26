@@ -1,12 +1,13 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class PreguntaUno(models.Model):
     VALORES = (
-        ('1', 'Es muy importante'),
-        ('2', 'Es importante'),
-        ('3', 'Es poco importante'),
-        ('4', 'No es importante'),
+        ('1', 'No es importante'),
+        ('2', 'Algo importante'),
+        ('3', 'Importante'),
+        ('4', 'Muy importante'),
         ('5', 'No sabría responder'),
     )
 
@@ -21,21 +22,26 @@ class PreguntaUno(models.Model):
 
 
 class PreguntaDos(models.Model):
-    ITEMS = (
-        (1, 'Prioridad 1'),
-        (2, 'Prioridad 2'),
-        (3, 'Prioridad 3'),
-        (4, 'Prioridad 4'),
+    VALORACION = (
+        (1, '1: Poco prioritario'),
+        (2, '2: Algo prioritario'),
+        (3, '3: Prioritario'),
+        (4, '4: Muy prioritario'),
+        (5, 'No sabría responder'),
     )
 
-    propuesta_1 = models.IntegerField(choices=ITEMS,
-                                      help_text='Permite tomar decisiones, a partir de las características, conocimientos y experiencias de los territorios y sus comunidades.')
-    propuesta_2 = models.IntegerField(choices=ITEMS,
-                                      help_text='Fortalece la democracia a nivel de regiones y comunas.')
-    propuesta_3 = models.IntegerField(choices=ITEMS,
-                                      help_text='Permite satisfacer necesidades de manera oportuna y eficiente.')
-    propuesta_4 = models.IntegerField(choices=ITEMS,
-                                      help_text='Disminuye las desigualdades sociales y territoriales.')
+    propuesta_1 = models.IntegerField(verbose_name='Rendimiento de cuentas', choices=VALORACION,
+                                     help_text='Que las autoridades elegidas directamente, rindan cuenta a la ciudadanía.')
+
+    propuesta_2 = models.IntegerField(verbose_name='Acceso a bienes y prestación de servicios', choices=VALORACION,
+                                     help_text='Que la ciudadanía tenga acceso a bienes y prestaciones de servicios públicos, que hoy entrega el gobierno central, a través de los gobiernos regionales y municipalidades.')
+
+    propuesta_3 = models.IntegerField(verbose_name='Mayores recursos públicos', choices=VALORACION,
+                                     help_text='Que los gobiernos regionales y municipalidades cuenten con mayores recursos financieros, y sus usos sean definidos en el territorio.')
+
+    propuesta_4 = models.IntegerField(verbose_name='Más profesionales,', choices=VALORACION,
+                                     help_text='Que los gobiernos regionales y municipalidades cuenten con más profesionales, para el cumplimiento de sus objetivos.')
+
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
@@ -45,23 +51,22 @@ class PreguntaDos(models.Model):
 
 class PreguntaTres(models.Model):
     ITEMS = (
-        (1, 'Prioridad 1'),
-        (2, 'Prioridad 2'),
-        (3, 'Prioridad 3'),
-        (4, 'Prioridad 4'),
-        (5, 'Prioridad 5'),
+        (1, 'Gobierno Regional'),
+        (2, 'Municipalidad'),
+        (3, 'Ambas'),
+        (4, 'No sabría responder')
     )
 
-    iniciativa_1 = models.IntegerField(choices=ITEMS,
-                                       help_text='Definir las tareas de la administración pública a nivel nacional, regional y comunal.')
-    iniciativa_2 = models.IntegerField(choices=ITEMS,
-                                       help_text='Fortalecer habilidades técnicas y profesionales en comunas y regiones para impulsar el desarrollo económico, social y cultural.')
-    iniciativa_3 = models.IntegerField(choices=ITEMS,
-                                       help_text='Establecer mecanismos de participación ciudadana y rendición de cuentas.')
-    iniciativa_4 = models.IntegerField(choices=ITEMS,
-                                       help_text='Garantizar la autonomía y el buen uso de los recursos financieros públicos.')
-    iniciativa_5 = models.IntegerField(choices=ITEMS,
-                                       help_text='Coordinar a distintos actores públicos, privados y sociales, para la mejor obtención de objetivos de desarrollo.')
+    iniciativa_1 = models.IntegerField(verbose_name='Iniciativas ambientales', choices=ITEMS,
+                                       help_text='Iniciativas ambientales')
+    iniciativa_2 = models.IntegerField(verbose_name='Infraestructura pública', choices=ITEMS,
+                                       help_text='Infraestructura pública')
+    iniciativa_3 = models.IntegerField(verbose_name='Servicios o beneficios sociales', choices=ITEMS,
+                                       help_text='Servicios o beneficios sociales')
+    iniciativa_4 = models.IntegerField(verbose_name='Fomento productivo', choices=ITEMS,
+                                       help_text='Fomento productivo')
+    iniciativa_5 = models.IntegerField(verbose_name='Ordenamiento del territorio', choices=ITEMS,
+                                       help_text='Ordenamiento del territorio')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
@@ -70,43 +75,47 @@ class PreguntaTres(models.Model):
         unique_together = ('usuario',)
 
 
-class PreguntaCuatro(models.Model):
-    VALORACION = (
-        (1, 'Muy importante'),
-        (2, 'Importante'),
-        (3, 'Poco importante'),
-        (4, 'No es importante'),
-        (5, 'No sabría responder')
+class OpcionesPreguntaCinco(models.Model):
+    clave = models.CharField(max_length=2)
+    texto = models.TextField()
+
+    def __str__(self):
+        return self.texto
+    
+
+class PreguntaCinco(models.Model):
+    usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    opciones = models.ManyToManyField(OpcionesPreguntaCinco, verbose_name='Selecciona tres opciones')
+
+    class Meta:
+        verbose_name = 'Pregunta 5: Para usted ¿cuáles de las siguientes medidas preferiría que fuesen implementadas por una Política de Descentralización de Chile? Marcar tres alternativas.'
+        unique_together = ('usuario',)
+
+    def get_opciones_texto(self):
+        return [opcion.texto for opcion in self.opciones.all()]
+
+
+class PreguntaSeis(models.Model):
+    VALORES = (
+        ('1', 'Mejorará la calidad de vida de las personas.'),
+        ('2', 'Mantendrá de igual manera la calidad de vida de las personas.'),
+        ('3', 'Generará un retroceso en la calidad de vida de las personas.'),
+        ('4', 'No sabría responder'),
     )
 
-    tematica_1 = models.IntegerField(verbose_name='Enfoque de género', choices=VALORACION,
-                                     help_text='las medidas deben considerar de manera transversal la perspectiva de género, entendida como una mirada destinada a hacer que las preocupaciones y experiencias de las mujeres, así como las de los hombres y de las diversidades sexo genéricas, sean un elemento integrante de la elaboración de la Política.')
-
-    tematica_2 = models.IntegerField(verbose_name='Diversidad territorial', choices=VALORACION,
-                                     help_text='las medidas deben considerar e integrar el respeto a la diversidad territorial en cuanto a las características identitarias de los territorios, su historia, sus características económicas, sociales y culturales, entre otras.')
-
-    tematica_3 = models.IntegerField(verbose_name='Participación ciudadana', choices=VALORACION,
-                                     help_text='las medidas y acciones deben promover la participación activa de la sociedad civil en las decisiones de los territorios.')
-
-    tematica_4 = models.IntegerField(verbose_name='Capital humano territorial', choices=VALORACION,
-                                     help_text='las medidas deben considerar capacidades técnicas y profesionales para enfrentar los desafíos de desarrollo económico, social y cultural.')
-
-    tematica_5 = models.IntegerField(verbose_name='Protección del medioambiente', choices=VALORACION,
-                                     help_text='las medidas deben minimizar su impacto negativo sobre el medio ambiente.')
-
+    valor = models.CharField(
+        max_length=1, choices=VALORES, verbose_name='Valor')
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Pregunta 4: ¿Qué tan importante es incluir las siguientes temáticas de forma transversal en la Política ' \
-                       'Nacional de Descentralización?'
+        verbose_name = 'Pregunta 6: Considerando que una Política de Descentralización de Chile contaría con una agenda de trabajo con un plazo de implementación a 10 años, ¿con cuál de las siguientes alternativas usted está más de acuerdo?'
         unique_together = ('usuario',)
 
 
-class PreguntaCinco(models.Model):
-    texto_respuesta = models.CharField(max_length=500, blank=True, null=True)
+class PreguntaSiete(models.Model):
+    texto_respuesta = models.CharField(max_length=200, blank=True, null=True)
     usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Pregunta 5: ¿Qué tema, iniciativa o aspecto profundizaría o agregaría, considerando el ' \
-                       'vínculo entre descentralización y su vida personal y en comunidad?'
+        verbose_name = 'Pregunta 7: Para finalizar y considerando sus respuestas anteriores, ¿qué temática o medida agregaría, para serconsiderada en una Política de Descentralización de Chile? Esta pregunta es opcional.'
         unique_together = ('usuario',)

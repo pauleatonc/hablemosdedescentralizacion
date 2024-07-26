@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCuatro, PreguntaCinco
+from .models import PreguntaUno, PreguntaDos, PreguntaTres, PreguntaCinco, PreguntaSeis, PreguntaSiete, \
+    OpcionesPreguntaCinco
 
 
 @admin.register(PreguntaUno)
@@ -17,10 +18,27 @@ class PreguntaDosAdmin(admin.ModelAdmin):
 class PreguntaTresAdmin(admin.ModelAdmin):
     list_display = ['iniciativa_1', 'iniciativa_2', 'iniciativa_3', 'iniciativa_4', 'iniciativa_5']
 
-@admin.register(PreguntaCuatro)
-class PreguntaCuatroAdmin(admin.ModelAdmin):
-    list_display = ['tematica_1', 'tematica_2', 'tematica_3', 'tematica_4', 'tematica_5']
 
 @admin.register(PreguntaCinco)
 class PreguntaCincoAdmin(admin.ModelAdmin):
+    list_display = ['usuario', 'get_opciones']
+
+    def get_opciones(self, obj):
+        return ", ".join([opcion.texto for opcion in obj.opciones.all()])
+
+    get_opciones.short_description = 'Opciones Seleccionadas'
+
+
+@admin.register(PreguntaSeis)
+class PreguntaSeisAdmin(admin.ModelAdmin):
+    list_display = ['valor']
+
+
+@admin.register(PreguntaSiete)
+class PreguntaCSieteAdmin(admin.ModelAdmin):
     list_display = ['texto_respuesta']
+
+
+@admin.register(OpcionesPreguntaCinco)
+class OpcionesPreguntaCincoAdmin(admin.ModelAdmin):
+    list_display = ['clave', 'texto']

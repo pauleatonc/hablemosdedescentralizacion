@@ -1,5 +1,6 @@
 import environ
 from .base import *
+import os
 
 # we load the variables from the .env file to the environment
 env = environ.Env()
@@ -17,7 +18,10 @@ ALLOWED_HOSTS = [
     'www.qahablemosdedescentralizacion.subdere.gob.cl',
     'http://qahablemosdedescentralizacion.subdere.gob.cl',
     'http://www.qahablemosdedescentralizacion.subdere.gob.cl',
-    '127.0.0.1'
+    'http://127.0.0.1:8000/',
+    '127.0.0.1',
+    'http://localhost:8000/',
+    'localhost'
 ]
 
 # Database
@@ -38,6 +42,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles/'
 STATICFILES_DIRS = [BASE_DIR.child('static')]
 
 MEDIA_URL = '/media/'
@@ -57,10 +62,15 @@ RECAPTCHA_PRIVATE_KEY = ''
 # SENDGRID SETTINGS
 SENDGRID_API_KEY = ''
 ADMIN_EMAIL = ''
-NOREPLY_EMAIL = ['noreply@bancoproyectos.subdere.gob.cl']
 
-#Clave Única
-CLAVE_UNICA_CLIENT_ID = ''
-CLAVE_UNICA_CLIENT_SECRET =''
-CLAVE_UNICA_REDIRECT_URI = ''
-
+# LOCAL KEYCLOAK CONFIGURATION
+KEYCLOAK_REALM='app-qa'
+KEYCLOAK_AUTH_SERVER_URL='https://oid.subdere.gob.cl/'
+KEYCLOAK_SSL_REQUIRED='external'
+KEYCLOAK_RESOURCE='hablemosdescentralizacion'
+KEYCLOAK_CREDENTIALS_SECRET='aSiHvZa5YwtGQRUDsEFJN5imFGcYqsa6'
+KEYCLOAK_CONFIDENTIAL_PORT=0
+KEYCLOAK_REDIRECT_URI='http://localhost:8000'
+KEYCLOAK_TOKEN_URL='https://oid.subdere.gob.cl/realms/app-qa/protocol/openid-connect/token'
+KEYCLOAK_LOGOUT_URL='https://oid.subdere.gob.cl/realms/app-qa/protocol/openid-connect/logout'
+KEYCLOAK_LOGOUT_URL='http://localhost:8000'

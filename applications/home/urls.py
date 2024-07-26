@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import generar_reporte_completo
 
 from . import views
 
@@ -45,6 +46,21 @@ urlpatterns = [
         'descentralizacion_para_bienestar',
         views.DescentralizacionBienestarView.as_view(),
         name='descentralizacion-bienestar',
+    ),
+    path(
+        'consejo_asesor',
+        views.ConsejoAsesorListView.as_view(),
+        name='consejo-asesor',
+    ),
+    path(
+        'calendario_dialogos',
+        views.CalendarioDialogosView.as_view(),
+        name='calendario_dialogos',
+    ),
+     path(
+         'generar_reporte_completo/', 
+         generar_reporte_completo, 
+         name='generar_reporte_completo'
     ),
 
 ]

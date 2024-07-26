@@ -1,0 +1,40 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load countdown_tags %}
+
+{% block views %}
+<section class="container-fluid my-5 px-0">
+  <div class="d-flex justify-content-center">
+    <div class="col-12 col-md-10 col-lg-10 col-xl-8">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mt-0 mx-5">
+          <li class="breadcrumb-item">
+            <a href="{% url 'home_app:index' %}" class="text-primary">Inicio</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Fotos</li>
+        </ol>
+      </nav>
+      <div class="section-header mt-5">
+        <p class="font-level-1 pb-4 text-md-left text-center text-black font-weight-bold">Fotos</p>
+      </div>
+      <div class="container p-0 section-body mb-4">
+        {% countdown_component %}
+      </div>
+    </div>
+  </div>
+  <div class="px-0">
+    {% include "components/logo_banner.html" %}
+  </div>
+  {% if albums %}
+    <div class="cols-cards-12">
+      <div class="container row mx-md-1 mx-auto">
+        {% include "components/card_foto.html" %}
+      </div>
+    </div>
+  {% else %}
+    <div class="container my-2">
+      <p class="font-level-3 text-center font-weight-bold">Aún no hay fotos publicadas</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
