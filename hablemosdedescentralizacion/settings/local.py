@@ -62,12 +62,8 @@ RECAPTCHA_PRIVATE_KEY = '6LemsJgmAAAAAG8rwzcmMJVPx1t8VLpT86vWju-i'
 # SENDGRID SETTINGS
 SENDGRID_API_KEY = ''
 ADMIN_EMAIL = ''
-NOREPLY_EMAIL = ['noreply@bancoproyectos.subdere.gob.cl']
+NOREPLY_EMAIL = ['']
 
-#Clave Única
-CLAVE_UNICA_CLIENT_ID = 'f0a29848899147da8e17f90d7b8a142e'
-CLAVE_UNICA_CLIENT_SECRET ='55bdcfe678324f7baf7f559dd5c35aeb'
-CLAVE_UNICA_REDIRECT_URI = 'https://www.qadescentralizacion.subdere.gob.cl/pregunta-uno/'
 
 # LOCAL KEYCLOAK CONFIGURATION
 KEYCLOAK_REALM='app-qa'
